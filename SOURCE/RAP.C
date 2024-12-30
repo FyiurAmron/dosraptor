@@ -1,30 +1,3 @@
-// STIKING DISTANCE =========================
-// 7:30
-// 9:45
-// MALICE ===================================
-// 10:35
-// THREE MUSKETEERS =========================
-// 10:45
-// MRS DF ====================================
-// 10:00
-// 10:25
-// PERFECT WORLD ============================
-// 10:35 
-// CARLITOS WAY =============================
-// 10:25
-//  game 2 - 8  game 3 - 3
-// PET DETECTIVE ===========================
-// 7:30 
-//
-
-//================================================
-
-// #define TESTMODE 1
-
-#include "regver.h"
-
-//================================================
-
 
 #define MEM_KEEP   ( 16 * 1024 )
 #define MIN_MEMREQ ( 480 * 1024 )
@@ -72,7 +45,7 @@ PUBLIC INT           o_gun3 [8]     = { 2, 6, 8, 11, 8, 6, 2 };
 PUBLIC INT           gl_cnt         = 0;
 PUBLIC BOOL          end_wave       = FALSE;  
 PUBLIC PLAYEROBJ     plr;
-PUBLIC BOOL          gameflag[4] = { FALSE, FALSE, FALSE, FALSE };
+PUBLIC BOOL          gameflag[4] = { TRUE, FALSE, FALSE, FALSE };
 PUBLIC INT           player_cx      = PLAYERINITX;
 PUBLIC INT           player_cy      = PLAYERINITY;
 PUBLIC INT           playerx        = PLAYERINITX;
@@ -102,7 +75,7 @@ PUBLIC INT          bday_num       = EMPTY;
 
 //==============================================
 
-PUBLIC  CHAR         gdmodestr[] = "CASTLE";
+PUBLIC  CHAR         gdmodestr[] = "--castle"; // referenced externally as well
 PUBLIC  BOOL         lowmem_flag = FALSE;
 PUBLIC  BOOL         reg_flag    = FALSE;
 PUBLIC  BOOL         tai_flag    = FALSE;
@@ -121,89 +94,9 @@ CHAR flatnames [4][14] = {
    "FLATSG4_ITM"
 };
   
-PRIVATE CHAR * copyright = "RAPTOR 'Call of the Shadows' Copyright 1994 Cygnus Studios Inc.";
-
 PRIVATE BYTE * g_lowmem;
 PRIVATE BYTE * g_highmem;
 PUBLIC INT demo_flag = DEMO_OFF;
-
-typedef struct
-{
-   INT      month;
-   INT      day;
-   INT      year;
-   CHAR *   name;
-}BDAY;
-
-#define MAX_BDAY 6
-
-BDAY bday [ MAX_BDAY ];
-
-#define MONTH     2
-#define DAY       20
-#define YEAR      1994
-#define WLENGTH   12
-
-VOID
-RAP_Bday (
-VOID
-)
-{
-   struct dosdate_t date;
-   INT loop;
-
-   bday_flag = FALSE;
-   bday_num  = EMPTY;
-
-   _dos_getdate ( &date );
-
-   for ( loop = 0; loop < MAX_BDAY; loop++ )
-   {
-      if ( bday [ loop ]. day == 0 ) continue;
-
-      if ( date.month == bday [ loop ].month &&
-           date.day == bday [ loop ].day
-         && date.year >= bday [ loop ].year )
-      {
-         bday_num = loop;
-         if ( loop == 0 )
-            bday_flag = TRUE;
-         break;
-      }
-   }
-}
-
-
-BOOL
-RAP_IsDate (
-VOID
-)
-{
-   struct dosdate_t date;
-   INT comp1;
-   INT comp2;
-   INT num;
-
-   _dos_getdate ( &date );
-
-   if ( date.year != YEAR )
-      return ( FALSE );
-
-   comp1 = date.month;
-   comp1 = comp1 << 5;
-   comp1 += date.day;
-
-   comp2 = MONTH;
-   comp2 = comp2 << 5;
-   comp2 += DAY;
-
-   num = comp1 - comp2;
-
-   if ( num >= 0 && num <= WLENGTH )
-      return ( TRUE );
-
-   return ( FALSE );
-}
 
 VOID
 RAP_PrintVmem (
@@ -231,7 +124,7 @@ VOID
 {
    union  REGS   regs;
    BYTE * scradr = (BYTE *)0xB8000;
-   INT    loop;
+   INT    i;
    BYTE   color;
    INT    port = 0x3c8;
    CHAR  *  msg = " RAPTOR: Call Of The Shadows V1.2                        (c)1994 Cygnus Studios";
@@ -245,7 +138,6 @@ VOID
    regs.h.dh = 0;
    int386(0x10,(const union REGS *) &regs, &regs);
 
-   color = 0;
    color = ( 1<<4 ) + 14;
 
    outp ( port, 1 );
@@ -254,13 +146,13 @@ VOID
    outp ( port, 5 );
    outp ( port, 16 );
 
-   for ( loop =0; loop < 160; loop++ )
+   for ( i = 0; i < 160; i++ )
    {
-      if ( ( loop & 1 ) )
-         *(scradr + loop) = color;
+      if ( ( i & 1 ) )
+         *(scradr + i) = color;
       else
       {
-         *(scradr + loop) = *msg;
+         *(scradr + i) = *msg;
          msg++;
       }
    }
@@ -271,69 +163,44 @@ VOID
 /*==========================================================================
    ShutDown () Shut Down function called by EXIT_xxx funtions
  ==========================================================================*/
-SPECIAL VOID
-ShutDown (
-INT   errcode
-)
-{
-   union    REGS   regs;
-   volatile BYTE * scradr = (VOID *)0xB8000;
-   volatile BYTE * mem;
-   volatile int    loop;
-   volatile int    cnt  = 0;
-   volatile int    i;
+SPECIAL VOID ShutDown(INT errcode) {
+    union    REGS   regs;
+    volatile BYTE * scradr = (VOID *)0xB8000;
+    volatile BYTE * mem;
+    volatile int    i;
 
-   if ( !errcode && !godmode )
-      WIN_Order();
+    if ( !errcode && !godmode )
+        WIN_Order();
 
-   GLB_FreeAll();
+    GLB_FreeAll();
 
-   IPT_DeInit();
-   DMX_DeInit();
-   TSM_Remove();
+    IPT_DeInit();
+    DMX_DeInit();
+    TSM_Remove();
 
-   GFX_EndSystem();
+    GFX_EndSystem();
 
-   if ( !errcode )
-   {
-      regs.w.ax = 0x200;
-      regs.h.bh = 0;
-      regs.h.dl = 0;
-      regs.h.dh = 22;
-      int386( 0x10, (const union REGS *) &regs, &regs);
+    if ( !errcode ) {
+        regs.w.ax = 0x200;
+        regs.h.bh = 0;
+        regs.h.dl = 0;
+        regs.h.dh = 22;
+        int386( 0x10, (const union REGS *) &regs, &regs);
 
-      #ifndef LCR_VERSION
-      if ( reg_flag )
-         mem = GLB_LockItem ( LASTSCR2_TXT );
-      else
-         mem = GLB_LockItem ( LASTSCR1_TXT );
-      #else
-         mem = GLB_LockItem ( LASTSCR3_TXT );
-      #endif
+        mem = GLB_LockItem ( reg_flag ? LASTSCR2_TXT : LASTSCR1_TXT );
 
-      for ( loop = 0; loop < (4000-(160*2)); loop++ )
-      {
-         *scradr = *mem;
-         scradr++;
-         mem++;
-         for (i=0;i<5;i++)
-         {
-            cnt = cnt + (INT)mem / (INT)scradr - cnt;
-            cnt++;
-         }
-      }
+        for ( i = 0; i < (80 * (25 - 2) * 2); i++, scradr++, mem++ ) {
+            *scradr = *mem;
+        }
 
-      if ( reg_flag )
-         GLB_FreeItem ( LASTSCR2_TXT );
-      else
-         GLB_FreeItem ( LASTSCR1_TXT );
-   }
+        GLB_FreeItem ( reg_flag ? LASTSCR2_TXT : LASTSCR1_TXT );
+    }
 
-   PTR_End();
-   KBD_End();
-   SWD_End();
+    PTR_End();
+    KBD_End();
+    SWD_End();
 
-   free ( g_highmem );
+    free ( g_highmem );
 }
 
 VOID
@@ -353,7 +220,7 @@ RAP_GetShipPic (
 VOID
 )
 {
-   INT   loop;
+   INT   i;
    BOOL  lightflag = TRUE;
 
    // GAME 2 wave 8
@@ -364,22 +231,22 @@ VOID
    if ( cur_game == 2 && game_wave [ cur_game ] == 2 )
       lightflag = FALSE;
 
-   for ( loop = 0; loop < 7; loop++ )
+   for ( i = 0; i < 7; i++ )
    {
       if ( lightflag )
       {
-         curship [ loop ]     = lship [ loop ];
-         curship [ loop + 7 ] = lship [ loop ];
+         curship [ i ]     = lship [ i ];
+         curship [ i + 7 ] = lship [ i ];
       }
       else
       {
-         curship [ loop ]     = dship [ loop ];
-         curship [ loop + 7 ] = fship [ loop ];
+         curship [ i ]     = dship [ i ];
+         curship [ i + 7 ] = fship [ i ];
       }
    }
 
-   for ( loop = 0; loop < 14; loop++ )
-      GLB_CacheItem ( curship [ loop ] );
+   for ( i = 0; i < 14; i++ )
+      GLB_CacheItem ( curship [ i ] );
 }
   
 /***************************************************************************
@@ -570,7 +437,7 @@ INT xpos,
 INT level
 )
 {
-   INT    loop;
+   INT    i;
    BYTE * outbuf;
    DWORD  addx;
    DWORD  curs;
@@ -581,9 +448,9 @@ INT level
    addx = ( SHIELD_COLOR_RUN << 16 ) / MAX_SHIELD;
    curs = 0;
 
-   for ( loop = 0; loop < MAX_SHIELD; loop++ )
+   for ( i = 0; i < MAX_SHIELD; i++ )
    {
-      if ( loop < level )
+      if ( i < level )
          memset ( outbuf, 74 - ( curs >> 16 ) ,4 );
       else
          memset ( outbuf, 0, 4 );
@@ -607,7 +474,7 @@ VOID
    CHAR        temp [ 21 ];
    INT         shield;
    INT         super;
-   INT         loop;
+   INT         i;
    INT         x;
    INT         y;
    BYTE  *     pic;
@@ -652,11 +519,11 @@ VOID
          SND_Patch ( FX_AIREXPLO, 127 );
          SND_Patch ( FX_AIREXPLO2, 127 );
          ANIMS_StartAnim ( A_LARGE_AIR_EXPLO, player_cx, player_cy );
-         for ( loop = 0; loop < ( PLAYERWIDTH * PLAYERHEIGHT ) / 2; loop++ )
+         for ( i = 0; i < ( PLAYERWIDTH * PLAYERHEIGHT ) / 2; i++ )
          {
             x = playerx - (PLAYERWIDTH/2)  + random ( PLAYERWIDTH*2 );
             y = playery - (PLAYERHEIGHT/2) + random ( PLAYERHEIGHT*2 );
-            if ( loop & 1)
+            if ( i & 1)
                ANIMS_StartAnim ( A_LARGE_AIR_EXPLO, x, y );
             else
                ANIMS_StartAAnim ( A_MED_AIR_EXPLO2, x, y );
@@ -741,9 +608,9 @@ VOID
       RAP_PrintNum ( 18, MAP_TOP, temp );
 
       x = MAP_LEFT + 16;
-      for ( loop = 0; loop < 16; loop++ )
+      for ( i = 0; i < 16; i++ )
       {
-         GFX_ColorBox ( x, 0, 8, 8, 240 + loop );
+         GFX_ColorBox ( x, 0, 8, 8, 240 + i );
          x+=8;
       }
    }
@@ -1298,11 +1165,7 @@ VOID
 /***************************************************************************
 RAP_InitMem() - Allocates memory for VM and GLB to use
  ***************************************************************************/
-VOID
-RAP_InitMem (
-VOID
-)
-{
+VOID RAP_InitMem( VOID ) {
    DWORD  segment;
    DWORD  memsize;
    DWORD  lowmem     = 0;
@@ -1370,37 +1233,6 @@ VOID
    GLB_UseVM();
 }
 
-BOOL
-RAP_TestDIZ (
-VOID
-)
-{
-   CHAR *   fname = "FILE_ID.DIZ";
-   BYTE     temp [768];
-   BYTE *   cmp;
-   BOOL     rval = FALSE;
-
-   if ( access ( fname, 0 ) != 0 )
-      return ( rval );
-
-   GLB_ReadFile ( fname, temp );
-
-   if ( reg_flag == TRUE )
-      cmp = GLB_LockItem ( FILE_ID_DIZ );
-   else
-      cmp = GLB_LockItem ( FILE_ID_DIX );
-
-   if ( memcmp ( cmp, temp, 398 ) == 0 )
-      rval = TRUE;
-
-   if ( reg_flag == TRUE )
-      GLB_FreeItem ( FILE_ID_DIZ );
-   else
-      GLB_FreeItem ( FILE_ID_DIX );
-
-   return ( rval );
-}
-
 VOID
 JoyHack (
 VOID
@@ -1424,234 +1256,125 @@ VOID
       _enable();
 
       printf ("JOY X %03d   JOY Y %03d\n    ", joy_x, joy_y );
-      fflush ( stdout );
+      fflush( stdout );
 
       if ( ( joy_buttons & 0x0f ) != 0x0 )
          break;
    }
 }
 
-VOID
-main ( INT argc, CHAR * argv[] )
-{
-#ifdef   TESTMODE
-   CHAR  *  cmp = "C:\\APG_BETA\\RAPCOS.$$$";
-   CHAR     tname[16];
-#endif
-   volatile INT      loop;
-   volatile INT      numfiles;
-   volatile DWORD    item;
-   volatile CHAR   * var1    = getenv("S_HOST");
-   volatile BOOL     ptrflag = FALSE;
-   volatile BYTE   * tptr;
+VOID main( INT argc, CHAR * argv[] ) {
 
-   if ( argc >= 0 )
-      InitScreen();
+    volatile INT      i;
+    volatile DWORD    item;
+    volatile BOOL     ptrflag = FALSE;
+    volatile BYTE   * tptr;
+    INT glbCount;
 
-   godmode = FALSE;
+    InitScreen();
 
-   if ( strcmpi ( argv[1], "joycal" ) == 0 )
-   {
-      JoyHack();
-   }
+    if ( argc > 1 ) {
+        if ( strcmp( argv[1], gdmodestr ) == 0 ) {
+            godmode = TRUE;
+            printf("%s enabled\n", gdmodestr);
+        }
+        if ( strcmp( argv[1], "--joycal" ) == 0 ) {
+            JoyHack();
+        }
+        if ( strcmp( argv[1], "--rec" ) == 0 ) {
+            DEMO_SetFileName ( argv[2] );
+            demo_flag = DEMO_RECORD;
+            printf("DEMO RECORD enabled\n");
+        } else if ( strcmp( argv[1], "--play" ) == 0 ) {
+            if ( access ( argv[2], 0 ) == 0 ) {
+                DEMO_SetFileName ( argv[2] );
+                demo_flag = DEMO_PLAYBACK;
+                printf("DEMO PLAYBACK enabled\n");
+            }
+        }
+        if ( strncmp( argv[1], "--birthday", 10 ) == 0 ) {
+           bday_num = argv[1][10] - '0';
+           if ( strlen(argv[1]) > 11 || bday_num < 0 || bday_num > 5 ) {
+               printf( "invalid birthday string: %s", argv[1] );
+               exit(0);
+           }
+           bday_flag = TRUE;
+           printf( "birthday num = %d\n", bday_num );
+           return;
+        }
+    }
 
-   printf ("main() = %u\n", main );
+    RAP_InitLoadSave();
 
-   RAP_InitLoadSave();
+    if ( access( RAP_SetupFilename(), 0 ) != 0 ) {
+        printf("\n\n** You must run SETUP first! **\n");
+        exit(0);
+    }
 
-   if ( access ( RAP_SetupFilename(), 0 ) != 0 )
-   {
-      printf ("\n\n** You must run SETUP first! **\n");
-      exit(0);
-   }
+    if ( access ( "FILE0000.GLB", 0 ) != 0
+      || access ( "FILE0001.GLB", 0 ) != 0 ) {
+        printf( "FILE0000.GLB or FILE0001.GLB not found\n" );
+        exit(0);
+    }
 
-   godmode = FALSE;
+    glbCount = 2;
+    if ( access( "FILE0002.GLB", 0 ) == 0
+      && access( "FILE0003.GLB", 0 ) == 0
+      && access( "FILE0004.GLB", 0 ) == 0 ) {
+        gameflag[1] = gameflag[2] = gameflag[3] = TRUE;
+        reg_flag = TRUE;
+        glbCount = 5;
+        printf( "Version: registered\n" );
+    } else {
+        printf( "Version: shareware\n" );
+    }
 
-   if ( strcmp ( ( CHAR *)var1, gdmodestr ) == 0 )
-   {
-      godmode = TRUE;
-   }
-   else
-      godmode = FALSE;
+    GLB_InitSystem( argv[0], glbCount, NUL );
 
-   if ( strcmpi ( argv[1], "REC" ) == 0 )
-   {
-      DEMO_SetFileName ( argv[2] );
-      demo_flag = DEMO_RECORD;
-      printf("DEMO RECORD enabled\n");
-   }
-   else if ( strcmpi ( argv[1], "PLAY" ) == 0 )
-   {
-      if ( access ( argv[2], 0 ) == 0 )
-      {
-         DEMO_SetFileName ( argv[2] );
-         demo_flag = DEMO_PLAYBACK;
-         printf("DEMO PLAYBACK enabled\n");
-      }
-   }
-
-   if ( godmode )
-      printf("GOD mode enabled\n");
-
-   cur_diff = 0;
-
-   if ( access ( "FILE0001.GLB", 0 ) == 0 )
-      gameflag[0] = TRUE;
-
-   if ( access ( "FILE0002.GLB", 0 ) == 0 )
-      gameflag[1] = TRUE;
-  
-   if ( access ( "FILE0003.GLB", 0 ) == 0 &&
-      access ( "FILE0004.GLB", 0 ) == 0  )
-   {
-      gameflag[2] = TRUE;
-      gameflag[3] = TRUE;
-   }
-
-   if ( gameflag[1] + gameflag[2] )
-      reg_flag = TRUE;
-
-   numfiles = 0;
-   for ( loop = 0; loop < 4; loop++ )
-   {
-      if ( gameflag [ loop ] )
-         numfiles++;
-   }
-
-   if ( access ( "FILE0000.GLB", 0 ) != 0 || numfiles == 0 )
-   {
-      printf ("All game data files NOT FOUND cannot proceed !!\n");
-      exit(0);
-   }
-
-   printf ("Init -\n");
-   EXIT_Install ( ShutDown );
-
-   // ================================================
-   // SET UP B-DAY STUFF O RAMA
-   // ================================================
-
-   memset ( bday, 0, sizeof ( bday ) );
-
-   bday [0].month = 5;     // Scott
-   bday [0].day   = 16;
-   bday [0].year  = 1994;
-   bday [0].name  = "Scott Host";
-
-   bday [1].month = 2;     // Dave
-   bday [1].day   = 27;
-   bday [1].year  = 1996;
-   bday [1].name  = "Dave T.";
-
-   bday [2].month = 10;     // JIM
-   bday [2].day   = 2;
-   bday [2].year  = 1995;
-   bday [2].name  = "Jim M.";
-
-   bday [3].month = 3;     // BOBBY P.
-   bday [3].day   = 12;
-   bday [3].year  = 1995;
-   bday [3].name  = "Bobby P.";
-
-   bday [4].month = 8;     // RICH
-   bday [4].day   = 28;
-   bday [4].year  = 1995;
-   bday [4].name  = "Rich F.";
-
-   bday [5].month = 4;     // Paul
-   bday [5].day   = 24;
-   bday [5].year  = 1996;
-   bday [5].name  = "Paul R.";
-
-   RAP_Bday();
-
-   if ( bday_num != EMPTY )
-   {
-      printf ("Birthday() = %s\n", bday [ bday_num ].name );
-   }
+   EXIT_Install( ShutDown );
 
    // ================================================
 
    if ( access ( RAP_SetupFilename(), 0 ) != 0 )
-      EXIT_Error ("You Must run SETUP.EXE First !!");
+      EXIT_Error ("You must run SETUP.EXE first!");
 
-   if ( ! INI_InitPreference( RAP_SetupFilename() ) )
-      EXIT_Error ("SETUP Error");
+   if ( !INI_InitPreference( RAP_SetupFilename() ) )
+      EXIT_Error("SETUP.INI Error");
 
-   fflush ( stdout );
-   TSM_Install ( 140 );
+   fflush( stdout );
+   TSM_Install( 140 );
    KBD_Install();
    GFX_InitSystem();
-   SWD_Install ( FALSE );
+   SWD_Install( FALSE );
 
    IPT_LoadPrefs();
 
-   switch ( control )
-   {
+   switch ( control ) {
       default:
-         printf ("PTR_Init()-Auto\n");
-         fflush ( stdout );
-         ptrflag = PTR_Init ( P_MOUSE );
+         printf( "PTR_Init(): Keyboard\n" );
+         ptrflag = PTR_Init( P_MOUSE );
          usekb_flag = TRUE;
          break;
 
       case I_JOYSTICK:
-         printf ("PTR_Init()-Joystick\n");
-         fflush ( stdout );
-         ptrflag = PTR_Init ( P_JOYSTICK );
+         printf( "PTR_Init(): Joystick\n" );
+         ptrflag = PTR_Init( P_JOYSTICK );
          usekb_flag = FALSE;
          break;
 
       case I_MOUSE:
-         printf ("PTR_Init()-Mouse\n");
-         fflush ( stdout );
-         ptrflag = PTR_Init ( P_MOUSE );
+         printf( "PTR_Init(): Mouse\n" );
+         ptrflag = PTR_Init( P_MOUSE );
          usekb_flag = FALSE;
          break;
    }
 
-   #ifdef REG_VERSION
-      printf("Registered EXE!\n");
-      fflush ( stdout );
-      GLB_InitSystem ( argv[0], 6, NUL );
-   #else
-      reg_flag = FALSE;
-      fflush ( stdout );
-      GLB_InitSystem ( argv[0], 2, NUL );
-      reg_flag = FALSE;
-      gameflag[1] = FALSE;
-      gameflag[2] = FALSE;
-      gameflag[3] = FALSE;
-   #endif
-
-   if ( reg_flag )
-   {
-      tptr = GLB_GetItem ( ATENTION_TXT );
-      printf ( "%s\n", tptr );
-      GLB_FreeItem ( ATENTION_TXT );
-   }
-
-   SND_InitSound();
+    SND_InitSound();
    IPT_Init();
    GLB_FreeAll();
    RAP_InitMem();
 
-   if ( !RAP_TestDIZ() )
-   {
-      if ( !reg_flag )
-      {
-         fflush ( stdout );
-      }
-      else
-      {
-         var1 = GLB_LockItem ( DIZ_ERR );
-         printf ( "\n%s\n", var1 );
-         fflush ( stdout );
-         exit(1);
-      }
-   }
-
-   printf ("Loading Graphics\n");
+   printf("Loading Graphics\n");
 
    tptr     = GLB_LockItem ( PALETTE_DAT );
    memset ( tptr, 0, 3 );
@@ -1661,43 +1384,33 @@ main ( INT argc, CHAR * argv[] )
 
    fflush ( stdout );
 
-   if ( ptrflag )
-   {
-      cursor_pic = GLB_LockItem ( CURSOR_PIC );
-      PTR_SetPic ( cursor_pic );
-      PTR_SetPos ( 160, 100 );
-      PTR_DrawCursor ( FALSE );
-   }
+    if ( ptrflag ) {
+        cursor_pic = GLB_LockItem ( CURSOR_PIC );
+        PTR_SetPic ( cursor_pic );
+        PTR_SetPos ( 160, 100 );
+        PTR_DrawCursor ( FALSE );
+    }
 
-   // = SET UP SHIP PICTURES =========================
-   for ( loop = 0; loop < 7; loop++ )
-   {
-      lship [ loop ] = LPLAYER_PIC + (DWORD)loop;
+    // = SET UP SHIP PICTURES =========================
+    for ( i = 0; i < 7; i++ ) {
+        lship[i] = LPLAYER_PIC + (DWORD) i;
 
-      if ( GAME2 )
-      {
-         dship [ loop ]    = DPLAYER_PIC + (DWORD)loop;
-         fship [ loop ]    = FPLAYER_PIC + (DWORD)loop;
-      }
-   }
-  
+        if ( gameflag[1] ) {
+            dship[i] = DPLAYER_PIC + (DWORD) i;
+            fship[i] = FPLAYER_PIC + (DWORD) i;
+        }
+    }
    // = LOAD IN FLAT LIBS  =========================
-   for ( loop = 0; loop < 4; loop++ )
-   {
-      if ( gameflag [ loop ] )
-      {
-         item = GLB_GetItemID ( flatnames [ loop ] );
-         flatlib [ loop ] = ( FLATS * )GLB_LockItem ( item );
-      }
-      else
-         flatlib[loop] = NUL;
-   }
-  
+    for ( i = 0; i < glbCount - 1; i++ ) {
+        item = GLB_GetItemID( flatnames[i] );
+        flatlib[i] = (FLATS*) GLB_LockItem( item );
+    }
+
    // = LOAD IN 0-9 $ SPRITE PICS  =========================
-   for ( loop = 0; loop < 11; loop++ )
+   for ( i = 0; i < 11; i++ )
    {
-      item = ( N0_PIC + (DWORD)loop );
-      numbers[loop] = GLB_LockItem ( item );
+      item = ( N0_PIC + (DWORD)i );
+      numbers[i] = GLB_LockItem ( item );
    }
 
    FLAME_InitShades();
@@ -1709,33 +1422,26 @@ main ( INT argc, CHAR * argv[] )
    BONUS_Init();
    ANIMS_Init();
    SND_Setup();
-  
+
+   // change resolution from text to 320 and set pal etc.
    GFX_SetPalRange ( 0, ROTPAL_START-1 );
    GFX_InitVideo ( palette );
    SHADOW_MakeShades();
 
    RAP_ClearPlayer();
 
-   #ifdef TAIWAN_VERSION
-      tai_flag = TRUE;
-      INTRO_Taiwan();
-   #endif
-
-   if ( !godmode )
-      INTRO_Credits();
-
-   if ( demo_flag != DEMO_PLAYBACK )
-   {
-      SND_PlaySong ( RINTRO_MUS, TRUE, TRUE );
-      INTRO_PlayMain();
-      SND_PlaySong ( MAINMENU_MUS, TRUE, TRUE );
-   }
-   else if ( demo_flag == DEMO_PLAYBACK )
-   {
-      DEMO_LoadFile();
-      DEMO_Play ();
-//      EXIT_Error ("Demo Play done");
-   }
+    if ( demo_flag == DEMO_OFF ) {
+        INTRO_Credits();
+        SND_PlaySong( RINTRO_MUS, TRUE, TRUE );
+        tai_flag = TRUE; // :D
+        INTRO_Taiwan(); // :D
+        INTRO_PlayMain();
+#endif
+        SND_PlaySong( MAINMENU_MUS, TRUE, TRUE );
+    } else if ( demo_flag == DEMO_PLAYBACK ) {
+        DEMO_LoadFile();
+        DEMO_Play();
+    }
 
    cur_game     = 0;
    game_wave[0] = 0;
@@ -1743,16 +1449,13 @@ main ( INT argc, CHAR * argv[] )
    game_wave[2] = 0;
    game_wave[3] = 0;
 
-   if ( cur_game != 0 )
-      printf ( copyright );
+   if ( cur_game != 0 ) {
+      printf( "RAPTOR 2025" );
+   }
 
-   for (;;)
-   {
+   for (;;) {
       WIN_MainMenu();
       WIN_MainLoop();
    }
 
 }
-
-
-

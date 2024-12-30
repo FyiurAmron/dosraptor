@@ -443,72 +443,59 @@ INT  itemnum               // INPUT: item in file number
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 typedef enum { FI_CACHE, FI_DISCARD, FI_LOCK } FI_MODE;
 
-PRIVATE VOID *
-GLB_FetchItem(
-DWORD handle,
-FI_MODE	mode
-)
-{
-   BYTE     *obj;
-   ITEM_H   itm;
-   ITEMINFO *ii;
+PRIVATE VOID* GLB_FetchItem( DWORD handle, FI_MODE mode ) {
+    BYTE* obj;
+    ITEM_H itm;
+    ITEMINFO* ii;
+
+    if ( handle == ~0 ) {
+        EXIT_Error( "GLB_FetchItem: empty handle." );
+        return NULL;
+    }
+
+    itm.handle = handle;
   
-   if ( handle == ~0 )
-	{
-      EXIT_Error ( "GLB_FetchItem: empty handle." );
-      return NULL;
-	}
+    ASSERT( itm.id.filenum < ( WORD ) num_glbs );
+    ASSERT( itm.id.itemnum < ( WORD ) filedesc[ itm.id.filenum ].items );
 
-   itm.handle = handle;
+    ii = filedesc[ itm.id.filenum ].item;
+    ii += itm.id.itemnum;
 
-   ASSERT( itm.id.filenum < ( WORD ) num_glbs );
-   ASSERT( itm.id.itemnum < ( WORD ) filedesc[ itm.id.filenum ].items );
+    if ( mode == FI_LOCK ) {
+        ii->flags |= ITF_LOCKED;
+    }
+    obj = ii->vm_mem.obj;
+    if ( obj == NULL ) {
+        ii->lock_cnt = 0;
+        if ( ii->size == 0 ) {
+            ii->vm_mem.obj = NULL;
+        } else {
+            if ( fVmem ) {
+                obj = VM_Malloc( ii->size,
+                            ( ii->flags & ITF_LOCKED ) ? NULL : &ii->vm_mem,
+                            ( mode == FI_CACHE ) ? FALSE : TRUE );
+            } else {
+                obj = calloc( ii->size, sizeof( BYTE ) );
+            }
+            if ( mode == FI_LOCK )
+                ii->lock_cnt = 1;
+            ii->vm_mem.obj = obj;
+            if ( obj != NULL ) {
+                GLB_Load( obj, itm.id.filenum, itm.id.itemnum );
+            }
+        }
+    } else if ( mode == FI_LOCK && fVmem ) {
+        ii->lock_cnt++;
+        VM_Lock( obj );
+    }
+    if ( ii->vm_mem.obj == NULL && mode != FI_CACHE ) {
+        EXIT_Error( "GLB_FetchItem @ %s[%d][%d] failed on %d bytes, mode = %d\n", ii->name, itm.id.filenum, itm.id.itemnum, ii->size, mode );
+    }
+    if ( mode == FI_DISCARD && fVmem ) {
+        VM_Touch( &ii->vm_mem );
+    }
 
-   ii = filedesc[ itm.id.filenum ].item;
-   ii += itm.id.itemnum;
-
-	if ( mode == FI_LOCK )
-		ii->flags |= ITF_LOCKED;
-
-   if ( ( obj = ii->vm_mem.obj ) == NULL )
-	{
-		ii->lock_cnt = 0;
-      if ( ii->size == 0 )
-         ii->vm_mem.obj = NULL;
-      else
-      {
-         if ( fVmem )
-			{
-            obj = VM_Malloc( ii->size,
-						( ii->flags & ITF_LOCKED ) ? NULL : &ii->vm_mem,
-						( mode == FI_CACHE ) ? FALSE : TRUE );
-			}
-         else
-			{
-            obj = calloc( ii->size, sizeof( BYTE ) );
-			}
-			if ( mode == FI_LOCK )
-				ii->lock_cnt = 1;
-			ii->vm_mem.obj = obj;
-			if ( obj != NULL )
-			{
-	         GLB_Load( obj, itm.id.filenum, itm.id.itemnum );
-			}
-      }
-	}
-	else if ( mode == FI_LOCK && fVmem )
-	{
-		ii->lock_cnt++;
-		VM_Lock( obj );
-	}
-	if ( ii->vm_mem.obj == NULL && mode != FI_CACHE )
-	{
-      EXIT_Error ( "GLB_FetchItem: failed on %d bytes, mode=%d.", ii->size, mode );
-	}
-	if ( mode == FI_DISCARD && fVmem )
-		VM_Touch( &ii->vm_mem );
-
-	return ii->vm_mem.obj;
+    return ii->vm_mem.obj;
 }
 
 /***************************************************************************
@@ -673,6 +660,7 @@ CHAR * in_name             // INPUT : pointer to text name
       	}
    	}
 	}
+	
 	return itm.handle;
 }
 

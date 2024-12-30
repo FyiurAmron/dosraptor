@@ -795,6 +795,7 @@ BOOL  chainflag,           // INPUT : Chain Song to ItSelf
 BOOL  fadeflag             // INPUT : Fade Song Out
 )
 {
+
    BYTE * song;
 
    if ( music_volume < 1 )
@@ -879,7 +880,7 @@ VOID
 }
 
 /***************************************************************************
-SND_InitSound () - Does bout all i can think of for Music/FX initing
+SND_InitSound () - Does about all I can think of for Music/FX initing
  ***************************************************************************/
 VOID
 SND_InitSound (

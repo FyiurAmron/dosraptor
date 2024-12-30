@@ -2050,7 +2050,7 @@ VOID
 }
   
 /***************************************************************************
-   SWD_Dialog () - performs all window in/out/diaplay/move stuff
+   SWD_Dialog () - performs all window in/out/display/move stuff
  ***************************************************************************/
 VOID
 SWD_Dialog (
@@ -2251,17 +2251,7 @@ SWD_DLG * swd_dlg          // OUTPUT: pointer to info structure
          case F_PREV:
             SWD_GetPrevField ( firstfld, curwin->numflds );
             break;
-  
-#if 0
-         case F_RIGHT:
-            SWD_GetRightField ( firstfld, curwin->numflds );
-            break;
-  
-         case F_LEFT:
-            SWD_GetLeftField ( firstfld, curwin->numflds );
-            break;
-#endif
-  
+
          case F_TOP:
             active_field = SWD_GetFirstField();
             break;

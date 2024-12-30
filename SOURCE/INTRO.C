@@ -315,7 +315,7 @@ VOID
    INT framecnt   = maxframes - 1;
    FRAME * cur    = frm;
   
-   if ( !GAME2 )
+   if ( !gameflag[1] )
       return ( TRUE );
 
    for ( loop = 0; loop < maxframes; loop++ )
@@ -756,11 +756,7 @@ VOID
 /***************************************************************************
 INTRO_Credits() - Credits Screen
  ***************************************************************************/
-BOOL
-INTRO_Credits (
-VOID
-)
-{
+VOID INTRO_Credits( VOID ) {
    volatile INT    loop;
    BYTE * pal1;
    BYTE * pal2;
@@ -848,7 +844,7 @@ VOID
 
    IMS_StartAck();
 
-   return ( FALSE );
+   return;
 }
   
 /***************************************************************************
@@ -859,7 +855,7 @@ INTRO_BaseLanding (
 VOID
 )
 {
-   if ( !GAME2 )
+   if ( !gameflag[1] )
       return;
 
    if ( INTRO_Base() ) return;

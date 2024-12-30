@@ -456,7 +456,7 @@ VOID
    INT      window;
    BOOL     dchold = drawcursor;
   
-   if ( GAME2 || GAME3 ) return;
+   if ( gameflag[1] || gameflag[2] ) return;
 
    PTR_DrawCursor ( FALSE );
    KBD_Clear();
@@ -1834,10 +1834,10 @@ INT cur_opt
 
    PTR_DrawCursor ( FALSE );
 
-   if ( GAME2 )
+   if ( gameflag[1] )
       max_opt += 3;
 
-   if ( GAME3 )
+   if ( gameflag[2] )
       max_opt += 3;
 
    for (;;)
@@ -2137,5 +2137,3 @@ VOID
 
    return;
 }
-
-
