@@ -25,7 +25,7 @@ AFLAGS  = -mx -ml
 .EXTENSIONS: .exe .rex .lib .obj .wbj .asm .c .for
 
 .BEFORE
-	@set INCLUDE=.;$(%watcom)\h;..\apodmx;..\gfx;
+	@set INCLUDE=.;$(%watcom)\h;
 	@set LIB=..\apodmx;..\gfx;..\audiolib\AL_109;
 	@set DOS4G=QUIET                      
 

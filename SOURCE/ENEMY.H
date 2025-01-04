@@ -1,9 +1,7 @@
-#ifndef _TYPES_H
-#include "types.h"
-#endif
+#ifndef ENEMY_H
+#define ENEMY_H
 
-#ifndef _ENEMY
-#define _ENEMY
+#include "../gfx/types.h"
 
 typedef enum { E_FORWARD, E_BACKWARD } EDIR;
 

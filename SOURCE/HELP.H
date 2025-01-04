@@ -1,5 +1,7 @@
-#ifndef _HELP_H
-#define _HELP_H
+#ifndef HELP_H
+#define HELP_H
+
+#include "../gfx/types.h"
 
 /***************************************************************************
 HELP_Init() - inits the help stuff

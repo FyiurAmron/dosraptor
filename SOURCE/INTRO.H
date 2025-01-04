@@ -1,5 +1,7 @@
-#ifndef _INTRO_H
-#define _INTRO_H
+#ifndef INTRO_H
+#define INTRO_H
+
+#include "../gfx/types.h"
 
 /***************************************************************************
 INTRO_Landing () - Ship Landing on Base

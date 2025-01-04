@@ -1,5 +1,7 @@
-#ifndef _WINDOW_H
-#define _WINDOW_H
+#ifndef WINDOWS_H
+#define WINDOWS_H
+
+#include "../gfx/types.h"
 
 /***************************************************************************
 WIN_WinGame () - WIndow text for winners of a game

@@ -1,5 +1,7 @@
-#ifndef _LOADSAVE
-#define _LOADSAVE
+#ifndef LOADSAVE_H
+#define LOADSAVE_H
+
+#include "../gfx/types.h"
 
 /***************************************************************************
 RAP_SetPlayerDiff () - Set Player Difficulty

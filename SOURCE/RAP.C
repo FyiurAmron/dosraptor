@@ -1,29 +1,5 @@
-// STIKING DISTANCE =========================
-// 7:30
-// 9:45
-// MALICE ===================================
-// 10:35
-// THREE MUSKETEERS =========================
-// 10:45
-// MRS DF ====================================
-// 10:00
-// 10:25
-// PERFECT WORLD ============================
-// 10:35
-// CARLITOS WAY =============================
-// 10:25
-//  game 2 - 8  game 3 - 3
-// PET DETECTIVE ===========================
-// 7:30
-//
-
 //================================================
 
-// #define TESTMODE 1
-
-#include "regver.h"
-
-//================================================
 #define MEM_KEEP   ( 16 * 1024 )
 #define MIN_MEMREQ ( 480 * 1024 )
 #define MAX_HMEM   ( 4096 * 1024 )
@@ -42,7 +18,7 @@
 #include <sys\stat.h>
 #include <sys\types.h>
 
-#include "prefapi.h"
+#include "../gfx/prefapi.h"
 #include "raptor.h"
 
 #include "hangar.inc"
@@ -274,15 +250,7 @@ SPECIAL VOID ShutDown( INT errcode ) {
         regs.h.dh = 22;
         int386( 0x10, (const union REGS*) &regs, &regs );
 
-#ifndef LCR_VERSION
-        if ( reg_flag ) {
-            mem = GLB_LockItem( LASTSCR2_TXT );
-        } else {
-            mem = GLB_LockItem( LASTSCR1_TXT );
-        }
-#else
-        mem = GLB_LockItem( LASTSCR3_TXT );
-#endif
+        mem = GLB_LockItem( reg_flag ? LASTSCR2_TXT : LASTSCR1_TXT );
 
         for ( loop = 0; loop < ( 4000 - ( 160 * 2 ) ); loop++ ) {
             *scradr = *mem;
@@ -294,11 +262,7 @@ SPECIAL VOID ShutDown( INT errcode ) {
             }
         }
 
-        if ( reg_flag ) {
-            GLB_FreeItem( LASTSCR2_TXT );
-        } else {
-            GLB_FreeItem( LASTSCR1_TXT );
-        }
+        GLB_FreeItem( reg_flag ? LASTSCR2_TXT : LASTSCR1_TXT );
     }
 
     PTR_End();
@@ -1310,10 +1274,6 @@ VOID JoyHack( VOID ) {
 }
 
 VOID main( INT argc, CHAR* argv[] ) {
-#ifdef TESTMODE
-    CHAR* cmp = "C:\\APG_BETA\\RAPCOS.$$$";
-    CHAR tname[16];
-#endif
     volatile INT loop;
     volatile INT numfiles;
     volatile DWORD item;
@@ -1481,19 +1441,9 @@ VOID main( INT argc, CHAR* argv[] ) {
             break;
     }
 
-#ifdef REG_VERSION
     printf( "Registered EXE!\n" );
     fflush( stdout );
     GLB_InitSystem( argv[0], 6, NUL );
-#else
-    reg_flag = FALSE;
-    fflush( stdout );
-    GLB_InitSystem( argv[0], 2, NUL );
-    reg_flag = FALSE;
-    gameflag[1] = FALSE;
-    gameflag[2] = FALSE;
-    gameflag[3] = FALSE;
-#endif
 
     if ( reg_flag ) {
         tptr = GLB_GetItem( ATENTION_TXT );
@@ -1576,10 +1526,9 @@ VOID main( INT argc, CHAR* argv[] ) {
 
     RAP_ClearPlayer();
 
-#ifdef TAIWAN_VERSION
-    tai_flag = TRUE;
-    INTRO_Taiwan();
-#endif
+    if ( tai_flag ) {
+        INTRO_Taiwan();
+    }
 
     if ( !godmode ) {
         INTRO_Credits();

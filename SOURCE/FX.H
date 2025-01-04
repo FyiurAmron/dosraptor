@@ -1,5 +1,7 @@
-#ifndef _FXAPI
-#define _FXAPI
+#ifndef FX_H
+#define FX_H
+
+#include "../gfx/types.h"
 
 #define SND_CLOSE 40
 #define SND_FAR   500

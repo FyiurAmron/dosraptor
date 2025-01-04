@@ -1,7 +1,7 @@
-#ifndef _PUBLIC
-#define _PUBLIC
+#ifndef PUBLIC_H
+#define PUBLIC_H
 
-#define DMX_FLAG 1
+#define MAX_OBJS 20
 
 typedef enum { K_OK, K_NEXTFRAME, K_SKIPALL, K_EXITDOS } KEYOPTS;
 

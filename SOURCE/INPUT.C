@@ -5,9 +5,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "../gfx/prefapi.h"
 #include "file0000.inc"
 #include "file0001.inc"
-#include "prefapi.h"
 #include "raptor.h"
 
 PUBLIC INT buttons[4] = { FALSE, FALSE, FALSE, FALSE };

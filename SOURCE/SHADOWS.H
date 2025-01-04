@@ -1,5 +1,7 @@
-#ifndef _SHADOWS
-#define _SHADOWS
+#ifndef SHADOWS_H
+#define SHADOWS_H
+
+#include "../gfx/types.h"
 
 extern INT num_shadows;
 extern INT num_gshadows;

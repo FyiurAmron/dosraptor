@@ -4,7 +4,7 @@
 
 #include "raptor.h"
 
-#include "prefapi.h"
+#include "../gfx/prefapi.h"
 
 #include "file0000.inc"
 #include "file0001.inc"
@@ -1960,11 +1960,7 @@ mainloop:
                             break;
 
                         case MAIN_ORDER:
-                            if ( reg_flag ) {
-                                HELP_Win( "REG_VER1_TXT" );
-                            } else {
-                                HELP_Win( "RAP1_TXT" );
-                            }
+                            HELP_Win( reg_flag ? "REG_VER1_TXT" : "RAP1_TXT" );
                             break;
 
                         case MAIN_CREDITS:

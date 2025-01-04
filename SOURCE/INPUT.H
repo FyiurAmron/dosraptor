@@ -1,5 +1,7 @@
-#ifndef _INPUT_H
-#define _INPUT_H
+#ifndef INPUT_H
+#define INPUT_H
+
+#include "../gfx/types.h"
 
 #define DEMO_OFF      0
 #define DEMO_RECORD   1
