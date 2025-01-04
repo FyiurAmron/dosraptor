@@ -1,30 +1,21 @@
-#  Makefile for Makeing a Library
+# Raptor Makefile
 
-#which memory model and processor to use by default
 PROCESSOR = 386 # for the 32-bit compilers
+MODEL = f       # flat
 
-# name the compiler
 CC = wcc$(PROCESSOR)
 FC = wfc$(PROCESSOR)
 ASM = tasm
 
-!ifeq PROCESSOR 386
-MODEL = f       # flat
-!else
-MODEL = l       # large
-!endif
-
-# options to use
-#CFLAGS = -m$(MODEL) -zq -od -d2 -zp4 -ei -W4  
-#CFLAGS  = -m$(MODEL) -zq -s -oxt -zp4 -ei -W4 
-CFLAGS = -m$(MODEL) -zq -od -s -zp4 -ei -W4  
+CFLAGS = -m$(MODEL) -zq -od -d2 -zp4 -ei -W4 # debug
+#CFLAGS  = -m$(MODEL) -zq -s -oxt -zp4 -ei -W4 # release
 FFLAGS  = -m$(MODEL) -noterm
 AFLAGS  = -mx -ml
 
 .EXTENSIONS:
 .EXTENSIONS: .exe .rex .lib .obj .wbj .asm .c .for
 
-.BEFORE
+.BEFORE:
 	@set INCLUDE=.;$(%watcom)\h;
 	@set LIB=..\apodmx;..\gfx;..\audiolib\AL_109;
 	@set DOS4G=QUIET                      
@@ -40,6 +31,10 @@ rap.exe : $(objs)
 	 %make temp.lnk    
 	 wlink @temp.lnk
 
+clean : .SYMBOLIC
+	del *.obj
+	del *.exe
+
 # implicit rules
 
 temp.lnk : objdef.mif makefile
@@ -50,7 +45,7 @@ temp.lnk : objdef.mif makefile
 	%append $^@ OPT STACK=8192
 	%append $^@ OPT CASEEXACT
 	%append $^@ LIBRARY APODMX.lib
-        %append $^@ LIBRARY AL_109.lib 
+	%append $^@ LIBRARY AL_109.lib
 	%append $^@ LIBRARY GFX.LIB 
 	%append $^@ LIB NOEMU387.LIB 
 	%append $^@ SYSTEM dos4g
@@ -67,9 +62,3 @@ temp.lnk : objdef.mif makefile
 
 .asm.obj :
 	$(ASM) $(AFLAGS) $^&;
-
-# clean build DIR
-
-clean : .SYMBOLIC
-        del *.obj
-        del *.exe
