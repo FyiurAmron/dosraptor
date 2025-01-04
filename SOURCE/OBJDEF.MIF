@@ -19,5 +19,3 @@ OBJS    =       rap.obj &
                 windows.obj &
                 tile_a.obj &
                 movie_a.obj 
-
-
