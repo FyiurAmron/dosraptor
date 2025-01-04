@@ -889,4 +889,3 @@ VOID
    j_lookup[3]    = INI_GetPreferenceLong ( "JoyStick", "MegaFire", 3L ); 
 }
 
-

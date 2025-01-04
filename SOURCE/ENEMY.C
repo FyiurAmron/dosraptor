@@ -1248,6 +1248,3 @@ VOID
 
    return ( total );
 }
-
-
-

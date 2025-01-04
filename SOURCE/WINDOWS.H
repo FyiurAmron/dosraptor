@@ -141,8 +141,3 @@ typedef enum
 extern INT opt_detail;
 
 #endif
-
-
-
-
-

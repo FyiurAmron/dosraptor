@@ -297,4 +297,3 @@ OBJ_TYPE type              // INPUT : OBJ type
 );
 
 #endif
-

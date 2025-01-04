@@ -22,4 +22,3 @@
 #define STOR_VACCEPT           0x0012  // VIEW AREA
 #define STOR_VSELL             0x0013  // VIEW AREA
 #define STOR_VEXIT             0x0014  // VIEW AREA
-
