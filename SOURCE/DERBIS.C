@@ -1,8 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 
-#include "file0001.inc"
 #include "raptor.h"
 
 #define MAX_DERBIS 15

@@ -1,11 +1,6 @@
-#include <conio.h>
-#include <dos.h>
-#include <io.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
-#include "file0000.inc"
+#include <stdio.h>
+
 #include "file0001.inc"
 #include "helpwin.inc"
 #include "raptor.h"
