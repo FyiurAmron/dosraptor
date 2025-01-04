@@ -1216,37 +1216,6 @@ VOID RAP_InitMem( VOID ) {
     GLB_UseVM();
 }
 
-BOOL RAP_TestDIZ( VOID ) {
-    CHAR* fname = "FILE_ID.DIZ";
-    BYTE temp[768];
-    BYTE* cmp;
-    BOOL rval = FALSE;
-
-    if ( access( fname, 0 ) != 0 ) {
-        return ( rval );
-    }
-
-    GLB_ReadFile( fname, temp );
-
-    if ( reg_flag == TRUE ) {
-        cmp = GLB_LockItem( FILE_ID_DIZ );
-    } else {
-        cmp = GLB_LockItem( FILE_ID_DIX );
-    }
-
-    if ( memcmp( cmp, temp, 398 ) == 0 ) {
-        rval = TRUE;
-    }
-
-    if ( reg_flag == TRUE ) {
-        GLB_FreeItem( FILE_ID_DIZ );
-    } else {
-        GLB_FreeItem( FILE_ID_DIX );
-    }
-
-    return ( rval );
-}
-
 VOID JoyHack( VOID ) {
     extern INT joy_x, joy_y, joy_buttons;
     union REGS regs;
@@ -1455,17 +1424,6 @@ VOID main( INT argc, CHAR* argv[] ) {
     IPT_Init();
     GLB_FreeAll();
     RAP_InitMem();
-
-    if ( !RAP_TestDIZ() ) {
-        if ( !reg_flag ) {
-            fflush( stdout );
-        } else {
-            var1 = GLB_LockItem( DIZ_ERR );
-            printf( "\n%s\n", var1 );
-            fflush( stdout );
-            exit( 1 );
-        }
-    }
 
     printf( "Loading Graphics\n" );
 
