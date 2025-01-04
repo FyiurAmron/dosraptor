@@ -9,25 +9,18 @@
 #include <conio.h>
 #include <ctype.h>
 #include <dos.h>
-#include <fcntl.h>
 #include <io.h>
 #include <malloc.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys\stat.h>
-#include <sys\types.h>
 
 #include "../gfx/prefapi.h"
 #include "raptor.h"
 
-#include "hangar.inc"
-
 #include "file0000.inc"
 #include "file0001.inc"
 #include "file0002.inc"
-#include "file0003.inc"
-#include "file0004.inc"
 
 BYTE* palette;
 BYTE* cursor_pic;
@@ -1246,21 +1239,15 @@ VOID main( INT argc, CHAR* argv[] ) {
     volatile INT loop;
     volatile INT numfiles;
     volatile DWORD item;
-    volatile CHAR* var1 = getenv( "S_HOST" );
+    volatile CHAR* s_host = getenv( "S_HOST" );
     volatile BOOL ptrflag = FALSE;
     volatile BYTE* tptr;
 
-    if ( argc >= 0 ) {
-        InitScreen();
-    }
-
-    godmode = FALSE;
+    InitScreen();
 
     if ( strcmpi( argv[1], "joycal" ) == 0 ) {
         JoyHack();
     }
-
-    printf( "main() = %u\n", main );
 
     RAP_InitLoadSave();
 
@@ -1269,12 +1256,10 @@ VOID main( INT argc, CHAR* argv[] ) {
         exit( 0 );
     }
 
-    godmode = FALSE;
+    godmode = strcmp( (CHAR*) s_host, gdmodestr ) == 0 ? TRUE : FALSE;
 
-    if ( strcmp( (CHAR*) var1, gdmodestr ) == 0 ) {
-        godmode = TRUE;
-    } else {
-        godmode = FALSE;
+    if ( godmode ) {
+        printf( "GOD mode enabled\n" );
     }
 
     if ( strcmpi( argv[1], "REC" ) == 0 ) {
@@ -1287,10 +1272,6 @@ VOID main( INT argc, CHAR* argv[] ) {
             demo_flag = DEMO_PLAYBACK;
             printf( "DEMO PLAYBACK enabled\n" );
         }
-    }
-
-    if ( godmode ) {
-        printf( "GOD mode enabled\n" );
     }
 
     cur_diff = 0;
@@ -1414,12 +1395,6 @@ VOID main( INT argc, CHAR* argv[] ) {
     fflush( stdout );
     GLB_InitSystem( argv[0], 6, NUL );
 
-    if ( reg_flag ) {
-        tptr = GLB_GetItem( ATENTION_TXT );
-        printf( "%s\n", tptr );
-        GLB_FreeItem( ATENTION_TXT );
-    }
-
     SND_InitSound();
     IPT_Init();
     GLB_FreeAll();
@@ -1499,7 +1474,6 @@ VOID main( INT argc, CHAR* argv[] ) {
     } else if ( demo_flag == DEMO_PLAYBACK ) {
         DEMO_LoadFile();
         DEMO_Play();
-        //      EXIT_Error ("Demo Play done");
     }
 
     cur_game = 0;
