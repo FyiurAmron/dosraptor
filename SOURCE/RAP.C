@@ -1421,7 +1421,7 @@ VOID main( INT argc, CHAR* argv[] ) {
     for ( loop = 0; loop < 7; loop++ ) {
         lship[loop] = LPLAYER_PIC + (DWORD) loop;
 
-        if ( GAME2 ) {
+        if ( gameflag[1] ) {
             dship[loop] = DPLAYER_PIC + (DWORD) loop;
             fship[loop] = FPLAYER_PIC + (DWORD) loop;
         }
