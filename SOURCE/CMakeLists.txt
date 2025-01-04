@@ -1,0 +1,66 @@
+cmake_minimum_required(VERSION 3.30)
+project(SOURCE)
+
+include_directories(.)
+
+add_executable(SOURCE
+    ANIMS.C
+    ANIMS.H
+    ASK.INC
+    BONUS.C
+    BONUS.H
+    DERBIS.C
+    ENEMY.C
+    ENEMY.H
+    ESHOT.C
+    ESHOT.H
+    FILE0000.INC
+    FILE0001.INC
+    FILE0002.INC
+    FILE0003.INC
+    FILE0004.INC
+    FLAME.C
+    FLAME.H
+    FX.C
+    FX.H
+    HANGAR.INC
+    HELP.C
+    HELP.H
+    HELPWIN.INC
+    INPUT.C
+    INPUT.H
+    INTRO.C
+    INTRO.H
+    LOAD.INC
+    LOADCOMP.INC
+    LOADSAVE.C
+    LOADSAVE.H
+    LOCKER.INC
+    MAIN.INC
+    MAP.H
+    MOVIE.C
+    MOVIE.H
+    MOVIE_A.ASM
+    MSG.INC
+    OBJECTS.C
+    OBJECTS.H
+    OKREG.INC
+    OPTS.INC
+    PUBLIC.H
+    RAP.C
+    RAPTOR.H
+    REGIST.INC
+    SHADOWS.C
+    SHADOWS.H
+    SHIPCOMP.INC
+    SHOTS.C
+    SHOTS.H
+    STORE.C
+    STORE.H
+    STORE.INC
+    TILE.C
+    TILE.H
+    TILE_A.ASM
+    WINDOWS.C
+    WINDOWS.H
+    WINGAME.INC)
