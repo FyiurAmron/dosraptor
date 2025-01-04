@@ -14,7 +14,9 @@
 * NOTES:
 *
 *---------------------------------------------------------------------------*/
-  
+
+#include <stddef.h>
+
 #ifndef _TYPES_H
 #include "types.h"
 #endif
