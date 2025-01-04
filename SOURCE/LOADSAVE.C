@@ -666,4 +666,3 @@ VOID
 {
    return ( g_setup_ini );
 }
-

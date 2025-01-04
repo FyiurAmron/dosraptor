@@ -493,4 +493,3 @@ VOID
          GFX_PutSprite ( pic, cur->dx, cur->dy );
    }
 }
-

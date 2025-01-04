@@ -157,4 +157,3 @@ CHAR * strpage             // INPUT : GLB string item
   
    return;
 }
-

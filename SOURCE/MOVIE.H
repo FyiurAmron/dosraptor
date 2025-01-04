@@ -83,4 +83,3 @@ BYTE * inmem
 );
 
 #endif
-

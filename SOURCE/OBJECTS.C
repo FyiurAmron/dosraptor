@@ -1332,4 +1332,3 @@ OBJ_TYPE type              // INPUT : OBJ type
 
    return ( TRUE );
 }
-

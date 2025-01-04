@@ -624,4 +624,3 @@ VOID
    GFX_SetPalette ( palette, 0 );
 }
 
-

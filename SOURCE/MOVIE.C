@@ -196,4 +196,3 @@ BYTE *  palette             // INPUT : pointer to palette
    return ( opt );
 
 }
-

@@ -224,4 +224,3 @@ extern INT           numships;
 extern DWORD         cur_diff;
 
 #endif
-

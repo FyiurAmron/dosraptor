@@ -152,4 +152,3 @@ extern BOOL    scroll_flag;
 extern INT     g_mapleft;
 
 #endif
-

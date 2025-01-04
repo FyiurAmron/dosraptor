@@ -141,4 +141,3 @@ typedef struct
    DWORD level;
 }CSPRITE;
 
-

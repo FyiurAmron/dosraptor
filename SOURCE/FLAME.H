@@ -44,4 +44,3 @@ INT frame                  // INPUT : frame
 );
 
 #endif
-

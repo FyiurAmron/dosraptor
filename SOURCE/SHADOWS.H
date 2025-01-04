@@ -71,4 +71,3 @@ VOID SHADOW_Clear ( VOID );
 #define SHADOW_Clear()  ( num_shadows = num_gshadows = 0 )
 
 #endif
-
