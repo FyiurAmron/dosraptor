@@ -373,51 +373,51 @@ CSPRITE * sprite
 )
 {
    SPRITE      *  curlib = ( slib [ sprite->game ] + sprite->slib );
-   SPRITE_SHIP *  new;
+   SPRITE_SHIP *  pNew;
    GFX_PIC     *  h;
    BYTE        *  pic;
   
-   new               = ENEMY_Get();
+   pNew               = ENEMY_Get();
    pic               = GLB_GetItem ( curlib->item );
    h                 = ( GFX_PIC * ) pic;
 
-   new->item         = curlib->item;
-   new->width        = h->width;
-   new->height       = h->height;
-   new->hlx          = h->width>>1;
-   new->hly          = h->height>>1;
+   pNew->item         = curlib->item;
+   pNew->width        = h->width;
+   pNew->height       = h->height;
+   pNew->hlx          = h->width>>1;
+   pNew->hly          = h->height>>1;
 
-   new->kami         = KAMI_FLY;
-   new->hits         = curlib->hits;
-   new->lib          = ( slib [ sprite->game ] + sprite->slib );
-   new->y            = tileyoff - ( ( tiley - sprite->y ) * 32 ) - 97;
-   new->x            = ( ( sprite->x * 32 ) + MAP_LEFT );
+   pNew->kami         = KAMI_FLY;
+   pNew->hits         = curlib->hits;
+   pNew->lib          = ( slib [ sprite->game ] + sprite->slib );
+   pNew->y            = tileyoff - ( ( tiley - sprite->y ) * 32 ) - 97;
+   pNew->x            = ( ( sprite->x * 32 ) + MAP_LEFT );
 
-   new->edir         = E_FORWARD;
-   new->x           += 16;
-   new->y           += 16;
-   new->x           -= new->hlx;
-   new->y           -= new->hly;
-   new->x2           = new->x + new->width;
-   new->y2           = new->y + new->height;
-   new->move.x       = new->sx = new->x;
-   new->move.y       = new->sy = new->y;
-   new->frame_rate   = curlib->frame_rate;
-   new->speed        = curlib->movespeed;
+   pNew->edir         = E_FORWARD;
+   pNew->x           += 16;
+   pNew->y           += 16;
+   pNew->x           -= pNew->hlx;
+   pNew->y           -= pNew->hly;
+   pNew->x2           = pNew->x + pNew->width;
+   pNew->y2           = pNew->y + pNew->height;
+   pNew->move.x       = pNew->sx = pNew->x;
+   pNew->move.y       = pNew->sy = pNew->y;
+   pNew->frame_rate   = curlib->frame_rate;
+   pNew->speed        = curlib->movespeed;
 
-   new->countdown       = curlib->countdown + -new->move.y;
-   new->shoot_disable   = FALSE;
-   new->shoot_on        = FALSE;
-   new->shootagain      = NORM_SHOOT;
-   new->shootcount      = curlib->shootcnt;
-   new->shootflag       = curlib->shootstart;
+   pNew->countdown       = curlib->countdown + -pNew->move.y;
+   pNew->shoot_disable   = FALSE;
+   pNew->shoot_on        = FALSE;
+   pNew->shootagain      = NORM_SHOOT;
+   pNew->shootcount      = curlib->shootcnt;
+   pNew->shootflag       = curlib->shootstart;
 
    if ( curlib->bossflag )
    {
       if ( curplr_diff <= DIFF_1 )
       {
-         new->hits         = new->hits - ( new->hits>>1 );
-         new->shootcount   = new->shootcount - ( new->shootcount>>2 );
+         pNew->hits         = pNew->hits - ( pNew->hits>>1 );
+         pNew->shootcount   = pNew->shootcount - ( pNew->shootcount>>2 );
       }
    }
 
@@ -426,18 +426,18 @@ CSPRITE * sprite
       default:
          EXIT_Error ("ENEMY_Add() - Invalid ANIMTYPE" );
       case GANIM_NORM:
-         new->anim_on = TRUE;
-         new->num_frames = curlib->num_frames;
+         pNew->anim_on = TRUE;
+         pNew->num_frames = curlib->num_frames;
          break;
 
       case GANIM_SHOOT:
-         new->anim_on = FALSE;
-         new->num_frames = curlib->num_frames;
+         pNew->anim_on = FALSE;
+         pNew->num_frames = curlib->num_frames;
          break;
 
       case GANIM_MULTI:
-         new->anim_on = TRUE;
-         new->num_frames = curlib->rewind;
+         pNew->anim_on = TRUE;
+         pNew->num_frames = curlib->rewind;
          break;
    }
 
@@ -446,39 +446,39 @@ CSPRITE * sprite
       case F_REPEAT:
       case F_LINEAR:
       case F_KAMI:
-         new->groundflag = FALSE;
-         new->sy = 100 - new->hly;
-         new->move.x2 = new->sx + curlib->flightx [ 0 ];
-         new->move.y2 = new->sy + curlib->flighty [ 0 ];
-         new->movepos = 1;
-         InitMobj ( &new->move );
-         MoveMobj ( &new->move );
+         pNew->groundflag = FALSE;
+         pNew->sy = 100 - pNew->hly;
+         pNew->move.x2 = pNew->sx + curlib->flightx [ 0 ];
+         pNew->move.y2 = pNew->sy + curlib->flighty [ 0 ];
+         pNew->movepos = 1;
+         InitMobj ( &pNew->move );
+         MoveMobj ( &pNew->move );
          break;
 
       case F_GROUND:
-         new->groundflag = TRUE;
-         new->move.x2 = new->x;
-         new->move.y2 = 211;
+         pNew->groundflag = TRUE;
+         pNew->move.x2 = pNew->x;
+         pNew->move.y2 = 211;
          break;
 
       case F_GROUNDRIGHT:
-         new->x -= new->width;
-         new->move.x       = new->sx = new->x;
-         new->groundflag   = TRUE;
-         new->move.x2      = 335;
-         new->move.y2      = 211;
+         pNew->x -= pNew->width;
+         pNew->move.x       = pNew->sx = pNew->x;
+         pNew->groundflag   = TRUE;
+         pNew->move.x2      = 335;
+         pNew->move.y2      = 211;
          break;
 
       case F_GROUNDLEFT:
-         new->x += new->width;
-         new->move.x       = new->sx = new->x;
-         new->groundflag   = TRUE;
-         new->move.x2      = -new->hlx;
-         new->move.y2      = 211;
+         pNew->x += pNew->width;
+         pNew->move.x       = pNew->sx = pNew->x;
+         pNew->groundflag   = TRUE;
+         pNew->move.x2      = -pNew->hlx;
+         pNew->move.y2      = 211;
          break;
    }
 
-   new->suckagain    = curlib->hits>>4;
+   pNew->suckagain    = curlib->hits>>4;
 
    if ( curlib->song != -1 )
       boss_sound = TRUE;

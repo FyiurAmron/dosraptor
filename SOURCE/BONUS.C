@@ -53,22 +53,22 @@ BONUS_Get (
 VOID
 )
 {
-   BONUS * new;
+   BONUS * pNew;
   
    if ( !free_bonus )
       return ( NUL );
   
-   new = free_bonus;
+   pNew = free_bonus;
    free_bonus = free_bonus->next;
   
-   memset ( new, 0 ,sizeof ( BONUS ) );
+   memset ( pNew, 0 ,sizeof ( BONUS ) );
   
-   new->next         = &last_bonus;
-   new->prev         = last_bonus.prev;
-   last_bonus.prev   = new;
-   new->prev->next   = new;
+   pNew->next         = &last_bonus;
+   pNew->prev         = last_bonus.prev;
+   last_bonus.prev   = pNew;
+   pNew->prev->next   = pNew;
   
-   return ( new );
+   return ( pNew );
 }
   
 /*-------------------------------------------------------------------------*
