@@ -13,12 +13,10 @@
  *
  *---------------------------------------------------------------------------*/
 
-#ifndef _TYPES_H
-#include <types.h>
-#endif
+#ifndef TILE_H
+#define TILE_H
 
-#ifndef _TILEAPI
-#define _TILEAPI
+#include "../gfx/types.h"
 
 typedef enum { TILE_NONE, TILE_HIT, TILE_DESTROY, TILE_BONUS } T_HIT;
 

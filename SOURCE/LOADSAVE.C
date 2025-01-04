@@ -6,9 +6,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys\stat.h>
-#include <sys\types.h>
 
-#include "prefapi.h"
+#include "../gfx/prefapi.h"
 
 #include "file0001.inc"
 

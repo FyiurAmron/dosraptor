@@ -1,5 +1,7 @@
-#ifndef _MOVIE_H
-#define _MOVIE_H
+#ifndef MOVIE_H
+#define MOVIE_H
+
+#include "../gfx/types.h"
 
 typedef enum { M_ANIM, M_PIC, M_SEE_THRU } FRAMETYPE;
 

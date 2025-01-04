@@ -1,7 +1,9 @@
-#define MAX_OBJS 20
+#ifndef OBJECTS_H
+#define OBJECTS_H
 
-#ifndef _OBJAPI
-#define _OBJAPI
+#include "../gfx/types.h"
+
+#define MAX_OBJS 20
 
 typedef enum { OBJ_GOTIT, OBJ_NOMONEY, OBJ_SHIPFULL, OBJ_ERROR } BUYSTUFF;
 

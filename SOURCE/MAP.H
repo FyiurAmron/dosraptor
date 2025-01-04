@@ -1,3 +1,8 @@
+#ifndef MAP_H
+#define MAP_H
+
+#include "../gfx/types.h"
+
 #define MAX_FLIGHT    30
 
 #define MAP_ROWS      150
@@ -127,3 +132,5 @@ typedef struct {
     INT game;
     DWORD level;
 } CSPRITE;
+
+#endif

@@ -1,15 +1,13 @@
-#define MAX_BONUS 12
+#ifndef BONUS_H
+#define BONUS_H
 
-#ifndef _OBJAPI
+#include "../gfx/types.h"
 #include "objects.h"
-#endif
-
-#ifndef _BONUSAPI
-#define _BONUSAPI
 
 #define BONUS_WIDTH  16
 #define BONUS_HEIGHT 16
 
+#define MAX_BONUS    12
 #define MAX_MONEY    ( MAX_BONUS - 3 )
 
 typedef struct BONUS_S {

@@ -1,5 +1,7 @@
-#ifndef _ESHOTAPI
-#define _ESHOTAPI
+#ifndef ESHOT_H
+#define ESHOT_H
+
+#include "../gfx/types.h"
 
 typedef enum {
     ES_ATPLAYER, // 0

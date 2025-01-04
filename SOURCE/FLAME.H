@@ -1,9 +1,7 @@
-#ifndef _TYPES_H
-#include "types.h"
-#endif
+#ifndef FLAME_H
+#define FLAME_H
 
-#ifndef _FLAMES
-#define _FLAMES
+#include "../gfx/types.h"
 
 /***************************************************************************
 FLAME_Init () - Inits Flame Tables and stuff

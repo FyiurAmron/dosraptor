@@ -1,11 +1,10 @@
-#define MAX_SHOTS 70
+#ifndef SHOTS_H
+#define SHOTS_H
 
-#ifndef _OBJAPI
+#include "../gfx/types.h"
 #include "objects.h"
-#endif
 
-#ifndef _SHOTSAPI
-#define _SHOTSAPI
+#define MAX_SHOTS 70
 
 typedef enum { S_ALL, S_AIR, S_GROUND, S_GRALL, S_GTILE, S_SUCK } HIT_TYPE;
 

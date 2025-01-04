@@ -1,5 +1,7 @@
-#ifndef _STOREAPI
-#define _STOREAPI
+#ifndef STORE_H
+#define STORE_H
+
+#include "../gfx/types.h"
 
 /***************************************************************************
 STORE_Init () - Inits Store Things

@@ -1,5 +1,7 @@
-#ifndef _ANIMAPI
-#define _ANIMAPI
+#ifndef ANIM_H
+#define ANIM_H
+
+#include "../gfx/types.h"
 
 typedef enum { A_NORM, A_MOVEUP, A_MOVEDOWN } ANIM_DIR;
 
