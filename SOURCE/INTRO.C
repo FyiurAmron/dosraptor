@@ -290,7 +290,7 @@ BOOL INTRO_Base( VOID ) {
     INT framecnt = maxframes - 1;
     FRAME* cur = frm;
 
-    if ( !GAME2 ) {
+    if ( !gameflag[1] ) {
         return TRUE;
     }
 
@@ -806,7 +806,7 @@ BOOL INTRO_Credits( VOID ) {
 INTRO_BaseLanding() - BaseLanding PLays all needed MOVES
  ***************************************************************************/
 VOID INTRO_BaseLanding( VOID ) {
-    if ( !GAME2 ) {
+    if ( !gameflag[1] ) {
         return;
     }
 

@@ -41,10 +41,6 @@ typedef struct {
 #define DIFF_2           2 // NORMAL MODE
 #define DIFF_3           3 // HARD MODE
 
-#define GAME1            ( gameflag[0] )
-#define GAME2            ( gameflag[1] )
-#define GAME3            ( gameflag[2] + gameflag[3] )
-
 #define SHIELD_COLOR_RUN 9
 #define SHIELD_LOW       10
 

@@ -412,7 +412,7 @@ VOID WIN_Order( VOID ) {
     INT window;
     BOOL dchold = drawcursor;
 
-    if ( GAME2 || GAME3 ) {
+    if ( gameflag[1] || gameflag[2] || gameflag[3] ) {
         return;
     }
 
@@ -1714,11 +1714,11 @@ VOID WIN_MainAuto( INT cur_opt ) {
 
     PTR_DrawCursor( FALSE );
 
-    if ( GAME2 ) {
+    if ( gameflag[1] ) {
         max_opt += 3;
     }
 
-    if ( GAME3 ) {
+    if ( gameflag[2] + gameflag[3] ) {
         max_opt += 3;
     }
 
