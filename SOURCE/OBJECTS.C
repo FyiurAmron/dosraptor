@@ -57,23 +57,23 @@ OBJS_Get (
 VOID
 )
 {
-   OBJ * new;
+   OBJ * pNew;
   
    if ( !free_objs )
       return ( NUL );
   
-   new       = free_objs;
+   pNew       = free_objs;
    free_objs = free_objs->next;
   
-   memset ( new, 0 ,sizeof ( OBJ ) );
+   memset ( pNew, 0 ,sizeof ( OBJ ) );
   
-   new->next = &last_objs;
-   new->prev = last_objs.prev;
-   last_objs.prev  = new;
-   new->prev->next = new;
+   pNew->next = &last_objs;
+   pNew->prev = last_objs.prev;
+   last_objs.prev  = pNew;
+   pNew->prev->next = pNew;
   
    obj_cnt++;
-   return ( new );
+   return ( pNew );
 }
   
 /*-------------------------------------------------------------------------*

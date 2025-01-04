@@ -89,22 +89,22 @@ ANIMS_Get (
 VOID
 )
 {
-   ANIMS * new;
+   ANIMS * pNew;
   
    if ( !free_anims )
       return ( NUL );
   
-   new = free_anims;
+   pNew = free_anims;
    free_anims = free_anims->next;
   
-   memset ( new, 0 ,sizeof ( ANIMS ) );
+   memset ( pNew, 0 ,sizeof ( ANIMS ) );
   
-   new->next = &last_anims;
-   new->prev = last_anims.prev;
-   last_anims.prev = new;
-   new->prev->next = new;
+   pNew->next = &last_anims;
+   pNew->prev = last_anims.prev;
+   last_anims.prev = pNew;
+   pNew->prev->next = pNew;
   
-   return ( new );
+   return ( pNew );
 }
 
 /*-------------------------------------------------------------------------*

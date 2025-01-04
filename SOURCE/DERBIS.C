@@ -56,7 +56,7 @@ DERB_Get (
 VOID
 )
 {
-   ESHOT * new;
+   ESHOT * pNew;
   
    if ( !free_derb )
       return ( NUL );
@@ -65,17 +65,17 @@ VOID
    if ( eshothigh < eshotnum )
       eshothigh = eshotnum;
 
-   new = free_derb;
+   pNew = free_derb;
    free_derb = free_derb->next;
   
-   memset ( new, 0 ,sizeof ( ESHOT ) );
+   memset ( pNew, 0 ,sizeof ( ESHOT ) );
   
-   new->next = &last_derb;
-   new->prev = last_derb.prev;
-   last_derb.prev = new;
-   new->prev->next = new;
+   pNew->next = &last_derb;
+   pNew->prev = last_derb.prev;
+   last_derb.prev = pNew;
+   pNew->prev->next = pNew;
   
-   return ( new );
+   return ( pNew );
 }
   
 /*-------------------------------------------------------------------------*

@@ -54,7 +54,7 @@ SHOTS_Get (
 VOID
 )
 {
-   SHOTS * new;
+   SHOTS * pNew;
   
    if ( !free_shots )
       return ( NUL );
@@ -63,17 +63,17 @@ VOID
    if ( shotnum > shothigh )
       shothigh = shotnum;
 
-   new = free_shots;
+   pNew = free_shots;
    free_shots = free_shots->next;
   
-   memset ( new, 0 ,sizeof ( SHOTS ) );
+   memset ( pNew, 0 ,sizeof ( SHOTS ) );
   
-   new->next = &last_shots;
-   new->prev = last_shots.prev;
-   last_shots.prev = new;
-   new->prev->next = new;
+   pNew->next = &last_shots;
+   pNew->prev = last_shots.prev;
+   last_shots.prev = pNew;
+   pNew->prev->next = pNew;
   
-   return ( new );
+   return ( pNew );
 }
   
 /*-------------------------------------------------------------------------*

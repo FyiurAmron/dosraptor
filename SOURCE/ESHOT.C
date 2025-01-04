@@ -102,7 +102,7 @@ ESHOT_Get (
 VOID
 )
 {
-   ESHOT * new;
+   ESHOT * pNew;
   
    if ( !free_eshot )
       return ( NUL );
@@ -111,17 +111,17 @@ VOID
    if ( eshothigh < eshotnum )
       eshothigh = eshotnum;
 
-   new = free_eshot;
+   pNew = free_eshot;
    free_eshot = free_eshot->next;
   
-   memset ( new, 0 ,sizeof ( ESHOT ) );
+   memset ( pNew, 0 ,sizeof ( ESHOT ) );
   
-   new->next = &last_eshot;
-   new->prev = last_eshot.prev;
-   last_eshot.prev = new;
-   new->prev->next = new;
+   pNew->next = &last_eshot;
+   pNew->prev = last_eshot.prev;
+   last_eshot.prev = pNew;
+   pNew->prev->next = pNew;
   
-   return ( new );
+   return ( pNew );
 }
   
 /*-------------------------------------------------------------------------*

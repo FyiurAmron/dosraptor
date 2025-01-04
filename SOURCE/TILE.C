@@ -75,22 +75,22 @@ TGet (
 VOID
 )
 {
-   TILEDELAY * new;
+   TILEDELAY * pNew;
   
    if ( !free_delay )
       EXIT_Error ("TILEDELAY_Get() - Max ");
   
-   new = free_delay;
+   pNew = free_delay;
    free_delay = free_delay->next;
   
-   memset ( new, 0 ,sizeof ( TILEDELAY ) );
+   memset ( pNew, 0 ,sizeof ( TILEDELAY ) );
   
-   new->next = &last_delay;
-   new->prev = last_delay.prev;
-   last_delay.prev = new;
-   new->prev->next = new;
+   pNew->next = &last_delay;
+   pNew->prev = last_delay.prev;
+   last_delay.prev = pNew;
+   pNew->prev->next = pNew;
   
-   return ( new );
+   return ( pNew );
 }
   
 /*-------------------------------------------------------------------------*
