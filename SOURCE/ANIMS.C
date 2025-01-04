@@ -1,13 +1,9 @@
-#include <stdio.h>
-#include <stdlib.h>
+
 #include <string.h>
 
 #include "raptor.h"
 
 #include "file0001.inc"
-#include "file0002.inc"
-#include "file0003.inc"
-#include "file0004.inc"
 
 typedef enum { GROUND, MID_AIR, HIGH_AIR } GFLAG;
 

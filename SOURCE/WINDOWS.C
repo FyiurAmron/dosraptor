@@ -10,13 +10,11 @@
 #include "file0001.inc"
 #include "file0002.inc"
 #include "file0003.inc"
-#include "file0004.inc"
 
 // window include files
 #include "ask.inc"
 #include "hangar.inc"
 #include "loadcomp.inc"
-#include "locker.inc"
 #include "main.inc"
 #include "msg.inc"
 #include "okreg.inc"

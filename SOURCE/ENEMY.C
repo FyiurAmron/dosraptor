@@ -4,7 +4,6 @@
 
 #include "raptor.h"
 
-#include "file0000.inc"
 #include "file0001.inc"
 #include "file0002.inc"
 #include "file0003.inc"
