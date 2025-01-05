@@ -545,7 +545,10 @@ mainloop:
 WIN_AskExit () - Opens Windows and Askes if USer wants 2 quit
  ***************************************************************************/
 VOID WIN_AskExit( VOID ) {
-    if ( WIN_AskBool( "EXIT TO DOS" ) ) {
+    extern INT quick_mode;
+
+    if ( quick_mode ) {
+    } else if ( WIN_AskBool( "EXIT TO DOS" ) ) {
         SND_FadeOutSong();
 
         switch ( bday_num ) {
@@ -598,8 +601,10 @@ VOID WIN_AskExit( VOID ) {
         GFX_SetRetraceFlag( TRUE );
         GFX_FadeOut( 60, 15, 2, 32 );
         GFX_FadeOut( 0, 0, 0, 6 );
-        EXIT_Clean();
+    } else {
+        return;
     }
+    EXIT_Clean();
 }
 
 /***************************************************************************

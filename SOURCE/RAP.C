@@ -73,6 +73,7 @@ PUBLIC CHAR gdmodestr[] = "CASTLE";
 PUBLIC BOOL lowmem_flag = FALSE;
 PUBLIC BOOL reg_flag = FALSE;
 PUBLIC BOOL tai_flag = FALSE;
+PUBLIC BOOL quick_mode = FALSE;
 PUBLIC BOOL godmode = FALSE;
 
 #define ROTPAL_START 240
@@ -1459,17 +1460,15 @@ VOID main( INT argc, CHAR* argv[] ) {
 
     RAP_ClearPlayer();
 
-    if ( tai_flag ) {
-        INTRO_Taiwan();
-    }
-
-    if ( !godmode ) {
-        INTRO_Credits();
-    }
-
-    if ( demo_flag != DEMO_PLAYBACK ) {
-        SND_PlaySong( RINTRO_MUS, TRUE, TRUE );
-        INTRO_PlayMain();
+    if ( demo_flag == DEMO_OFF ) {
+        if ( !quick_mode ) {
+            if ( tai_flag ) {
+                INTRO_Taiwan();
+            }
+            INTRO_Credits();
+            SND_PlaySong( RINTRO_MUS, TRUE, TRUE );
+            INTRO_PlayMain();
+        }
         SND_PlaySong( MAINMENU_MUS, TRUE, TRUE );
     } else if ( demo_flag == DEMO_PLAYBACK ) {
         DEMO_LoadFile();
