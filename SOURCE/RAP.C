@@ -1175,9 +1175,9 @@ void RAP_InitMem( void ) {
 
     g_highmem = calloc( memsize, 1 );
 
-    if ( g_highmem == NUL && memsize > MEM_KEEP ) {
+    if ( g_highmem == NULL && memsize > MEM_KEEP ) {
         printf( "MemGet1 = %d\n", memsize );
-        while ( g_highmem == NUL && memsize > 0 ) {
+        while ( g_highmem == NULL && memsize > 0 ) {
             g_highmem = calloc( memsize, 1 );
             memsize -= MEM_KEEP;
         }
@@ -1196,7 +1196,7 @@ void RAP_InitMem( void ) {
             lowmem_flag = TRUE;
         }
     } else {
-        printf( "Highmem = NUL\n", memsize );
+        printf( "Highmem = NULL\n", memsize );
     }
 
     if ( lowmem + memsize < MIN_MEMREQ - MEM_KEEP ) {
@@ -1390,7 +1390,7 @@ void main( INT argc, CHAR* argv[] ) {
 
     printf( "Registered EXE!\n" );
     fflush( stdout );
-    GLB_InitSystem( argv[0], 6, NUL );
+    GLB_InitSystem( argv[0], 6, NULL );
 
     SND_InitSound();
     IPT_Init();
@@ -1430,7 +1430,7 @@ void main( INT argc, CHAR* argv[] ) {
             item = GLB_GetItemID( flatnames[loop] );
             flatlib[loop] = (FLATS*) GLB_LockItem( item );
         } else {
-            flatlib[loop] = NUL;
+            flatlib[loop] = NULL;
         }
     }
 

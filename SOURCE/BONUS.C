@@ -26,11 +26,11 @@ void BONUS_Clear( void ) {
 
     energy_count = 0;
 
-    first_bonus.prev = NUL;
+    first_bonus.prev = NULL;
     first_bonus.next = &last_bonus;
 
     last_bonus.prev = &first_bonus;
-    last_bonus.next = NUL;
+    last_bonus.next = NULL;
 
     free_bonus = bons;
 
@@ -48,7 +48,7 @@ BONUS* BONUS_Get( void ) {
     BONUS* pNew;
 
     if ( !free_bonus ) {
-        return NUL;
+        return NULL;
     }
 
     pNew = free_bonus;

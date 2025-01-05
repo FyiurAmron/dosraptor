@@ -82,7 +82,7 @@ void GFX_SetDebug(
  *************************************************************************/
 INT // RETURN: 0 = Off, 1 == No Clip , 2 == Cliped
 GFX_ClipLines(
-    BYTE** image, // INOUT : pointer to image or NUL
+    BYTE** image, // INOUT : pointer to image or NULL
     INT* x, // INOUT : pointer to x pos
     INT* y, // INOUT : pointer to y pos
     INT* lx, // INOUT : pointer to width

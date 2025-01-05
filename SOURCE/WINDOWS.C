@@ -149,7 +149,7 @@ PRIVATE void WIN_OptDraw( SWD_DLG* dlg ) {
     INT lx;
     INT ly;
 
-    if ( dlg == NUL ) {
+    if ( dlg == NULL ) {
         return;
     }
 
@@ -371,7 +371,7 @@ mainloop:
 
 exit_opts:
 
-    SWD_SetWinDrawFunc( opt_window, NUL );
+    SWD_SetWinDrawFunc( opt_window, NULL );
 
     SWD_DestroyWindow( opt_window );
     GFX_DisplayUpdate();
@@ -1503,10 +1503,10 @@ exit_shipcomp:
     ltable[0] = cz1;
     dtable[0] = cz2;
 
-    SWD_SetFieldText( window, COMP_GAME1, NUL );
-    SWD_SetFieldText( window, COMP_GAME2, NUL );
-    SWD_SetFieldText( window, COMP_GAME3, NUL );
-    SWD_SetFieldText( window, COMP_AUTO, NUL );
+    SWD_SetFieldText( window, COMP_GAME1, NULL );
+    SWD_SetFieldText( window, COMP_GAME2, NULL );
+    SWD_SetFieldText( window, COMP_GAME3, NULL );
+    SWD_SetFieldText( window, COMP_AUTO, NULL );
 
 abort_shipcomp:
 
@@ -1845,7 +1845,7 @@ void WIN_MainMenu( void ) {
     if ( ingameflag ) {
         SWD_SetFieldSelect( window, MAIN_RETURN, TRUE );
         SWD_SetFieldItem( window, MAIN_RETURN, MENU7_PIC );
-        SWD_SetFieldText( window, MAIN_DEMO, NUL );
+        SWD_SetFieldText( window, MAIN_DEMO, NULL );
     } else {
         SWD_SetFieldSelect( window, MAIN_RETURN, FALSE );
         SWD_SetFieldItem( window, MAIN_RETURN, EMPTY );

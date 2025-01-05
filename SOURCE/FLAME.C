@@ -57,7 +57,7 @@ void FLAME_Up(
 
     iy -= height[frame] - 1;
 
-    if ( GFX_ClipLines( NUL, &ix, &iy, &width, &height[frame] ) ) {
+    if ( GFX_ClipLines( NULL, &ix, &iy, &width, &height[frame] ) ) {
         y = iy;
 
         addx = ( MAX_SHADES << 16 ) / height[frame];
@@ -103,7 +103,7 @@ void FLAME_Down(
 
     frame = frame % 2;
 
-    if ( GFX_ClipLines( NUL, &ix, &iy, &width, &height[frame] ) ) {
+    if ( GFX_ClipLines( NULL, &ix, &iy, &width, &height[frame] ) ) {
         y = iy;
 
         curs = 0;

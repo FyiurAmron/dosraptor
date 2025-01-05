@@ -20,12 +20,12 @@ PRIVATE INT prev_window = EMPTY;
 PRIVATE INT master_window = EMPTY;
 PRIVATE INT active_window = EMPTY;
 PRIVATE INT active_field = EMPTY;
-PRIVATE SFIELD* lastfld = NUL;
+PRIVATE SFIELD* lastfld = NULL;
 PRIVATE BOOL highlight_flag = FALSE;
 PRIVATE SWD_WIN g_wins[MAX_WINDOWS];
 PRIVATE void ( *winfuncs[MAX_WINDOWS] )( SWD_DLG* );
 PRIVATE void ( *fldfuncs[15] )( SWIN*, SFIELD* );
-PRIVATE BYTE* movebuffer = NUL;
+PRIVATE BYTE* movebuffer = NULL;
 PRIVATE void ( *viewdraw )( void ) = (void( * )) 0;
 PRIVATE ACT cur_act = S_IDLE;
 PRIVATE CMD cur_cmd = C_IDLE;
@@ -108,7 +108,7 @@ INT SWD_GetLine( BYTE* inmem ) {
     BYTE* pic;
     GFX_PIC* h;
 
-    if ( inmem != NUL ) {
+    if ( inmem != NULL ) {
         text = inmem;
     }
 
@@ -133,7 +133,7 @@ INT SWD_GetLine( BYTE* inmem ) {
 
             text += curpos;
 
-            cmd = strtok( NUL, cbrks );
+            cmd = strtok( NULL, cbrks );
 
             switch ( loop + 1 ) {
                 default:
@@ -145,16 +145,16 @@ INT SWD_GetLine( BYTE* inmem ) {
                         break;
                     }
                     pic = GLB_GetItem( item );
-                    cmd = strtok( NUL, cbrks );
+                    cmd = strtok( NULL, cbrks );
 
                     h = (GFX_PIC*) pic;
 
-                    if ( cmd == NUL ) {
+                    if ( cmd == NULL ) {
                         x = textdraw_x;
                         y = textdraw_y;
                     } else {
                         x = atoi( cmd );
-                        cmd = strtok( NUL, cbrks );
+                        cmd = strtok( NULL, cbrks );
                         y = atoi( cmd );
 
                         x += textcmd_x;
@@ -184,7 +184,7 @@ INT SWD_GetLine( BYTE* inmem ) {
 
                 case T_TEXT_POS:
                     x = atoi( cmd );
-                    cmd = strtok( NUL, cbrks );
+                    cmd = strtok( NULL, cbrks );
                     y = atoi( cmd );
 
                     if ( x > textcmd_x2 ) {
@@ -201,7 +201,7 @@ INT SWD_GetLine( BYTE* inmem ) {
 
                 case T_RIGHT:
                     x = atoi( cmd );
-                    if ( x > textcmd_x2 || cmd == NUL ) {
+                    if ( x > textcmd_x2 || cmd == NULL ) {
                         break;
                     }
                     textdraw_x += x;
@@ -209,7 +209,7 @@ INT SWD_GetLine( BYTE* inmem ) {
 
                 case T_DOWN:
                     y = atoi( cmd );
-                    if ( y > textcmd_y2 || cmd == NUL ) {
+                    if ( y > textcmd_y2 || cmd == NULL ) {
                         break;
                     }
                     textdraw_y += y;
@@ -285,7 +285,7 @@ SWD_FillText(
             break;
         }
 
-        len += SWD_GetLine( NUL );
+        len += SWD_GetLine( NULL );
     }
 
     GLB_FreeItem( item );
@@ -370,7 +370,7 @@ PRIVATE void SWD_PutField(
             case FLD_ICON:
                 pic = GLB_GetItem( curfld->item );
 
-                if ( pic == NUL ) {
+                if ( pic == NULL ) {
                     break;
                 }
 
@@ -531,7 +531,7 @@ PutField_ShadeExit:
         if ( curfld->picflag == PICTURE ) {
             h = (GFX_PIC*) GLB_GetItem( curfld->item );
         } else {
-            h = NUL;
+            h = NULL;
         }
 
         if ( curfld->bstatus == DOWN ) {
@@ -818,7 +818,7 @@ PRIVATE void SWD_GetNextWindow( void ) {
         }
     }
 
-    lastfld = NUL;
+    lastfld = NULL;
 
     if ( active_window == EMPTY ) {
         active_field = EMPTY;
@@ -1332,24 +1332,24 @@ void SWD_Install(
         }
         movebuffer = (BYTE*) ( segment << 4 );
     } else {
-        movebuffer = NUL;
+        movebuffer = NULL;
     }
 
-    fldfuncs[0] = NUL;
-    fldfuncs[1] = NUL;
+    fldfuncs[0] = NULL;
+    fldfuncs[1] = NULL;
     fldfuncs[2] = SWD_DoButton;
     fldfuncs[3] = SWD_FieldInput;
     fldfuncs[4] = SWD_DoButton;
-    fldfuncs[5] = NUL;
+    fldfuncs[5] = NULL;
     fldfuncs[6] = SWD_DoButton;
-    fldfuncs[7] = NUL;
-    fldfuncs[8] = NUL;
-    fldfuncs[9] = NUL;
-    fldfuncs[10] = NUL;
-    fldfuncs[11] = NUL;
-    fldfuncs[12] = NUL;
-    fldfuncs[13] = NUL;
-    fldfuncs[14] = NUL;
+    fldfuncs[7] = NULL;
+    fldfuncs[8] = NULL;
+    fldfuncs[9] = NULL;
+    fldfuncs[10] = NULL;
+    fldfuncs[11] = NULL;
+    fldfuncs[12] = NULL;
+    fldfuncs[13] = NULL;
+    fldfuncs[14] = NULL;
 }
 
 /***************************************************************************
@@ -1397,7 +1397,7 @@ SWD_InitWindow(
 
     if ( lastfld ) {
         lastfld->bstatus = NORMAL;
-        lastfld = NUL;
+        lastfld = NULL;
     }
 
     header = (SWIN*) GLB_LockItem( handle );
@@ -1470,7 +1470,7 @@ SWD_InitWindow(
                         GLB_LockItem( curfld->item );
                     }
 
-                    curfld->sptr = NUL;
+                    curfld->sptr = NULL;
                     if ( curfld->saveflag ) {
                         pic_size = ( curfld->lx * curfld->ly ) + sizeof( GFX_PIC );
                         if ( pic_size < 0 || pic_size > 64000 ) {
@@ -1708,7 +1708,7 @@ void SWD_DestroyWindow(
             GLB_FreeItem( curfld->fontid );
         }
 
-        if ( curfld->saveflag && curfld->sptr != NUL ) {
+        if ( curfld->saveflag && curfld->sptr != NULL ) {
             free( curfld->sptr );
         }
     }
@@ -1720,7 +1720,7 @@ void SWD_DestroyWindow(
     GLB_FreeItem( g_wins[handle].gitem );
 
     g_wins[handle].flag = FALSE;
-    winfuncs[handle] = NUL;
+    winfuncs[handle] = NULL;
 
     if ( handle == master_window ) {
         master_window = EMPTY;
@@ -1728,7 +1728,7 @@ void SWD_DestroyWindow(
 
     kbactive = FALSE;
     highlight_flag = FALSE;
-    lastfld = NUL;
+    lastfld = NULL;
 
     SWD_GetNextWindow();
 
@@ -2007,7 +2007,7 @@ void SWD_Dialog(
         if ( lastfld ) {
             lastfld->bstatus = NORMAL;
             SWD_PutField( curwin, lastfld );
-            lastfld = NUL;
+            lastfld = NULL;
             update = TRUE;
         }
 
@@ -2021,7 +2021,7 @@ void SWD_Dialog(
 
     if ( old_win != active_window ) {
         SWD_ClearAllButtons();
-        lastfld = NUL;
+        lastfld = NULL;
         highlight_flag = TRUE;
         cur_act = S_WIN_COMMAND;
         cur_cmd = C_IDLE;
@@ -2084,7 +2084,7 @@ void SWD_Dialog(
                         if ( lastfld ) {
                             lastfld->bstatus = NORMAL;
                             SWD_PutField( curwin, lastfld );
-                            lastfld = NUL;
+                            lastfld = NULL;
                             update = TRUE;
                         }
                         highlight_flag = TRUE;
@@ -2226,7 +2226,7 @@ void SWD_Dialog(
                     break;
 
                 case W_MOVE:
-                    if ( movebuffer == NUL ) {
+                    if ( movebuffer == NULL ) {
                         break;
                     }
                     curfld->bstatus = DOWN;
@@ -2394,10 +2394,10 @@ SWD_SetFieldText(
     text = ( (BYTE*) curfld ) + curfld->txtoff;
 
     if ( in_text ) {
-        text[curfld->maxchars - 1] = NUL;
+        text[curfld->maxchars - 1] = NULL;
         memcpy( text, in_text, curfld->maxchars - 1 );
     } else {
-        *text = NUL;
+        *text = NULL;
     }
 
     return ( curfld->maxchars );

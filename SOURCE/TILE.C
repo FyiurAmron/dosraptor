@@ -44,11 +44,11 @@ TClear () - Clears TILE Delay Link List
 PRIVATE void TClear( void ) {
     INT loop;
 
-    first_delay.prev = NUL;
+    first_delay.prev = NULL;
     first_delay.next = &last_delay;
 
     last_delay.prev = &first_delay;
-    last_delay.next = NUL;
+    last_delay.next = NULL;
 
     free_delay = tdel;
 

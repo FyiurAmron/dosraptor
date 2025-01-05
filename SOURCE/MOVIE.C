@@ -19,7 +19,7 @@ void MOVIE_BPatch( INT soundfx ) {
 void MOVIE_ShowFrame(
     BYTE* inpic // INPUT : pointer to animpic
 ) {
-    if ( inpic == NUL ) {
+    if ( inpic == NULL ) {
         return;
     }
 
