@@ -168,10 +168,10 @@ PRIVATE void Harrold(
 
     KBD_Clear();
 
-    SWD_SetFieldText( window, STOR_STATS, NUL );
-    SWD_SetFieldText( window, STOR_TEXTCOST, NUL );
-    SWD_SetFieldText( window, STOR_NUM, NUL );
-    SWD_SetFieldText( window, STOR_COST, NUL );
+    SWD_SetFieldText( window, STOR_STATS, NULL );
+    SWD_SetFieldText( window, STOR_TEXTCOST, NULL );
+    SWD_SetFieldText( window, STOR_NUM, NULL );
+    SWD_SetFieldText( window, STOR_COST, NULL );
     SWD_SetFieldItem( window, STOR_COMP, item );
     SWD_ShowAllWindows();
     GFX_DisplayUpdate();
@@ -213,7 +213,7 @@ void STORE_Enter( void ) {
     SWD_SetFieldItem( window, STOR_ID, id_pics[plr.id_pic] );
     SWD_SetFieldItem( window, STOR_BUYIT, mainbut[mode] );
     SWD_GetFieldText( window, STOR_STATS, yh_hold );
-    SWD_SetFieldText( window, STOR_STATS, NUL );
+    SWD_SetFieldText( window, STOR_STATS, NULL );
     SWD_SetFieldText( window, STOR_CALLSIGN, plr.callsign );
     sprintf( youhave, "%07d", plr.score );
     SWD_SetFieldText( window, STOR_SCORE, youhave );

@@ -26,11 +26,11 @@ void DERB_Clear( void ) {
 
     eshotnum = 0;
 
-    first_derb.prev = NUL;
+    first_derb.prev = NULL;
     first_derb.next = &last_derb;
 
     last_derb.prev = &first_derb;
-    last_derb.next = NUL;
+    last_derb.next = NULL;
 
     free_derb = eshots;
 
@@ -48,7 +48,7 @@ PRIVATE ESHOT* DERB_Get( void ) {
     ESHOT* pNew;
 
     if ( !free_derb ) {
-        return NUL;
+        return NULL;
     }
 
     eshotnum++;

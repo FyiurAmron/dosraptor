@@ -839,8 +839,8 @@ void SND_InitSound( void ) {
     INT rval;
 
     dig_flag = FALSE;
-    amem = NUL;
-    gmem = NUL;
+    amem = NULL;
+    gmem = NULL;
     snd_type = SND_NONE;
 
     music_volume = INI_GetPreferenceLong( "Music", "Volume", 127 );
@@ -866,7 +866,7 @@ void SND_InitSound( void ) {
         case M_SB:
         case M_ADLIB:
         case M_PAS:
-            if ( !AL_Detect( NUL, NUL ) ) {
+            if ( !AL_Detect( NULL, NULL ) ) {
                 initmcard = AHW_ADLIB;
             } else {
                 initmcard = -1;
@@ -890,7 +890,7 @@ void SND_InitSound( void ) {
         case M_GMIDI:
         case M_CANVAS:
         case M_WAVE:
-            if ( !MPU_Detect( &midiport, NUL ) ) {
+            if ( !MPU_Detect( &midiport, NULL ) ) {
                 initmcard = AHW_MPU_401;
                 MPU_SetCard( midiport );
             } else {
@@ -927,7 +927,7 @@ void SND_InitSound( void ) {
             break;
 
         case M_ADLIB:
-            if ( !AL_Detect( NUL, NUL ) ) {
+            if ( !AL_Detect( NULL, NULL ) ) {
                 initdcard = AHW_ADLIB;
                 snd_type = SND_MIDI;
             } else {
@@ -967,7 +967,7 @@ void SND_InitSound( void ) {
             break;
 
         case M_SB:
-            if ( !SB_Detect( &port, &irq, &dma, NUL ) ) {
+            if ( !SB_Detect( &port, &irq, &dma, NULL ) ) {
                 dig_flag = TRUE;
                 initdcard = AHW_SOUND_BLASTER;
                 SB_SetCard( port, irq, dma );
@@ -980,7 +980,7 @@ void SND_InitSound( void ) {
         case M_GMIDI:
         case M_CANVAS:
         case M_WAVE:
-            if ( !MPU_Detect( &midiport, NUL ) ) {
+            if ( !MPU_Detect( &midiport, NULL ) ) {
                 initdcard = AHW_MPU_401;
                 MPU_SetCard( midiport );
                 snd_type = SND_MIDI;

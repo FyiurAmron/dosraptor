@@ -33,8 +33,8 @@ PUBLIC DWORD cur_diff = EB_EASY_LEVEL;
 PUBLIC SPRITE_SHIP first_enemy;
 PUBLIC SPRITE_SHIP last_enemy;
 PRIVATE SPRITE_SHIP* free_enemy;
-PRIVATE CSPRITE* end_enemy = NUL;
-PRIVATE CSPRITE* cur_enemy = NUL;
+PRIVATE CSPRITE* end_enemy = NULL;
+PRIVATE CSPRITE* cur_enemy = NULL;
 PUBLIC BOOL end_waveflag = FALSE;
 PRIVATE DWORD spriteitm[4] = { SPRITE1_ITM, SPRITE2_ITM, SPRITE3_ITM, SPRITE4_ITM };
 PUBLIC INT g_numslibs;
@@ -199,7 +199,7 @@ void ENEMY_LoadLib( void ) {
 
     g_numslibs = 0;
     for ( loop = 0; loop < 4; loop++ ) {
-        slib[loop] = NUL;
+        slib[loop] = NULL;
         numslib[loop] = 0;
 
         if ( spriteflag[loop] ) {
@@ -219,7 +219,7 @@ void ENEMY_LoadLib( void ) {
         if ( spriteflag[loop] ) {
             slib[loop] = (SPRITE*) GLB_LockItem( spriteitm[loop] );
 
-            if ( slib[loop] == NUL ) {
+            if ( slib[loop] == NULL ) {
                 EXIT_Error( "ENEMY_LoadSprites() - memory" );
             }
 
@@ -239,11 +239,11 @@ void ENEMY_Clear( void ) {
     numships = 0;
     end_waveflag = FALSE;
 
-    first_enemy.prev = NUL;
+    first_enemy.prev = NULL;
     first_enemy.next = &last_enemy;
 
     last_enemy.prev = &first_enemy;
-    last_enemy.next = NUL;
+    last_enemy.next = NULL;
 
     free_enemy = ships;
 
@@ -257,8 +257,8 @@ void ENEMY_Clear( void ) {
         end_enemy = csprite + ( ml->numsprites - 1 );
         cur_enemy = csprite;
     } else {
-        end_enemy = NUL;
-        cur_enemy = NUL;
+        end_enemy = NULL;
+        cur_enemy = NULL;
     }
 }
 
@@ -438,7 +438,7 @@ SPRITE_SHIP* ENEMY_GetRandom( void ) {
     INT pos;
 
     if ( !cur_visable ) {
-        return NUL;
+        return NULL;
     }
 
     pos = random( cur_visable );
@@ -454,7 +454,7 @@ SPRITE_SHIP* ENEMY_GetRandomAir( void ) {
     INT loop;
 
     if ( !cur_visable ) {
-        return NUL;
+        return NULL;
     }
 
     pos = 0;
@@ -471,7 +471,7 @@ SPRITE_SHIP* ENEMY_GetRandomAir( void ) {
         return rscreen[pos];
     }
 
-    return NUL;
+    return NULL;
 }
 
 /***************************************************************************
@@ -591,7 +591,7 @@ SPRITE_SHIP* ENEMY_DamageEnergy(
         }
     }
 
-    return NUL;
+    return NULL;
 }
 
 /***************************************************************************

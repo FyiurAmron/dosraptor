@@ -27,11 +27,11 @@ void OBJS_Clear( void ) {
 
     obj_cnt = 0;
 
-    first_objs.prev = NUL;
+    first_objs.prev = NULL;
     first_objs.next = &last_objs;
 
     last_objs.prev = &first_objs;
-    last_objs.next = NUL;
+    last_objs.next = NULL;
 
     free_objs = objs;
 
@@ -50,7 +50,7 @@ PRIVATE OBJ* OBJS_Get( void ) {
     OBJ* pNew;
 
     if ( !free_objs ) {
-        return NUL;
+        return NULL;
     }
 
     pNew = free_objs;
@@ -598,7 +598,7 @@ OBJS_Equip(
     OBJ* cur;
 
     for ( cur = first_objs.next; cur != &last_objs; cur = cur->next ) {
-        if ( cur->type == type && p_objs[type] == NUL ) {
+        if ( cur->type == type && p_objs[type] == NULL ) {
             cur->inuse = TRUE;
             p_objs[type] = cur;
             return TRUE;
@@ -691,7 +691,7 @@ BUYSTUFF OBJS_Add(
     cur->lib = lib;
 
     // == equip item if needed =====
-    if ( p_objs[type] == NUL ) {
+    if ( p_objs[type] == NULL ) {
         cur->inuse = TRUE;
         p_objs[type] = cur;
         if ( plr.sweapon == EMPTY && lib->specialw ) {
@@ -710,12 +710,12 @@ void OBJS_Del(
 ) {
     OBJ* cur = p_objs[type];
 
-    if ( cur == NUL ) {
+    if ( cur == NULL ) {
         return;
     }
 
     OBJS_Remove( cur );
-    p_objs[type] = NUL;
+    p_objs[type] = NULL;
     OBJS_Equip( type );
 
     if ( type == plr.sweapon ) {
@@ -780,7 +780,7 @@ void OBJS_Use(
 
     if ( cur->num <= 0 && !lib->forever ) {
         OBJS_Remove( cur );
-        p_objs[type] = NUL;
+        p_objs[type] = NULL;
         OBJS_Equip( type );
         if ( plr.sweapon == type ) {
             OBJS_GetNext();
@@ -807,7 +807,7 @@ OBJS_Sell(
     plr.score += OBJS_GetResale( type );
 
     if ( type == S_DETECT ) {
-        p_objs[type] = NUL;
+        p_objs[type] = NULL;
         return 0;
     }
 
@@ -819,7 +819,7 @@ OBJS_Sell(
             cur->num = 0;
             if ( !lib->forever ) {
                 OBJS_Remove( cur );
-                p_objs[type] = NUL;
+                p_objs[type] = NULL;
                 OBJS_Equip( type );
                 if ( plr.sweapon == type ) {
                     OBJS_GetNext();

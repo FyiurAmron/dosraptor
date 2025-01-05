@@ -9,7 +9,6 @@ typedef enum { FALSE, TRUE } BOOL;
 #define TSMCALL
 #define SPECIAL
 #define MACRO
-#define NUL         (void*) 0
 #define EMPTY       ~0
 #define ASIZE( a )  ( sizeof( a ) / sizeof( ( a )[0] ) )
 #define FMUL32( a ) ( ( a ) << 5 )

@@ -27,11 +27,11 @@ void SHOTS_Clear( void ) {
 
     shotnum = 0;
 
-    first_shots.prev = NUL;
+    first_shots.prev = NULL;
     first_shots.next = &last_shots;
 
     last_shots.prev = &first_shots;
-    last_shots.next = NUL;
+    last_shots.next = NULL;
 
     free_shots = shots;
 
@@ -49,7 +49,7 @@ PRIVATE SHOTS* SHOTS_Get( void ) {
     SHOTS* pNew;
 
     if ( !free_shots ) {
-        return NUL;
+        return NULL;
     }
 
     shotnum++;
@@ -563,7 +563,7 @@ BOOL SHOTS_PlayerShoot(
     lib->cur_shoot = lib->shoot_rate;
 
     cur = SHOTS_Get();
-    if ( cur == NUL ) {
+    if ( cur == NULL ) {
         return FALSE;
     }
 
@@ -592,7 +592,7 @@ BOOL SHOTS_PlayerShoot(
             ANIMS_StartAnim( A_PLAYER_SHOOT, o_gun1[playerpic], 0 );
 
             cur = SHOTS_Get();
-            if ( cur == NUL ) {
+            if ( cur == NULL ) {
                 return FALSE;
             }
 
@@ -647,7 +647,7 @@ BOOL SHOTS_PlayerShoot(
             cur->starty = player_cy;
 
             cur = SHOTS_Get();
-            if ( cur == NUL ) {
+            if ( cur == NULL ) {
                 return FALSE;
             }
 
@@ -682,7 +682,7 @@ BOOL SHOTS_PlayerShoot(
             InitMobj( &cur->move );
 
             cur = SHOTS_Get();
-            if ( cur == NUL ) {
+            if ( cur == NULL ) {
                 return FALSE;
             }
 
@@ -702,7 +702,7 @@ BOOL SHOTS_PlayerShoot(
 
         case S_MINI_GUN:
             enemy = ENEMY_GetRandom();
-            if ( enemy == NUL ) {
+            if ( enemy == NULL ) {
                 SHOTS_Remove( cur );
                 break;
             }
@@ -726,7 +726,7 @@ BOOL SHOTS_PlayerShoot(
 
         case S_TURRET:
             enemy = ENEMY_GetRandomAir();
-            if ( enemy == NUL ) {
+            if ( enemy == NULL ) {
                 SHOTS_Remove( cur );
                 SND_Patch( FX_NOSHOOT, 127 );
                 break;
@@ -765,7 +765,7 @@ BOOL SHOTS_PlayerShoot(
             ANIMS_StartAnim( A_PLAYER_SHOOT, o_gun2[playerpic], 1 );
 
             cur = SHOTS_Get();
-            if ( cur == NUL ) {
+            if ( cur == NULL ) {
                 return FALSE;
             }
 
@@ -798,7 +798,7 @@ BOOL SHOTS_PlayerShoot(
             cur->starty = player_cy;
 
             cur = SHOTS_Get();
-            if ( cur == NUL ) {
+            if ( cur == NULL ) {
                 return FALSE;
             }
 
@@ -830,7 +830,7 @@ BOOL SHOTS_PlayerShoot(
             cur->starty = player_cy;
 
             cur = SHOTS_Get();
-            if ( cur == NUL ) {
+            if ( cur == NULL ) {
                 return FALSE;
             }
 
@@ -923,7 +923,7 @@ BOOL SHOTS_PlayerShoot(
             cur->starty = player_cy;
 
             cur = SHOTS_Get();
-            if ( cur == NUL ) {
+            if ( cur == NULL ) {
                 return FALSE;
             }
 

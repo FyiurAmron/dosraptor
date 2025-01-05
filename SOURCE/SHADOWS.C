@@ -60,7 +60,7 @@ void SHADOW_Draw(
     lx = G3D_screenx - ox + 1;
     ly = G3D_screeny - oy + 1;
 
-    if ( !GFX_ClipLines( NUL, &ox, &oy, &lx, &ly ) ) {
+    if ( !GFX_ClipLines( NULL, &ox, &oy, &lx, &ly ) ) {
         return;
     }
 
@@ -103,7 +103,7 @@ void SHADOW_Draw(
         if ( drawflag ) {
             ly = 1;
 
-            if ( GFX_ClipLines( NUL, &sx, &sy, &lx, &ly ) ) {
+            if ( GFX_ClipLines( NULL, &sx, &sy, &lx, &ly ) ) {
                 GFX_Shade( displaybuffer + sx + ylookup[sy], lx, sdtable );
             }
 

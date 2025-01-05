@@ -99,7 +99,7 @@ void GFX_SetDebug(
  *************************************************************************/
 INT // RETURN: 0 = Off, 1 == No Clip , 2 == Cliped
 GFX_ClipLines(
-    BYTE** image, // INOUT : pointer to image or NUL
+    BYTE** image, // INOUT : pointer to image or NULL
     INT* x, // INOUT : pointer to x pos
     INT* y, // INOUT : pointer to y pos
     INT* lx, // INOUT : pointer to width
@@ -712,7 +712,7 @@ void GFX_ShadeShape(
 
     inmem += sizeof( GFX_PIC );
 
-    rval = GFX_ClipLines( NUL, &ox, &oy, &lx, &ly );
+    rval = GFX_ClipLines( NULL, &ox, &oy, &lx, &ly );
     if ( !rval ) {
         return;
     }
@@ -757,7 +757,7 @@ void GFX_ShadeShape(
                 lx = ah->length;
                 ly = 1;
 
-                if ( GFX_ClipLines( NUL, &ox, &oy, &lx, &ly ) ) {
+                if ( GFX_ClipLines( NULL, &ox, &oy, &lx, &ly ) ) {
                     GFX_Shade( displaybuffer + ox + ylookup[oy], lx, cur_table );
                 }
 
@@ -1398,7 +1398,7 @@ void GFX_PutSprite(
     INT lx = h->width;
     INT ly = h->height;
 
-    rval = GFX_ClipLines( NUL, &ox, &oy, &lx, &ly );
+    rval = GFX_ClipLines( NULL, &ox, &oy, &lx, &ly );
     if ( !rval ) {
         return;
     }

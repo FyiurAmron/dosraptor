@@ -180,7 +180,7 @@ DEMO_LoadFile()
 void DEMO_LoadFile( void ) {
     INT filesize;
 
-    filesize = GLB_ReadFile( demo_name, NUL );
+    filesize = GLB_ReadFile( demo_name, NULL );
     GLB_ReadFile( demo_name, playback );
 
     cur_play = 1;

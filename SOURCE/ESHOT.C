@@ -64,11 +64,11 @@ void ESHOT_Clear( void ) {
 
     eshotnum = 0;
 
-    first_eshot.prev = NUL;
+    first_eshot.prev = NULL;
     first_eshot.next = &last_eshot;
 
     last_eshot.prev = &first_eshot;
-    last_eshot.next = NUL;
+    last_eshot.next = NULL;
 
     free_eshot = eshots;
 
@@ -86,7 +86,7 @@ PRIVATE ESHOT* ESHOT_Get( void ) {
     ESHOT* pNew;
 
     if ( !free_eshot ) {
-        return NUL;
+        return NULL;
     }
 
     eshotnum++;

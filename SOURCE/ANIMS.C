@@ -52,11 +52,11 @@ ANIMS_Clear () - Clears out All ANIM Objects
 void ANIMS_Clear( void ) {
     INT loop;
 
-    first_anims.prev = NUL;
+    first_anims.prev = NULL;
     first_anims.next = &last_anims;
 
     last_anims.prev = &first_anims;
-    last_anims.next = NUL;
+    last_anims.next = NULL;
 
     free_anims = anims;
 
@@ -74,7 +74,7 @@ PRIVATE ANIMS* ANIMS_Get( void ) {
     ANIMS* pNew;
 
     if ( !free_anims ) {
-        return NUL;
+        return NULL;
     }
 
     pNew = free_anims;
