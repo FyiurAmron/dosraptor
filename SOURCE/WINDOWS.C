@@ -557,7 +557,7 @@ VOID WIN_AskExit( VOID ) {
 
             case 0:
                 SND_Patch( FX_MON3, 127 );
-                while ( SND_IsPatchPlaying( FX_MON2 ) )
+                while ( SND_IsPatchPlaying( FX_MON3 ) )
                     ;
                 break;
 
