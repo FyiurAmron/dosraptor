@@ -16,6 +16,7 @@
 #include <string.h>
 
 #include "../gfx/prefapi.h"
+#include "ansi_esc.h"
 #include "raptor.h"
 
 #include "file0000.inc"
@@ -167,47 +168,6 @@ void RAP_PrintVmem( CHAR* desc ) {
         "\n%s\nVM CORE INFO\nLargest Block: %7d\nAmount Locked: %7d\n    Discarded: %7d\n  Amount Free: %7d\n  Amount "
         "Used: %7d\n        Total: %7d\n",
         desc, largest, totallocked, discarded, totalfree, totalused, totalused + totalfree );
-}
-
-/*==========================================================================
-InitScreen (
- ==========================================================================*/
-void InitScreen( void ) {
-    union REGS regs;
-    BYTE* scradr = (BYTE*) 0xB8000;
-    INT loop;
-    BYTE color;
-    INT port = 0x3c8;
-    CHAR* msg = " vaxRaptor v1.3";
-
-    regs.w.ax = 0x3;
-    int386( 0x10, &regs, &regs );
-
-    regs.w.ax = 0x200;
-    regs.h.bh = 0;
-    regs.h.dl = 0;
-    regs.h.dh = 0;
-    int386( 0x10, &regs, &regs );
-
-    color = 0;
-    color = ( 1 << 4 ) + 14;
-
-    outp( port, 1 );
-    port++;
-    outp( port, 1 );
-    outp( port, 5 );
-    outp( port, 16 );
-
-    for ( loop = 0; loop < 160; loop++ ) {
-        if ( loop & 1 ) {
-            *( scradr + loop ) = color;
-        } else {
-            *( scradr + loop ) = *msg;
-            msg++;
-        }
-    }
-
-    printf( "\n" );
 }
 
 /*==========================================================================
@@ -1240,8 +1200,8 @@ void main( INT argc, CHAR* argv[] ) {
     BOOL ptrflag = FALSE;
     void* tptr;
 
-    InitScreen();
-
+    printf( ANSI_ESCAPE ANSI_BKGD ANSI_BLUE ";" ANSI_BOLD ";" ANSI_FONT ANSI_YELLOW ANSI_END );
+    printf( "================================ vaxRaptor v1.3 ===============================" ANSI_RESET "\n" );
     printf( "argc == %d\n", argc );
 
     if ( strcmpi( argv[1], "joycal" ) == 0 ) {
