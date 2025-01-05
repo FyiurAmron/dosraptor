@@ -2,6 +2,7 @@
 #define OBJECTS_H
 
 #include "../gfx/types.h"
+#include "fx.h"
 
 #define MAX_OBJS 20
 

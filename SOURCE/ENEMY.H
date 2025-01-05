@@ -2,6 +2,7 @@
 #define ENEMY_H
 
 #include "../gfx/types.h"
+#include "map.h"
 
 typedef enum { E_FORWARD, E_BACKWARD } EDIR;
 
