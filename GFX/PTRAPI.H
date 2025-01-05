@@ -55,61 +55,61 @@ extern BOOL ptr_init_flag;
 /*========================================================================
   PTR_UpdateCursor() - Updates Mouse Cursor - should be called by intterupt
   ========================================================================*/
-SPECIAL INT PTR_UpdateCursor( VOID );
+SPECIAL INT PTR_UpdateCursor( void );
 
 /*==========================================================================
   PTR_FrameHook() - Mouse framehook Function
  ==========================================================================*/
-SPECIAL VOID PTR_FrameHook( VOID ( *update )( VOID ) // INPUT : pointer to function
+SPECIAL void PTR_FrameHook( void ( *update )( void ) // INPUT : pointer to function
 );
 
 /*************************************************************************
 PTR_JoyReset() -
  *************************************************************************/
-VOID PTR_JoyReset( VOID );
+void PTR_JoyReset( void );
 
 /*************************************************************************
   PTR_JoyHandler () - Handles Joystick Input
  *************************************************************************/
-VOID PTR_JoyHandler( VOID );
+void PTR_JoyHandler( void );
 
 /***************************************************************************
    PTR_SetPic () - Sets up a new cursor picture with hotspot
  ***************************************************************************/
-VOID PTR_SetPic(
+void PTR_SetPic(
     BYTE* newp // INPUT : pointer to new Cursor picture
 );
 
 /***************************************************************************
  PTR_SetBoundsHook() - Sets User function to OK or change mouse x,y values
  ***************************************************************************/
-VOID // RETURN: none
-    PTR_SetBoundsHook( VOID ( *func )( VOID ) // INPUT : pointer to function
+void // RETURN: none
+    PTR_SetBoundsHook( void ( *func )( void ) // INPUT : pointer to function
     );
 
 /***************************************************************************
  PTR_SetCursorHook() - Sets User function to call from mouse handler
  ***************************************************************************/
-VOID // RETURN: none
-    PTR_SetCursorHook( VOID ( *hook )( VOID ) // INPUT : pointer to function
+void // RETURN: none
+    PTR_SetCursorHook( void ( *hook )( void ) // INPUT : pointer to function
     );
 
 /***************************************************************************
    PTR_SetUpdateFlag () - Sets cursor to be update next cycle
  ***************************************************************************/
-VOID PTR_SetUpdateFlag( VOID );
+void PTR_SetUpdateFlag( void );
 
 /***************************************************************************
    PTR_DrawCursor () - Turns Cursor Drawing to ON/OFF ( TRUE/FALSE )
  ***************************************************************************/
-VOID PTR_DrawCursor(
+void PTR_DrawCursor(
     BOOL flag // INPUT: TRUE/FALSE
 );
 
 /***************************************************************************
  PTR_SetPos() - Sets Cursor Position
  ***************************************************************************/
-VOID // RETURN: none
+void // RETURN: none
 PTR_SetPos(
     INT x, // INPUT : x position
     INT y // INPUT : y position
@@ -118,7 +118,7 @@ PTR_SetPos(
 /***************************************************************************
 PTR_Pause() - Pauses/ Starts PTR routines after already initing
  ***************************************************************************/
-VOID PTR_Pause(
+void PTR_Pause(
     BOOL flag // INPUT : TRUE / FALSE
 );
 
@@ -133,42 +133,42 @@ PTR_Init(
 /***************************************************************************
  PTR_End() - End Cursor system
  ***************************************************************************/
-VOID PTR_End( VOID );
+void PTR_End( void );
 
 /*==========================================================================
 ; PTR_Save() - Saves screen before a cursor draw
  ==========================================================================*/
 #pragma aux PTR_Save "_*";
-VOID PTR_Save( VOID );
+void PTR_Save( void );
 
 /*==========================================================================
 ; PTR_ClipSave() - Saves screen before a cursor draw
  ==========================================================================*/
 #pragma aux PTR_ClipSave "_*";
-VOID PTR_ClipSave( VOID );
+void PTR_ClipSave( void );
 
 /*==========================================================================
 ; PTR_Erase() - Erases cursor and clips edges of screen
  ==========================================================================*/
 #pragma aux PTR_Erase "_*";
-VOID PTR_Erase( VOID );
+void PTR_Erase( void );
 
 /*==========================================================================
 ; PTR_ClipErase() - Erases cursor and clips edges of screen
  ==========================================================================*/
 #pragma aux PTR_ClipErase "_*";
-VOID PTR_ClipErase( VOID );
+void PTR_ClipErase( void );
 
 /*==========================================================================
 ; PTR_Draw() - Draws Cursor
  ==========================================================================*/
 #pragma aux PTR_Draw "_*";
-VOID PTR_Draw( VOID );
+void PTR_Draw( void );
 
 /*==========================================================================
 ;PTR_ReadJoyStick() - Reads JoyStick Values
  ==========================================================================*/
 #pragma aux PTR_ReadJoyStick "_*";
-VOID PTR_ReadJoyStick( VOID );
+void PTR_ReadJoyStick( void );
 
 #endif

@@ -78,8 +78,8 @@ PRIVATE BOOL mouseonhold = FALSE;
 PRIVATE BOOL mouseaction = TRUE;
 PRIVATE BOOL mouse_erase = FALSE;
 PRIVATE BOOL not_in_update = TRUE;
-PRIVATE VOID ( *cursorhook )( VOID ) = (VOID( * )) 0;
-PRIVATE VOID ( *checkbounds )( VOID ) = (VOID( * )) 0;
+PRIVATE void ( *cursorhook )( void ) = (void( * )) 0;
+PRIVATE void ( *checkbounds )( void ) = (void( * )) 0;
 
 PUBLIC BOOL drawcursor = FALSE;
 PRIVATE BOOL g_paused = FALSE;
@@ -102,7 +102,7 @@ PRIVATE INT g_addy = 0;
 /*------------------------------------------------------------------------
 PTR_IsJoyPresent() - Checks to see if joystick is present
   ------------------------------------------------------------------------*/
-BOOL PTR_IsJoyPresent( VOID ) {
+BOOL PTR_IsJoyPresent( void ) {
     INT loop;
     INT rval = TRUE;
 
@@ -126,7 +126,7 @@ BOOL PTR_IsJoyPresent( VOID ) {
 /*------------------------------------------------------------------------
    PTR_MouseHandler() - Mouse Handler Function
   ------------------------------------------------------------------------*/
-VOID _loadds far PTR_MouseHandler( INT m_bx, INT m_cx, INT m_dx ) {
+void _loadds far PTR_MouseHandler( INT m_bx, INT m_cx, INT m_dx ) {
 #pragma aux PTR_MouseHandler parm[EBX][ECX][EDX]
 
     if ( not_in_update ) {
@@ -149,7 +149,7 @@ VOID _loadds far PTR_MouseHandler( INT m_bx, INT m_cx, INT m_dx ) {
     }
 }
 
-VOID PTR_JoyReset( VOID ) {
+void PTR_JoyReset( void ) {
     if ( joyactive ) {
         g_addx = 0;
         g_addy = 0;
@@ -159,7 +159,7 @@ VOID PTR_JoyReset( VOID ) {
 /*------------------------------------------------------------------------
   PTR_JoyHandler () - Handles Joystick Input
   ------------------------------------------------------------------------*/
-TSMCALL VOID PTR_JoyHandler( VOID ) {
+TSMCALL void PTR_JoyHandler( void ) {
     INT xm;
     INT ym;
 
@@ -257,7 +257,7 @@ TSMCALL VOID PTR_JoyHandler( VOID ) {
 /*------------------------------------------------------------------------
    PTR_ClipCursor () Clips cursor from screen
   ------------------------------------------------------------------------*/
-PRIVATE VOID PTR_ClipCursor( VOID ) {
+PRIVATE void PTR_ClipCursor( void ) {
     lastclip = FALSE;
 
     displaypic = cursorpic;
@@ -294,7 +294,7 @@ PRIVATE VOID PTR_ClipCursor( VOID ) {
 /*========================================================================
   PTR_UpdateCursor() - Updates Mouse Cursor - should be called by intterupt
   ========================================================================*/
-TSMCALL INT PTR_UpdateCursor( VOID ) {
+TSMCALL INT PTR_UpdateCursor( void ) {
     if ( mouseonhold ) {
         return ( 0 );
     }
@@ -353,7 +353,7 @@ TSMCALL INT PTR_UpdateCursor( VOID ) {
 /*==========================================================================
   PTR_FrameHook() - Mouse framehook Function
  ==========================================================================*/
-SPECIAL VOID PTR_FrameHook( VOID ( *update )( VOID ) // INPUT : pointer to function
+SPECIAL void PTR_FrameHook( void ( *update )( void ) // INPUT : pointer to function
 ) {
     INT ck_x1;
     INT ck_y1;
@@ -462,7 +462,7 @@ SPECIAL VOID PTR_FrameHook( VOID ( *update )( VOID ) // INPUT : pointer to funct
 /***************************************************************************
 PTR_CalJoy() - Calibrate Joystick
  ***************************************************************************/
-VOID PTR_CalJoy( VOID ) {
+void PTR_CalJoy( void ) {
     _disable();
     PTR_ReadJoyStick();
     _enable();
@@ -474,7 +474,7 @@ VOID PTR_CalJoy( VOID ) {
 /***************************************************************************
    PTR_DrawCursor () - Turns Cursor Drawing to ON/OFF ( TRUE/FALSE )
  ***************************************************************************/
-VOID PTR_DrawCursor(
+void PTR_DrawCursor(
     BOOL flag // INPUT: TRUE/FALSE
 ) {
     if ( ptr_init_flag ) {
@@ -500,7 +500,7 @@ VOID PTR_DrawCursor(
 /***************************************************************************
    PTR_SetPic () - Sets up a new cursor picture with hotspot
  ***************************************************************************/
-VOID PTR_SetPic(
+void PTR_SetPic(
     BYTE* newp // INPUT : pointer to new Cursor picture
 ) {
     BYTE* pic;
@@ -540,8 +540,8 @@ VOID PTR_SetPic(
 /***************************************************************************
  PTR_SetBoundsHook() - Sets User function to OK or change mouse x,y values
  ***************************************************************************/
-VOID // RETURN: none
-PTR_SetBoundsHook( VOID ( *func )( VOID ) // INPUT : pointer to function
+void // RETURN: none
+PTR_SetBoundsHook( void ( *func )( void ) // INPUT : pointer to function
 ) {
     checkbounds = func;
     mouseaction = TRUE;
@@ -550,8 +550,8 @@ PTR_SetBoundsHook( VOID ( *func )( VOID ) // INPUT : pointer to function
 /***************************************************************************
  PTR_SetCursorHook() - Sets User function to call from mouse handler
  ***************************************************************************/
-VOID // RETURN: none
-PTR_SetCursorHook( VOID ( *hook )( VOID ) // INPUT : pointer to function
+void // RETURN: none
+PTR_SetCursorHook( void ( *hook )( void ) // INPUT : pointer to function
 ) {
     cursorhook = hook;
     mouseaction = TRUE;
@@ -560,14 +560,14 @@ PTR_SetCursorHook( VOID ( *hook )( VOID ) // INPUT : pointer to function
 /***************************************************************************
    PTR_SetUpdateFlag () - Sets cursor to be update next cycle
  ***************************************************************************/
-VOID PTR_SetUpdateFlag( VOID ) {
+void PTR_SetUpdateFlag( void ) {
     mouseaction = TRUE;
 }
 
 /***************************************************************************
  PTR_SetPos() - Sets Cursor Position
  ***************************************************************************/
-VOID // RETURN: none
+void // RETURN: none
 PTR_SetPos(
     INT x, // INPUT : x position
     INT y // INPUT : y position
@@ -593,7 +593,7 @@ PTR_SetPos(
 /***************************************************************************
 PTR_Pause() - Pauses/ Starts PTR routines after already initing
  ***************************************************************************/
-VOID PTR_Pause(
+void PTR_Pause(
     BOOL flag // INPUT : TRUE / FALSE
 ) {
     if ( ptr_init_flag == FALSE ) {
@@ -706,7 +706,7 @@ PTR_Init(
 /***************************************************************************
  PTR_End() - End Cursor system
  ***************************************************************************/
-VOID PTR_End( VOID ) {
+void PTR_End( void ) {
     union REGS regs;
 
     if ( tsm_id != EMPTY ) {

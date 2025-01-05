@@ -7,27 +7,27 @@
 /***************************************************************************
 RAP_SetPlayerDiff () - Set Player Difficulty
  ***************************************************************************/
-VOID RAP_SetPlayerDiff( VOID );
+void RAP_SetPlayerDiff( void );
 
 /***************************************************************************
 RAP_ClearPlayer () - Clear Player stuff
  ***************************************************************************/
-VOID RAP_ClearPlayer( VOID );
+void RAP_ClearPlayer( void );
 
 /***************************************************************************
 RAP_IsPlayer () - Returns TRUE if a player is defined
  ***************************************************************************/
-BOOL RAP_IsPlayer( VOID );
+BOOL RAP_IsPlayer( void );
 
 /***************************************************************************
 RAP_AreSavedFiles() - Returns TRUE if thier are previously saved game files
  ***************************************************************************/
-BOOL RAP_AreSavedFiles( VOID );
+BOOL RAP_AreSavedFiles( void );
 
 /***************************************************************************
 RAP_FFSaveFile() - Finds a filename to use
  ***************************************************************************/
-BOOL RAP_FFSaveFile( VOID );
+BOOL RAP_FFSaveFile( void );
 
 /***************************************************************************
 RAP_IsSaveFile() - Returns True if thier is a sopt to save a character
@@ -37,36 +37,36 @@ BOOL RAP_IsSaveFile( PLAYEROBJ* in_plr );
 /***************************************************************************
 RAP_LoadPlayer () - Loads player from disk
  ***************************************************************************/
-BOOL RAP_LoadPlayer( VOID );
+BOOL RAP_LoadPlayer( void );
 
 /***************************************************************************
 RAP_SavePlayer() - Saves player data to filename
  ***************************************************************************/
-BOOL RAP_SavePlayer( VOID );
+BOOL RAP_SavePlayer( void );
 
 /***************************************************************************
  RAP_LoadMap () - Loads A level Map
  ***************************************************************************/
-VOID RAP_LoadMap( VOID );
+void RAP_LoadMap( void );
 
 /***************************************************************************
 RAP_FreeMap() - Frees up cached map stuff
  ***************************************************************************/
-VOID RAP_FreeMap( VOID );
+void RAP_FreeMap( void );
 
 /***************************************************************************
 RAP_LoadWin() -
  ***************************************************************************/
-INT RAP_LoadWin( VOID );
+INT RAP_LoadWin( void );
 
 /***************************************************************************
 RAP_InitLoadSave() - Inits the load and save path stuff
  ***************************************************************************/
-CHAR* RAP_InitLoadSave( VOID );
+CHAR* RAP_InitLoadSave( void );
 
 /***************************************************************************
 RAP_SetupFilename() - Gets current setup.ini path and name
  ***************************************************************************/
-CHAR* RAP_SetupFilename( VOID );
+CHAR* RAP_SetupFilename( void );
 
 #endif

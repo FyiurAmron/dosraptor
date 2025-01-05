@@ -53,27 +53,27 @@ typedef enum { C_KEY, C_MOUSE, C_JOYSTICK, C_LAST } CONTROL;
 /***************************************************************************
 SND_Setup() - Inits SND System  called after SND_InitSound() and GLB_Init
  ***************************************************************************/
-VOID SND_Setup( VOID );
+void SND_Setup( void );
 
 /***************************************************************************
 SND_CacheFX () _ Caches FX's
  ***************************************************************************/
-VOID SND_CacheFX( VOID );
+void SND_CacheFX( void );
 
 /***************************************************************************
 SND_CacheGFX () _ Caches in Game FX's
  ***************************************************************************/
-VOID SND_CacheGFX( VOID );
+void SND_CacheGFX( void );
 
 /***************************************************************************
 SND_CacheIFX () _ Caches intro and menu FX
  ***************************************************************************/
-VOID SND_CacheIFX( VOID );
+void SND_CacheIFX( void );
 
 /***************************************************************************
 SND_FreeFX () - Frees up Fx's
  ***************************************************************************/
-VOID SND_FreeFX( VOID );
+void SND_FreeFX( void );
 
 /***************************************************************************
 SND_IsPatchPlaying() - Returns TRUE if patch is playing
@@ -85,19 +85,19 @@ BOOL SND_IsPatchPlaying(
 /***************************************************************************
 SND_StopPatches () - STops all currently playing patches
  ***************************************************************************/
-VOID SND_StopPatches( VOID );
+void SND_StopPatches( void );
 
 /***************************************************************************
 SND_StopPatch () - STops Type patche
  ***************************************************************************/
-VOID SND_StopPatch(
+void SND_StopPatch(
     DEFX type // INPUT : DFX type patch to play
 );
 
 /***************************************************************************
 SND_Patch () - Test patch to see if it will be played by SND_Play
  ***************************************************************************/
-VOID SND_Patch(
+void SND_Patch(
     DEFX type, // INPUT : DFX type patch to play
     INT xpos // INPUT : 127=center
 );
@@ -105,7 +105,7 @@ VOID SND_Patch(
 /***************************************************************************
 SND_3DPatch () - playes a patch in 3d for player during game play
  ***************************************************************************/
-VOID SND_3DPatch(
+void SND_3DPatch(
     DEFX type, // INPUT : DFX type patch to play
     INT x, // INPUT : x sprite center
     INT y // INPUT : y sprite center
@@ -114,7 +114,7 @@ VOID SND_3DPatch(
 /***************************************************************************
 SND_PlaySong() - Plays song associated with song id
  ***************************************************************************/
-VOID SND_PlaySong(
+void SND_PlaySong(
     DWORD item, // INPUT : Song GLB item
     BOOL chainflag, // INPUT : Chain Song to ItSelf
     BOOL fadeflag // INPUT : Fade Song Out
@@ -123,17 +123,17 @@ VOID SND_PlaySong(
 /***************************************************************************
 SND_IsSongPlaying () - Is current song playing
  ***************************************************************************/
-BOOL SND_IsSongPlaying( VOID );
+BOOL SND_IsSongPlaying( void );
 
 /***************************************************************************
 SND_FadeOutSong () - Fades current song out and stops playing music
  ***************************************************************************/
-VOID SND_FadeOutSong( VOID );
+void SND_FadeOutSong( void );
 
 /***************************************************************************
 SND_InitSound () - Does bout all i can think of for Music/FX initing
  ***************************************************************************/
-VOID SND_InitSound( VOID );
+void SND_InitSound( void );
 
 extern CONTROL control;
 extern INT music_volume;

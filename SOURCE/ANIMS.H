@@ -33,12 +33,12 @@ typedef enum { A_NORM, A_MOVEUP, A_MOVEDOWN } ANIM_DIR;
 /***************************************************************************
 ANIMS_Clear () - Clears out All ANIM Objects
  ***************************************************************************/
-VOID ANIMS_Clear( VOID );
+void ANIMS_Clear( void );
 
 /***************************************************************************
 ANIMS_Init () Initializes ANIM STuff
  ***************************************************************************/
-VOID ANIMS_Init( VOID );
+void ANIMS_Init( void );
 
 /***************************************************************************
 ANIMS_Register () - Register a ANIM for USE with this stuff
@@ -55,17 +55,17 @@ INT ANIMS_Register(
 /***************************************************************************
 ANIMS_CachePics() - Cache registered anim pics
  ***************************************************************************/
-VOID ANIMS_CachePics( VOID );
+void ANIMS_CachePics( void );
 
 /***************************************************************************
 ANIMS_FreePics() - Free Up Anims Used
  ***************************************************************************/
-VOID ANIMS_FreePics( VOID );
+void ANIMS_FreePics( void );
 
 /***************************************************************************
 ANIMS_StartAnim () - Start An ANIM Playing
  ***************************************************************************/
-VOID ANIMS_StartAnim(
+void ANIMS_StartAnim(
     INT handle, // INPUT : ANIM handle
     INT x, // INPUT : x position
     INT y // INPUT : y position
@@ -74,7 +74,7 @@ VOID ANIMS_StartAnim(
 /***************************************************************************
 ANIMS_StartGAnim () - Start An ANIM Playing with groundflag == TRUE
  ***************************************************************************/
-VOID ANIMS_StartGAnim(
+void ANIMS_StartGAnim(
     INT handle, // INPUT : ANIM handle
     INT x, // INPUT : x position
     INT y // INPUT : y position
@@ -83,27 +83,27 @@ VOID ANIMS_StartGAnim(
 /***************************************************************************
 ANIMS_Think () - Does all thinking for ANIMS
  ***************************************************************************/
-VOID ANIMS_Think( VOID );
+void ANIMS_Think( void );
 
 /***************************************************************************
 ANIMS_DisplayGround () - Displays All Active ANIMS on the Ground
  ***************************************************************************/
-VOID ANIMS_DisplayGround( VOID );
+void ANIMS_DisplayGround( void );
 
 /***************************************************************************
 ANIMS_DisplaySky () - Displays All Active ANIMS in SKY
  ***************************************************************************/
-VOID ANIMS_DisplaySky( VOID );
+void ANIMS_DisplaySky( void );
 
 /***************************************************************************
 ANIMS_DisplayHigh () - Displays All Active ANIMS in ABOVE PLAYER
  ***************************************************************************/
-VOID ANIMS_DisplayHigh( VOID );
+void ANIMS_DisplayHigh( void );
 
 /***************************************************************************
 ANIMS_StartAAnim () - Start An ANIM Playing with groundflag == GROUND
  ***************************************************************************/
-VOID ANIMS_StartAAnim(
+void ANIMS_StartAAnim(
     INT handle, // INPUT : ANIM handle
     INT x, // INPUT : x position
     INT y // INPUT : y position
@@ -112,7 +112,7 @@ VOID ANIMS_StartAAnim(
 /***************************************************************************
 ANIMS_StartEAnim () - Start An ANIM Playing locked onto ENEMY
  ***************************************************************************/
-VOID ANIMS_StartEAnim(
+void ANIMS_StartEAnim(
     SPRITE_SHIP* en, // INPUT : pointer to ENEMY
     INT handle, // INPUT : ANIM handle
     INT x, // INPUT : x position

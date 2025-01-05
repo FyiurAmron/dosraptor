@@ -21,7 +21,7 @@ PRIVATE BYTE sdtablemem[516];
 /***************************************************************************
 SHADOW_Draw () - Draws AIR shadows in 3D perspective
  ***************************************************************************/
-VOID SHADOW_Draw(
+void SHADOW_Draw(
     BYTE* pic, // INPUT : pointer to sprite data
     INT x, // INPUT : x position of sprite
     INT y // INPUT : y position of sprite
@@ -121,7 +121,7 @@ VOID SHADOW_Draw(
 /***************************************************************************
 SHADOW_Init() - Allocate memory and set 3D view
  ***************************************************************************/
-VOID SHADOW_Init( VOID ) {
+void SHADOW_Init( void ) {
     sdtable = sdtablemem;
     sdtable = (BYTE*) ( (INT) sdtable + 255 & ~0xff );
 
@@ -131,14 +131,14 @@ VOID SHADOW_Init( VOID ) {
 /***************************************************************************
 SHADOW_MakeShades() - Make shade tables
  ***************************************************************************/
-VOID SHADOW_MakeShades( VOID ) {
+void SHADOW_MakeShades( void ) {
     GFX_MakeLightTable( (BYTE*) palette, sdtable, -6 );
 }
 
 /***************************************************************************
 SHADOW_Add() - Add a Air ship shadow
  ***************************************************************************/
-VOID SHADOW_Add(
+void SHADOW_Add(
     DWORD item, // INPUT : GLB item
     INT x, // INPUT : x position
     INT y // INPUT : y position
@@ -159,7 +159,7 @@ VOID SHADOW_Add(
 /***************************************************************************
 SHADOW_GAdd() - Adds Ground shadow
  ***************************************************************************/
-VOID SHADOW_GAdd(
+void SHADOW_GAdd(
     DWORD item, // INPUT : GLB item
     INT x, // INPUT : x position
     INT y // INPUT : y position
@@ -180,7 +180,7 @@ VOID SHADOW_GAdd(
 /***************************************************************************
 SHADOW_DisplaySky () - Display Sky Shadows
  ***************************************************************************/
-VOID SHADOW_DisplaySky( VOID ) {
+void SHADOW_DisplaySky( void ) {
     SHADOW* cur = shads;
     BYTE* pic;
 
@@ -200,7 +200,7 @@ VOID SHADOW_DisplaySky( VOID ) {
 /***************************************************************************
 SHADOW_DisplayGround() - Display Ground Shadows
  ***************************************************************************/
-VOID SHADOW_DisplayGround( VOID ) {
+void SHADOW_DisplayGround( void ) {
     SHADOW* cur = gshads;
     BYTE* pic;
 

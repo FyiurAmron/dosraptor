@@ -27,13 +27,13 @@
 /***************************************************************************
    KBD_Clear() - Resets all flags
  ***************************************************************************/
-VOID KBD_Clear( VOID );
+void KBD_Clear( void );
 
 /***************************************************************************
  KBD_SetKeyboardHook() - Sets User function to call from keyboard handler
  ***************************************************************************/
-VOID // RETURN: none
-    KBD_SetKeyboardHook( VOID ( *hook )( VOID ) // INPUT : pointer to function
+void // RETURN: none
+    KBD_SetKeyboardHook( void ( *hook )( void ) // INPUT : pointer to function
     );
 
 /***************************************************************************
@@ -47,7 +47,7 @@ KBD_Ascii2Scan(
 /***************************************************************************
 KBD_Wait() - Waits for Key to be released
  ***************************************************************************/
-VOID KBD_Wait(
+void KBD_Wait(
     INT scancode // SCANCODE see keys.h
 );
 
@@ -61,17 +61,17 @@ BOOL KBD_IsKey(
 /***************************************************************************
    KBD_Install() - Sets up keyboard system
  ***************************************************************************/
-void KBD_Install( VOID );
+void KBD_Install( void );
 
 /***************************************************************************
    KBD_End() - Shuts down KBD system
  ***************************************************************************/
-VOID KBD_End( VOID );
+void KBD_End( void );
 
 /***************************************************************************
    KBD_Key() - returns true/false for scancode
  ***************************************************************************/
-MACRO VOID KBD_Key(
+MACRO void KBD_Key(
     INT scancode // INPUT : scan code to read
 );
 

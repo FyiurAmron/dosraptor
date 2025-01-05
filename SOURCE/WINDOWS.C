@@ -93,7 +93,7 @@ PRIVATE INT hangto = HANGTOSTORE;
 /***************************************************************************
 WIN_WinGame () - Window text for winners of a game
  ***************************************************************************/
-VOID WIN_WinGame(
+void WIN_WinGame(
     INT game // INPUT : game number 0,1,2
 ) {
     DWORD dtext[4] = { END1_TXT, END2_TXT, END3_TXT, END0_TXT };
@@ -120,7 +120,7 @@ VOID WIN_WinGame(
 /***************************************************************************
 WIN_Msg () - Display a Message for ten secs or until user Acks somting
  ***************************************************************************/
-VOID WIN_Msg(
+void WIN_Msg(
     CHAR* msg // INPUT : pointer to message to ask
 ) {
     INT window;
@@ -143,7 +143,7 @@ VOID WIN_Msg(
 /***************************************************************************
 WIN_OptDraw() -
  ***************************************************************************/
-PRIVATE VOID WIN_OptDraw( SWD_DLG* dlg ) {
+PRIVATE void WIN_OptDraw( SWD_DLG* dlg ) {
     INT x;
     INT y;
     INT lx;
@@ -163,7 +163,7 @@ PRIVATE VOID WIN_OptDraw( SWD_DLG* dlg ) {
 /***************************************************************************
 WIN_Opts() - Sets Game Options
  ***************************************************************************/
-VOID WIN_Opts( VOID ) {
+void WIN_Opts( void ) {
     INT fpics[3] = { OPTS_PIC1, OPTS_PIC2, OPTS_PIC3 };
     CHAR detail[2][16] = { "LOW DETAIL", "HIGH DETAIL" };
     SWD_DLG dlg;
@@ -381,7 +381,7 @@ exit_opts:
 /***************************************************************************
 WIN_Pause () - Display a Pause Message Wait until user does somthing
  ***************************************************************************/
-VOID WIN_Pause( VOID ) {
+void WIN_Pause( void ) {
     INT window;
 
     window = SWD_InitWindow( MSG_SWD );
@@ -408,7 +408,7 @@ VOID WIN_Pause( VOID ) {
 /***************************************************************************
 WIN_Order () - Display a Pause Message Wait until user does somthing
  ***************************************************************************/
-VOID WIN_Order( VOID ) {
+void WIN_Order( void ) {
     INT window;
     BOOL dchold = drawcursor;
 
@@ -440,7 +440,7 @@ VOID WIN_Order( VOID ) {
 /***************************************************************************
 WIN_Credits () -
  ***************************************************************************/
-BOOL WIN_Credits( VOID ) {
+BOOL WIN_Credits( void ) {
     static INT cnt = 1;
     DWORD csng[3] = { BOSS2_MUS, BOSS3_MUS, BOSS4_MUS };
     INT window;
@@ -544,7 +544,7 @@ mainloop:
 /***************************************************************************
 WIN_AskExit () - Opens Windows and Askes if USer wants 2 quit
  ***************************************************************************/
-VOID WIN_AskExit( VOID ) {
+void WIN_AskExit( void ) {
     extern INT quick_mode;
 
     if ( quick_mode ) {
@@ -610,7 +610,7 @@ VOID WIN_AskExit( VOID ) {
 /***************************************************************************
  ***************************************************************************/
 INT // RETURN -1=ABORT 0=EASY, 1=MED, 2=HARD
-WIN_AskDiff( VOID ) {
+WIN_AskDiff( void ) {
     INT rval = EMPTY;
     SWD_DLG dlg;
     INT ask_window;
@@ -680,7 +680,7 @@ askdiff_exit:
 /***************************************************************************
 WIN_Register () - Register Window
  ***************************************************************************/
-BOOL WIN_Register( VOID ) {
+BOOL WIN_Register( void ) {
     extern BOOL reg_flag;
     PLAYEROBJ tp;
     SWD_DLG dlg;
@@ -940,7 +940,7 @@ reg_exit:
 /***************************************************************************
 WIN_Hangar() - Does the hanger dude
  ***************************************************************************/
-INT WIN_Hangar( VOID ) {
+INT WIN_Hangar( void ) {
     INT poslookup[4] = { HANG_MISSION, HANG_SUPPLIES, HANG_MAIN_MENU, HANG_QSAVE };
     CHAR temp[42];
     SWD_DLG dlg;
@@ -1223,7 +1223,7 @@ PRIVATE INT g_ly;
 /***************************************************************************
 WIN_LoadComp() - Shows computer loading screen
  ***************************************************************************/
-VOID WIN_LoadComp( VOID ) {
+void WIN_LoadComp( void ) {
     CHAR sect[3][15] = { "BRAVO SECTOR", "TANGO SECTOR", "OUTER REGIONS" };
     INT window;
     CHAR temp[40];
@@ -1256,7 +1256,7 @@ VOID WIN_LoadComp( VOID ) {
 /***************************************************************************
 WIN_ShipComp () - Does Game Selection 1, 2 or 3
  ***************************************************************************/
-BOOL WIN_ShipComp( VOID ) {
+BOOL WIN_ShipComp( void ) {
     SWD_DLG dlg;
     INT window;
     BOOL rval = TRUE;
@@ -1545,7 +1545,7 @@ abort_shipcomp:
 /***************************************************************************
 WIN_SetLoadLevel()
  ***************************************************************************/
-VOID WIN_SetLoadLevel( INT level ) {
+void WIN_SetLoadLevel( INT level ) {
     DWORD addx;
     DWORD curs;
 
@@ -1559,7 +1559,7 @@ VOID WIN_SetLoadLevel( INT level ) {
 /***************************************************************************
 WIN_EndLoad () - Shows Ship computer while loading level
  ***************************************************************************/
-VOID WIN_EndLoad( VOID ) {
+void WIN_EndLoad( void ) {
     GFX_FadeOut( 0, 0, 0, 16 );
     memset( displaybuffer, 0, 64000 );
     GFX_MarkUpdate( 0, 0, 320, 200 );
@@ -1570,7 +1570,7 @@ VOID WIN_EndLoad( VOID ) {
 /***************************************************************************
 WIN_MainLoop() - Handles Locker/Register/Store/Hangar and starting game
  ***************************************************************************/
-VOID WIN_MainLoop( VOID ) {
+void WIN_MainLoop( void ) {
     extern INT demo_flag;
     INT rval = EMPTY;
     BOOL abort_flag = FALSE;
@@ -1712,7 +1712,7 @@ VOID WIN_MainLoop( VOID ) {
 /***************************************************************************
    WIN_MainAuto()
  ***************************************************************************/
-VOID WIN_MainAuto( INT cur_opt ) {
+void WIN_MainAuto( INT cur_opt ) {
     INT max_opt = 5;
     BOOL end_flag = FALSE;
     BOOL dchold = drawcursor;
@@ -1822,7 +1822,7 @@ PRIVATE BOOL WIN_DemoDelay( BOOL startflag ) {
 /***************************************************************************
 WIN_MainMenu () - Main Menu
  ***************************************************************************/
-VOID WIN_MainMenu( VOID ) {
+void WIN_MainMenu( void ) {
     extern INT demo_flag;
     extern INT tai_flag;
     SWD_DLG dlg;

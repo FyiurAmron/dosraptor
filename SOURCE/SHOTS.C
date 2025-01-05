@@ -22,7 +22,7 @@ PUBLIC INT shothigh = 0;
 /***************************************************************************
 SHOTS_Clear () * Clears out SHOTS Linklist
  ***************************************************************************/
-VOID SHOTS_Clear( VOID ) {
+void SHOTS_Clear( void ) {
     INT loop;
 
     shotnum = 0;
@@ -45,7 +45,7 @@ VOID SHOTS_Clear( VOID ) {
 /*-------------------------------------------------------------------------*
 SHOTS_Get () - gets a Free SHOT OBJECT from linklist
  *-------------------------------------------------------------------------*/
-PRIVATE SHOTS* SHOTS_Get( VOID ) {
+PRIVATE SHOTS* SHOTS_Get( void ) {
     SHOTS* pNew;
 
     if ( !free_shots ) {
@@ -95,7 +95,7 @@ PRIVATE SHOTS* SHOTS_Remove( SHOTS* sh ) {
 /***************************************************************************
 SHOTS_Init () - Inits SHOTS system and clears link list
  ***************************************************************************/
-VOID SHOTS_Init( VOID ) {
+void SHOTS_Init( void ) {
     SHOT_LIB* slib;
     INT i;
     DWORD item;
@@ -962,7 +962,7 @@ BOOL SHOTS_PlayerShoot(
 /***************************************************************************
 SHOTS_Think () - Does All Thinking for shot system
  ***************************************************************************/
-VOID SHOTS_Think( VOID ) {
+void SHOTS_Think( void ) {
     extern SPRITE_SHIP first_enemy;
     extern SPRITE_SHIP last_enemy;
     SHOT_LIB* lib;
@@ -1182,7 +1182,7 @@ VOID SHOTS_Think( VOID ) {
 /***************************************************************************
 SHOTS_Display () - Displays All active Shots
  ***************************************************************************/
-VOID SHOTS_Display( VOID ) {
+void SHOTS_Display( void ) {
     SHOTS* shot;
     INT loop;
     INT x, y;

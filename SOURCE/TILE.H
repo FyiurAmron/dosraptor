@@ -39,7 +39,7 @@ typedef struct TDELAY_S {
 /***************************************************************************
 TILE_Draw () - Draws 32 by 32 TILE Clips on y only
  ***************************************************************************/
-VOID TILE_Put(
+void TILE_Put(
     BYTE* inpic, // INPUT : pointer to GFX_PIC ( norm )
     INT x, // INPUT : x position
     INT y // INPUT : y position
@@ -48,32 +48,32 @@ VOID TILE_Put(
 /***************************************************************************
 TILE_Init () - Sets Up A level for Displaying
  ***************************************************************************/
-VOID TILE_Init( VOID );
+void TILE_Init( void );
 
 /***************************************************************************
 TILE_FreeLevel () - Free tile level
  ***************************************************************************/
-VOID TILE_FreeLevel( VOID );
+void TILE_FreeLevel( void );
 
 /***************************************************************************
 TILE_CacheLevel () - Cache tiles in current level
  ***************************************************************************/
-VOID TILE_CacheLevel( VOID );
+void TILE_CacheLevel( void );
 
 /***************************************************************************
 TILE_DamageAll () - Damages All tiles on screen
  ***************************************************************************/
-VOID TILE_DamageAll( VOID );
+void TILE_DamageAll( void );
 
 /***************************************************************************
 TILE_Think () - Does Position Calculations for tiles
  ***************************************************************************/
-VOID TILE_Think( VOID );
+void TILE_Think( void );
 
 /***************************************************************************
 TILE_Display () - Displays Tiles
  ***************************************************************************/
-VOID TILE_Display( VOID );
+void TILE_Display( void );
 
 /***************************************************************************
 TILE_IsHit () - Checks to see if a shot hits an explodable tile
@@ -98,22 +98,22 @@ TILE_Bomb(
 /***************************************************************************
 TILE_Explode () - Sets the Tile to show explosion tile
  ***************************************************************************/
-VOID TILE_Explode(
+void TILE_Explode(
     TILESPOT* ts, // INPUT : tilespot of explosion
     INT delay // INPUT : frames to delay
 );
 
 #pragma aux TILE_Draw "_*" modify[EAX EBX ECX EDX ESI EDI];
-VOID TILE_Draw( VOID );
+void TILE_Draw( void );
 
 #pragma aux TILE_ClipDraw "_*" modify[EAX EBX ECX EDX ESI EDI];
-VOID TILE_ClipDraw( VOID );
+void TILE_ClipDraw( void );
 
 #pragma aux TILE_DisplayScreen "_*" modify[EAX EBX ECX EDX ESI EDI];
-VOID TILE_DisplayScreen( VOID );
+void TILE_DisplayScreen( void );
 
 #pragma aux TILE_ShakeScreen "_*" modify[EAX EBX ECX EDX ESI EDI];
-VOID TILE_ShakeScreen( VOID );
+void TILE_ShakeScreen( void );
 
 extern DWORD startflat[4];
 extern INT tilepos;

@@ -54,7 +54,7 @@ PRIVATE BOOL control_pause = FALSE;
 /***************************************************************************
 DEMO_MakePlayer() -
  ***************************************************************************/
-VOID DEMO_MakePlayer( INT game ) {
+void DEMO_MakePlayer( INT game ) {
     memset( &plr, 0, sizeof( PLAYEROBJ ) );
 
     plr.sweapon = EMPTY;
@@ -116,7 +116,7 @@ VOID DEMO_MakePlayer( INT game ) {
 /***************************************************************************
 DEMO_DisplayStats (
  ***************************************************************************/
-VOID DEMO_DisplayStats( VOID ) {
+void DEMO_DisplayStats( void ) {
     CHAR temp[81];
 
     if ( demo_mode != DEMO_RECORD ) {
@@ -130,7 +130,7 @@ VOID DEMO_DisplayStats( VOID ) {
 /***************************************************************************
 DEMO_StartRec (
  ***************************************************************************/
-VOID DEMO_StartRec( VOID ) {
+void DEMO_StartRec( void ) {
     SND_Patch( FX_BONUS, 127 );
     memset( playback, 0, sizeof( playback ) );
     demo_mode = DEMO_RECORD;
@@ -140,7 +140,7 @@ VOID DEMO_StartRec( VOID ) {
 /***************************************************************************
 DEMO_StartPlayback (
  ***************************************************************************/
-VOID DEMO_StartPlayback( VOID ) {
+void DEMO_StartPlayback( void ) {
     demo_mode = DEMO_PLAYBACK;
     cur_play = 1;
 }
@@ -148,14 +148,14 @@ VOID DEMO_StartPlayback( VOID ) {
 /***************************************************************************
 DEMO_SetFileName ()
  ***************************************************************************/
-VOID DEMO_SetFileName( CHAR* in_name ) {
+void DEMO_SetFileName( CHAR* in_name ) {
     strcpy( demo_name, in_name );
 }
 
 /***************************************************************************
 DEMO_GLBFile (
  ***************************************************************************/
-VOID DEMO_GLBFile( DWORD item ) {
+void DEMO_GLBFile( DWORD item ) {
     BYTE* mem;
 
     mem = GLB_GetItem( item );
@@ -177,7 +177,7 @@ VOID DEMO_GLBFile( DWORD item ) {
 /***************************************************************************
 DEMO_LoadFile()
  ***************************************************************************/
-VOID DEMO_LoadFile( VOID ) {
+void DEMO_LoadFile( void ) {
     INT filesize;
 
     filesize = GLB_ReadFile( demo_name, NUL );
@@ -193,7 +193,7 @@ VOID DEMO_LoadFile( VOID ) {
 /***************************************************************************
 DEMO_SaveFile (
  ***************************************************************************/
-VOID DEMO_SaveFile( VOID ) {
+void DEMO_SaveFile( void ) {
     if ( cur_play < 2 ) {
         return;
     }
@@ -209,7 +209,7 @@ VOID DEMO_SaveFile( VOID ) {
 DEMO_Play() - Demo playback routine
  ***************************************************************************/
 BOOL // TRUE=Aborted, FALSE = timeout
-DEMO_Play( VOID ) {
+DEMO_Play( void ) {
     extern DWORD songsg1[];
     extern DWORD songsg2[];
     extern DWORD songsg3[];
@@ -262,7 +262,7 @@ DEMO_Play( VOID ) {
 /***************************************************************************
 DEMO_Think (
  ***************************************************************************/
-BOOL DEMO_Think( VOID ) {
+BOOL DEMO_Think( void ) {
     INT rval = FALSE;
 
     switch ( demo_mode ) {
@@ -310,7 +310,7 @@ BOOL DEMO_Think( VOID ) {
 /*------------------------------------------------------------------------
    IPT_GetButtons () - Reads in Joystick and Keyboard game buttons
   ------------------------------------------------------------------------*/
-TSMCALL VOID IPT_GetButtons( VOID ) {
+TSMCALL void IPT_GetButtons( void ) {
     INT num;
 
     if ( control == I_JOYSTICK ) {
@@ -352,7 +352,7 @@ TSMCALL VOID IPT_GetButtons( VOID ) {
 /*------------------------------------------------------------------------
 IPT_GetJoyStick()
   ------------------------------------------------------------------------*/
-PRIVATE VOID IPT_GetJoyStick( VOID ) {
+PRIVATE void IPT_GetJoyStick( void ) {
     extern INT joy_sx, joy_sy;
     extern INT joy_limit_xh, joy_limit_xl;
     extern INT joy_limit_yh, joy_limit_yl;
@@ -418,7 +418,7 @@ PRIVATE VOID IPT_GetJoyStick( VOID ) {
 /*------------------------------------------------------------------------
 IPT_GetKeyBoard (
   ------------------------------------------------------------------------*/
-PRIVATE VOID IPT_GetKeyBoard( VOID ) {
+PRIVATE void IPT_GetKeyBoard( void ) {
     if ( KBD_Key( k_Left ) || KBD_Key( k_Right ) ) {
         if ( KBD_Key( k_Left ) ) {
             if ( g_addx >= 0 ) {
@@ -471,7 +471,7 @@ PRIVATE VOID IPT_GetKeyBoard( VOID ) {
 /*------------------------------------------------------------------------
 IPT_GetMouse (
   ------------------------------------------------------------------------*/
-PRIVATE VOID IPT_GetMouse( VOID ) {
+PRIVATE void IPT_GetMouse( void ) {
     INT plx;
     INT ply;
     INT ptrx;
@@ -526,7 +526,7 @@ PRIVATE VOID IPT_GetMouse( VOID ) {
     }
 }
 
-PRIVATE VOID WaitJoyButton( VOID ) {
+PRIVATE void WaitJoyButton( void ) {
     INT num = 0;
 
     for ( ;; ) {
@@ -563,7 +563,7 @@ PRIVATE VOID WaitJoyButton( VOID ) {
 /***************************************************************************
 IPT_CalJoy() - Calibrates Joystick ( joystick must be centered )
  ***************************************************************************/
-VOID IPT_CalJoy( VOID ) {
+void IPT_CalJoy( void ) {
     extern BOOL godmode;
     extern INT joy_sx, joy_sy;
     extern INT joy_limit_xh, joy_limit_xl;
@@ -634,7 +634,7 @@ VOID IPT_CalJoy( VOID ) {
 /***************************************************************************
 IPT_Init () - Initializes INPUT system
  ***************************************************************************/
-VOID IPT_Init( VOID ) {
+void IPT_Init( void ) {
     tsm_id = TSM_NewService( IPT_GetButtons, 26, 254, 1 );
     IPT_CalJoy();
 }
@@ -642,14 +642,14 @@ VOID IPT_Init( VOID ) {
 /***************************************************************************
 IPT_DeInit() - Freeze up resources used by INPUT system
  ***************************************************************************/
-VOID IPT_DeInit( VOID ) {
+void IPT_DeInit( void ) {
     TSM_DelService( tsm_id );
 }
 
 /***************************************************************************
 IPT_Start() - Tranfers control from PTRAPI stuff to IPT stuff
  ***************************************************************************/
-VOID IPT_Start( VOID ) {
+void IPT_Start( void ) {
     PTR_DrawCursor( FALSE );
     PTR_Pause( TRUE );
     TSM_ResumeService( tsm_id );
@@ -658,7 +658,7 @@ VOID IPT_Start( VOID ) {
 /***************************************************************************
 IPT_End() - Tranfers control from IPT stuff to PTR stuff
  ***************************************************************************/
-VOID IPT_End( VOID ) {
+void IPT_End( void ) {
     TSM_PauseService( tsm_id );
     PTR_Pause( FALSE );
     PTR_DrawCursor( FALSE );
@@ -667,7 +667,7 @@ VOID IPT_End( VOID ) {
 /***************************************************************************
 IPT_MovePlayer() - Perform player movement for current input device
  ***************************************************************************/
-VOID IPT_MovePlayer( VOID ) {
+void IPT_MovePlayer( void ) {
     PRIVATE INT oldx = PLAYERINITX;
     INT delta;
 
@@ -745,14 +745,14 @@ VOID IPT_MovePlayer( VOID ) {
 /***************************************************************************
 IPT_PauseControl() - Lets routines run without letting user control anyting
  ***************************************************************************/
-VOID IPT_PauseControl( BOOL flag ) {
+void IPT_PauseControl( BOOL flag ) {
     control_pause = flag;
 }
 
 /***************************************************************************
 IPT_FMovePlayer() - Forces player to move addx/addy
  ***************************************************************************/
-VOID IPT_FMovePlayer(
+void IPT_FMovePlayer(
     INT addx, // INPUT : add to x pos
     INT addy // INPUT : add to y pos
 ) {
@@ -765,7 +765,7 @@ VOID IPT_FMovePlayer(
 /***************************************************************************
 IPT_LoadPrefs() - Load Input Prefs from setup.ini
  ***************************************************************************/
-VOID IPT_LoadPrefs( VOID ) {
+void IPT_LoadPrefs( void ) {
     extern INT tai_flag, quick_mode;
 
     opt_detail = INI_GetPreferenceLong( "Setup", "Detail", 1 );

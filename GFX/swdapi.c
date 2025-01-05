@@ -23,10 +23,10 @@ PRIVATE INT active_field = EMPTY;
 PRIVATE SFIELD* lastfld = NUL;
 PRIVATE BOOL highlight_flag = FALSE;
 PRIVATE SWD_WIN g_wins[MAX_WINDOWS];
-PRIVATE VOID ( *winfuncs[MAX_WINDOWS] )( SWD_DLG* );
-PRIVATE VOID ( *fldfuncs[15] )( SWIN*, SFIELD* );
+PRIVATE void ( *winfuncs[MAX_WINDOWS] )( SWD_DLG* );
+PRIVATE void ( *fldfuncs[15] )( SWIN*, SFIELD* );
 PRIVATE BYTE* movebuffer = NUL;
-PRIVATE VOID ( *viewdraw )( VOID ) = (VOID( * )) 0;
+PRIVATE void ( *viewdraw )( void ) = (void( * )) 0;
 PRIVATE ACT cur_act = S_IDLE;
 PRIVATE CMD cur_cmd = C_IDLE;
 PRIVATE INT obj_x;
@@ -69,7 +69,7 @@ PRIVATE INT textcmd_line;
 /*------------------------------------------------------------------------
    SWD_ShadeButton (
   ------------------------------------------------------------------------*/
-PRIVATE VOID SWD_ShadeButton(
+PRIVATE void SWD_ShadeButton(
     BUTTON opt, // INPUT : NORMAL/UP/DOWN
     INT x, // INPUT : x position
     INT y, // INPUT : y position
@@ -294,11 +294,11 @@ SWD_FillText(
 /*------------------------------------------------------------------------
   SWD_PutField() - puts a field in displaybuffer
   ------------------------------------------------------------------------*/
-PRIVATE VOID SWD_PutField(
+PRIVATE void SWD_PutField(
     SWIN* curwin, // INPUT : pointer to window data
     SFIELD* curfld // INPUT : pointer to field data
 ) {
-    VOID* fld_font = GLB_GetItem( curfld->fontid );
+    void* fld_font = GLB_GetItem( curfld->fontid );
     CHAR* fld_text = ( (CHAR*) curfld ) + curfld->txtoff;
     INT fontheight = ( (FONT*) fld_font )->height;
     INT fld_x = curfld->x + curwin->x;
@@ -561,7 +561,7 @@ PutField_Exit:
 /*------------------------------------------------------------------------
   SWD_DoButton() - processes all buttons from SWD_Dialog
   ------------------------------------------------------------------------*/
-PRIVATE VOID SWD_DoButton(
+PRIVATE void SWD_DoButton(
     SWIN* curwin, // INPUT : pointer to current window
     SFIELD* curfld // INPUT : pointer to current field
 ) {
@@ -632,12 +632,12 @@ PRIVATE VOID SWD_DoButton(
 /*------------------------------------------------------------------------
   SWD_FieldInput() - Field Input function for SWD_Dialog
   ------------------------------------------------------------------------*/
-PRIVATE VOID SWD_FieldInput(
+PRIVATE void SWD_FieldInput(
     SWIN* curwin, // INPUT : pointer to current window
     SFIELD* curfld // INPUT : pointer to current field
 ) {
     PRIVATE INT curpos = 0;
-    VOID* fld_font = GLB_GetItem( curfld->fontid );
+    void* fld_font = GLB_GetItem( curfld->fontid );
     BOOL flag = FALSE;
     CHAR* wrkbuf = ( (CHAR*) curfld ) + curfld->txtoff;
     INT fontheight;
@@ -768,7 +768,7 @@ PRIVATE VOID SWD_FieldInput(
 /*------------------------------------------------------------------------
    SWD_GetObjAreaInfo () - looks for a objarea then sets obj_xx variables
   ------------------------------------------------------------------------*/
-PRIVATE VOID SWD_GetObjAreaInfo(
+PRIVATE void SWD_GetObjAreaInfo(
     INT handle // INPUT: handle of window
 ) {
     SWIN* cwin = g_wins[handle].win;
@@ -796,7 +796,7 @@ PRIVATE VOID SWD_GetObjAreaInfo(
 /*------------------------------------------------------------------------
   SWD_GetNextWindow() - Gets the Next Active Window
   ------------------------------------------------------------------------*/
-PRIVATE VOID SWD_GetNextWindow( VOID ) {
+PRIVATE void SWD_GetNextWindow( void ) {
     INT loop;
     INT pos = active_window - 1;
 
@@ -828,7 +828,7 @@ PRIVATE VOID SWD_GetNextWindow( VOID ) {
 /*------------------------------------------------------------------------
   SWD_GetFirstField() - Gets the first selectable field
   ------------------------------------------------------------------------*/
-PRIVATE INT SWD_GetFirstField( VOID ) {
+PRIVATE INT SWD_GetFirstField( void ) {
     INT rval = EMPTY;
 
     rval = g_wins[active_window].win->firstfld;
@@ -1165,7 +1165,7 @@ PRIVATE INT SWD_GetLeftField(
   ------------------------------------------------------------------------*/
 PRIVATE INT // RETURN: number of fields displayed
 SWD_ShowAllFields(
-    VOID* inptr // INPUT : pointer to window data
+    void* inptr // INPUT : pointer to window data
 ) {
     SWIN* header = (SWIN*) inptr;
     SFIELD* fld = (SFIELD*) ( ( (BYTE*) inptr ) + header->fldofs );
@@ -1210,7 +1210,7 @@ SWD_ShowAllFields(
 /*------------------------------------------------------------------------
   SWD_PutWin() - Displays a single window
   ------------------------------------------------------------------------*/
-PRIVATE VOID SWD_PutWin(
+PRIVATE void SWD_PutWin(
     INT handle // INPUT : number/handle of window
 ) {
     PRIVATE SWD_DLG wdlg;
@@ -1282,7 +1282,7 @@ PRIVATE VOID SWD_PutWin(
     }
 
     if ( cwin->numflds ) {
-        SWD_ShowAllFields( (VOID*) cwin );
+        SWD_ShowAllFields( (void*) cwin );
     }
 
     if ( winfuncs[handle] ) {
@@ -1302,7 +1302,7 @@ PRIVATE VOID SWD_PutWin(
 /*------------------------------------------------------------------------
    SWD_IsButtonDown () - returns TRUE if any SWD Butons are down
   ------------------------------------------------------------------------*/
-PRIVATE BOOL SWD_IsButtonDown( VOID ) {
+PRIVATE BOOL SWD_IsButtonDown( void ) {
     if ( KBD_Key( SC_ENTER ) ) {
         return ( TRUE );
     }
@@ -1317,7 +1317,7 @@ PRIVATE BOOL SWD_IsButtonDown( VOID ) {
 /***************************************************************************
  SWD_Install() - Initializes Window system
  ***************************************************************************/
-VOID SWD_Install(
+void SWD_Install(
     BOOL moveflag // INPUT : Use Move Window feature ( 64k )
 ) {
     CHAR* err = "SWD_Init() - DosMemAlloc";
@@ -1355,7 +1355,7 @@ VOID SWD_Install(
 /***************************************************************************
    SWD_End () Frees up resources used by SWD System
  ***************************************************************************/
-VOID SWD_End( VOID ) {
+void SWD_End( void ) {
     memset( (BYTE*) g_wins, 0, sizeof( g_wins ) );
 
     fldfuncs[0] = 0;
@@ -1509,7 +1509,7 @@ INT SWD_InitMasterWindow(
 /***************************************************************************
    SWD_SetViewDrawHook () Sets Function to draw after the master window
  ***************************************************************************/
-VOID SWD_SetViewDrawHook( VOID ( *func )( VOID ) // INPUT : pointer to function
+void SWD_SetViewDrawHook( void ( *func )( void ) // INPUT : pointer to function
 ) {
     viewdraw = func;
 }
@@ -1517,9 +1517,9 @@ VOID SWD_SetViewDrawHook( VOID ( *func )( VOID ) // INPUT : pointer to function
 /***************************************************************************
    SWD_SetWinDrawFunc () - Function called after window is drawn
  ***************************************************************************/
-VOID SWD_SetWinDrawFunc(
+void SWD_SetWinDrawFunc(
     INT handle, // INPUT :handle of window
-    VOID ( *infunc )( SWD_DLG* ) // INPUT :pointer to function
+    void ( *infunc )( SWD_DLG* ) // INPUT :pointer to function
 ) {
     if ( infunc && g_wins[handle].flag ) {
         winfuncs[handle] = infunc;
@@ -1529,7 +1529,7 @@ VOID SWD_SetWinDrawFunc(
 /***************************************************************************
 SWD_SetClearFlag() - Turns ON/OFF memsetting of display buffer in showallwins
  ***************************************************************************/
-VOID SWD_SetClearFlag( BOOL inflag ) {
+void SWD_SetClearFlag( BOOL inflag ) {
     clearscreenflag = inflag;
 }
 
@@ -1537,7 +1537,7 @@ VOID SWD_SetClearFlag( BOOL inflag ) {
  SWD_ShowAllWindows()- Diplays all windows.. puts active window on top
  ***************************************************************************/
 BOOL // RETURN : TRUE = OK, FALSE = Error
-SWD_ShowAllWindows( VOID ) {
+SWD_ShowAllWindows( void ) {
     INT loop;
 
     if ( active_window < 0 ) {
@@ -1578,7 +1578,7 @@ SWD_ShowAllWindows( VOID ) {
 /***************************************************************************
 SWD_SetWindowPtr() - Sets Pointer to center of active field
  ***************************************************************************/
-VOID SWD_SetWindowPtr(
+void SWD_SetWindowPtr(
     INT handle // INPUT : number/handle of window
 ) {
     SWIN* curwin = g_wins[handle].win;
@@ -1607,7 +1607,7 @@ VOID SWD_SetWindowPtr(
 /***************************************************************************
 SWD_SetFieldPtr () - Sets Pointer on a field
  ***************************************************************************/
-VOID SWD_SetFieldPtr(
+void SWD_SetFieldPtr(
     INT handle, // INPUT : number/handle of window
     INT field // INPUT : field
 ) {
@@ -1637,7 +1637,7 @@ VOID SWD_SetFieldPtr(
 /***************************************************************************
  SWD_SetActiveWindow() - Sets the current working window
  ***************************************************************************/
-VOID SWD_SetActiveWindow(
+void SWD_SetActiveWindow(
     INT handle // INPUT : number/handle of window
 ) {
     if ( g_wins[handle].flag == FALSE ) {
@@ -1650,7 +1650,7 @@ VOID SWD_SetActiveWindow(
 /***************************************************************************
  SWD_SetActiveField() - Sets the current working field
  ***************************************************************************/
-VOID SWD_SetActiveField(
+void SWD_SetActiveField(
     INT handle, // INPUT : handle of window
     INT field_id // INPUT : number/handle of field
 ) {
@@ -1682,7 +1682,7 @@ VOID SWD_SetActiveField(
 /***************************************************************************
  SWD_DestroyWindow() - removes a window from SWD system
  ***************************************************************************/
-VOID SWD_DestroyWindow(
+void SWD_DestroyWindow(
     INT handle // INPUT : handle of window
 ) {
     BYTE* windat = (BYTE*) g_wins[handle].win;
@@ -1948,7 +1948,7 @@ PRIVATE BOOL SWD_CheckViewArea(
 /*------------------------------------------------------------------------
    SWD_ClearAllButtons () Clears all buttons in all windows to NORMAL
   ------------------------------------------------------------------------*/
-PRIVATE VOID SWD_ClearAllButtons( VOID ) {
+PRIVATE void SWD_ClearAllButtons( void ) {
     INT wloop;
     INT loop;
     SFIELD* curfld;
@@ -1969,7 +1969,7 @@ PRIVATE VOID SWD_ClearAllButtons( VOID ) {
 /***************************************************************************
    SWD_Dialog () - performs all window in/out/diaplay/move stuff
  ***************************************************************************/
-VOID SWD_Dialog(
+void SWD_Dialog(
     SWD_DLG* swd_dlg // OUTPUT: pointer to info structure
 ) {
     SWIN* curwin;
@@ -2297,7 +2297,7 @@ VOID SWD_Dialog(
 /***************************************************************************
    SWD_SetWindowLock() - Locks Window so no others can be selected
  ***************************************************************************/
-VOID SWD_SetWindowLock(
+void SWD_SetWindowLock(
     INT handle, // INPUT : handle to window
     BOOL lock // INPUT : TRUE/FALSE
 ) {
@@ -2447,7 +2447,7 @@ INT SWD_SetFieldValue(
 /***************************************************************************
 SWD_SetFieldSelect() - Sets Field Selectable status
  ***************************************************************************/
-VOID SWD_SetFieldSelect(
+void SWD_SetFieldSelect(
     INT handle, // INPUT : window handle
     INT field_id, // INPUT : field handle
     BOOL opt // INPUT : TRUE, FALSE
@@ -2481,7 +2481,7 @@ SWD_GetFieldMark(
 /***************************************************************************
  SWD_SetFieldMark() - Sets the Field Mark ( button )
  ***************************************************************************/
-VOID SWD_SetFieldMark(
+void SWD_SetFieldMark(
     INT handle, // INPUT : window handle
     INT field_id, // INPUT : field handle
     BOOL opt // INPUT : TRUE, FALSE
@@ -2537,7 +2537,7 @@ SWD_SetFieldInputOpt(
 /***************************************************************************
    SWD_SetFieldItem () - Sets field Item ID ( picture )
  ***************************************************************************/
-VOID SWD_SetFieldItem(
+void SWD_SetFieldItem(
     INT handle, // INPUT : window handle
     INT field_id, // INPUT : field handle
     DWORD item // INPUT : GLB item id
@@ -2581,7 +2581,7 @@ SWD_GetFieldItem(
 /***************************************************************************
    SWD_SetFieldItemName () - Sets Field Item Name and Loads it in
  ***************************************************************************/
-VOID SWD_SetFieldItemName(
+void SWD_SetFieldItemName(
     INT handle, // INPUT : window handle
     INT field_id, // INPUT : field handle
     CHAR* item_name // INPUT : pointer to Item Name
@@ -2609,7 +2609,7 @@ VOID SWD_SetFieldItemName(
 /***************************************************************************
    SWD_GetFieldItemName () - Gets Field Item Name
  ***************************************************************************/
-VOID SWD_GetFieldItemName(
+void SWD_GetFieldItemName(
     INT handle, // INPUT : window handle
     INT field_id, // INPUT : field handle
     CHAR* item_name // OUTPUT: pointer to Item Name

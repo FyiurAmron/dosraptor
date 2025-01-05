@@ -21,7 +21,7 @@ PRIVATE INT energy_count;
 /***************************************************************************
 BONUS_Clear () - Clears out All bonuses
  ***************************************************************************/
-VOID BONUS_Clear( VOID ) {
+void BONUS_Clear( void ) {
     INT loop;
 
     energy_count = 0;
@@ -44,7 +44,7 @@ VOID BONUS_Clear( VOID ) {
 /*-------------------------------------------------------------------------*
 BONUS_Get () - Gets A Free BONUS from Link List
  *-------------------------------------------------------------------------*/
-BONUS* BONUS_Get( VOID ) {
+BONUS* BONUS_Get( void ) {
     BONUS* pNew;
 
     if ( !free_bonus ) {
@@ -91,7 +91,7 @@ BONUS* BONUS_Remove( BONUS* sh ) {
 /***************************************************************************
 BONUS_Init () - Sets up Bonus stuff
  ***************************************************************************/
-VOID BONUS_Init( VOID ) {
+void BONUS_Init( void ) {
     INT loop;
     GFX_PIC* h;
 
@@ -114,7 +114,7 @@ VOID BONUS_Init( VOID ) {
 /***************************************************************************
 BONUS_Add () - Adds A BONUS to Game so player can Try to pick it up
  ***************************************************************************/
-VOID BONUS_Add(
+void BONUS_Add(
     OBJ_TYPE type, // INPUT : OBJECT TYPE
     INT x, // INPUT : X POSITION
     INT y // INPUT : Y POSITION
@@ -151,7 +151,7 @@ VOID BONUS_Add(
 /***************************************************************************
 BONUS_Think () - Does all BONUS Thinking
  ***************************************************************************/
-VOID BONUS_Think( VOID ) {
+void BONUS_Think( void ) {
     PRIVATE INT gcnt = 0;
     BONUS* cur;
     INT x = playerx;
@@ -230,7 +230,7 @@ VOID BONUS_Think( VOID ) {
 /***************************************************************************
 BONUS_Display () - Displays Active Bonuses in game
  ***************************************************************************/
-VOID BONUS_Display( VOID ) {
+void BONUS_Display( void ) {
     BONUS* cur;
 
     for ( cur = first_bonus.next; cur != &last_bonus; cur = cur->next ) {

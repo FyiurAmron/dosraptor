@@ -26,7 +26,7 @@ PRIVATE CHAR g_setup_ini[66];
 /***************************************************************************
 RAP_SetPlayerDiff () - Set Player Difficulty
  ***************************************************************************/
-VOID RAP_SetPlayerDiff( VOID ) {
+void RAP_SetPlayerDiff( void ) {
     cur_diff = 0;
 
     curplr_diff = plr.diff[cur_game];
@@ -57,7 +57,7 @@ VOID RAP_SetPlayerDiff( VOID ) {
 /***************************************************************************
 RAP_ClearPlayer () - Clear Player stuff
  ***************************************************************************/
-VOID RAP_ClearPlayer( VOID ) {
+void RAP_ClearPlayer( void ) {
     OBJS_Clear();
     filepos = EMPTY;
     memset( &plr, 0, sizeof( PLAYEROBJ ) );
@@ -74,14 +74,14 @@ VOID RAP_ClearPlayer( VOID ) {
 /***************************************************************************
 RAP_IsPlayer () - Returns TRUE if a player is defined
  ***************************************************************************/
-BOOL RAP_IsPlayer( VOID ) {
+BOOL RAP_IsPlayer( void ) {
     return filepos != EMPTY ? TRUE : FALSE;
 }
 
 /***************************************************************************
 RAP_AreSavedFiles() - Returns TRUE if thier are previously saved game files
  ***************************************************************************/
-BOOL RAP_AreSavedFiles( VOID ) {
+BOOL RAP_AreSavedFiles( void ) {
     CHAR temp[41];
     INT loop;
 
@@ -106,7 +106,7 @@ RAP_ReadFile() - Reads file into buffer for sizerec and DECRYTES
 PRIVATE INT // RETURN: size of record
 RAP_ReadFile(
     CHAR* name, // INPUT : filename
-    VOID* buffer, // OUTPUT: pointer to buffer
+    void* buffer, // OUTPUT: pointer to buffer
     INT sizerec // INPUT : number of bytes to read
 ) {
     extern CHAR gdmodestr[];
@@ -129,7 +129,7 @@ RAP_ReadFile(
 /***************************************************************************
 RAP_FFSaveFile() - Finds a filename to use
  ***************************************************************************/
-BOOL RAP_FFSaveFile( VOID ) {
+BOOL RAP_FFSaveFile( void ) {
     CHAR temp[41];
     INT loop;
     BOOL rval = FALSE;
@@ -188,7 +188,7 @@ BOOL RAP_IsSaveFile( PLAYEROBJ* in_plr ) {
 /***************************************************************************
 RAP_LoadPlayer () - Loads player from disk
  ***************************************************************************/
-BOOL RAP_LoadPlayer( VOID ) {
+BOOL RAP_LoadPlayer( void ) {
     extern CHAR gdmodestr[];
     CHAR filename[41];
     INT handle;
@@ -216,11 +216,11 @@ BOOL RAP_LoadPlayer( VOID ) {
     }
 
     read( handle, &plr, sizeof( PLAYEROBJ ) );
-    GLB_DeCrypt( gdmodestr, (VOID*) &plr, sizeof( PLAYEROBJ ) );
+    GLB_DeCrypt( gdmodestr, (void*) &plr, sizeof( PLAYEROBJ ) );
 
     for ( loop = 0; loop < plr.numobjs; loop++ ) {
         read( handle, &inobj, sizeof( OBJ ) );
-        GLB_DeCrypt( gdmodestr, (VOID*) &inobj, sizeof( OBJ ) );
+        GLB_DeCrypt( gdmodestr, (void*) &inobj, sizeof( OBJ ) );
 
         if ( !OBJS_Load( &inobj ) ) {
             break;
@@ -251,7 +251,7 @@ BOOL RAP_LoadPlayer( VOID ) {
 /***************************************************************************
 RAP_SavePlayer() - Saves player data to filename
  ***************************************************************************/
-BOOL RAP_SavePlayer( VOID ) {
+BOOL RAP_SavePlayer( void ) {
     extern CHAR gdmodestr[];
     extern OBJ first_objs;
     extern OBJ last_objs;
@@ -289,14 +289,14 @@ BOOL RAP_SavePlayer( VOID ) {
         plr.numobjs++;
     }
 
-    GLB_EnCrypt( gdmodestr, (VOID*) &plr, sizeof( PLAYEROBJ ) );
+    GLB_EnCrypt( gdmodestr, (void*) &plr, sizeof( PLAYEROBJ ) );
     write( handle, &plr, sizeof( PLAYEROBJ ) );
-    GLB_DeCrypt( gdmodestr, (VOID*) &plr, sizeof( PLAYEROBJ ) );
+    GLB_DeCrypt( gdmodestr, (void*) &plr, sizeof( PLAYEROBJ ) );
 
     for ( cur = first_objs.next; cur != &last_objs; cur = cur->next ) {
-        GLB_EnCrypt( gdmodestr, (VOID*) cur, sizeof( OBJ ) );
+        GLB_EnCrypt( gdmodestr, (void*) cur, sizeof( OBJ ) );
         write( handle, cur, sizeof( OBJ ) );
-        GLB_DeCrypt( gdmodestr, (VOID*) cur, sizeof( OBJ ) );
+        GLB_DeCrypt( gdmodestr, (void*) cur, sizeof( OBJ ) );
     }
 
     rval = TRUE;
@@ -309,7 +309,7 @@ BOOL RAP_SavePlayer( VOID ) {
 /***************************************************************************
  RAP_LoadMap () - Loads A level Map
  ***************************************************************************/
-VOID RAP_LoadMap( VOID ) {
+void RAP_LoadMap( void ) {
     CHAR temp[42];
 
     if ( !gameflag[cur_game] ) {
@@ -348,7 +348,7 @@ VOID RAP_LoadMap( VOID ) {
 /***************************************************************************
 RAP_FreeMap() - Frees up cached map stuff
  ***************************************************************************/
-VOID RAP_FreeMap( VOID ) {
+void RAP_FreeMap( void ) {
     if ( map_item != EMPTY ) {
         TILE_FreeLevel();
         ENEMY_FreeSprites();
@@ -371,7 +371,7 @@ VOID RAP_FreeMap( VOID ) {
 RAP_LoadWin() -
  ***************************************************************************/
 INT // RETURN : -1 = no FIles, 0=cancel, 1=loaded
-RAP_LoadWin( VOID ) {
+RAP_LoadWin( void ) {
     CHAR temp[41];
     CHAR filenames[MAX_SAVE][33];
     PLAYEROBJ tplr;
@@ -560,7 +560,7 @@ load_exit:
 /***************************************************************************
 RAP_InitLoadSave() - Inits the load and save path stuff
  ***************************************************************************/
-CHAR* RAP_InitLoadSave( VOID ) {
+CHAR* RAP_InitLoadSave( void ) {
     BYTE* var1;
     CHAR* n1 = "setup.ini";
 
@@ -590,6 +590,6 @@ CHAR* RAP_InitLoadSave( VOID ) {
 /***************************************************************************
 RAP_SetupFilename() - Gets current setup.ini path and name
  ***************************************************************************/
-CHAR* RAP_SetupFilename( VOID ) {
+CHAR* RAP_SetupFilename( void ) {
     return g_setup_ini;
 }

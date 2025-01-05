@@ -23,22 +23,22 @@
 /***************************************************************************
 IMS_StartAck () - Starts up checking for a happening
  ***************************************************************************/
-VOID IMS_StartAck( VOID );
+void IMS_StartAck( void );
 
 /***************************************************************************
 IMS_CheckAck () - Tells if somthing has happend since last IMS_StartAck
  ***************************************************************************/
-BOOL IMS_CheckAck( VOID );
+BOOL IMS_CheckAck( void );
 
 /***************************************************************************
 IMS_IsAck() - Returns TRUE if ptr button or key pressed
  ***************************************************************************/
-BOOL IMS_IsAck( VOID );
+BOOL IMS_IsAck( void );
 
 /***************************************************************************
 IMS_WaitAck() - Waits for a pointer button or key press
  ***************************************************************************/
-VOID IMS_WaitAck( VOID );
+void IMS_WaitAck( void );
 
 /***************************************************************************
 IMS_WaitTimed() - Wait for aprox secs

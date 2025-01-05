@@ -39,7 +39,7 @@ PUBLIC void VM_InitMemory(
  VM_Malloc - Allocates a block of memory - swapping out other blocks if
              needed.
  *************************************************************************/
-PUBLIC VOID* VM_Malloc(
+PUBLIC void* VM_Malloc(
     UINT size, // INPUT : Size of object
     VM_OWNER* owner, // INPUT : Owner Structure, NULL=Locked
     BOOL discard // INPUT : Discard memory to satisfy request.
@@ -48,36 +48,36 @@ PUBLIC VOID* VM_Malloc(
 /*************************************************************************
  * VM_Touch - touch a peice of memory to keep track of most recently used.
  *************************************************************************/
-PUBLIC VOID VM_Touch(
+PUBLIC void VM_Touch(
     VM_OWNER* owner // INPUT : Owner of memory to touch.
 );
 
 /*************************************************************************
  VM_Free - frees a block of memory allocated by VM_Malloc
  *************************************************************************/
-PUBLIC VOID VM_Free(
-    VOID* mem // INPUT : Memory Object to Free
+PUBLIC void VM_Free(
+    void* mem // INPUT : Memory Object to Free
 );
 
 /*************************************************************************
  VM_Lock - Locks a block of memory from being swapped out.
  *************************************************************************/
-PUBLIC VOID VM_Lock(
-    VOID* mem // INPUT : Memory Object to Free
+PUBLIC void VM_Lock(
+    void* mem // INPUT : Memory Object to Free
 );
 
 /*************************************************************************
  VM_Unlock - Unlocks a block of memory allowing it to be swapped out.
  *************************************************************************/
-PUBLIC VOID VM_Unlock(
-    VOID* mem, // INPUT : Memory Object to Free
+PUBLIC void VM_Unlock(
+    void* mem, // INPUT : Memory Object to Free
     VM_OWNER* owner // INPUT : Owner Structure, NULL=Locked
 );
 
 /*************************************************************************
  VM_GetCoreInfo - Get information on core resource
  *************************************************************************/
-PUBLIC VOID VM_GetCoreInfo(
+PUBLIC void VM_GetCoreInfo(
     DWORD* largest, // OUTPUT: Largest block free
     DWORD* totalfree, // OUTPUT: Total amount free
     DWORD* totallocked, // OUTPUT: Total amount locked

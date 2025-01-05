@@ -41,7 +41,7 @@ PRIVATE INT flare_delay = 0;
 /*-------------------------------------------------------------------------*
 TClear () - Clears TILE Delay Link List
  *-------------------------------------------------------------------------*/
-PRIVATE VOID TClear( VOID ) {
+PRIVATE void TClear( void ) {
     INT loop;
 
     first_delay.prev = NUL;
@@ -62,7 +62,7 @@ PRIVATE VOID TClear( VOID ) {
 /*-------------------------------------------------------------------------*
 TGet () - Get a TDELAY object
  *-------------------------------------------------------------------------*/
-PRIVATE TILEDELAY* TGet( VOID ) {
+PRIVATE TILEDELAY* TGet( void ) {
     TILEDELAY* pNew;
 
     if ( !free_delay ) {
@@ -105,7 +105,7 @@ PRIVATE TILEDELAY* TRemove( TILEDELAY* sh ) {
 /*--------------------------------------------------------------------------
 TILE_DoDamage
  --------------------------------------------------------------------------*/
-PRIVATE VOID TILE_DoDamage( INT mapspot, INT damage ) {
+PRIVATE void TILE_DoDamage( INT mapspot, INT damage ) {
     static INT mlookup[3] = { -1, -MAP_COLS, 1 };
     static INT xlookup[3] = { -1, 0, 1 };
     INT ix = mapspot % MAP_COLS;
@@ -142,7 +142,7 @@ PRIVATE VOID TILE_DoDamage( INT mapspot, INT damage ) {
 /***************************************************************************
 TILE_Draw () - Draws 32 by 32 TILE Clips on y only
  ***************************************************************************/
-VOID TILE_Put(
+void TILE_Put(
     BYTE* inpic, // INPUT : pointer to GFX_PIC ( norm )
     INT x, // INPUT : x position
     INT y // INPUT : y position
@@ -183,7 +183,7 @@ VOID TILE_Put(
 /***************************************************************************
 TILE_Init () - Sets Up A level for Displaying
  ***************************************************************************/
-VOID TILE_Init( VOID ) {
+void TILE_Init( void ) {
 
     TClear();
     g_mapleft = MAP_LEFT;
@@ -208,7 +208,7 @@ VOID TILE_Init( VOID ) {
 /***************************************************************************
 TILE_CacheLevel () - Cache tiles in current level
  ***************************************************************************/
-VOID TILE_CacheLevel( VOID ) {
+void TILE_CacheLevel( void ) {
     INT game;
     FLATS* lib;
     DWORD item;
@@ -260,7 +260,7 @@ VOID TILE_CacheLevel( VOID ) {
 /***************************************************************************
 TILE_FreeLevel () - Free tile level
  ***************************************************************************/
-VOID TILE_FreeLevel( VOID ) {
+void TILE_FreeLevel( void ) {
     INT loop;
 
     for ( loop = 0; loop < MAP_SIZE; loop++ ) {
@@ -275,7 +275,7 @@ VOID TILE_FreeLevel( VOID ) {
 /***************************************************************************
 TILE_DamageAll () - Damages All tiles on screen
  ***************************************************************************/
-VOID TILE_DamageAll( VOID ) {
+void TILE_DamageAll( void ) {
     TILESPOT* ts = tspots;
 
     for ( ;; ) {
@@ -294,7 +294,7 @@ VOID TILE_DamageAll( VOID ) {
 /***************************************************************************
 TILE_Think () - Does Position Calculations for tiles
  ***************************************************************************/
-VOID TILE_Think( VOID ) {
+void TILE_Think( void ) {
     TILESPOT* ts;
     TILEDELAY* td;
     INT loopx;
@@ -372,7 +372,7 @@ VOID TILE_Think( VOID ) {
 /***************************************************************************
 TILE_Display () - Displays Tiles
  ***************************************************************************/
-VOID TILE_Display( VOID ) {
+void TILE_Display( void ) {
     TILESPOT* ts = tspots;
     BYTE* pic;
 
@@ -476,7 +476,7 @@ TILE_Bomb(
 /***************************************************************************
 TILE_Explode () - Sets the Tile to show explosion tile
  ***************************************************************************/
-VOID TILE_Explode(
+void TILE_Explode(
     TILESPOT* ts, // INPUT : tilespot of explosion
     INT delay // INPUT : frames to delay
 ) {

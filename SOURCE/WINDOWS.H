@@ -6,26 +6,26 @@
 /***************************************************************************
 WIN_WinGame () - WIndow text for winners of a game
  ***************************************************************************/
-VOID WIN_WinGame(
+void WIN_WinGame(
     INT game // INPUT : game number 0,1,2
 );
 
 /***************************************************************************
 WIN_Msg () - Display a Message for ten secs or until user Acks somting
  ***************************************************************************/
-VOID WIN_Msg(
+void WIN_Msg(
     CHAR* msg // INPUT : pointer to message to ask
 );
 
 /***************************************************************************
 WIN_Pause () - Display a Pause Message Wait until user does somthing
  ***************************************************************************/
-VOID WIN_Pause( VOID );
+void WIN_Pause( void );
 
 /***************************************************************************
 WIN_Order () - Display a Pause Message Wait until user does somthing
  ***************************************************************************/
-VOID WIN_Order( VOID );
+void WIN_Order( void );
 
 /***************************************************************************
    WIN_AskBool () - Askes USER a YES/NO Question????
@@ -38,52 +38,52 @@ WIN_AskBool(
 /***************************************************************************
 WIN_AskExit () - Opens Windows and Askes if USer wants 2 quit
  ***************************************************************************/
-VOID WIN_AskExit( VOID );
+void WIN_AskExit( void );
 
 /***************************************************************************
 WIN_MainMenu () - Main Menu
  ***************************************************************************/
-VOID WIN_MainMenu( VOID );
+void WIN_MainMenu( void );
 
 /***************************************************************************
 WIN_Register () - Register Window
  ***************************************************************************/
-BOOL RAP_Register( VOID );
+BOOL RAP_Register( void );
 
 /***************************************************************************
 WIN_Locker () - Locker Room Window
  ***************************************************************************/
-INT RAP_Locker( VOID );
+INT RAP_Locker( void );
 
 /***************************************************************************
 WIN_Hangar() - Does the hanger dude
  ***************************************************************************/
-INT WIN_Hangar( VOID );
+INT WIN_Hangar( void );
 
 /***************************************************************************
 WIN_ShipComp () - Does Game Selection 1, 2 or 3
  ***************************************************************************/
-BOOL WIN_ShipComp( VOID );
+BOOL WIN_ShipComp( void );
 
 /***************************************************************************
 WIN_LoadComp() - Shows computer loading screen
  ***************************************************************************/
-VOID WIN_LoadComp( VOID );
+void WIN_LoadComp( void );
 
 /***************************************************************************
 WIN_SetLoadLevel()
  ***************************************************************************/
-VOID WIN_SetLoadLevel( INT level );
+void WIN_SetLoadLevel( INT level );
 
 /***************************************************************************
 WIN_EndLoad () - Shows Ship computer while loading level
  ***************************************************************************/
-VOID WIN_EndLoad( VOID );
+void WIN_EndLoad( void );
 
 /***************************************************************************
 WIN_MainLoop() - Handles Locker/Register/Store/Hangar and starting game
  ***************************************************************************/
-VOID WIN_MainLoop( VOID );
+void WIN_MainLoop( void );
 
 extern DWORD id_pics[4];
 

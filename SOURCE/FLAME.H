@@ -6,17 +6,17 @@
 /***************************************************************************
 FLAME_Init () - Inits Flame Tables and stuff
  ***************************************************************************/
-VOID FLAME_Init( VOID );
+void FLAME_Init( void );
 
 /***************************************************************************
 FLAME_InitShades () - Inits shading stuff
  ***************************************************************************/
-VOID FLAME_InitShades( VOID );
+void FLAME_InitShades( void );
 
 /***************************************************************************
 FLAME_Up () - Shows Flame shooting upward
  ***************************************************************************/
-VOID FLAME_Up(
+void FLAME_Up(
     INT ix, // INPUT : x position
     INT iy, // INPUT : y position
     INT width, // INPUT : width of shade
@@ -26,7 +26,7 @@ VOID FLAME_Up(
 /***************************************************************************
 FLAME_Down () - Shows Flame shooting downward
  ***************************************************************************/
-VOID FLAME_Down(
+void FLAME_Down(
     INT ix, // INPUT : x position
     INT iy, // INPUT : y position
     INT width, // INPUT : width of shade
