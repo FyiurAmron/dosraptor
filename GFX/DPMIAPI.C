@@ -16,42 +16,39 @@
 #include <dos.h>
 #include "dpmiapi.h"
 
-int DPMI_LockMemory(void *address, unsigned length);
-int DPMI_UnlockMemory(void *address, unsigned length);
+int DPMI_LockMemory( void* address, unsigned length );
+int DPMI_UnlockMemory( void* address, unsigned length );
 
-int _dpmi_lockregion(void *address, unsigned length)
-{
-	return DPMI_LockMemory(address, length);
+int _dpmi_lockregion( void* address, unsigned length ) {
+    return DPMI_LockMemory( address, length );
 }
 
-int _dpmi_unlockregion(void *address, unsigned length)
-{
-	return DPMI_UnlockMemory(address, length);
+int _dpmi_unlockregion( void* address, unsigned length ) {
+    return DPMI_UnlockMemory( address, length );
 }
 
-int _dpmi_dosalloc(unsigned short size, unsigned int* segment)
-{
-    char *ptr;
-	int i;
-	int ret = DPMI_GetDOSMemory(&ptr, &i, size << 4);
-    if (!ret)
-        *segment = (unsigned int)ptr >> 4;
+int _dpmi_dosalloc( unsigned short size, unsigned int* segment ) {
+    char* ptr;
+    int i;
+    int ret = DPMI_GetDOSMemory( &ptr, &i, size << 4 );
+    if ( !ret ) {
+        *segment = (unsigned int) ptr >> 4;
+    }
     return ret;
 }
 
 static struct SREGS segregs;
 static union REGS regs;
 
-int _dpmi_getmemsize(void)
-{
-    int             meminfo[32];
-    int             heap;
+int _dpmi_getmemsize( void ) {
+    int meminfo[32];
+    int heap;
 
-    memset (meminfo,0,sizeof(meminfo));
-    segread(&segregs);
+    memset( meminfo, 0, sizeof( meminfo ) );
+    segread( &segregs );
     segregs.es = segregs.ds;
-    regs.w.ax = 0x500;      // get memory info
-    regs.x.edi = (int)&meminfo;
+    regs.w.ax = 0x500; // get memory info
+    regs.x.edi = (int) &meminfo;
     int386x( 0x31, &regs, &regs, &segregs );
 
     heap = meminfo[0];
