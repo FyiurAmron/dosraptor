@@ -65,4 +65,6 @@ add_executable(SOURCE
     TILE_A.ASM
     WINDOWS.C
     WINDOWS.H
-    WINGAME.INC)
+    WINGAME.INC
+    ansi_esc.h
+)
