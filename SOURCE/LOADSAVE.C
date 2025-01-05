@@ -75,11 +75,7 @@ VOID RAP_ClearPlayer( VOID ) {
 RAP_IsPlayer () - Returns TRUE if a player is defined
  ***************************************************************************/
 BOOL RAP_IsPlayer( VOID ) {
-    if ( filepos != EMPTY ) {
-        return ( TRUE );
-    } else {
-        return ( FALSE );
-    }
+    return filepos != EMPTY ? TRUE : FALSE;
 }
 
 /***************************************************************************
@@ -97,11 +93,11 @@ BOOL RAP_AreSavedFiles( VOID ) {
         }
 
         if ( access( temp, 0 ) == 0 ) {
-            return ( TRUE );
+            return TRUE;
         }
     }
 
-    return ( FALSE );
+    return FALSE;
 }
 
 /***************************************************************************
@@ -118,7 +114,7 @@ RAP_ReadFile(
 
     if ( ( handle = open( name, O_RDONLY | O_BINARY ) ) == -1 ) {
         WIN_Msg( "File open Error" );
-        return ( 0 );
+        return 0;
     }
 
     read( handle, buffer, sizerec );
@@ -127,7 +123,7 @@ RAP_ReadFile(
 
     close( handle );
 
-    return ( sizerec );
+    return sizerec;
 }
 
 /***************************************************************************
@@ -155,7 +151,7 @@ BOOL RAP_FFSaveFile( VOID ) {
         }
     }
 
-    return ( rval );
+    return rval;
 }
 
 /***************************************************************************
@@ -186,7 +182,7 @@ BOOL RAP_IsSaveFile( PLAYEROBJ* in_plr ) {
 
     close( handle );
 
-    return ( rval );
+    return rval;
 }
 
 /***************************************************************************
@@ -201,7 +197,7 @@ BOOL RAP_LoadPlayer( VOID ) {
     OBJ inobj;
 
     if ( filepos == EMPTY ) {
-        return ( FALSE );
+        return FALSE;
     }
 
     // == Clear Player =======================
@@ -216,7 +212,7 @@ BOOL RAP_LoadPlayer( VOID ) {
 
     if ( ( handle = open( filename, O_RDONLY | O_BINARY ) ) == -1 ) {
         WIN_Msg( "Load Player Error" );
-        return ( FALSE );
+        return FALSE;
     }
 
     read( handle, &plr, sizeof( PLAYEROBJ ) );
@@ -249,7 +245,7 @@ BOOL RAP_LoadPlayer( VOID ) {
     rval = TRUE;
     RAP_SetPlayerDiff();
 
-    return ( rval );
+    return rval;
 }
 
 /***************************************************************************
@@ -280,7 +276,7 @@ BOOL RAP_SavePlayer( VOID ) {
 
     if ( ( handle = open( filename, O_BINARY | O_WRONLY | O_CREAT | O_TRUNC, S_IREAD | S_IWRITE ) ) == -1 ) {
         WIN_Msg( "Save Player Error !!!" );
-        return ( FALSE );
+        return FALSE;
     }
 
     plr.cur_game = cur_game;
@@ -307,7 +303,7 @@ BOOL RAP_SavePlayer( VOID ) {
 
     close( handle );
 
-    return ( rval );
+    return rval;
 }
 
 /***************************************************************************
@@ -406,7 +402,7 @@ RAP_LoadWin( VOID ) {
     }
 
     if ( pos == EMPTY ) {
-        return ( -1 );
+        return -1;
     }
 
     RAP_ReadFile( filenames[pos], &tplr, sizeof( PLAYEROBJ ) );
@@ -558,7 +554,7 @@ load_exit:
     SWD_ShowAllWindows();
     GFX_DisplayUpdate();
 
-    return ( rval );
+    return rval;
 }
 
 /***************************************************************************
@@ -588,12 +584,12 @@ CHAR* RAP_InitLoadSave( VOID ) {
         strcpy( g_setup_ini, n1 );
     }
 
-    return ( cdpath );
+    return cdpath;
 }
 
 /***************************************************************************
 RAP_SetupFilename() - Gets current setup.ini path and name
  ***************************************************************************/
 CHAR* RAP_SetupFilename( VOID ) {
-    return ( g_setup_ini );
+    return g_setup_ini;
 }

@@ -470,7 +470,7 @@ BOOL WIN_Credits( VOID ) {
     GFX_SetPalette( palette, 0 );
     KBD_Clear();
 
-    return ( rval );
+    return rval;
 }
 
 /***************************************************************************
@@ -533,7 +533,7 @@ mainloop:
                             SWD_DestroyWindow( ask_window );
                             GFX_DisplayUpdate();
                             PTR_DrawCursor( dchold );
-                            return ( rval );
+                            return rval;
                     }
             }
     }
@@ -674,7 +674,7 @@ askdiff_exit:
     SWD_DestroyWindow( ask_window );
     GFX_DisplayUpdate();
 
-    return ( rval );
+    return rval;
 }
 
 /***************************************************************************
@@ -934,7 +934,7 @@ reg_exit:
         ingameflag = FALSE;
     }
 
-    return ( rval );
+    return rval;
 }
 
 /***************************************************************************
@@ -1212,7 +1212,7 @@ hangar_exit:
 
 train_exit:
 
-    return ( opt );
+    return opt;
 }
 
 PRIVATE INT g_x;
@@ -1283,7 +1283,7 @@ BOOL WIN_ShipComp( VOID ) {
     KBD_Clear();
     GFX_FadeOut( 0, 0, 0, 2 );
 
-    cur_diff = ( cur_diff & ~( EB_SECRET_1 + EB_SECRET_2 + EB_SECRET_3 ) );
+    cur_diff = cur_diff & ~( EB_SECRET_1 + EB_SECRET_2 + EB_SECRET_3 );
 
     window = SWD_InitMasterWindow( SHIPCOMP_SWD );
 
@@ -1539,7 +1539,7 @@ abort_shipcomp:
     GLB_FreeItem( LIGHTON_PIC );
     GLB_FreeItem( LIGHTOFF_PIC );
 
-    return ( rval );
+    return rval;
 }
 
 /***************************************************************************
@@ -1649,7 +1649,7 @@ VOID WIN_MainLoop( VOID ) {
         dwrap = diff_wrap[plr.diff[cur_game]] - 1;
 
         if ( game_wave[cur_game] == dwrap ) {
-            if ( ( plr.diff[cur_game] == DIFF_0 ) && !plr.fintrain ) {
+            if ( plr.diff[cur_game] == DIFF_0 && !plr.fintrain ) {
                 OBJS_Init();
                 plr.sweapon = EMPTY;
                 plr.fintrain = TRUE;
@@ -1807,7 +1807,7 @@ PRIVATE BOOL WIN_DemoDelay( BOOL startflag ) {
 
     if ( startflag ) {
         d_count = 0;
-        return ( FALSE );
+        return FALSE;
     }
 
     local_cnt = FRAME_COUNT;
@@ -1816,11 +1816,7 @@ PRIVATE BOOL WIN_DemoDelay( BOOL startflag ) {
 
     d_count++;
 
-    if ( d_count < DEMO_DELAY ) {
-        return ( FALSE );
-    }
-
-    return ( TRUE );
+    return d_count < DEMO_DELAY ? FALSE : TRUE;
 }
 
 /***************************************************************************
