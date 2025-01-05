@@ -56,12 +56,12 @@ typedef struct SHOTS_S {
 /***************************************************************************
 SHOTS_Clear () * Clears out SHOTS Linklist
  ***************************************************************************/
-VOID SHOTS_Clear( VOID );
+void SHOTS_Clear( void );
 
 /***************************************************************************
 SHOTS_Init () - Inits SHOTS system and clears link list
  ***************************************************************************/
-VOID SHOTS_Init( VOID );
+void SHOTS_Init( void );
 
 /***************************************************************************
 SHOTS_PlayerShoot() - Shoots the specified weapon
@@ -73,11 +73,11 @@ BOOL SHOTS_PlayerShoot(
 /***************************************************************************
 SHOTS_Think () - Does All Thinking for shot system
  ***************************************************************************/
-VOID SHOTS_Think( VOID );
+void SHOTS_Think( void );
 
 /***************************************************************************
 SHOTS_Display () - Displays All active Shots
  ***************************************************************************/
-VOID SHOTS_Display( VOID );
+void SHOTS_Display( void );
 
 #endif

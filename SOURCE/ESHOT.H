@@ -18,17 +18,17 @@ typedef enum {
 /***************************************************************************
 ESHOT_Clear () - Clears out ESHOT Linklist
  ***************************************************************************/
-VOID ESHOT_Clear( VOID );
+void ESHOT_Clear( void );
 
 /***************************************************************************
 ESHOT_Init () - Inits ESHOT system and clears link list
  ***************************************************************************/
-VOID ESHOT_Init( VOID );
+void ESHOT_Init( void );
 
 /***************************************************************************
 ESHOT_Shoot() - Shoots ENEMY GUNS
  ***************************************************************************/
-VOID ESHOT_Shoot(
+void ESHOT_Shoot(
     SPRITE_SHIP* enemy, // INPUT : pointer to Enemy stuff
     INT gun_num // INPUT : gun number to shoot
 );
@@ -36,11 +36,11 @@ VOID ESHOT_Shoot(
 /***************************************************************************
 ESHOT_Think () - Does All Thinking for shot system
  ***************************************************************************/
-VOID ESHOT_Think( VOID );
+void ESHOT_Think( void );
 
 /***************************************************************************
 ESHOT_Display () - Displays All active Shots
  ***************************************************************************/
-VOID ESHOT_Display( VOID );
+void ESHOT_Display( void );
 
 #endif

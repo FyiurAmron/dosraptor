@@ -21,7 +21,7 @@ PRIVATE ESHOT* free_derb;
 /***************************************************************************
 DERB_Clear () - Clears out ESHOT Linklist
  ***************************************************************************/
-VOID DERB_Clear( VOID ) {
+void DERB_Clear( void ) {
     INT loop;
 
     eshotnum = 0;
@@ -44,7 +44,7 @@ VOID DERB_Clear( VOID ) {
 /*-------------------------------------------------------------------------*
 DERB_Get () - gets a Free ESHOT OBJECT from linklist
  *-------------------------------------------------------------------------*/
-PRIVATE ESHOT* DERB_Get( VOID ) {
+PRIVATE ESHOT* DERB_Get( void ) {
     ESHOT* pNew;
 
     if ( !free_derb ) {

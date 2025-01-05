@@ -73,37 +73,37 @@ typedef struct SPRITE_SHIP_S {
 /***************************************************************************
 ENEMY_InitSprites () - Initializes Enmy Sprites
  ***************************************************************************/
-VOID ENEMY_InitSprites( VOID );
+void ENEMY_InitSprites( void );
 
 /***************************************************************************
 ENEMY_FreeSprites () - Free Memory Used by Sprites use in last level
  ***************************************************************************/
-VOID ENEMY_FreeSprites( VOID );
+void ENEMY_FreeSprites( void );
 
 /***************************************************************************
 ENEMY_LoadSprites() -
  ***************************************************************************/
-VOID ENEMY_LoadSprites( VOID );
+void ENEMY_LoadSprites( void );
 
 /***************************************************************************
 ENEMY_LoadLib () - Loads and Locks spritelib's
  ***************************************************************************/
-VOID ENEMY_LoadLib( VOID );
+void ENEMY_LoadLib( void );
 
 /***************************************************************************
 ENEMY_Clear()
  ***************************************************************************/
-VOID ENEMY_Clear( VOID );
+void ENEMY_Clear( void );
 
 /***************************************************************************
 ENEMY_GetRandom () - Returns a random ship thats visable
  ***************************************************************************/
-SPRITE_SHIP* ENEMY_GetRandom( VOID );
+SPRITE_SHIP* ENEMY_GetRandom( void );
 
 /***************************************************************************
 ENEMY_GetRandomAir () - Returns a random ship thats visable
  ***************************************************************************/
-SPRITE_SHIP* ENEMY_GetRandomAir( VOID );
+SPRITE_SHIP* ENEMY_GetRandomAir( void );
 
 /***************************************************************************
 ENEMY_DamageAll () - Tests to see if hit occured at x/y and applys damage
@@ -144,22 +144,22 @@ SPRITE_SHIP* ENEMY_DamageEnergy(
 /***************************************************************************
 ENEMY_Think() - Does all thinking for enemy ships ( ground/air )
  ***************************************************************************/
-VOID ENEMY_Think( VOID );
+void ENEMY_Think( void );
 
 /***************************************************************************
 ENEMY_DisplayGround () - Displays Ground ENEMY pics
  ***************************************************************************/
-VOID ENEMY_DisplayGround( VOID );
+void ENEMY_DisplayGround( void );
 
 /***************************************************************************
 ENEMY_DisplaySky () - Displays AIR ENEMY SHIPS
  ***************************************************************************/
-VOID ENEMY_DisplaySky( VOID );
+void ENEMY_DisplaySky( void );
 
 /***************************************************************************
 ENEMY_GetBaseDamage() - Gets Base Ship damage
  ***************************************************************************/
-INT ENEMY_GetBaseDamage( VOID );
+INT ENEMY_GetBaseDamage( void );
 
 extern CSPRITE* csprite;
 extern INT numships;

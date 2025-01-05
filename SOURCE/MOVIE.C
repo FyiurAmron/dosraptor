@@ -8,7 +8,7 @@ PRIVATE INT back_patch = EMPTY;
 /*************************************************************************
 MOVIE_BPatch() Plays Sound FX in background for one anim
  *************************************************************************/
-VOID MOVIE_BPatch( INT soundfx ) {
+void MOVIE_BPatch( INT soundfx ) {
     back_patch = soundfx;
     SND_Patch( back_patch, 127 );
 }
@@ -16,7 +16,7 @@ VOID MOVIE_BPatch( INT soundfx ) {
 /*************************************************************************
  MOVIE_ShowFrame () - Shows an animation frame
  *************************************************************************/
-VOID MOVIE_ShowFrame(
+void MOVIE_ShowFrame(
     BYTE* inpic // INPUT : pointer to animpic
 ) {
     if ( inpic == NUL ) {

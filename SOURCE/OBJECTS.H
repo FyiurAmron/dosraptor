@@ -68,32 +68,32 @@ typedef struct OBJ_S {
 /***************************************************************************
 OBJS_Clear () - Clears out All Objects
  ***************************************************************************/
-VOID OBJS_Clear( VOID );
+void OBJS_Clear( void );
 
 /***************************************************************************
 OBJS_CachePics () - PreLoad bonus/object picstures
  ***************************************************************************/
-VOID OBJS_CachePics( VOID );
+void OBJS_CachePics( void );
 
 /***************************************************************************
 OBJS_FreePics () - Free bonus/object picstures
  ***************************************************************************/
-VOID OBJS_FreePics( VOID );
+void OBJS_FreePics( void );
 
 /***************************************************************************
 OBJS_Init () - Sets up object stuff
  ***************************************************************************/
-VOID OBJS_Init( VOID );
+void OBJS_Init( void );
 
 /***************************************************************************
 OBJS_DisplayStats() - Display game screen object stuff
  ***************************************************************************/
-VOID OBJS_DisplayStats( VOID );
+void OBJS_DisplayStats( void );
 
 /***************************************************************************
 OBJS_Del () - Removes Object From User Posession
  ***************************************************************************/
-VOID OBJS_Del(
+void OBJS_Del(
     OBJ_TYPE type // INPUT : OBJ type
 );
 
@@ -114,12 +114,12 @@ BOOL OBJS_Add(
 /***************************************************************************
 OBJS_GetNext () - Sets plr.sweapon to next avalable weapon
  ***************************************************************************/
-VOID OBJS_GetNext( VOID );
+void OBJS_GetNext( void );
 
 /***************************************************************************
 OBJS_Use () - Player Use An Object
  ***************************************************************************/
-VOID OBJS_Use(
+void OBJS_Use(
     OBJ_TYPE type // INPUT : OBJ type
 );
 
@@ -206,7 +206,7 @@ BOOL OBJS_CanSell(
 OBJS_GetNum () - Returns number of Objects that player has
  ***************************************************************************/
 INT // RETURN: number of objects
-    OBJS_GetNum( VOID );
+    OBJS_GetNum( void );
 
 /***************************************************************************
 OBJS_GetLib () - Returns Pointer to Lib Object
@@ -242,12 +242,12 @@ OBJS_SubEnergy(
 /***************************************************************************
 OBJS_LoseObj() - Lose random object
  ***************************************************************************/
-BOOL OBJS_LoseObj( VOID );
+BOOL OBJS_LoseObj( void );
 
 /***************************************************************************
 OBJS_Think () - Does all in game thinking ( recharing )
  ***************************************************************************/
-VOID OBJS_Think( VOID );
+void OBJS_Think( void );
 
 /***************************************************************************
 OBJS_MakeSpecial() - Makes the selected weapon the current special

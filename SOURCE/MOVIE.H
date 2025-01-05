@@ -33,12 +33,12 @@ typedef struct {
 /*************************************************************************
 MOVIE_BPatch() Plays Sound FX in background for one anim
  *************************************************************************/
-VOID MOVIE_BPatch( INT soundfx );
+void MOVIE_BPatch( INT soundfx );
 
 /*************************************************************************
    MOVIE_ShowFrame () - Shows an animation frame
  *************************************************************************/
-VOID MOVIE_ShowFrame(
+void MOVIE_ShowFrame(
     BYTE* inpic // INPUT : pointer to animpic
 );
 
@@ -55,6 +55,6 @@ INT MOVIE_Play(
 ANIM_Render () - Renders an ANIM FRAME
  *************************************************************************/
 #pragma aux ANIM_Render "_*" modify[EAX EBX ECX EDX ESI EDI]
-VOID ANIM_Render( BYTE* inmem );
+void ANIM_Render( BYTE* inmem );
 
 #endif

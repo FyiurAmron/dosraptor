@@ -22,7 +22,7 @@ PRIVATE INT think_cnt;
 /***************************************************************************
 OBJS_Clear () - Clears out All Objects
  ***************************************************************************/
-VOID OBJS_Clear( VOID ) {
+void OBJS_Clear( void ) {
     INT loop;
 
     obj_cnt = 0;
@@ -46,7 +46,7 @@ VOID OBJS_Clear( VOID ) {
 /*-------------------------------------------------------------------------*
 OBJS_Get () - Gets A Free OBJ from Link List
  *-------------------------------------------------------------------------*/
-PRIVATE OBJ* OBJS_Get( VOID ) {
+PRIVATE OBJ* OBJS_Get( void ) {
     OBJ* pNew;
 
     if ( !free_objs ) {
@@ -92,7 +92,7 @@ PRIVATE OBJ* OBJS_Remove( OBJ* sh ) {
 /***************************************************************************
 OBJS_CachePics () - PreLoad bonus/object pictures
  ***************************************************************************/
-VOID OBJS_CachePics( VOID ) {
+void OBJS_CachePics( void ) {
     OBJ_LIB* lib;
     INT loop, i;
 
@@ -113,7 +113,7 @@ VOID OBJS_CachePics( VOID ) {
 /***************************************************************************
 OBJS_FreePics () - Free bonus/object picstures
  ***************************************************************************/
-VOID OBJS_FreePics( VOID ) {
+void OBJS_FreePics( void ) {
     OBJ_LIB* lib;
     INT loop, i;
 
@@ -134,7 +134,7 @@ VOID OBJS_FreePics( VOID ) {
 /***************************************************************************
 OBJS_Init () - Sets up object stuff
  ***************************************************************************/
-VOID OBJS_Init( VOID ) {
+void OBJS_Init( void ) {
     OBJ_LIB* lib;
 
     OBJS_Clear();
@@ -545,7 +545,7 @@ VOID OBJS_Init( VOID ) {
 /***************************************************************************
 OBJS_DisplayStats() - Display game screen object stuff
  ***************************************************************************/
-VOID OBJS_DisplayStats( VOID ) {
+void OBJS_DisplayStats( void ) {
     static int dpos = 0;
     DWORD item;
     INT loop;
@@ -705,7 +705,7 @@ BUYSTUFF OBJS_Add(
 /***************************************************************************
 OBJS_Del () - Removes Object From User Posession
  ***************************************************************************/
-VOID OBJS_Del(
+void OBJS_Del(
     OBJ_TYPE type // INPUT : OBJ type
 ) {
     OBJ* cur = p_objs[type];
@@ -726,7 +726,7 @@ VOID OBJS_Del(
 /***************************************************************************
 OBJS_GetNext () - Sets plr.sweapon to next avalable weapon
  ***************************************************************************/
-VOID OBJS_GetNext( VOID ) {
+void OBJS_GetNext( void ) {
     INT loop;
     INT pos;
     INT setval = EMPTY;
@@ -759,7 +759,7 @@ VOID OBJS_GetNext( VOID ) {
 /***************************************************************************
 OBJS_Use () - Player Use An Object
  ***************************************************************************/
-VOID OBJS_Use(
+void OBJS_Use(
     OBJ_TYPE type // INPUT : OBJ type
 ) {
     OBJ* cur = p_objs[type];
@@ -1062,7 +1062,7 @@ BOOL OBJS_CanSell(
 OBJS_GetNum () - Returns number of Objects that player has
  ***************************************************************************/
 INT // RETURN: number of objects
-OBJS_GetNum( VOID ) {
+OBJS_GetNum( void ) {
     return obj_cnt;
 }
 
@@ -1192,7 +1192,7 @@ OBJS_AddEnergy(
 /***************************************************************************
 OBJS_LoseObj() - Lose random object
  ***************************************************************************/
-BOOL OBJS_LoseObj( VOID ) {
+BOOL OBJS_LoseObj( void ) {
     OBJ_LIB* lib;
     INT type;
     BOOL rval = TRUE;
@@ -1217,7 +1217,7 @@ BOOL OBJS_LoseObj( VOID ) {
 /***************************************************************************
 OBJS_Think () - Does all in game thinking ( recharing )
  ***************************************************************************/
-VOID OBJS_Think( VOID ) {
+void OBJS_Think( void ) {
     if ( curplr_diff >= DIFF_3 ) {
         return;
     }

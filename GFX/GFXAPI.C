@@ -49,7 +49,7 @@ PUBLIC INT fontspacing = 1;
 PUBLIC BYTE* ltable;
 PUBLIC BYTE* dtable;
 PUBLIC BYTE* gtable;
-PUBLIC VOID ( *framehook )( VOID ( * )( void ) ) = (VOID( * )) 0;
+PUBLIC void ( *framehook )( void ( * )( void ) ) = (void( * )) 0;
 PUBLIC BOOL retraceflag = TRUE;
 
 PUBLIC INT G3D_x = 0; // input: x position
@@ -80,7 +80,7 @@ PUBLIC INT gfx_imga = 0;
 /*==========================================================================
    GFX_TimeFrameRate () - Should be interrupt called at 70 fps
  ==========================================================================*/
-TSMCALL INT GFX_TimeFrameRate( VOID ) {
+TSMCALL INT GFX_TimeFrameRate( void ) {
     framecount++;
     return ( 0 );
 }
@@ -88,7 +88,7 @@ TSMCALL INT GFX_TimeFrameRate( VOID ) {
 /***************************************************************************
 GFX_SetDebug () - Sets Debug mode
  ***************************************************************************/
-VOID GFX_SetDebug(
+void GFX_SetDebug(
     BOOL flag // INPUT : TRUE/FALSE
 ) {
     gfxdebug = flag;
@@ -154,7 +154,7 @@ GFX_ClipLines(
 /**************************************************************************
    GFX_SetVideoMode13() - sets 256 color 320x200 mode
  **************************************************************************/
-VOID GFX_SetVideoMode13( VOID ) {
+void GFX_SetVideoMode13( void ) {
     union REGS r;
 
     r.w.ax = 0x13;
@@ -164,7 +164,7 @@ VOID GFX_SetVideoMode13( VOID ) {
 /**************************************************************************
    GFX_RestoreMode() - Restores Original video mode
  **************************************************************************/
-VOID GFX_RestoreMode( VOID ) {
+void GFX_RestoreMode( void ) {
     union REGS r;
 
     r.w.ax = 0x03;
@@ -174,7 +174,7 @@ VOID GFX_RestoreMode( VOID ) {
 /**************************************************************************
 GFX_SetPalette() - Sets VGA palette
  **************************************************************************/
-VOID GFX_SetPalette( BYTE* palette, INT start_pal ) {
+void GFX_SetPalette( BYTE* palette, INT start_pal ) {
     volatile INT num = 0;
 
     palette += ( start_pal * 3 );
@@ -204,7 +204,7 @@ VOID GFX_SetPalette( BYTE* palette, INT start_pal ) {
 /**************************************************************************
   GFX_InitSystem() - allocates buffers, makes tables, does not set vmode
  **************************************************************************/
-VOID GFX_InitSystem( VOID ) {
+void GFX_InitSystem( void ) {
     CHAR* err = "GFX_Init() - DosMemAlloc";
     INT loop;
     DWORD segment;
@@ -247,7 +247,7 @@ VOID GFX_InitSystem( VOID ) {
 /**************************************************************************
 GFX_InitVideo() - Inits things related to Video, and sets up fade tables
  **************************************************************************/
-VOID GFX_InitVideo( BYTE* curpal ) {
+void GFX_InitVideo( BYTE* curpal ) {
     GFX_SetVideoMode13();
     GFX_SetPalette( curpal, 0 );
 
@@ -259,7 +259,7 @@ VOID GFX_InitVideo( BYTE* curpal ) {
 /**************************************************************************
   GFX_EndSystem() - Frees up all resources used by GFX system
  **************************************************************************/
-VOID GFX_EndSystem( VOID ) {
+void GFX_EndSystem( void ) {
     TSM_DelService( tsm_id );
 
     memset( displayscreen, 0, 64000 );
@@ -270,7 +270,7 @@ VOID GFX_EndSystem( VOID ) {
 /**************************************************************************
   GFX_GetPalette() - Sets 256 color palette
  **************************************************************************/
-VOID GFX_GetPalette(
+void GFX_GetPalette(
     BYTE* curpal // OUTPUT : pointer to palette data
 ) {
     INT loop;
@@ -285,7 +285,7 @@ VOID GFX_GetPalette(
 /**************************************************************************
  GFX_FadeOut () - Fade Palette out to ( Red, Green , and Blue Value
  **************************************************************************/
-VOID GFX_FadeOut(
+void GFX_FadeOut(
     INT red, // INPUT : red ( 0 - 63 )
     INT green, // INPUT : green ( 0 - 63 )
     INT blue, // INPUT : blue ( 0 - 63 )
@@ -336,7 +336,7 @@ VOID GFX_FadeOut(
 /**************************************************************************
  GFX_FadeIn () - Fades From current palette to new palette
  **************************************************************************/
-VOID GFX_FadeIn(
+void GFX_FadeIn(
     BYTE* palette, // INPUT : palette to fade into
     INT steps // INPUT : steps of fade ( 0 - 255 )
 ) {
@@ -363,7 +363,7 @@ VOID GFX_FadeIn(
 /**************************************************************************
 GFX_FadeStart () - Sets up fade for GFX_FadeFrame()
  **************************************************************************/
-VOID GFX_FadeStart( VOID ) {
+void GFX_FadeStart( void ) {
     GFX_GetPalette( tpal1 );
     memcpy( tpal2, tpal1, 768 );
 }
@@ -371,7 +371,7 @@ VOID GFX_FadeStart( VOID ) {
 /**************************************************************************
 GFX_FadeFrame () - Fades Individual Frames
  **************************************************************************/
-VOID GFX_FadeFrame(
+void GFX_FadeFrame(
     BYTE* palette, // INPUT : palette to fade into
     INT cur_step, // INPUT : cur step position
     INT steps // INPUT : total steps of fade ( 0 - 255 )
@@ -390,7 +390,7 @@ VOID GFX_FadeFrame(
 /**************************************************************************
 GFX_SetPalRange() - Sets start and end range for remaping stuff
  **************************************************************************/
-VOID GFX_SetPalRange( INT start, INT end ) {
+void GFX_SetPalRange( INT start, INT end ) {
     if ( start < end && end < 256 && start >= 0 ) {
         start_lookup = start;
         end_lookup = end;
@@ -400,7 +400,7 @@ VOID GFX_SetPalRange( INT start, INT end ) {
 /**************************************************************************
   GFX_GetRGB() - gets R,G and B values from pallete data
  **************************************************************************/
-VOID GFX_GetRGB(
+void GFX_GetRGB(
     BYTE* pal, // INPUT : pointer to palette data
     INT num, // INPUT : palette entry
     INT* red, // OUTPUT: red value
@@ -452,7 +452,7 @@ GFX_Remap(
 /**************************************************************************
   GFX_MakeLightTable() - make a light/dark palette lookup table
  **************************************************************************/
-VOID GFX_MakeLightTable(
+void GFX_MakeLightTable(
     BYTE* palette, // INPUT : pointer to palette data
     BYTE* ltable, // OUTPUT: pointer to lookup table
     INT level // INPUT : - 63 to + 63
@@ -515,7 +515,7 @@ VOID GFX_MakeLightTable(
 /**************************************************************************
   GFX_MakeGreyTable() - make a grey palette lookup table
  **************************************************************************/
-VOID GFX_MakeGreyTable(
+void GFX_MakeGreyTable(
     BYTE* palette, // INPUT : pointer to palette data
     BYTE* ltable // OUTPUT: pointer to lookup table
 ) {
@@ -542,7 +542,7 @@ VOID GFX_MakeGreyTable(
 /*************************************************************************
    GFX_GetScreen() -     Gets A block of screen memory to CPU memory
  *************************************************************************/
-VOID GFX_GetScreen(
+void GFX_GetScreen(
     BYTE* outmem, // OUTPUT: pointer to CPU mem
     INT x, // INPUT : x pos
     INT y, // INPUT : y pos
@@ -564,7 +564,7 @@ VOID GFX_GetScreen(
 /*************************************************************************
    GFX_PutTexture() - Repeats a Picture though the area specified
  *************************************************************************/
-VOID GFX_PutTexture(
+void GFX_PutTexture(
     BYTE* intxt, // INPUT : color texture
     INT x, // INPUT : x pos
     INT y, // INPUT : y pos
@@ -654,7 +654,7 @@ VOID GFX_PutTexture(
 /*************************************************************************
    GFX_ShadeArea()- lightens or darkens and area of the screen
  *************************************************************************/
-VOID GFX_ShadeArea(
+void GFX_ShadeArea(
     SHADE opt, // INPUT : DARK/LIGHT or GREY
     INT x, // INPUT : x position
     INT y, // INPUT : y position
@@ -694,7 +694,7 @@ VOID GFX_ShadeArea(
 /*************************************************************************
    GFX_ShadeShape()- lightens or darkens and area of the screen
  *************************************************************************/
-VOID GFX_ShadeShape(
+void GFX_ShadeShape(
     SHADE opt, // INPUT : DARK/LIGHT or GREY
     BYTE* inmem, // INPUT : mask 0 = no shade ( GFX format pic )
     INT x, // INPUT : x position
@@ -772,7 +772,7 @@ VOID GFX_ShadeShape(
 /*************************************************************************
    GFX_VShadeLine () - Shades a vertical line
  *************************************************************************/
-VOID GFX_VShadeLine(
+void GFX_VShadeLine(
     SHADE opt, // INPUT : DARK/LIGHT or GREY
     INT x, // INPUT : x position
     INT y, // INPUT : y position
@@ -815,7 +815,7 @@ VOID GFX_VShadeLine(
 /*************************************************************************
    GFX_HShadeLine () Shades a Horizontal Line
  *************************************************************************/
-VOID GFX_HShadeLine(
+void GFX_HShadeLine(
     SHADE opt, // INPUT : DARK/LIGHT or GREY
     INT x, // INPUT : x position
     INT y, // INPUT : y position
@@ -855,7 +855,7 @@ VOID GFX_HShadeLine(
 /*************************************************************************
    GFX_LightBox()- Draws a rectangle border with light source
  *************************************************************************/
-VOID GFX_LightBox(
+void GFX_LightBox(
     CORNER opt, // INPUT : light source
     INT x, // INPUT : x position
     INT y, // INPUT : y position
@@ -904,7 +904,7 @@ VOID GFX_LightBox(
 /*************************************************************************
    GFX_ColorBox () - sets a rectangular area to color
  *************************************************************************/
-VOID GFX_ColorBox(
+void GFX_ColorBox(
     INT x, // INPUT : x position
     INT y, // INPUT : y position
     INT lx, // INPUT : width
@@ -941,7 +941,7 @@ VOID GFX_ColorBox(
 /*************************************************************************
    GFX_HLine () - plots a horizontal line in color
  *************************************************************************/
-VOID GFX_HLine(
+void GFX_HLine(
     INT x, // INPUT : x position
     INT y, // INPUT : y position
     INT lx, // INPUT : width
@@ -973,7 +973,7 @@ VOID GFX_HLine(
 /*************************************************************************
    GFX_VLine () plots a vertical line in color
  *************************************************************************/
-VOID GFX_VLine(
+void GFX_VLine(
     INT x, // INPUT : x position
     INT y, // INPUT : y position
     INT ly, // INPUT : length
@@ -1008,7 +1008,7 @@ VOID GFX_VLine(
 /*************************************************************************
    GFX_Line () plots a line in color ( Does no Clipping )
  *************************************************************************/
-VOID GFX_Line(
+void GFX_Line(
     INT x, // INPUT : x start point
     INT y, // INPUT : y start point
     INT x2, // INPUT : x2 end point
@@ -1075,7 +1075,7 @@ VOID GFX_Line(
 /*************************************************************************
    GFX_Rectangle () - sets a rectangular border to color
  *************************************************************************/
-VOID GFX_Rectangle(
+void GFX_Rectangle(
     INT x, // INPUT : x position
     INT y, // INPUT : y position
     INT lx, // INPUT : width
@@ -1098,7 +1098,7 @@ VOID GFX_Rectangle(
 /*************************************************************************
    GFX_ScalePic () - Scales picture optionaly make color 0 see thru
  *************************************************************************/
-VOID GFX_ScalePic(
+void GFX_ScalePic(
     BYTE* buffin, // INPUT : pointer to pic data
     INT x, // INPUT : x display position
     INT y, // INPUT : y display position
@@ -1174,7 +1174,7 @@ VOID GFX_ScalePic(
 /*************************************************************************
    GFX_MarkUpdate () Marks an area to be draw with GFX_DrawScreen()
  *************************************************************************/
-VOID GFX_MarkUpdate(
+void GFX_MarkUpdate(
     INT x, // INPUT : x position
     INT y, // INPUT : y position
     INT lx, // INPUT : x length
@@ -1240,7 +1240,7 @@ VOID GFX_MarkUpdate(
 /*************************************************************************
    GFX_ForceUpdate () Marks an area to be draw with GFX_DrawScreen()
  *************************************************************************/
-VOID GFX_ForceUpdate(
+void GFX_ForceUpdate(
     INT x, // INPUT : x position
     INT y, // INPUT : y position
     INT lx, // INPUT : x length
@@ -1255,7 +1255,7 @@ VOID GFX_ForceUpdate(
 /***************************************************************************
    GFX_SetFrameHook () sets function to call before every screen update
  ***************************************************************************/
-VOID GFX_SetFrameHook( VOID ( *func )( VOID ( * )( void ) ) // INPUT : pointer to function
+void GFX_SetFrameHook( void ( *func )( void ( * )( void ) ) // INPUT : pointer to function
 ) {
     framehook = func;
 }
@@ -1263,7 +1263,7 @@ VOID GFX_SetFrameHook( VOID ( *func )( VOID ( * )( void ) ) // INPUT : pointer t
 /***************************************************************************
  GFX_Delay () - Delay for ( count ) of screen frames ( sec/70 )
  ***************************************************************************/
-VOID GFX_Delay(
+void GFX_Delay(
     INT count // INPUT : wait # of frame ticks
 ) {
     static INT hold;
@@ -1279,7 +1279,7 @@ VOID GFX_Delay(
 /***************************************************************************
    GFX_WaitUpdate () - Updates screen at specified frame rate
  ***************************************************************************/
-VOID GFX_WaitUpdate(
+void GFX_WaitUpdate(
     INT count // INPUT : frame rate ( MAX = 70 )
 ) {
     static INT hold = 0;
@@ -1303,7 +1303,7 @@ VOID GFX_WaitUpdate(
 
     if ( update_start ) {
         if ( framehook ) {
-            framehook( (VOID*) GFX_DisplayScreen );
+            framehook( (void*) GFX_DisplayScreen );
         } else {
             GFX_DisplayScreen();
         }
@@ -1318,7 +1318,7 @@ VOID GFX_WaitUpdate(
 /***************************************************************************
    GFX_DisplayUpdate () - Copys Marked areas to display
  ***************************************************************************/
-VOID GFX_DisplayUpdate( VOID ) {
+void GFX_DisplayUpdate( void ) {
     static INT hold = 0;
 
     while ( FRAME_COUNT == hold && gfxdebug == FALSE )
@@ -1328,7 +1328,7 @@ VOID GFX_DisplayUpdate( VOID ) {
 
     if ( update_start ) {
         if ( framehook ) {
-            framehook( (VOID*) GFX_DisplayScreen );
+            framehook( (void*) GFX_DisplayScreen );
         } else {
             GFX_DisplayScreen();
         }
@@ -1345,7 +1345,7 @@ VOID GFX_DisplayUpdate( VOID ) {
 /***************************************************************************
    GFX_PutImage() - places image in displaybuffer and performs cliping
  ***************************************************************************/
-VOID GFX_PutImage(
+void GFX_PutImage(
     BYTE* image, // INPUT : image data
     INT x, // INPUT : x position
     INT y, // INPUT : y position
@@ -1383,7 +1383,7 @@ VOID GFX_PutImage(
 /***************************************************************************
    GFX_PutSprite () -Puts a Sprite into display buffer
  ***************************************************************************/
-VOID GFX_PutSprite(
+void GFX_PutSprite(
     BYTE* inmem, // INPUT : inmem
     INT x, // INPUT : x pos
     INT y // INPUT : y pos
@@ -1447,7 +1447,7 @@ VOID GFX_PutSprite(
 /***************************************************************************
    GFX_OverlayImage() - places image in displaybuffer and performs cliping
  ***************************************************************************/
-VOID GFX_OverlayImage(
+void GFX_OverlayImage(
     BYTE* baseimage, // INPUT : base image data
     BYTE* overimage, // INPUT : overlay image data
     INT x, // INPUT : x position
@@ -1483,7 +1483,7 @@ VOID GFX_OverlayImage(
  ***************************************************************************/
 INT // RETURNS : pixel length
 GFX_StrPixelLen(
-    VOID* infont, // INPUT : pointer to current font
+    void* infont, // INPUT : pointer to current font
     CHAR* instr, // INPUT : pointer to string
     size_t maxloop // INPUT : length of string
 ) {
@@ -1538,7 +1538,7 @@ GFX_Print(
     INT x, // INPUT : x position
     INT y, // INPUT : y position
     CHAR* str, // INPUT : string to print
-    VOID* infont, // INPUT : pointer to font
+    void* infont, // INPUT : pointer to font
     INT basecolor // INPUT : basecolor of font
 ) {
     FONT* font = infont;
@@ -1565,7 +1565,7 @@ GFX_Print(
 /***************************************************************************
    GFX_3D_SetView() Sets user view in 3d space
  ***************************************************************************/
-VOID GFX_3D_SetView(
+void GFX_3D_SetView(
     INT x, // INPUT : x position
     INT y, // INPUT : y position
     INT z // INPUT : z position
@@ -1578,7 +1578,7 @@ VOID GFX_3D_SetView(
 /*--------------------------------------------------------------------------
    GFX_3DPoint () plots a points in 3D space
  --------------------------------------------------------------------------*/
-VOID GFX_3DPoint( VOID ) {
+void GFX_3DPoint( void ) {
     G3D_x -= G3D_viewx;
     G3D_y -= G3D_viewy;
     G3D_z -= G3D_viewz;
@@ -1593,7 +1593,7 @@ VOID GFX_3DPoint( VOID ) {
 /***************************************************************************
    GFX_3D_PutImage() - places image in displaybuffer and performs cliping
  ***************************************************************************/
-VOID GFX_3D_PutImage(
+void GFX_3D_PutImage(
     BYTE* image, // INPUT : image data
     INT x, // INPUT : x position
     INT y, // INPUT : y position

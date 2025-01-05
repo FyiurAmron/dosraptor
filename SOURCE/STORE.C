@@ -50,7 +50,7 @@ extern OBJ p_objs[];
 /*-------------------------------------------------------------------------*
 MakeBuyItems () - Makes items you can Buy
  *-------------------------------------------------------------------------*/
-PRIVATE INT MakeBuyItems( VOID ) {
+PRIVATE INT MakeBuyItems( void ) {
     INT loop;
     INT num;
     BOOL flag;
@@ -96,7 +96,7 @@ PRIVATE INT MakeBuyItems( VOID ) {
 /*-------------------------------------------------------------------------*
 MakeSellItems() - Makes the items that you can sell
  *-------------------------------------------------------------------------*/
-PRIVATE INT MakeSellItems( VOID ) {
+PRIVATE INT MakeSellItems( void ) {
     INT loop;
     INT num;
     BOOL flag;
@@ -142,7 +142,7 @@ PRIVATE INT MakeSellItems( VOID ) {
 /*-------------------------------------------------------------------------*
 Harrold() - Lets Harrold do Some Talking
  *-------------------------------------------------------------------------*/
-PRIVATE VOID Harrold(
+PRIVATE void Harrold(
     DWORD item // INPUT : GLB item of harrold text
 ) {
     DWORD prev;
@@ -190,7 +190,7 @@ PRIVATE VOID Harrold(
 /***************************************************************************
 STORE_Enter () - Lets User go in store and buy and sell things
  ***************************************************************************/
-VOID STORE_Enter( VOID ) {
+void STORE_Enter( void ) {
     CHAR youhave[52];
     CHAR coststr[52];
     BOOL update = FALSE;

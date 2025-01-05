@@ -106,7 +106,7 @@ BDAY bday[MAX_BDAY];
 #define YEAR    1994
 #define WLENGTH 12
 
-VOID RAP_Bday( VOID ) {
+void RAP_Bday( void ) {
     struct dosdate_t date;
     INT loop;
 
@@ -130,7 +130,7 @@ VOID RAP_Bday( VOID ) {
     }
 }
 
-BOOL RAP_IsDate( VOID ) {
+BOOL RAP_IsDate( void ) {
     struct dosdate_t date;
     INT comp1;
     INT comp2;
@@ -155,7 +155,7 @@ BOOL RAP_IsDate( VOID ) {
     return num >= 0 && num <= WLENGTH ? TRUE : FALSE;
 }
 
-VOID RAP_PrintVmem( CHAR* desc ) {
+void RAP_PrintVmem( CHAR* desc ) {
     DWORD largest;
     DWORD totalfree;
     DWORD totallocked;
@@ -172,7 +172,7 @@ VOID RAP_PrintVmem( CHAR* desc ) {
 /*==========================================================================
 InitScreen (
  ==========================================================================*/
-VOID InitScreen( VOID ) {
+void InitScreen( void ) {
     union REGS regs;
     BYTE* scradr = (BYTE*) 0xB8000;
     INT loop;
@@ -213,9 +213,9 @@ VOID InitScreen( VOID ) {
 /*==========================================================================
    ShutDown () Shut Down function called by EXIT_xxx funtions
  ==========================================================================*/
-SPECIAL VOID ShutDown( INT errcode ) {
+SPECIAL void ShutDown( INT errcode ) {
     union REGS regs;
-    BYTE* scradr = (VOID*) 0xB8000;
+    BYTE* scradr = (void*) 0xB8000;
     BYTE* mem;
     int loop;
     int cnt = 0;
@@ -262,7 +262,7 @@ SPECIAL VOID ShutDown( INT errcode ) {
     free( g_highmem );
 }
 
-VOID RAP_ClearSides( VOID ) {
+void RAP_ClearSides( void ) {
     GFX_ColorBox( 0, 0, MAP_LEFT, 200, 0 );
     GFX_ColorBox( 320 - MAP_LEFT, 0, MAP_LEFT, 200, 0 );
 }
@@ -270,7 +270,7 @@ VOID RAP_ClearSides( VOID ) {
 /***************************************************************************
 RAP_GetShipPic () - Loads Correct Ship Pics for Light/Dark Waves
  ***************************************************************************/
-VOID RAP_GetShipPic( VOID ) {
+void RAP_GetShipPic( void ) {
     INT loop;
     BOOL lightflag = TRUE;
 
@@ -302,7 +302,7 @@ VOID RAP_GetShipPic( VOID ) {
 /***************************************************************************
    Rot_Color () - Rotates color in palette
  ***************************************************************************/
-VOID Rot_Color( BYTE* gpal, INT snum, INT len ) {
+void Rot_Color( BYTE* gpal, INT snum, INT len ) {
     short pos, maxloop;
     char h1[3];
 
@@ -317,7 +317,7 @@ VOID Rot_Color( BYTE* gpal, INT snum, INT len ) {
 /***************************************************************************
    InitMobj() - Inits an object to be moved
  ***************************************************************************/
-VOID InitMobj(
+void InitMobj(
     MOVEOBJ* cur // INPUT : pointer to MOVEOBJ
 ) {
     cur->done = FALSE;
@@ -348,7 +348,7 @@ VOID InitMobj(
 /***************************************************************************
    MoveMobj() - gets next postion for an Object
  ***************************************************************************/
-VOID MoveMobj(
+void MoveMobj(
     MOVEOBJ* cur // INPUT : pointer to MOVEOBJ
 ) {
     if ( cur->maxloop == 0 ) {
@@ -424,7 +424,7 @@ INT MoveSobj(
 /***************************************************************************
 RAP_PrintNum()
  ***************************************************************************/
-VOID RAP_PrintNum( INT x, INT y, CHAR* str ) {
+void RAP_PrintNum( INT x, INT y, CHAR* str ) {
     INT maxloop;
     INT num;
 
@@ -448,7 +448,7 @@ VOID RAP_PrintNum( INT x, INT y, CHAR* str ) {
 /***************************************************************************
 RAP_DisplayShieldLevel (
  ***************************************************************************/
-VOID RAP_DisplayShieldLevel( INT xpos, INT level ) {
+void RAP_DisplayShieldLevel( INT xpos, INT level ) {
     INT loop;
     BYTE* outbuf;
     DWORD addx;
@@ -476,7 +476,7 @@ VOID RAP_DisplayShieldLevel( INT xpos, INT level ) {
 /***************************************************************************
 RAP_DisplayStats()
  ***************************************************************************/
-VOID RAP_DisplayStats( VOID ) {
+void RAP_DisplayStats( void ) {
     static INT damage = EMPTY;
     static BOOL blinkflag = TRUE;
     CHAR temp[21];
@@ -613,7 +613,7 @@ VOID RAP_DisplayStats( VOID ) {
     }
 }
 
-VOID RAP_PaletteStuff( VOID ) {
+void RAP_PaletteStuff( void ) {
     static INT wblink = 0;
     static INT glow1 = 0;
     static INT glow2 = 8;
@@ -750,7 +750,7 @@ VOID RAP_PaletteStuff( VOID ) {
 Do_Game () - The main game thing this is it dude
  ***************************************************************************/
 BOOL // TRUE=Aborted, FALSE = timeout
-Do_Game( VOID ) {
+Do_Game( void ) {
     INT local_cnt;
     BOOL b2_flag = FALSE;
     BOOL b3_flag = FALSE;
@@ -1136,7 +1136,7 @@ Do_Game( VOID ) {
 /***************************************************************************
 RAP_InitMem() - Allocates memory for VM and GLB to use
  ***************************************************************************/
-VOID RAP_InitMem( VOID ) {
+void RAP_InitMem( void ) {
     DWORD segment;
     DWORD memsize;
     DWORD lowmem = 0;
@@ -1206,7 +1206,7 @@ VOID RAP_InitMem( VOID ) {
     GLB_UseVM();
 }
 
-VOID JoyHack( VOID ) {
+void JoyHack( void ) {
     extern INT joy_x, joy_y, joy_buttons;
     union REGS regs;
 
@@ -1232,7 +1232,7 @@ VOID JoyHack( VOID ) {
     }
 }
 
-VOID main( INT argc, CHAR* argv[] ) {
+void main( INT argc, CHAR* argv[] ) {
     INT loop;
     INT numfiles;
     DWORD item;

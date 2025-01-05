@@ -79,7 +79,7 @@ PRIVATE FILEDESC filedesc[MAX_GLB_FILES];
 /***************************************************************************
   GLB_EnCrypt - Encrypt Data
  ***************************************************************************/
-VOID GLB_EnCrypt(
+void GLB_EnCrypt(
     CHAR* key, // INPUT : Key that will allow Decryption
     BYTE* buffer, // INPUT : Buffer to Encrypt
     size_t length // INPUT : Length of Buffer
@@ -103,7 +103,7 @@ VOID GLB_EnCrypt(
 /***************************************************************************
   GLB_DeCrypt - Decrypt Data
  ***************************************************************************/
-VOID GLB_DeCrypt(
+void GLB_DeCrypt(
     CHAR* key, // INPUT : Key that will allow Decryption
     BYTE* buffer, // INPUT : Buffer to Encrypt
     size_t length // INPUT : Length of Buffer
@@ -210,7 +210,7 @@ PRIVATE INT GLB_OpenFile(
 /*------------------------------------------------------------------------
    GLB_CloseFiles() - Closes all cached files.
  ------------------------------------------------------------------------*/
-PRIVATE VOID GLB_CloseFiles( VOID ) {
+PRIVATE void GLB_CloseFiles( void ) {
     INT j;
 
     for ( j = 0; j < MAX_GLB_FILES; j++ ) {
@@ -236,7 +236,7 @@ PRIVATE INT GLB_NumItems( INT filenum ) {
     }
 
     lseek( handle, 0L, SEEK_SET );
-    if ( !read( handle, (VOID*) &key, sizeof( KEYFILE ) ) ) {
+    if ( !read( handle, (void*) &key, sizeof( KEYFILE ) ) ) {
         EXIT_Error( "GLB_NumItems: Read failed!" );
     }
 
@@ -250,7 +250,7 @@ PRIVATE INT GLB_NumItems( INT filenum ) {
 /*--------------------------------------------------------------------------
  GLB_LoadIDT() Loads a item descriptor table from a GLB file.
  --------------------------------------------------------------------------*/
-PRIVATE VOID GLB_LoadIDT(
+PRIVATE void GLB_LoadIDT(
     FILEDESC* fd // INPUT: file to load
 ) {
     int handle;
@@ -270,7 +270,7 @@ PRIVATE VOID GLB_LoadIDT(
             k = ASIZE( key );
         }
 
-        read( handle, (VOID*) key, k * sizeof( KEYFILE ) );
+        read( handle, (void*) key, k * sizeof( KEYFILE ) );
         for ( n = 0; n < k; n++ ) {
 #ifdef _SCOTTGAME
             GLB_DeCrypt( serial, (BYTE*) &key[n], sizeof( KEYFILE ) );
@@ -291,7 +291,7 @@ PRIVATE VOID GLB_LoadIDT(
 /*************************************************************************
    GLB_UseVM - Use virtual memory functions for heap managment.
  *************************************************************************/
-PUBLIC VOID GLB_UseVM( void ) {
+PUBLIC void GLB_UseVM( void ) {
     fVmem = TRUE;
 }
 
@@ -382,7 +382,7 @@ GLB_Load(
             memcpy( inmem, ii->vm_mem.obj, ii->size );
         } else {
             lseek( handle, ii->offset, SEEK_SET );
-            read( handle, (VOID*) inmem, ii->size );
+            read( handle, (void*) inmem, ii->size );
 #ifdef _SCOTTGAME
             if ( ii->flags & ITF_ENCODED ) {
                 GLB_DeCrypt( serial, inmem, ii->size );
@@ -398,7 +398,7 @@ GLB_Load(
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 typedef enum { FI_CACHE, FI_DISCARD, FI_LOCK } FI_MODE;
 
-PRIVATE VOID* GLB_FetchItem( DWORD handle, FI_MODE mode ) {
+PRIVATE void* GLB_FetchItem( DWORD handle, FI_MODE mode ) {
     BYTE* obj;
     ITEM_H itm;
     ITEMINFO* ii;
@@ -456,7 +456,7 @@ PRIVATE VOID* GLB_FetchItem( DWORD handle, FI_MODE mode ) {
 /***************************************************************************
  GLB_CacheItem() - Loads item into memory only if free core exists.
  ***************************************************************************/
-VOID* GLB_CacheItem( DWORD handle ) {
+void* GLB_CacheItem( DWORD handle ) {
     return GLB_FetchItem( handle, FI_CACHE );
 }
 
@@ -472,14 +472,14 @@ BYTE* GLB_GetItem(
 /***************************************************************************
  GLB_LockItem () - Keeps Item From being discarded.
  ***************************************************************************/
-VOID* GLB_LockItem( DWORD handle ) {
+void* GLB_LockItem( DWORD handle ) {
     return GLB_FetchItem( handle, FI_LOCK );
 }
 
 /***************************************************************************
  GLB_UnlockItem () - Allows item to be discarded from memory.
  ***************************************************************************/
-VOID GLB_UnlockItem( DWORD handle ) {
+void GLB_UnlockItem( DWORD handle ) {
     ITEM_H itm;
     ITEMINFO* ii;
 
@@ -537,7 +537,7 @@ GLB_IsLabel(
 /***************************************************************************
  GLB_ReadItem() - Loads Item into user memory for a .GLB item
  ***************************************************************************/
-VOID GLB_ReadItem(
+void GLB_ReadItem(
     DWORD handle, // INPUT : handle of item
     BYTE* mem // INPUT : pointer to memory
 ) {
@@ -624,7 +624,7 @@ INT handle                 // INPUT : handle of item
 /***************************************************************************
  GLB_FreeItem() - Frees memory for items and places items < MAX SIZE
  ***************************************************************************/
-VOID GLB_FreeItem(
+void GLB_FreeItem(
     DWORD handle // INPUT : handle of item
 ) {
     ITEM_H itm;
@@ -660,7 +660,7 @@ VOID GLB_FreeItem(
 /***************************************************************************
  GLB_FreeAll() - Frees All memory used by GLB items
  ***************************************************************************/
-VOID GLB_FreeAll( VOID ) {
+void GLB_FreeAll( void ) {
     int filenum;
     int itemnum;
     ITEMINFO* ii;
@@ -711,7 +711,7 @@ GLB_ItemSize(
 INT // RETURN: size of record
 GLB_ReadFile(
     CHAR* name, // INPUT : filename
-    VOID* buffer // OUTPUT: pointer to buffer or NULL
+    void* buffer // OUTPUT: pointer to buffer or NULL
 ) {
     CHAR fqp[_MAX_PATH];
     INT handle;
@@ -743,9 +743,9 @@ GLB_ReadFile(
 /***************************************************************************
    GLB_SaveFile () saves buffer to a normal file ( filename )
  ***************************************************************************/
-VOID GLB_SaveFile(
+void GLB_SaveFile(
     CHAR* name, // INPUT : filename
-    VOID* buffer, // INPUT : pointer to buffer
+    void* buffer, // INPUT : pointer to buffer
     DWORD length // INPUT : length of buffer
 ) {
     INT handle;

@@ -43,13 +43,13 @@ void EXIT_Assert( char*, char*, unsigned );
 /***************************************************************************
    EXIT_Install() Sets User routine to shut down systems
  ***************************************************************************/
-VOID EXIT_Install( VOID ( *SD )( INT ) // INPUT : pointer to function
+void EXIT_Install( void ( *SD )( INT ) // INPUT : pointer to function
 );
 
 /***************************************************************************
    EXIT_Error() - Terminate Program in Error with message
  ***************************************************************************/
-VOID EXIT_Error(
+void EXIT_Error(
     char* instr, // INPUT : message string ot format
     ... // INPUT : args for instr
 );
@@ -57,6 +57,6 @@ VOID EXIT_Error(
 /***************************************************************************
    EXIT_Clean() - Terminate Program Clean
  ***************************************************************************/
-VOID EXIT_Clean( VOID );
+void EXIT_Clean( void );
 
 #endif

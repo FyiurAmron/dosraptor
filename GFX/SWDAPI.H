@@ -168,14 +168,14 @@ typedef struct {
 /***************************************************************************
  SWD_Install() - Initializes Window system
  ***************************************************************************/
-VOID SWD_Install(
+void SWD_Install(
     BOOL moveflag // INPUT : Use Move Window feature ( 64k )
 );
 
 /***************************************************************************
    SWD_End () Frees up resources used by SWD System
  ***************************************************************************/
-VOID SWD_End( VOID );
+void SWD_End( void );
 
 /***************************************************************************
 SWD_FillText () - Fills Text from GLB intro an AREA
@@ -208,39 +208,39 @@ INT SWD_InitMasterWindow(
 /***************************************************************************
    SWD_SetWinDrawFunc () - Function called after window is drawn
  ***************************************************************************/
-VOID SWD_SetWinDrawFunc(
+void SWD_SetWinDrawFunc(
     INT handle, // INPUT :handle of window
-    VOID ( *infunc )( SWD_DLG* ) // INPUT :pointer to function
+    void ( *infunc )( SWD_DLG* ) // INPUT :pointer to function
 );
 
 /***************************************************************************
 SWD_SetClearFlag() - Turns ON/OFF memsetting of display buffer in showallwins
  ***************************************************************************/
-VOID SWD_SetClearFlag( BOOL inflag );
+void SWD_SetClearFlag( BOOL inflag );
 
 /***************************************************************************
  SWD_ShowAllWindows()- Diplays all windows.. puts active window on top
  ***************************************************************************/
 BOOL // RETURN : TRUE = OK, FALSE = Error
-    SWD_ShowAllWindows( VOID );
+    SWD_ShowAllWindows( void );
 
 /***************************************************************************
    SWD_SetViewDrawHook () Sets Function to draw after the master window
  ***************************************************************************/
-VOID SWD_SetViewDrawHook( VOID ( *func )( VOID ) // INPUT : pointer to function
+void SWD_SetViewDrawHook( void ( *func )( void ) // INPUT : pointer to function
 );
 
 /***************************************************************************
 SWD_SetWindowPtr() - Sets Pointer to center of active field
  ***************************************************************************/
-VOID SWD_SetWindowPtr(
+void SWD_SetWindowPtr(
     INT handle // INPUT : number/handle of window
 );
 
 /***************************************************************************
 SWD_SetFieldPtr () - Sets Pointer on a field
  ***************************************************************************/
-VOID SWD_SetFieldPtr(
+void SWD_SetFieldPtr(
     INT handle, // INPUT : number/handle of window
     INT field // INPUT : field
 );
@@ -248,14 +248,14 @@ VOID SWD_SetFieldPtr(
 /***************************************************************************
  SWD_SetActiveWindow() - Sets the current working window
  ***************************************************************************/
-VOID SWD_SetActiveWindow(
+void SWD_SetActiveWindow(
     INT handle // INPUT : number/handle of window
 );
 
 /***************************************************************************
  SWD_SetActiveField() - Sets the current working field
  ***************************************************************************/
-VOID SWD_SetActiveField(
+void SWD_SetActiveField(
     INT handle, // INPUT : handle of window
     INT field_id // INPUT : number/handle of field
 );
@@ -263,21 +263,21 @@ VOID SWD_SetActiveField(
 /***************************************************************************
  SWD_DestroyWindow() - removes a window from SWD system
  ***************************************************************************/
-VOID SWD_DestroyWindow(
+void SWD_DestroyWindow(
     INT handle // INPUT : handle of window
 );
 
 /***************************************************************************
    SWD_Dialog () - performs all window in/out/diaplay/move stuff
  ***************************************************************************/
-VOID SWD_Dialog(
+void SWD_Dialog(
     SWD_DLG* swd_dlg // OUTPUT: pointer to info structure
 );
 
 /***************************************************************************
    SWD_SetWindowLock() - Locks Window so no others can be selected
  ***************************************************************************/
-VOID SWD_SetWindowLock(
+void SWD_SetWindowLock(
     INT handle, // INPUT : handle to window
     BOOL lock // INPUT : TRUE/FALSE
 );
@@ -344,7 +344,7 @@ INT SWD_SetFieldValue(
 /***************************************************************************
 SWD_SetFieldSelect() - Sets Field Selectable status
  ***************************************************************************/
-VOID SWD_SetFieldSelect(
+void SWD_SetFieldSelect(
     INT handle, // INPUT : window handle
     INT field_id, // INPUT : field handle
     BOOL opt // INPUT : TRUE, FALSE
@@ -381,7 +381,7 @@ SWD_SetFieldInputOpt(
 /***************************************************************************
    SWD_SetFieldItem () - Sets field Item ID ( picture )
  ***************************************************************************/
-VOID SWD_SetFieldItem(
+void SWD_SetFieldItem(
     INT handle, // INPUT : window handle
     INT field_id, // INPUT : field handle
     DWORD item // INPUT : GLB item id
@@ -399,7 +399,7 @@ SWD_GetFieldItem(
 /***************************************************************************
    SWD_SetFieldItemName () - Sets Field Item Name and Loads it in
  ***************************************************************************/
-VOID SWD_SetFieldItemName(
+void SWD_SetFieldItemName(
     INT handle, // INPUT : window handle
     INT field_id, // INPUT : field handle
     CHAR* item_name // INPUT : pointer to Item Name
@@ -408,7 +408,7 @@ VOID SWD_SetFieldItemName(
 /***************************************************************************
    SWD_GetFieldItemName () - Gets Field Item Name
  ***************************************************************************/
-VOID SWD_GetFieldItemName(
+void SWD_GetFieldItemName(
     INT handle, // INPUT : window handle
     INT field_id, // INPUT : field handle
     CHAR* item_name // OUTPUT: pointer to Item Name
@@ -417,7 +417,7 @@ VOID SWD_GetFieldItemName(
 /***************************************************************************
  SWD_SetFieldMark() - Sets the Field Mark ( button )
  ***************************************************************************/
-VOID SWD_SetFieldMark(
+void SWD_SetFieldMark(
     INT handle, // INPUT : window handle
     INT field_id, // INPUT : field handle
     BOOL opt // INPUT : TRUE, FALSE

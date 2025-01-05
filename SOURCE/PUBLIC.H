@@ -67,14 +67,14 @@ typedef struct {
 /***************************************************************************
    InitMobj() - Inits an object to be moved
  ***************************************************************************/
-VOID InitMobj(
+void InitMobj(
     MOVEOBJ* cur // INPUT : pointer to MOVEOBJ
 );
 
 /***************************************************************************
    MoveMobj() - gets next postion for an Object
  ***************************************************************************/
-VOID MoveMobj(
+void MoveMobj(
     MOVEOBJ* cur // INPUT : pointer to MOVEOBJ
 );
 
@@ -89,13 +89,13 @@ INT MoveSobj(
 /***************************************************************************
 AskExit () - Opens Windows and Askes if USer wants 2 quit
  ***************************************************************************/
-VOID AskExit( VOID );
+void AskExit( void );
 
 /***************************************************************************
 Do_Game () - The main game thing this is it dude
  ***************************************************************************/
 BOOL // TRUE=Aborted, FALSE = timeout
-    Do_Game( VOID );
+    Do_Game( void );
 
 extern PLAYEROBJ plr;
 extern INT choose_special[];

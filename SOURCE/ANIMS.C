@@ -49,7 +49,7 @@ PRIVATE INT adir[3] = { 0, -1, 1 };
 /***************************************************************************
 ANIMS_Clear () - Clears out All ANIM Objects
  ***************************************************************************/
-VOID ANIMS_Clear( VOID ) {
+void ANIMS_Clear( void ) {
     INT loop;
 
     first_anims.prev = NUL;
@@ -70,7 +70,7 @@ VOID ANIMS_Clear( VOID ) {
 /*-------------------------------------------------------------------------*
 ANIMS_Get () - Gets A Free ANIM from Link List
  *-------------------------------------------------------------------------*/
-PRIVATE ANIMS* ANIMS_Get( VOID ) {
+PRIVATE ANIMS* ANIMS_Get( void ) {
     ANIMS* pNew;
 
     if ( !free_anims ) {
@@ -150,7 +150,7 @@ INT ANIMS_Register(
 /***************************************************************************
 ANIMS_Init () Initializes ANIM Stuff
  ***************************************************************************/
-VOID ANIMS_Init( VOID ) {
+void ANIMS_Init( void ) {
     ANIMS_Clear();
 
     memset( animlib, 0, sizeof( animlib ) );
@@ -195,7 +195,7 @@ VOID ANIMS_Init( VOID ) {
 /***************************************************************************
 ANIMS_CachePics() - Cache registered anim pics
  ***************************************************************************/
-VOID ANIMS_CachePics( VOID ) {
+void ANIMS_CachePics( void ) {
     INT loop;
     ANIMLIB* cur;
     DWORD frames;
@@ -212,7 +212,7 @@ VOID ANIMS_CachePics( VOID ) {
 /***************************************************************************
 ANIMS_FreePics() - Free Up Anims Used
  ***************************************************************************/
-VOID ANIMS_FreePics( VOID ) {
+void ANIMS_FreePics( void ) {
     INT loop;
     ANIMLIB* cur;
     DWORD frames;
@@ -229,7 +229,7 @@ VOID ANIMS_FreePics( VOID ) {
 /***************************************************************************
 ANIMS_StartAnim () - Start An ANIM Playing
  ***************************************************************************/
-VOID ANIMS_StartAnim(
+void ANIMS_StartAnim(
     INT handle, // INPUT : ANIM handle
     INT x, // INPUT : x position
     INT y // INPUT : y position
@@ -251,7 +251,7 @@ VOID ANIMS_StartAnim(
 /***************************************************************************
 ANIMS_StartGAnim () - Start An ANIM Playing with groundflag == GROUND
  ***************************************************************************/
-VOID ANIMS_StartGAnim(
+void ANIMS_StartGAnim(
     INT handle, // INPUT : ANIM handle
     INT x, // INPUT : x position
     INT y // INPUT : y position
@@ -272,7 +272,7 @@ VOID ANIMS_StartGAnim(
 /***************************************************************************
 ANIMS_StartEAnim () - Start An ANIM Playing locked onto ENEMY
  ***************************************************************************/
-VOID ANIMS_StartEAnim(
+void ANIMS_StartEAnim(
     SPRITE_SHIP* en, // INPUT : pointer to ENEMY
     INT handle, // INPUT : ANIM handle
     INT x, // INPUT : x position
@@ -296,7 +296,7 @@ VOID ANIMS_StartEAnim(
 /***************************************************************************
 ANIMS_StartAAnim () - Start An ANIM Playing with groundflag == HIGH_AIR
  ***************************************************************************/
-VOID ANIMS_StartAAnim(
+void ANIMS_StartAAnim(
     INT handle, // INPUT : ANIM handle
     INT x, // INPUT : x position
     INT y // INPUT : y position
@@ -318,7 +318,7 @@ VOID ANIMS_StartAAnim(
 /***************************************************************************
 ANIMS_Think () - Does all thinking for ANIMS
  ***************************************************************************/
-VOID ANIMS_Think( VOID ) {
+void ANIMS_Think( void ) {
     ANIMS* cur;
     ANIMLIB* lib;
 
@@ -375,7 +375,7 @@ VOID ANIMS_Think( VOID ) {
 /***************************************************************************
 ANIMS_DisplayGround () - Displays All Active ANIMS on the Ground
  ***************************************************************************/
-VOID ANIMS_DisplayGround( VOID ) {
+void ANIMS_DisplayGround( void ) {
     ANIMS* cur;
     BYTE* pic;
 
@@ -397,7 +397,7 @@ VOID ANIMS_DisplayGround( VOID ) {
 /***************************************************************************
 ANIMS_DisplaySky () - Displays All Active ANIMS in SKY
  ***************************************************************************/
-VOID ANIMS_DisplaySky( VOID ) {
+void ANIMS_DisplaySky( void ) {
     ANIMS* cur;
     BYTE* pic;
 
@@ -419,7 +419,7 @@ VOID ANIMS_DisplaySky( VOID ) {
 /***************************************************************************
 ANIMS_DisplayHigh () - Displays All Active ANIMS in ABOVE PLAYER
  ***************************************************************************/
-VOID ANIMS_DisplayHigh( VOID ) {
+void ANIMS_DisplayHigh( void ) {
     ANIMS* cur;
     BYTE* pic;
 

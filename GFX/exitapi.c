@@ -21,14 +21,14 @@
 
 #include "exitapi.h"
 
-PRIVATE VOID ( *ShutDown )( INT ) = (VOID( * )) 0;
+PRIVATE void ( *ShutDown )( INT ) = (void( * )) 0;
 PRIVATE CHAR* clean_exit_msg = "Clean Exit";
 PRIVATE CHAR* serial = "32768SH";
 
 /***************************************************************************
    EXIT_Install() Sets User routine to shut down systems
  ***************************************************************************/
-VOID EXIT_Install( VOID ( *SD )( INT ) // INPUT : pointer to function
+void EXIT_Install( void ( *SD )( INT ) // INPUT : pointer to function
 ) {
     ShutDown = SD;
 }
@@ -36,7 +36,7 @@ VOID EXIT_Install( VOID ( *SD )( INT ) // INPUT : pointer to function
 /***************************************************************************
    EXIT_Error() - Terminate Program in Error with message
  ***************************************************************************/
-VOID EXIT_Error(
+void EXIT_Error(
     char* instr, // INPUT : message string ot format
     ... // INPUT : args for instr
 ) {
@@ -56,7 +56,7 @@ VOID EXIT_Error(
 /***************************************************************************
    EXIT_Assert() - Terminate Program in Error with Assertion
  ***************************************************************************/
-VOID EXIT_Assert(
+void EXIT_Assert(
     char* expression, // INPUT : expression that failed
     char* filename, // INPUT : filename assert occured in
     unsigned linenum // INPUT : line number of assert statement
@@ -73,7 +73,7 @@ VOID EXIT_Assert(
 /***************************************************************************
    EXIT_Clean() - Terminate Program Clean
  ***************************************************************************/
-VOID EXIT_Clean( VOID ) {
+void EXIT_Clean( void ) {
     if ( ShutDown ) {
         ShutDown( 0 );
     } else {

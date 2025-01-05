@@ -14,7 +14,7 @@ FRAME frm[40];
 /***************************************************************************
 INTRO_City () - Shows City with planes flying into it
  ***************************************************************************/
-BOOL INTRO_City( VOID ) {
+BOOL INTRO_City( void ) {
     INT loop;
     INT maxframes = 30;
     INT framecnt = maxframes - 1;
@@ -68,7 +68,7 @@ BOOL INTRO_City( VOID ) {
 /***************************************************************************
 INTRO_Side1 () - Show Side OF Player ship going thru city
  ***************************************************************************/
-BOOL INTRO_Side1( VOID ) {
+BOOL INTRO_Side1( void ) {
     INT loop;
     INT maxframes = 20;
     INT framecnt = maxframes - 1;
@@ -107,7 +107,7 @@ BOOL INTRO_Side1( VOID ) {
 /***************************************************************************
 INTRO_Pilot () - Shows Pilots Face with lights moving thru
  ***************************************************************************/
-BOOL INTRO_Pilot( VOID ) {
+BOOL INTRO_Pilot( void ) {
     INT loop;
     INT maxframes = 21;
     INT framecnt = maxframes - 1;
@@ -146,7 +146,7 @@ BOOL INTRO_Pilot( VOID ) {
 /***************************************************************************
 INTRO_Explosion () - Bad Guy Blowing UP
  ***************************************************************************/
-BOOL INTRO_Explosion( VOID ) {
+BOOL INTRO_Explosion( void ) {
     INT loop;
     INT maxframes = 22;
     INT framecnt = maxframes - 1;
@@ -205,7 +205,7 @@ BOOL INTRO_Explosion( VOID ) {
 /***************************************************************************
 INTRO_Side2 () - Plaer Side flying thru city Shooting
  ***************************************************************************/
-BOOL INTRO_Side2( VOID ) {
+BOOL INTRO_Side2( void ) {
     INT loop;
     INT maxframes = 20;
     INT framecnt = maxframes - 1;
@@ -284,7 +284,7 @@ BOOL INTRO_Side2( VOID ) {
 /***************************************************************************
 INTRO_Base() - Base Landing at sunset
  ***************************************************************************/
-BOOL INTRO_Base( VOID ) {
+BOOL INTRO_Base( void ) {
     INT loop;
     INT maxframes = 30;
     INT framecnt = maxframes - 1;
@@ -329,7 +329,7 @@ BOOL INTRO_Base( VOID ) {
 /***************************************************************************
 INTRO_Landing () - Ship Landing on Base
  ***************************************************************************/
-BOOL INTRO_Landing( VOID ) {
+BOOL INTRO_Landing( void ) {
     INT loop;
     INT maxframes = 33;
     INT framecnt = maxframes - 1;
@@ -371,7 +371,7 @@ BOOL INTRO_Landing( VOID ) {
 /***************************************************************************
 INTRO_Death2 () - Ground Death Scene
  ***************************************************************************/
-BOOL INTRO_Death2( VOID ) {
+BOOL INTRO_Death2( void ) {
     INT loop;
     INT maxframes = 6;
     INT framecnt = maxframes - 1;
@@ -412,7 +412,7 @@ BOOL INTRO_Death2( VOID ) {
 /***************************************************************************
 INTRO_Death1 () - Air Death Scene
  ***************************************************************************/
-BOOL INTRO_Death1( VOID ) {
+BOOL INTRO_Death1( void ) {
     INT loop;
     INT maxframes = 30;
     INT framecnt = maxframes - 1;
@@ -447,7 +447,7 @@ BOOL INTRO_Death1( VOID ) {
 /***************************************************************************
 INTRO_Death () - Death Scene
  ***************************************************************************/
-BOOL INTRO_Death( VOID ) {
+BOOL INTRO_Death( void ) {
 
     if ( INTRO_Death1() ) {
         return TRUE;
@@ -459,7 +459,7 @@ BOOL INTRO_Death( VOID ) {
 /***************************************************************************
 INTRO_Game1End () - Game 1 Victory
  ***************************************************************************/
-BOOL INTRO_Game1End( VOID ) {
+BOOL INTRO_Game1End( void ) {
     INT loop;
     INT maxframes = 5;
     INT framecnt = maxframes - 1;
@@ -502,7 +502,7 @@ BOOL INTRO_Game1End( VOID ) {
 /***************************************************************************
 INTRO_Game2End () - Game 1 Victory
  ***************************************************************************/
-BOOL INTRO_Game2End( VOID ) {
+BOOL INTRO_Game2End( void ) {
     INT loop;
     INT maxframes = 25;
     INT framecnt = maxframes - 1;
@@ -555,7 +555,7 @@ BOOL INTRO_Game2End( VOID ) {
 /***************************************************************************
 INTRO_Game3End () - Game 1 Victory
  ***************************************************************************/
-BOOL INTRO_Game3End( VOID ) {
+BOOL INTRO_Game3End( void ) {
     INT loop;
     INT maxframes = 39;
     INT framecnt = maxframes - 1;
@@ -610,7 +610,7 @@ BOOL INTRO_Game3End( VOID ) {
 /***************************************************************************
 INTRO_EndGame() - Ends the current game anims
  ***************************************************************************/
-VOID INTRO_EndGame( INT game ) {
+void INTRO_EndGame( INT game ) {
     IMS_StartAck();
 
     if ( !gameflag[game] ) {
@@ -663,7 +663,7 @@ VOID INTRO_EndGame( INT game ) {
 /***************************************************************************
 INTRO_Taiwan (
  ***************************************************************************/
-VOID INTRO_Taiwan( VOID ) {
+void INTRO_Taiwan( void ) {
     INT loop;
     BYTE* pal1;
     BYTE* pic1;
@@ -699,7 +699,7 @@ VOID INTRO_Taiwan( VOID ) {
 /***************************************************************************
 INTRO_Credits() - Credits Screen
  ***************************************************************************/
-BOOL INTRO_Credits( VOID ) {
+BOOL INTRO_Credits( void ) {
     INT loop;
     BYTE* pal1;
     BYTE* pal2;
@@ -805,7 +805,7 @@ BOOL INTRO_Credits( VOID ) {
 /***************************************************************************
 INTRO_BaseLanding() - BaseLanding PLays all needed MOVES
  ***************************************************************************/
-VOID INTRO_BaseLanding( VOID ) {
+void INTRO_BaseLanding( void ) {
     if ( !gameflag[1] ) {
         return;
     }
@@ -821,7 +821,7 @@ VOID INTRO_BaseLanding( VOID ) {
 /***************************************************************************
 INTRO_PlayMain() - Plays Main Intro
  ***************************************************************************/
-BOOL INTRO_PlayMain( VOID ) {
+BOOL INTRO_PlayMain( void ) {
     if ( INTRO_City() ) {
         return TRUE;
     }

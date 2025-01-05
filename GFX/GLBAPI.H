@@ -64,17 +64,17 @@ GLB_Load(
 /***************************************************************************
  GLB_LockItem () - Keeps Item From being discarded.
  ***************************************************************************/
-VOID* GLB_LockItem( DWORD handle );
+void* GLB_LockItem( DWORD handle );
 
 /***************************************************************************
  GLB_UnlockItem () - Allows item to be discarded from memory.
  ***************************************************************************/
-VOID GLB_UnlockItem( DWORD handle );
+void GLB_UnlockItem( DWORD handle );
 
 /***************************************************************************
  GLB_CacheItem() - Loads item into memory only if free core exists.
  ***************************************************************************/
-VOID* GLB_CacheItem( DWORD handle );
+void* GLB_CacheItem( DWORD handle );
 
 /***************************************************************************
  GLB_GetItem() - Loads and allocates memory for a .GLB item
@@ -102,7 +102,7 @@ GLB_IsLabel(
 /***************************************************************************
  GLB_ReadItem() - Loads Item into user memory for a .GLB item
  ***************************************************************************/
-VOID GLB_ReadItem(
+void GLB_ReadItem(
     DWORD handle, // INPUT : handle of item
     BYTE* mem // INPUT : pointer to memory
 );
@@ -126,14 +126,14 @@ GLB_GetPtr(
 /***************************************************************************
  GLB_FreeItem() - Frees memory for items and places items < MAX SIZE
  ***************************************************************************/
-VOID GLB_FreeItem(
+void GLB_FreeItem(
     DWORD handle // INPUT : handle of item
 );
 
 /***************************************************************************
  GLB_FreeAll() - Frees All memory used by GLB items
  ***************************************************************************/
-VOID GLB_FreeAll( VOID );
+void GLB_FreeAll( void );
 
 /***************************************************************************
  GLB_ItemSize() - Returns Size of Item
@@ -149,27 +149,27 @@ GLB_ItemSize(
 INT // RETURN: size of record
 GLB_ReadFile(
     CHAR* name, // INPUT : filename
-    VOID* buffer // OUTPUT: pointer to buffer or NULL
+    void* buffer // OUTPUT: pointer to buffer or NULL
 );
 
 /***************************************************************************
    GLB_SaveFile () saves buffer to a normal file ( filename )
  ***************************************************************************/
-VOID GLB_SaveFile(
+void GLB_SaveFile(
     CHAR* name, // INPUT : filename
-    VOID* buffer, // INPUT : pointer to buffer
+    void* buffer, // INPUT : pointer to buffer
     DWORD length // INPUT : length of buffer
 );
 
 /*************************************************************************
    GLB_UseVM - Use virtual memory functions for heap managment.
  *************************************************************************/
-PUBLIC VOID GLB_UseVM( void );
+PUBLIC void GLB_UseVM( void );
 
 /***************************************************************************
   GLB_EnCrypt - Encrypt Data
  ***************************************************************************/
-VOID GLB_EnCrypt(
+void GLB_EnCrypt(
     CHAR* key, // INPUT : Key that will allow Decryption
     BYTE* buffer, // INPUT : Buffer to Encrypt
     size_t length // INPUT : Length of Buffer
@@ -178,7 +178,7 @@ VOID GLB_EnCrypt(
 /***************************************************************************
   GLB_DeCrypt - Decrypt Data
  ***************************************************************************/
-VOID GLB_DeCrypt(
+void GLB_DeCrypt(
     CHAR* key, // INPUT : Key that will allow Decryption
     BYTE* buffer, // INPUT : Buffer to Encrypt
     size_t length // INPUT : Length of Buffer

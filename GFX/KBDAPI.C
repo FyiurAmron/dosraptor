@@ -30,8 +30,8 @@ BOOL paused, capslock;
 INT lastscan;
 INT lastascii;
 
-PRIVATE VOID( _interrupt _far* oldkeyboardisr )() = 0L;
-PRIVATE VOID ( *keyboardhook )( VOID ) = (VOID( * )) 0;
+PRIVATE void( _interrupt _far* oldkeyboardisr )() = 0L;
+PRIVATE void ( *keyboardhook )( void ) = (void( * )) 0;
 
 PUBLIC INT ASCIINames[] = // Unshifted ASCII for scan codes
     {
@@ -62,7 +62,7 @@ PRIVATE INT ShiftNames[] = // Shifted ASCII for scan codes
 /*------------------------------------------------------------------------
    KBD_ReadScan () - reads scan code, ( interrupt routine )
   ------------------------------------------------------------------------*/
-SPECIAL VOID _interrupt KBD_ReadScan( void ) {
+SPECIAL void _interrupt KBD_ReadScan( void ) {
     static BYTE key;
 
     key = inp( 0x60 );
@@ -111,16 +111,16 @@ SPECIAL VOID _interrupt KBD_ReadScan( void ) {
 /***************************************************************************
    KBD_Clear() - Resets all flags
  ***************************************************************************/
-VOID KBD_Clear( VOID ) {
+void KBD_Clear( void ) {
     lastscan = SC_NONE;
-    memset( (VOID*) keyboard, 0, sizeof( keyboard ) );
+    memset( (void*) keyboard, 0, sizeof( keyboard ) );
 }
 
 /***************************************************************************
  KBD_SetKeyboardHook() - Sets User function to call from keyboard handler
  ***************************************************************************/
-VOID // RETURN: none
-KBD_SetKeyboardHook( VOID ( *hook )( VOID ) // INPUT : pointer to function
+void // RETURN: none
+KBD_SetKeyboardHook( void ( *hook )( void ) // INPUT : pointer to function
 ) {
     keyboardhook = hook;
 }
@@ -148,7 +148,7 @@ KBD_Ascii2Scan(
 /***************************************************************************
 KBD_Wait() - Waits for Key to be released
  ***************************************************************************/
-VOID KBD_Wait(
+void KBD_Wait(
     INT scancode // SCANCODE see keys.h
 ) {
     volatile BOOL* ky;
@@ -182,7 +182,7 @@ BOOL KBD_IsKey(
 /***************************************************************************
    KBD_Install() - Sets up keyboard system
  ***************************************************************************/
-VOID KBD_Install( VOID ) {
+void KBD_Install( void ) {
     oldkeyboardisr = _dos_getvect( KEYBOARDINT );
     memset( keyboard, 0, sizeof( keyboard ) );
 
@@ -192,6 +192,6 @@ VOID KBD_Install( VOID ) {
 /***************************************************************************
    KBD_End() - Shuts down KBD system
  ***************************************************************************/
-VOID KBD_End( VOID ) {
+void KBD_End( void ) {
     _dos_setvect( KEYBOARDINT, oldkeyboardisr );
 }

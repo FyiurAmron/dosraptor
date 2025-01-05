@@ -98,7 +98,7 @@ INT MoveEobj(
 /***************************************************************************
 ENEMY_FreeSprites () - Free Memory Used by Sprites use in last level
  ***************************************************************************/
-VOID ENEMY_FreeSprites( VOID ) {
+void ENEMY_FreeSprites( void ) {
     INT loop, i;
     SPRITE* curlib;
     CSPRITE* curfld;
@@ -124,7 +124,7 @@ VOID ENEMY_FreeSprites( VOID ) {
 /***************************************************************************
 ENEMY_LoadSprites() -
  ***************************************************************************/
-VOID ENEMY_LoadSprites( VOID ) {
+void ENEMY_LoadSprites( void ) {
     INT loop, i;
     SPRITE* curlib;
     CSPRITE* curfld;
@@ -188,7 +188,7 @@ VOID ENEMY_LoadSprites( VOID ) {
 /***************************************************************************
 ENEMY_LoadLib () - Loads and Locks spritelib's MUST becalled b4 LoadSprites
  ***************************************************************************/
-VOID ENEMY_LoadLib( VOID ) {
+void ENEMY_LoadLib( void ) {
     INT loop;
 
     memset( spriteflag, 0, sizeof( spriteflag ) );
@@ -232,7 +232,7 @@ VOID ENEMY_LoadLib( VOID ) {
 /***************************************************************************
 ENEMY_Clear()
  ***************************************************************************/
-VOID ENEMY_Clear( VOID ) {
+void ENEMY_Clear( void ) {
     INT loop;
 
     numboss = 0;
@@ -265,7 +265,7 @@ VOID ENEMY_Clear( VOID ) {
 /*-------------------------------------------------------------------------*
 ENEMY_Get() - Gets An Free Enemy from link list
  *-------------------------------------------------------------------------*/
-PRIVATE SPRITE_SHIP* ENEMY_Get( VOID ) {
+PRIVATE SPRITE_SHIP* ENEMY_Get( void ) {
     SPRITE_SHIP* sh;
 
     if ( !free_enemy ) {
@@ -321,7 +321,7 @@ PRIVATE SPRITE_SHIP* ENEMY_Remove( SPRITE_SHIP* sh ) {
 /*-------------------------------------------------------------------------*
 ENEMY_Add () - Adds Enemy to attack player
  *-------------------------------------------------------------------------*/
-PRIVATE VOID ENEMY_Add( CSPRITE* sprite ) {
+PRIVATE void ENEMY_Add( CSPRITE* sprite ) {
     SPRITE* curlib = slib[sprite->game] + sprite->slib;
     SPRITE_SHIP* pNew;
     GFX_PIC* h;
@@ -434,7 +434,7 @@ PRIVATE VOID ENEMY_Add( CSPRITE* sprite ) {
 /***************************************************************************
 ENEMY_GetRandom () - Returns a random ship thats visable
  ***************************************************************************/
-SPRITE_SHIP* ENEMY_GetRandom( VOID ) {
+SPRITE_SHIP* ENEMY_GetRandom( void ) {
     INT pos;
 
     if ( !cur_visable ) {
@@ -449,7 +449,7 @@ SPRITE_SHIP* ENEMY_GetRandom( VOID ) {
 /***************************************************************************
 ENEMY_GetRandomAir () - Returns a random ship thats visable
  ***************************************************************************/
-SPRITE_SHIP* ENEMY_GetRandomAir( VOID ) {
+SPRITE_SHIP* ENEMY_GetRandomAir( void ) {
     INT pos;
     INT loop;
 
@@ -597,7 +597,7 @@ SPRITE_SHIP* ENEMY_DamageEnergy(
 /***************************************************************************
 ENEMY_Think() - Does all thinking for enemy ships ( ground/air )
  ***************************************************************************/
-VOID ENEMY_Think( VOID ) {
+void ENEMY_Think( void ) {
     SPRITE_SHIP* sprite;
     SPRITE* curlib;
     CSPRITE* old_enemy;
@@ -1083,7 +1083,7 @@ VOID ENEMY_Think( VOID ) {
 /***************************************************************************
 ENEMY_DisplayGround () - Displays Ground ENEMY pics
  ***************************************************************************/
-VOID ENEMY_DisplayGround( VOID ) {
+void ENEMY_DisplayGround( void ) {
     SPRITE_SHIP* spt;
 
     for ( spt = first_enemy.next; spt != &last_enemy; spt = spt->next ) {
@@ -1097,7 +1097,7 @@ VOID ENEMY_DisplayGround( VOID ) {
 /***************************************************************************
 ENEMY_DisplaySky () - Displays AIR ENEMY SHIPS
  ***************************************************************************/
-VOID ENEMY_DisplaySky( VOID ) {
+void ENEMY_DisplaySky( void ) {
     SPRITE_SHIP* spt;
     INT i;
 
@@ -1119,7 +1119,7 @@ VOID ENEMY_DisplaySky( VOID ) {
 /***************************************************************************
 ENEMY_GetBaseDamage() - Gets Base Ship damage
  ***************************************************************************/
-INT ENEMY_GetBaseDamage( VOID ) {
+INT ENEMY_GetBaseDamage( void ) {
     PRIVATE INT nums = 0;
     INT total = 0;
     SPRITE_SHIP* spt;

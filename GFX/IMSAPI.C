@@ -24,7 +24,7 @@
 /***************************************************************************
 IMS_StartAck () - Starts up checking for a happening
  ***************************************************************************/
-VOID IMS_StartAck( VOID ) {
+void IMS_StartAck( void ) {
     KBD_Clear();
 
     mouse_b1_ack = FALSE;
@@ -36,7 +36,7 @@ VOID IMS_StartAck( VOID ) {
 /***************************************************************************
 IMS_CheckAck () - Tells if somthing has happend since last IMS_StartAck
  ***************************************************************************/
-BOOL IMS_CheckAck( VOID ) {
+BOOL IMS_CheckAck( void ) {
     INT rval = FALSE;
 
     if ( mouse_b1_ack ) {
@@ -57,7 +57,7 @@ BOOL IMS_CheckAck( VOID ) {
 /***************************************************************************
 IMS_IsAck() - Returns TRUE if ptr button or key pressed
  ***************************************************************************/
-BOOL IMS_IsAck( VOID ) {
+BOOL IMS_IsAck( void ) {
     BOOL ret_val = FALSE;
 
     if ( KBD_LASTSCAN ) {
@@ -77,7 +77,7 @@ BOOL IMS_IsAck( VOID ) {
 /***************************************************************************
 IMS_WaitAck() - Waits for a pointer button or key press
  ***************************************************************************/
-VOID IMS_WaitAck( VOID ) {
+void IMS_WaitAck( void ) {
     IMS_StartAck();
 
     for ( ;; ) {

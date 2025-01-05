@@ -58,7 +58,7 @@ DFX fxitems[FX_LAST_SND];
 /***************************************************************************
 SND_Setup() - Inits SND System  called after SND_InitSound() and GLB_Init
  ***************************************************************************/
-VOID SND_Setup( VOID ) {
+void SND_Setup( void ) {
     DFX* lib;
     INT loop;
 
@@ -483,7 +483,7 @@ VOID SND_Setup( VOID ) {
 /***************************************************************************
 SND_CacheFX () Caches all FX's
  ***************************************************************************/
-VOID SND_CacheFX( VOID ) {
+void SND_CacheFX( void ) {
     DFX* lib;
     INT loop;
 
@@ -499,7 +499,7 @@ VOID SND_CacheFX( VOID ) {
 /***************************************************************************
 SND_CacheGFX () Caches in Game FX's
  ***************************************************************************/
-VOID SND_CacheGFX( VOID ) {
+void SND_CacheGFX( void ) {
     DFX* lib;
     INT loop;
 
@@ -517,7 +517,7 @@ VOID SND_CacheGFX( VOID ) {
 /***************************************************************************
 SND_CacheIFX () _ Caches intro and menu FX
  ***************************************************************************/
-VOID SND_CacheIFX( VOID ) {
+void SND_CacheIFX( void ) {
     DFX* lib;
     INT loop;
 
@@ -544,7 +544,7 @@ BOOL SND_IsPatchPlaying(
 /***************************************************************************
 SND_StopPatches () - STops all currently playing patches
  ***************************************************************************/
-VOID SND_StopPatches( VOID ) {
+void SND_StopPatches( void ) {
     DFX* curfld;
     INT loop;
 
@@ -565,7 +565,7 @@ VOID SND_StopPatches( VOID ) {
 /***************************************************************************
 SND_StopPatch () - STops Type patch
  ***************************************************************************/
-VOID SND_StopPatch(
+void SND_StopPatch(
     DEFX type // INPUT : DFX type patch to play
 ) {
     DFX* curfld = &fxitems[type];
@@ -580,7 +580,7 @@ VOID SND_StopPatch(
 /***************************************************************************
 SND_FreeFX () - Frees up Fx's
  ***************************************************************************/
-VOID SND_FreeFX( VOID ) {
+void SND_FreeFX( void ) {
     DFX* lib;
     INT loop;
 
@@ -598,7 +598,7 @@ VOID SND_FreeFX( VOID ) {
 /***************************************************************************
 SND_Patch () - Test patch to see if it will be played by SND_Play
  ***************************************************************************/
-VOID SND_Patch(
+void SND_Patch(
     DEFX type, // INPUT : DFX type patch to play
     INT xpos // INPUT : 127=center
 ) {
@@ -657,7 +657,7 @@ VOID SND_Patch(
 /***************************************************************************
 SND_3DPatch () - playes a patch in 3d for player during game play
  ***************************************************************************/
-VOID SND_3DPatch(
+void SND_3DPatch(
     DEFX type, // INPUT : DFX type patch to play
     INT x, // INPUT : x sprite center
     INT y // INPUT : y sprite center
@@ -741,7 +741,7 @@ VOID SND_3DPatch(
 /***************************************************************************
 SND_PlaySong() - Plays song associated with song id
  ***************************************************************************/
-VOID SND_PlaySong(
+void SND_PlaySong(
     DWORD item, // INPUT : Song GLB item
     BOOL chainflag, // INPUT : Chain Song to ItSelf
     BOOL fadeflag // INPUT : Fade Song Out
@@ -798,7 +798,7 @@ VOID SND_PlaySong(
 /***************************************************************************
 SND_IsSongPlaying () - Is current song playing
  ***************************************************************************/
-BOOL SND_IsSongPlaying( VOID ) {
+BOOL SND_IsSongPlaying( void ) {
 
     return cur_song_id != EMPTY && MUS_QrySongPlaying( cur_song_id ) ? TRUE : FALSE;
 }
@@ -806,7 +806,7 @@ BOOL SND_IsSongPlaying( VOID ) {
 /***************************************************************************
 SND_FadeOutSong () - Fades current song out and stops playing music
  ***************************************************************************/
-VOID SND_FadeOutSong( VOID ) {
+void SND_FadeOutSong( void ) {
     if ( cur_song_id != EMPTY ) {
         if ( MUS_QrySongPlaying( cur_song_id ) ) {
             MUS_FadeOutSong( cur_song_id, 1000 );
@@ -825,7 +825,7 @@ VOID SND_FadeOutSong( VOID ) {
 /***************************************************************************
 SND_InitSound () - Does bout all i can think of for Music/FX initing
  ***************************************************************************/
-VOID SND_InitSound( VOID ) {
+void SND_InitSound( void ) {
     INT initmcard;
     INT initdcard;
     INT cardtype;

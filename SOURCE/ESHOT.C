@@ -59,7 +59,7 @@ PRIVATE DEFX monkeys[6] = { FX_MON1, FX_MON2, FX_MON3, FX_MON4, FX_MON5, FX_MON6
 /***************************************************************************
 ESHOT_Clear () - Clears out ESHOT Linklist
  ***************************************************************************/
-VOID ESHOT_Clear( VOID ) {
+void ESHOT_Clear( void ) {
     INT loop;
 
     eshotnum = 0;
@@ -82,7 +82,7 @@ VOID ESHOT_Clear( VOID ) {
 /*-------------------------------------------------------------------------*
 ESHOT_Get () - gets a Free ESHOT OBJECT from linklist
  *-------------------------------------------------------------------------*/
-PRIVATE ESHOT* ESHOT_Get( VOID ) {
+PRIVATE ESHOT* ESHOT_Get( void ) {
     ESHOT* pNew;
 
     if ( !free_eshot ) {
@@ -132,7 +132,7 @@ PRIVATE ESHOT* ESHOT_Remove( ESHOT* sh ) {
 /***************************************************************************
 ESHOT_Init () - Inits ESHOT system and clears link list
  ***************************************************************************/
-VOID ESHOT_Init( VOID ) {
+void ESHOT_Init( void ) {
     ESHOT_LIB* cur;
     INT loop;
     GFX_PIC* h;
@@ -249,7 +249,7 @@ VOID ESHOT_Init( VOID ) {
 /***************************************************************************
 ESHOT_Shoot() - Shoots ENEMY GUNS
  ***************************************************************************/
-VOID ESHOT_Shoot(
+void ESHOT_Shoot(
     SPRITE_SHIP* enemy, // INPUT : pointer to Enemy stuff
     INT gun_num // INPUT : gun number to shoot
 ) {
@@ -400,7 +400,7 @@ VOID ESHOT_Shoot(
 /***************************************************************************
 ESHOT_Think () - Does All Thinking for shot system
  ***************************************************************************/
-VOID ESHOT_Think( VOID ) {
+void ESHOT_Think( void ) {
     ESHOT* shot;
     ESHOT_LIB* lib;
     INT dx;
@@ -501,7 +501,7 @@ VOID ESHOT_Think( VOID ) {
 /***************************************************************************
 ESHOT_Display () - Displays All active Shots
  ***************************************************************************/
-VOID ESHOT_Display( VOID ) {
+void ESHOT_Display( void ) {
     ESHOT* shot;
     INT loop;
     GFX_PIC* h;

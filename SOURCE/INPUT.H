@@ -24,73 +24,73 @@ extern INT f_addy;
 /***************************************************************************
 DEMO_MakePlayer() -
  ***************************************************************************/
-VOID DEMO_MakePlayer( INT game );
+void DEMO_MakePlayer( INT game );
 
 /***************************************************************************
 DEMO_DisplayStats (
  ***************************************************************************/
-VOID DEMO_DisplayStats( VOID );
+void DEMO_DisplayStats( void );
 
 /***************************************************************************
 DEMO_StartRec(
  ***************************************************************************/
-VOID DEMO_StartRec( VOID );
+void DEMO_StartRec( void );
 
 /***************************************************************************
 DEMO_StartPlayback(
  ***************************************************************************/
-VOID DEMO_StartPlayback( VOID );
+void DEMO_StartPlayback( void );
 
 /***************************************************************************
 DEMO_SetFileName()
  ***************************************************************************/
-VOID DEMO_SetFileName( CHAR* in_name );
+void DEMO_SetFileName( CHAR* in_name );
 
 /***************************************************************************
 DEMO_GLBFile (
  ***************************************************************************/
-VOID DEMO_GLBFile( DWORD item );
+void DEMO_GLBFile( DWORD item );
 
 /***************************************************************************
 DEMO_LoadFile()
  ***************************************************************************/
-VOID DEMO_LoadFile( VOID );
+void DEMO_LoadFile( void );
 
 /***************************************************************************
 DEMO_SaveFile(
  ***************************************************************************/
-VOID DEMO_SaveFile( VOID );
+void DEMO_SaveFile( void );
 
 /***************************************************************************
 DEMO_Think(
  ***************************************************************************/
-BOOL DEMO_Think( VOID );
+BOOL DEMO_Think( void );
 
 /***************************************************************************
 DEMO_Play() - Demo playback routine
  ***************************************************************************/
 BOOL // TRUE=Aborted, FALSE = timeout
-    DEMO_Play( VOID );
+    DEMO_Play( void );
 
 /***************************************************************************
 IPT_CalJoy() - Calibrates Joystick ( joystick must be centered )
  ***************************************************************************/
-VOID IPT_CalJoy( VOID );
+void IPT_CalJoy( void );
 
 /***************************************************************************
 IPT_MovePlayer() - Perform player movement for current input device
  ***************************************************************************/
-VOID IPT_MovePlayer( VOID );
+void IPT_MovePlayer( void );
 
 /***************************************************************************
 IPT_PauseControl() - Lets routines run without letting user control anyting
  ***************************************************************************/
-VOID IPT_PauseControl( BOOL flag );
+void IPT_PauseControl( BOOL flag );
 
 /***************************************************************************
 IPT_FMovePlayer() - Forces player to move addx/addy
  ***************************************************************************/
-VOID IPT_FMovePlayer(
+void IPT_FMovePlayer(
     INT addx, // INPUT : add to x pos
     INT addy // INPUT : add to y pos
 );
@@ -98,26 +98,26 @@ VOID IPT_FMovePlayer(
 /***************************************************************************
 IPT_Init () - Initializes INPUT system
  ***************************************************************************/
-VOID IPT_Init( VOID );
+void IPT_Init( void );
 
 /***************************************************************************
 IPT_DeInit() - Freeze up resources used by INPUT system
  ***************************************************************************/
-VOID IPT_DeInit( VOID );
+void IPT_DeInit( void );
 
 /***************************************************************************
 IPT_Start() - Tranfers control from PTRAPI stuff to IPT stuff
  ***************************************************************************/
-VOID IPT_Start( VOID );
+void IPT_Start( void );
 
 /***************************************************************************
 IPT_End() - Tranfers control from IPT stuff to PTR stuff
  ***************************************************************************/
-VOID IPT_End( VOID );
+void IPT_End( void );
 
 /***************************************************************************
 IPT_LoadPrefs() - Load Input Prefs from setup.ini
  ***************************************************************************/
-VOID IPT_LoadPrefs( VOID );
+void IPT_LoadPrefs( void );
 
 #endif
