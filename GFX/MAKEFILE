@@ -1,30 +1,21 @@
-#  Makefile for Makeing a Library
+# GfxLib Makefile
 
-#which memory model and processor to use by default
 PROCESSOR = 386 # for the 32-bit compilers
+MODEL = f       # flat
 
-# name the compiler
 CC = wcc$(PROCESSOR)
 FC = wfc$(PROCESSOR)
 ASM = tasm
 
-!ifeq PROCESSOR 386
-MODEL = f       # flat
-!else
-MODEL = l       # large
-!endif
-
-# options to use
-#CFLAGS = -m$(MODEL) -zq -od -d2 -zp4 -ei -W4
-CFLAGS  = -m$(MODEL) -zq -s -oxt -zp4 -ei -W4
-#CFLAGS = -m$(MODEL) -zq -od -s -zp4 -ei -W4
+CFLAGS = -m$(MODEL) -zq -od -d2 -zp4 -ei -W4 # debug
+#CFLAGS  = -m$(MODEL) -zq -s -oxt -zp4 -ei -W4 # release
 FFLAGS  = -m$(MODEL) -noterm
 AFLAGS  = -mx -ml
 
 .EXTENSIONS:
 .EXTENSIONS: .exe .rex .lib .obj .wbj .asm .c .for
 
-.BEFORE
+.BEFORE:
 	@set INCLUDE=..\apodmx;.;$(%watcom)\h;
 	@set LIB=$(%watcom)\lib386;$(%lib)
 	@set DOS4G=QUIET
@@ -39,6 +30,10 @@ all :   gfx.lib .symbolic
 gfx.lib : $(objs)
 	 %make temp.lnk
 	 wlib $^@ /n /b @temp.lnk
+
+clean : .SYMBOLIC
+	del *.obj
+	del *.lib
 
 # implicit rules
 
@@ -57,9 +52,3 @@ temp.lnk : objdef.mif makefile
 
 .asm.obj :
 	$(ASM) $(AFLAGS) $^&;
-
-# clean build DIR
-
-clean : .SYMBOLIC
-        del *.obj
-        del *.lib
