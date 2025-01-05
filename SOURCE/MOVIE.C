@@ -19,11 +19,26 @@ void MOVIE_BPatch( INT soundfx ) {
 void MOVIE_ShowFrame(
     BYTE* inpic // INPUT : pointer to animpic
 ) {
-    if ( inpic == NULL ) {
+    uint8_t* src = inpic;
+    uint8_t* dst;
+    uint16_t offset, count;
+
+    if ( src == NULL ) {
         return;
     }
 
-    ANIM_Render( inpic );
+    while ( *( (uint16_t*) src ) != 0x0000 ) {
+        src += 4;
+        offset = *( (uint16_t*) src );
+        src += 2;
+        count = *( (uint16_t*) src );
+        src += 2;
+
+        dst = displaybuffer + offset;
+
+        memcpy( dst, src, count );
+        src += count;
+    }
 
     GFX_MarkUpdate( 0, 0, 320, 200 );
 }

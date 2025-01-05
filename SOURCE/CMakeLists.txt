@@ -42,7 +42,6 @@ add_executable(SOURCE
     MAP.H
     MOVIE.C
     MOVIE.H
-    MOVIE_A.ASM
     MSG.INC
     OBJECTS.C
     OBJECTS.H
