@@ -538,11 +538,7 @@ BOOL SND_IsPatchPlaying(
 ) {
     DFX* curfld = &fxitems[type];
 
-    if ( curfld->sid != EMPTY && SFX_Playing( curfld->sid ) ) {
-        return ( TRUE );
-    }
-
-    return ( FALSE );
+    return curfld->sid != EMPTY && SFX_Playing( curfld->sid ) ? TRUE : FALSE;
 }
 
 /***************************************************************************
@@ -632,7 +628,7 @@ VOID SND_Patch(
         }
     }
 
-    if ( numsnds > ( num_dig + 2 ) ) {
+    if ( numsnds > num_dig + 2 ) {
         return;
     }
 
@@ -650,7 +646,7 @@ VOID SND_Patch(
 
         patch = GLB_LockItem( curfld->item );
 
-        volume = ( curfld->vol * fx_volume ) / 127;
+        volume = curfld->vol * fx_volume / 127;
 
         curfld->sid = SFX_PlayPatch( patch, curfld->pitch + rnd, xpos, volume, 0, curfld->pri );
     }
@@ -697,7 +693,7 @@ VOID SND_3DPatch(
         }
     }
 
-    if ( numsnds > ( num_dig + 2 ) ) {
+    if ( numsnds > num_dig + 2 ) {
         return;
     }
 
@@ -722,7 +718,7 @@ VOID SND_3DPatch(
     } else if ( dist > SND_FAR ) {
         vol = 1;
     } else {
-        vol = 127 - ( ( dist - SND_CLOSE ) * 127 ) / ( SND_FAR - SND_CLOSE );
+        vol = 127 - ( dist - SND_CLOSE ) * 127 / ( SND_FAR - SND_CLOSE );
     }
 
     curfld = &fxitems[type];
@@ -804,13 +800,7 @@ SND_IsSongPlaying () - Is current song playing
  ***************************************************************************/
 BOOL SND_IsSongPlaying( VOID ) {
 
-    if ( cur_song_id != EMPTY ) {
-        if ( MUS_QrySongPlaying( cur_song_id ) ) {
-            return ( TRUE );
-        }
-    }
-
-    return ( FALSE );
+    return cur_song_id != EMPTY && MUS_QrySongPlaying( cur_song_id ) ? TRUE : FALSE;
 }
 
 /***************************************************************************

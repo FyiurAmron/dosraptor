@@ -139,7 +139,7 @@ BOOL RAP_IsDate( VOID ) {
     _dos_getdate( &date );
 
     if ( date.year != YEAR ) {
-        return ( FALSE );
+        return FALSE;
     }
 
     comp1 = date.month;
@@ -152,11 +152,7 @@ BOOL RAP_IsDate( VOID ) {
 
     num = comp1 - comp2;
 
-    if ( num >= 0 && num <= WLENGTH ) {
-        return ( TRUE );
-    }
-
-    return ( FALSE );
+    return num >= 0 && num <= WLENGTH ? TRUE : FALSE;
 }
 
 VOID RAP_PrintVmem( CHAR* desc ) {
@@ -203,7 +199,7 @@ VOID InitScreen( VOID ) {
     outp( port, 16 );
 
     for ( loop = 0; loop < 160; loop++ ) {
-        if ( ( loop & 1 ) ) {
+        if ( loop & 1 ) {
             *( scradr + loop ) = color;
         } else {
             *( scradr + loop ) = *msg;
@@ -246,7 +242,7 @@ SPECIAL VOID ShutDown( INT errcode ) {
 
         mem = GLB_LockItem( reg_flag ? LASTSCR2_TXT : LASTSCR1_TXT );
 
-        for ( loop = 0; loop < ( 4000 - ( 160 * 2 ) ); loop++ ) {
+        for ( loop = 0; loop < 4000 - 160 * 2; loop++ ) {
             *scradr = *mem;
             scradr++;
             mem++;
@@ -344,7 +340,7 @@ VOID InitMobj(
         cur->err = -( cur->dely >> 1 );
         cur->maxloop = cur->delx + 1;
     } else {
-        cur->err = ( cur->delx >> 1 );
+        cur->err = cur->delx >> 1;
         cur->maxloop = cur->dely + 1;
     }
 }
@@ -389,7 +385,7 @@ INT MoveSobj(
     INT speed // INPUT : speed to plot at
 ) {
     if ( speed == 0 ) {
-        return ( 0 );
+        return 0;
     }
 
     if ( cur->delx >= cur->dely ) {
@@ -422,7 +418,7 @@ INT MoveSobj(
         cur->done = TRUE;
     }
 
-    return ( speed );
+    return speed;
 }
 
 /***************************************************************************
@@ -438,7 +434,7 @@ VOID RAP_PrintNum( INT x, INT y, CHAR* str ) {
     x += 9;
 
     while ( maxloop-- ) {
-        num = (INT) ( ( *str ) - '0' );
+        num = *str - '0';
 
         if ( num < 11 && num >= 0 ) {
             GFX_PutSprite( numbers[num], x, y );
@@ -551,9 +547,9 @@ VOID RAP_DisplayStats( VOID ) {
 
         if ( startendwave < END_FLYOFF ) {
             x = 0;
-            if ( playerx < ( 160 - 8 ) ) {
+            if ( playerx < 160 - 8 ) {
                 x = 8;
-            } else if ( playerx > ( 160 + 8 ) ) {
+            } else if ( playerx > 160 + 8 ) {
                 x = -8;
             }
 
@@ -562,7 +558,7 @@ VOID RAP_DisplayStats( VOID ) {
     }
 
     if ( shield <= SHIELD_LOW && !godmode ) {
-        if ( ( gl_cnt % 8 ) == 0 ) {
+        if ( gl_cnt % 8 == 0 ) {
             blinkflag ^= TRUE;
             if ( blinkflag ) {
                 if ( damage ) {
@@ -582,7 +578,7 @@ VOID RAP_DisplayStats( VOID ) {
             if ( damage ) {
                 pic = GLB_GetItem( WEPDEST_PIC );
                 h = (GFX_PIC*) pic;
-                GFX_PutSprite( pic, ( ( 320 - h->width ) >> 1 ), MAP_BOTTOM - 9 );
+                GFX_PutSprite( pic, ( 320 - h->width ) >> 1, MAP_BOTTOM - 9 );
             }
 
             if ( startendwave == EMPTY ) {
@@ -590,7 +586,7 @@ VOID RAP_DisplayStats( VOID ) {
             }
             pic = GLB_GetItem( SHLDLOW_PIC );
             h = (GFX_PIC*) pic;
-            GFX_PutSprite( pic, ( ( 320 - h->width ) >> 1 ), MAP_BOTTOM );
+            GFX_PutSprite( pic, ( 320 - h->width ) >> 1, MAP_BOTTOM );
         }
     }
 
@@ -641,7 +637,7 @@ VOID RAP_PaletteStuff( VOID ) {
         }
 
         // == COLOR 250 ======== GLOWING FIRE 1
-        offset = ( 250 * 3 );
+        offset = 250 * 3;
         pal1 = gpal + offset;
         pal2 = palette + offset;
 
@@ -669,7 +665,7 @@ VOID RAP_PaletteStuff( VOID ) {
         }
 
         // == COLOR 251 ======== GLOWING FIRE 2
-        offset = ( 251 * 3 );
+        offset = 251 * 3;
         pal1 = gpal + offset;
         pal2 = palette + offset;
 
@@ -698,7 +694,7 @@ VOID RAP_PaletteStuff( VOID ) {
 
         // == COLOR 252 & 253 ======== BLINKING REG AND GREEN
         if ( palcnt % 2 ) {
-            offset = ( 252 * 3 );
+            offset = 252 * 3;
             pal1 = gpal + offset;
             pal2 = palette + offset;
 
@@ -718,7 +714,7 @@ VOID RAP_PaletteStuff( VOID ) {
         }
 
         // == COLOR 254 ======== BLINKING BLUE
-        offset = ( 254 * 3 );
+        offset = 254 * 3;
         if ( random( 3 ) == 0 ) {
             pal1 = gpal + offset;
             pal2 = palette + offset;
@@ -730,7 +726,7 @@ VOID RAP_PaletteStuff( VOID ) {
 
         // == COLOR 255 ======== BLINKING WHITE
 
-        offset = ( 255 * 3 );
+        offset = 255 * 3;
         if ( wblink < 2 ) {
             pal1 = gpal + offset;
             pal2 = palette + offset;
@@ -764,7 +760,7 @@ Do_Game( VOID ) {
 
     draw_player = TRUE;
 
-    srand( ( 1024 * game_wave[cur_game] ) );
+    srand( 1024 * game_wave[cur_game] );
 
     fadeflag = FALSE;
     end_fadeflag = FALSE;
@@ -1134,7 +1130,7 @@ Do_Game( VOID ) {
         DEMO_SaveFile();
     }
 
-    return ( rval );
+    return rval;
 }
 
 /***************************************************************************
@@ -1167,7 +1163,7 @@ VOID RAP_InitMem( VOID ) {
         getmem--;
     }
 
-    lowmem = ( ( getmem - 1 ) * 16 );
+    lowmem = ( getmem - 1 ) * 16;
 
     if ( lowmem > 4096 && segment != 0 ) {
         g_lowmem = (BYTE*) ( segment << 4 );
@@ -1196,14 +1192,14 @@ VOID RAP_InitMem( VOID ) {
         VM_InitMemory( g_highmem, memsize );
         printf( "Highmem = %d\n", memsize );
 
-        if ( memsize < ( 128 * 1024 ) ) {
+        if ( memsize < 128 * 1024 ) {
             lowmem_flag = TRUE;
         }
     } else {
         printf( "Highmem = NUL\n", memsize );
     }
 
-    if ( ( lowmem + memsize ) < ( MIN_MEMREQ - MEM_KEEP ) ) {
+    if ( lowmem + memsize < MIN_MEMREQ - MEM_KEEP ) {
         EXIT_Error( "Not Enough Memory !! ( need %dk more )", MIN_MEMREQ - ( lowmem + memsize ) );
     }
 
@@ -1440,7 +1436,7 @@ VOID main( INT argc, CHAR* argv[] ) {
 
     // = LOAD IN 0-9 $ SPRITE PICS  =========================
     for ( loop = 0; loop < 11; loop++ ) {
-        item = ( N0_PIC + (DWORD) loop );
+        item = N0_PIC + (DWORD) loop;
         numbers[loop] = GLB_LockItem( item );
     }
 
