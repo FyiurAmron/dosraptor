@@ -2,6 +2,7 @@
 #define ANIM_H
 
 #include "../gfx/types.h"
+#include "enemy.h"
 
 typedef enum { A_NORM, A_MOVEUP, A_MOVEDOWN } ANIM_DIR;
 

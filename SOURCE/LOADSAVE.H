@@ -2,6 +2,7 @@
 #define LOADSAVE_H
 
 #include "../gfx/types.h"
+#include "public.h"
 
 /***************************************************************************
 RAP_SetPlayerDiff () - Set Player Difficulty
