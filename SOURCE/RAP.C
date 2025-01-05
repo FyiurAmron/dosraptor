@@ -178,16 +178,16 @@ void InitScreen( void ) {
     INT loop;
     BYTE color;
     INT port = 0x3c8;
-    CHAR* msg = " RAPTOR: Call Of The Shadows V1.2                        (c)1994 Cygnus Studios";
+    CHAR* msg = " vaxRaptor v1.3";
 
     regs.w.ax = 0x3;
-    int386( 0x10, (const union REGS*) &regs, &regs );
+    int386( 0x10, &regs, &regs );
 
     regs.w.ax = 0x200;
     regs.h.bh = 0;
     regs.h.dl = 0;
     regs.h.dh = 0;
-    int386( 0x10, (const union REGS*) &regs, &regs );
+    int386( 0x10, &regs, &regs );
 
     color = 0;
     color = ( 1 << 4 ) + 14;
@@ -238,7 +238,7 @@ SPECIAL void ShutDown( INT errcode ) {
         regs.h.bh = 0;
         regs.h.dl = 0;
         regs.h.dh = 22;
-        int386( 0x10, (const union REGS*) &regs, &regs );
+        int386( 0x10, &regs, &regs );
 
         mem = GLB_LockItem( reg_flag ? LASTSCR2_TXT : LASTSCR1_TXT );
 
@@ -617,9 +617,9 @@ void RAP_PaletteStuff( void ) {
     static INT wblink = 0;
     static INT glow1 = 0;
     static INT glow2 = 8;
-    static cnt = 0;
-    static palcnt = 0;
-    static blink = 0;
+    static INT cnt = 0;
+    static INT palcnt = 0;
+    static INT blink = 0;
     INT offset;
     INT num;
     BYTE* pal1;
@@ -1081,7 +1081,7 @@ Do_Game( void ) {
                 SWD_SetClearFlag( FALSE );
                 IPT_End();
                 RAP_ClearSides();
-                if ( WIN_AskBool( "Abort Mission ?" ) ) {
+                if ( WIN_AskBool( "Abort Mission?" ) ) {
                     plr.score = start_score;
                     rval = TRUE;
                     break;
@@ -1186,7 +1186,7 @@ void RAP_InitMem( void ) {
 
     if ( g_highmem ) {
         if ( memsize < REQ_HMEM && lowmem < REQ_LMEM ) {
-            EXIT_Error( "Not Enough High Memory !! ( need %dk more )", REQ_HMEM - memsize );
+            EXIT_Error( "Not enough high memory! (needs %dk more)", REQ_HMEM - memsize );
         }
 
         VM_InitMemory( g_highmem, memsize );
@@ -1200,7 +1200,7 @@ void RAP_InitMem( void ) {
     }
 
     if ( lowmem + memsize < MIN_MEMREQ - MEM_KEEP ) {
-        EXIT_Error( "Not Enough Memory !! ( need %dk more )", MIN_MEMREQ - ( lowmem + memsize ) );
+        EXIT_Error( "Not enough memory! (needs %dk more)", MIN_MEMREQ - ( lowmem + memsize ) );
     }
 
     GLB_UseVM();
@@ -1210,14 +1210,14 @@ void JoyHack( void ) {
     extern INT joy_x, joy_y, joy_buttons;
     union REGS regs;
 
-    printf( "Calibrate JoyStick\n" );
+    printf( "Calibrate joystick...\n" );
 
     for ( ;; ) {
         regs.w.ax = 0x200;
         regs.h.bh = 0;
         regs.h.dl = 0;
         regs.h.dh = 1;
-        int386( 0x10, (const union REGS*) &regs, &regs );
+        int386( 0x10, &regs, &regs );
 
         _disable();
         PTR_ReadJoyStick();
@@ -1238,9 +1238,11 @@ void main( INT argc, CHAR* argv[] ) {
     DWORD item;
     CHAR* s_host = getenv( "S_HOST" );
     BOOL ptrflag = FALSE;
-    BYTE* tptr;
+    void* tptr;
 
     InitScreen();
+
+    printf( "argc == %d\n", argc );
 
     if ( strcmpi( argv[1], "joycal" ) == 0 ) {
         JoyHack();
@@ -1249,8 +1251,11 @@ void main( INT argc, CHAR* argv[] ) {
     RAP_InitLoadSave();
 
     if ( access( RAP_SetupFilename(), 0 ) != 0 ) {
-        printf( "\n\n** You must run SETUP first! **\n" );
+        printf( "\n%s not found - please run SETUP.EXE first!\n", RAP_SetupFilename() );
         exit( 0 );
+    }
+    if ( !INI_InitPreference( RAP_SetupFilename() ) ) {
+        EXIT_Error( "Can't load %s due to error!", RAP_SetupFilename() );
     }
 
     godmode = strcmp( (CHAR*) s_host, gdmodestr ) == 0 ? TRUE : FALSE;
@@ -1345,16 +1350,6 @@ void main( INT argc, CHAR* argv[] ) {
 
     if ( bday_num != EMPTY ) {
         printf( "Birthday() = %s\n", bday[bday_num].name );
-    }
-
-    // ================================================
-
-    if ( access( RAP_SetupFilename(), 0 ) != 0 ) {
-        EXIT_Error( "You Must run SETUP.EXE First !!" );
-    }
-
-    if ( !INI_InitPreference( RAP_SetupFilename() ) ) {
-        EXIT_Error( "SETUP Error" );
     }
 
     fflush( stdout );

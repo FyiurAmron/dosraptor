@@ -556,7 +556,7 @@ void WIN_AskExit( void ) {
                 break;
 
             case 0:
-                SND_Patch( FX_MON3, 127 );
+                SND_Patch( FX_MON3, 127 ); // TODO wrap these two to function
                 while ( SND_IsPatchPlaying( FX_MON3 ) )
                     ;
                 break;

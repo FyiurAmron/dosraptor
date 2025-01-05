@@ -48,7 +48,7 @@ typedef struct {
 #define PLAYERHEIGHT     32
 #define PLAYERMINX       5
 #define PLAYERMAXX       314
-#define PLAYERINITX      160 - ( PLAYERWIDTH / 2 )
+#define PLAYERINITX      ( 160 - ( PLAYERWIDTH / 2 ) )
 #define PLAYERINITY      160
 
 #define MINPLAYERY       0

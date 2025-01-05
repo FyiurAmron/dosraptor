@@ -20,7 +20,7 @@ RAP_IsPlayer () - Returns TRUE if a player is defined
 BOOL RAP_IsPlayer( void );
 
 /***************************************************************************
-RAP_AreSavedFiles() - Returns TRUE if thier are previously saved game files
+RAP_AreSavedFiles() - Returns TRUE if there are previously saved game files
  ***************************************************************************/
 BOOL RAP_AreSavedFiles( void );
 

@@ -238,7 +238,7 @@ INT SWD_GetLine( BYTE* inmem ) {
 /***************************************************************************
 SWD_FillText () - Fills Text from GLB intro an AREA
  ***************************************************************************/
-SWD_FillText(
+void SWD_FillText(
     FONT* font, // INPUT : pointer to FONT
     DWORD item, // INPUT : GLB text Item
     INT color, // INPUT : field color
