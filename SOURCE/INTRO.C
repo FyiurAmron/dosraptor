@@ -664,7 +664,7 @@ VOID INTRO_EndGame( INT game ) {
 INTRO_Taiwan (
  ***************************************************************************/
 VOID INTRO_Taiwan( VOID ) {
-    volatile INT loop;
+    INT loop;
     BYTE* pal1;
     BYTE* pic1;
     INT local_cnt = FRAME_COUNT;
@@ -700,7 +700,7 @@ VOID INTRO_Taiwan( VOID ) {
 INTRO_Credits() - Credits Screen
  ***************************************************************************/
 BOOL INTRO_Credits( VOID ) {
-    volatile INT loop;
+    INT loop;
     BYTE* pal1;
     BYTE* pal2;
     BYTE* pic1;

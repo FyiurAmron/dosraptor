@@ -215,11 +215,11 @@ VOID InitScreen( VOID ) {
  ==========================================================================*/
 SPECIAL VOID ShutDown( INT errcode ) {
     union REGS regs;
-    volatile BYTE* scradr = (VOID*) 0xB8000;
-    volatile BYTE* mem;
-    volatile int loop;
-    volatile int cnt = 0;
-    volatile int i;
+    BYTE* scradr = (VOID*) 0xB8000;
+    BYTE* mem;
+    int loop;
+    int cnt = 0;
+    int i;
 
     if ( !errcode && !godmode ) {
         WIN_Order();
@@ -751,7 +751,7 @@ Do_Game () - The main game thing this is it dude
  ***************************************************************************/
 BOOL // TRUE=Aborted, FALSE = timeout
 Do_Game( VOID ) {
-    volatile INT local_cnt;
+    INT local_cnt;
     BOOL b2_flag = FALSE;
     BOOL b3_flag = FALSE;
     BOOL init_flag = TRUE;
@@ -1233,12 +1233,12 @@ VOID JoyHack( VOID ) {
 }
 
 VOID main( INT argc, CHAR* argv[] ) {
-    volatile INT loop;
-    volatile INT numfiles;
-    volatile DWORD item;
-    volatile CHAR* s_host = getenv( "S_HOST" );
-    volatile BOOL ptrflag = FALSE;
-    volatile BYTE* tptr;
+    INT loop;
+    INT numfiles;
+    DWORD item;
+    CHAR* s_host = getenv( "S_HOST" );
+    BOOL ptrflag = FALSE;
+    BYTE* tptr;
 
     InitScreen();
 

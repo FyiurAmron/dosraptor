@@ -826,10 +826,10 @@ VOID SND_FadeOutSong( VOID ) {
 SND_InitSound () - Does bout all i can think of for Music/FX initing
  ***************************************************************************/
 VOID SND_InitSound( VOID ) {
-    volatile INT initmcard;
-    volatile INT initdcard;
-    volatile INT cardtype;
-    volatile INT midiport;
+    INT initmcard;
+    INT initdcard;
+    INT cardtype;
+    INT midiport;
     INT port;
     INT irq;
     INT dma;
