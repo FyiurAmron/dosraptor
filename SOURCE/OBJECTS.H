@@ -36,7 +36,7 @@ typedef enum {
     S_LAST_OBJECT // 25 LAST OBJECT ( NOT USED )
 } OBJ_TYPE;
 
-#define LAST_WEAPON ( S_DEATH_RAY )
+#define LAST_WEAPON   ( S_DEATH_RAY )
 #define FIRST_SPECIAL ( S_DUMB_MISSLE )
 
 typedef struct {

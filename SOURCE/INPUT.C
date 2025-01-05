@@ -263,7 +263,7 @@ DEMO_Play( void ) {
 DEMO_Think (
  ***************************************************************************/
 BOOL DEMO_Think( void ) {
-    INT rval = FALSE;
+    BOOL rval = FALSE;
 
     switch ( demo_mode ) {
         default:
