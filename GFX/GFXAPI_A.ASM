@@ -197,7 +197,6 @@ GFX_DrawSprite  proc
                 xor     ecx, ecx
                 mov     ebx, ecx
 
-
         ALIGN 4
         sprite_loop:
                 mov     bx, WORD PTR +8H[esi]
@@ -459,16 +458,3 @@ ALIGN 4
 	        ENDP
 
 END
-
-
-
-
-
-
-
-
-
-
-
-                  
-

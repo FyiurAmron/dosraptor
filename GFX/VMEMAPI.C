@@ -3,507 +3,444 @@
 // #include <assert.h>
 // #define ASSERT	assert
 
-#include "types.h"
 #include "exitapi.h"
+#include "types.h"
 #include "vmemapi.h"
 
-void WalkHeap(void);
+void WalkHeap( void );
 
-#define MAX_BLOCKS  63
+#define MAX_BLOCKS 63
 
-typedef struct
-{
-	DWORD		size;
-	VM_OWNER	*owner;
+typedef struct {
+    DWORD size;
+    VM_OWNER* owner;
 } MCB;
 
-typedef struct
-{
-   BYTE		*blk[ MAX_BLOCKS ];
-   MCB      *last_mcb[ MAX_BLOCKS ];
-   DWORD    blocks;
-   MCB      *rover;
-	DWORD		discarded;
-	DWORD		age;
+typedef struct {
+    BYTE* blk[MAX_BLOCKS];
+    MCB* last_mcb[MAX_BLOCKS];
+    DWORD blocks;
+    MCB* rover;
+    DWORD discarded;
+    DWORD age;
 } POOL;
 
-#define BLK_FREE    0x80000000L
-#define BLK_SIZE    0x00FFFFFFL
-#define BLK_ID      0x7F000000L
+#define BLK_FREE 0x80000000L
+#define BLK_SIZE 0x00FFFFFFL
+#define BLK_ID   0x7F000000L
 
-PRIVATE POOL    	pool;
+PRIVATE POOL pool;
 
 /*************************************************************************
  VM_InitMemory - Assign memory block to be used as virtual memory.
                - Can be called multiple times to add additional memory.
  *************************************************************************/
-PUBLIC void
-VM_InitMemory(
-	BYTE		*memory,        // INPUT : Memory to be added to the pool
-	DWORD		size            // INPUT : Size of memory
-	)
-{
-	MCB			*mcb;
+PUBLIC void VM_InitMemory(
+    BYTE* memory, // INPUT : Memory to be added to the pool
+    DWORD size // INPUT : Size of memory
+) {
+    MCB* mcb;
 
-	ASSERT( pool.blocks < MAX_BLOCKS );
-   ASSERT( size > 1024 );
+    ASSERT( pool.blocks < MAX_BLOCKS );
+    ASSERT( size > 1024 );
 
-   pool.blk[ pool.blocks ] = memory;
-/*
-* Create 1st Memory Block, the size of the block does include
-* the MCB header.
-*/
-   mcb = ( MCB * )memory;
-   mcb->size = size - sizeof( MCB );
-   mcb->size |= BLK_FREE;
-   mcb->size |= pool.blocks << 24;
-   mcb->owner = NULL;
-   if ( pool.rover == NULL )
-      pool.rover = mcb;
-/*
-* Create Last Memory Block
-*/
-    mcb = ( MCB * )(( BYTE * ) mcb + ( mcb->size & BLK_SIZE ) );
+    pool.blk[pool.blocks] = memory;
+    /*
+     * Create 1st Memory Block, the size of the block does include
+     * the MCB header.
+     */
+    mcb = (MCB*) memory;
+    mcb->size = size - sizeof( MCB );
+    mcb->size |= BLK_FREE;
+    mcb->size |= pool.blocks << 24;
+    mcb->owner = NULL;
+    if ( pool.rover == NULL ) {
+        pool.rover = mcb;
+    }
+    /*
+     * Create Last Memory Block
+     */
+    mcb = (MCB*) ( (BYTE*) mcb + ( mcb->size & BLK_SIZE ) );
     mcb->size = 0;
     mcb->owner = NULL;
-    pool.last_mcb[ pool.blocks ] = mcb;
+    pool.last_mcb[pool.blocks] = mcb;
 
-/*
-* Chain previous last MCB to this block
-*/
-    if ( pool.blocks > 0 )
-    {
-        mcb = pool.last_mcb[ pool.blocks - 1 ];
+    /*
+     * Chain previous last MCB to this block
+     */
+    if ( pool.blocks > 0 ) {
+        mcb = pool.last_mcb[pool.blocks - 1];
         mcb->size = pool.blocks << 24;
     }
     pool.blocks++;
 }
 
-
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
  vm_ColaceMem - Colace small fragments of memory into larger blocks.
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-PUBLIC DWORD
-vm_ColaceMem(
-    MCB 			*mcb
-    )
-{
-	MCB  			*next_mcb;
-	DWORD			mcb_size;
+PUBLIC DWORD vm_ColaceMem( MCB* mcb ) {
+    MCB* next_mcb;
+    DWORD mcb_size;
 
-	mcb_size = ( DWORD )( mcb->size & BLK_SIZE );
-/*
-* Merge all free contiguous blocks.
-*/
-	next_mcb = ( MCB * )( ( BYTE * ) mcb + mcb_size );
-	while ( next_mcb->size & BLK_FREE )
-	{
-		mcb_size += ( DWORD ) ( next_mcb->size & BLK_SIZE );
-		next_mcb = ( MCB * )( ( BYTE * ) mcb + mcb_size );
-	}
-	mcb->size = (DWORD)( BLK_FREE | ( mcb->size & ~BLK_SIZE ) | mcb_size );
-	return mcb_size;
+    mcb_size = (DWORD) ( mcb->size & BLK_SIZE );
+    /*
+     * Merge all free contiguous blocks.
+     */
+    next_mcb = (MCB*) ( (BYTE*) mcb + mcb_size );
+    while ( next_mcb->size & BLK_FREE ) {
+        mcb_size += (DWORD) ( next_mcb->size & BLK_SIZE );
+        next_mcb = (MCB*) ( (BYTE*) mcb + mcb_size );
+    }
+    mcb->size = (DWORD) ( BLK_FREE | ( mcb->size & ~BLK_SIZE ) | mcb_size );
+    return mcb_size;
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
- vm_DiscardMem - Disacard infrequently used memory 
+ vm_DiscardMem - Disacard infrequently used memory
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-PUBLIC MCB *
-vm_DiscardMem(
-	DWORD       size
-	)
-{
-   MCB         *mcb;
-   MCB         *free_mcb;
-	VM_OWNER		*owner;
-   DWORD       mcb_size;
-   BOOL        mem_freed;
-   DWORD    	lowcnt;
-   DWORD    	lowsize;
-	DWORD			oldage;
-   MCB      	*low_mcb;
+PUBLIC MCB* vm_DiscardMem( DWORD size ) {
+    MCB* mcb;
+    MCB* free_mcb;
+    VM_OWNER* owner;
+    DWORD mcb_size;
+    BOOL mem_freed;
+    DWORD lowcnt;
+    DWORD lowsize;
+    DWORD oldage;
+    MCB* low_mcb;
 
-   do
-   {
-   	oldage = lowsize = lowcnt = ( DWORD ) ~0;
-   	low_mcb = NULL;
-   	mcb = ( MCB * )( pool.blk[ 0 ] );
-      mem_freed = FALSE;
-		pool.age--;
+    do {
+        oldage = lowsize = lowcnt = (DWORD) ~0;
+        low_mcb = NULL;
+        mcb = (MCB*) ( pool.blk[0] );
+        mem_freed = FALSE;
+        pool.age--;
 
-      for ( ;; )
-      {
-         mcb_size = mcb->size & BLK_SIZE;
-			if ( mcb_size == 0 )
-			{
-         /*
-         * At end of block, use the block # encoded in the size to
-         * advance (or wrap) to the next block of memory.
-         */
-            mcb_size = mcb->size >> 24;
-            mcb = ( MCB * )( pool.blk[ mcb_size ] );
-            if ( mcb_size == 0 )
-            {
-               if ( low_mcb != NULL )
-					{
-						pool.discarded++;
-               	low_mcb->owner->obj = NULL;
-						vm_ColaceMem( low_mcb );
-						return low_mcb;
-					}
-               break;
+        for ( ;; ) {
+            mcb_size = mcb->size & BLK_SIZE;
+            if ( mcb_size == 0 ) {
+                /*
+                 * At end of block, use the block # encoded in the size to
+                 * advance (or wrap) to the next block of memory.
+                 */
+                mcb_size = mcb->size >> 24;
+                mcb = (MCB*) ( pool.blk[mcb_size] );
+                if ( mcb_size == 0 ) {
+                    if ( low_mcb != NULL ) {
+                        pool.discarded++;
+                        low_mcb->owner->obj = NULL;
+                        vm_ColaceMem( low_mcb );
+                        return low_mcb;
+                    }
+                    break;
+                }
+                continue;
             }
-				continue;
-			}
 
-			if ( ! ( mcb->size & BLK_FREE ) )
-			{
-				if ( ( owner = mcb->owner ) != NULL )
-				{
-         	/*
-         	* Keep track of the least recently used memory block that is
-				* large enough to use as we are searching for a free block.
-         	*/
-					if ( owner->age )
-						owner->age--;
+            if ( !( mcb->size & BLK_FREE ) ) {
+                if ( ( owner = mcb->owner ) != NULL ) {
+                    /*
+                     * Keep track of the least recently used memory block that is
+                     * large enough to use as we are searching for a free block.
+                     */
+                    if ( owner->age ) {
+                        owner->age--;
+                    }
 
-					if ( mcb_size >= size &&
-							( owner->age < lowcnt ||
-							( owner->age == lowcnt && lowsize > mcb_size )
-						  )
-						)
-            	{
-			 	 		lowsize = mcb_size;
-               	lowcnt  = owner->age;
-               	low_mcb = mcb;
-            	}
-					else if ( owner->age < oldage )
-					{
-						oldage = owner->age;
-					}
-         	}
-			}
-         mcb = ( MCB * )( ( BYTE * ) mcb + mcb_size );
-      }
-   /*
-   * Now go through and colace the heap
-   */
-      pool.rover = mcb = ( MCB * )( pool.blk[ 0 ] );
-		free_mcb = NULL;
-		oldage += 2;
-
-      for ( ;; )
-      {
-         mcb_size = ( mcb->size & BLK_SIZE );
-         if ( mcb->size & BLK_FREE )
-         {
-				free_mcb = mcb;
-            mcb_size = vm_ColaceMem( mcb );
-				if ( mcb_size >= size )
-					return mcb;
-
-            mcb = ( MCB * )( ( BYTE * ) mcb + mcb_size );
-				continue;
-         }
-			else if ( mcb_size )
-			{
-				if ( mcb->owner != NULL && mcb->owner->age <= oldage )
-				{
-					pool.discarded++;
-            	mcb->size |= BLK_FREE;
-            	mcb->owner->obj = NULL;
-            	mcb->owner = NULL;
-            	mem_freed = TRUE;
-					if ( free_mcb )
-					{
-						mcb = free_mcb;
-						continue;
-					}
-					free_mcb = mcb;
-				}
-				else
-				{
-					free_mcb = NULL;
-				}
-		      mcb = ( MCB * )( ( BYTE * ) mcb + ( mcb_size & BLK_SIZE ) );
-			}
-			else
-	      {
-         /*
-         * At end of block, use the block # encoded in the size to
-         * advance (or wrap) to the next block of memory.
+                    if ( mcb_size >= size &&
+                         ( owner->age < lowcnt || ( owner->age == lowcnt && lowsize > mcb_size ) ) ) {
+                        lowsize = mcb_size;
+                        lowcnt = owner->age;
+                        low_mcb = mcb;
+                    } else if ( owner->age < oldage ) {
+                        oldage = owner->age;
+                    }
+                }
+            }
+            mcb = (MCB*) ( (BYTE*) mcb + mcb_size );
+        }
+        /*
+         * Now go through and colace the heap
          */
-				free_mcb = NULL;
-				mcb_size = mcb->size >> 24;
-            mcb = ( MCB * )( pool.blk[ mcb_size ] );
-            if ( mcb_size == 0 )
-				{
-               break;
-				}
-	      }
-      }
-   } while ( mem_freed == TRUE );
-   return NULL;
+        pool.rover = mcb = (MCB*) ( pool.blk[0] );
+        free_mcb = NULL;
+        oldage += 2;
+
+        for ( ;; ) {
+            mcb_size = ( mcb->size & BLK_SIZE );
+            if ( mcb->size & BLK_FREE ) {
+                free_mcb = mcb;
+                mcb_size = vm_ColaceMem( mcb );
+                if ( mcb_size >= size ) {
+                    return mcb;
+                }
+
+                mcb = (MCB*) ( (BYTE*) mcb + mcb_size );
+                continue;
+            } else if ( mcb_size ) {
+                if ( mcb->owner != NULL && mcb->owner->age <= oldage ) {
+                    pool.discarded++;
+                    mcb->size |= BLK_FREE;
+                    mcb->owner->obj = NULL;
+                    mcb->owner = NULL;
+                    mem_freed = TRUE;
+                    if ( free_mcb ) {
+                        mcb = free_mcb;
+                        continue;
+                    }
+                    free_mcb = mcb;
+                } else {
+                    free_mcb = NULL;
+                }
+                mcb = (MCB*) ( (BYTE*) mcb + ( mcb_size & BLK_SIZE ) );
+            } else {
+                /*
+                 * At end of block, use the block # encoded in the size to
+                 * advance (or wrap) to the next block of memory.
+                 */
+                free_mcb = NULL;
+                mcb_size = mcb->size >> 24;
+                mcb = (MCB*) ( pool.blk[mcb_size] );
+                if ( mcb_size == 0 ) {
+                    break;
+                }
+            }
+        }
+    } while ( mem_freed == TRUE );
+    return NULL;
 }
 
 /*************************************************************************
  VM_Malloc - Allocates a block of memory - swapping out other blocks if
              needed.
  *************************************************************************/
-PUBLIC VOID *
-VM_Malloc(
-	UINT		size,       // INPUT : Size of object
-	VM_OWNER	*owner,     // INPUT : Owner Structure, NULL=Locked
-	BOOL		discard		// INPUT : Discard memory to satisfy request.
-	)
-{
-   MCB      *mcb;
-   MCB      *next_mcb;
-   DWORD    mcb_size;
-   BOOL     all_locked;
+PUBLIC VOID* VM_Malloc(
+    UINT size, // INPUT : Size of object
+    VM_OWNER* owner, // INPUT : Owner Structure, NULL=Locked
+    BOOL discard // INPUT : Discard memory to satisfy request.
+) {
+    MCB* mcb;
+    MCB* next_mcb;
+    DWORD mcb_size;
+    BOOL all_locked;
 
-   ASSERT( pool.blocks > 0 );
-/*
-* Round block up to next DWORD in size, and add in overhead of MCB
-*/
-   size = ( ( size + 3 ) & ~3 ) + sizeof( MCB );
+    ASSERT( pool.blocks > 0 );
+    /*
+     * Round block up to next DWORD in size, and add in overhead of MCB
+     */
+    size = ( ( size + 3 ) & ~3 ) + sizeof( MCB );
 
-/*
-* Search for free memory block across all pools...
-*/
-   all_locked = TRUE;
+    /*
+     * Search for free memory block across all pools...
+     */
+    all_locked = TRUE;
 
-   mcb = pool.rover;
-   do
-   {
-      while ( ! ( mcb->size & BLK_FREE ) )
-      {
-         mcb_size = ( DWORD )( mcb->size & BLK_SIZE );
-			if ( all_locked == TRUE && mcb->owner != NULL && discard )
-				all_locked = FALSE;
+    mcb = pool.rover;
+    do {
+        while ( !( mcb->size & BLK_FREE ) ) {
+            mcb_size = (DWORD) ( mcb->size & BLK_SIZE );
+            if ( all_locked == TRUE && mcb->owner != NULL && discard ) {
+                all_locked = FALSE;
+            }
 
-         if ( mcb_size > 0 )
-            mcb = ( MCB * )( ( BYTE * ) mcb + mcb_size );
-         else
-         {
-         /*
-         * At end of block, use the block # encoded in the size to
-         * advance (or wrap) to the next block of memory.
-         */
-            mcb = ( MCB * )( pool.blk[ mcb->size >> 24 ] );
-         }
+            if ( mcb_size > 0 ) {
+                mcb = (MCB*) ( (BYTE*) mcb + mcb_size );
+            } else {
+                /*
+                 * At end of block, use the block # encoded in the size to
+                 * advance (or wrap) to the next block of memory.
+                 */
+                mcb = (MCB*) ( pool.blk[mcb->size >> 24] );
+            }
 
-         if ( mcb == pool.rover )
-         {
-            if ( all_locked == TRUE )
-               return NULL;
+            if ( mcb == pool.rover ) {
+                if ( all_locked == TRUE ) {
+                    return NULL;
+                }
+                /*
+                 * Walked all of memory with no luck, start discarding least recently
+                 * used memory.
+                 */
+                if ( ( mcb = vm_DiscardMem( size ) ) == NULL ) {
+                    return NULL;
+                }
+
+                mcb_size = mcb->size & BLK_SIZE;
+                goto FOUND_MCB;
+            }
+        }
+        mcb_size = vm_ColaceMem( mcb );
+        if ( mcb_size < size ) {
             /*
-            * Walked all of memory with no luck, start discarding least recently
-            * used memory.
-            */
-            if ( ( mcb = vm_DiscardMem( size ) ) == NULL )
-               return NULL;
+             * Block is not big enough to satisfy request, goto next block
+             */
+            mcb = (MCB*) ( (BYTE*) mcb + mcb_size );
+        }
+    } while ( mcb_size < size && mcb != pool.rover );
 
-				mcb_size = mcb->size & BLK_SIZE;
-            goto FOUND_MCB;
-         }
-      }
-      mcb_size = vm_ColaceMem( mcb );
-		if ( mcb_size < size )
-		{
-		/*
-		* Block is not big enough to satisfy request, goto next block
-		*/
-         mcb = ( MCB * )( ( BYTE * ) mcb + mcb_size );
-		}
-   }
-   while ( mcb_size < size && mcb != pool.rover );
-
-   if ( mcb_size < size )
-      return NULL;
+    if ( mcb_size < size ) {
+        return NULL;
+    }
 
 FOUND_MCB:
-   if ( mcb_size - size < ( sizeof( MCB ) + 4 ) )
-	{
-      size = mcb_size;
-      next_mcb = ( MCB * )( ( BYTE * ) mcb + size );
-	}
-   else
-   {
-      next_mcb = ( MCB * )( ( BYTE * ) mcb + size );
-      next_mcb->size = ( DWORD )( BLK_FREE | ( mcb->size & BLK_ID ) | ( mcb_size - size ) );
-      next_mcb->owner = NULL;
-   }
-   pool.rover = next_mcb;
-   mcb->size = (DWORD)( ( mcb->size & BLK_ID ) | size );
-   mcb->owner = owner;
-   if ( owner != NULL )
-   {
-      owner->obj = ( BYTE * ) mcb + sizeof( MCB );
-      owner->age = ++pool.age;
-   }
-   return ( VOID * )( ( BYTE * ) mcb + sizeof( MCB ) );
+    if ( mcb_size - size < ( sizeof( MCB ) + 4 ) ) {
+        size = mcb_size;
+        next_mcb = (MCB*) ( (BYTE*) mcb + size );
+    } else {
+        next_mcb = (MCB*) ( (BYTE*) mcb + size );
+        next_mcb->size = (DWORD) ( BLK_FREE | ( mcb->size & BLK_ID ) | ( mcb_size - size ) );
+        next_mcb->owner = NULL;
+    }
+    pool.rover = next_mcb;
+    mcb->size = (DWORD) ( ( mcb->size & BLK_ID ) | size );
+    mcb->owner = owner;
+    if ( owner != NULL ) {
+        owner->obj = (BYTE*) mcb + sizeof( MCB );
+        owner->age = ++pool.age;
+    }
+    return (VOID*) ( (BYTE*) mcb + sizeof( MCB ) );
 }
-	
+
 /*************************************************************************
-* VM_Touch - touch a peice of memory to keep track of most recently used.
+ * VM_Touch - touch a peice of memory to keep track of most recently used.
  *************************************************************************/
-PUBLIC VOID
-VM_Touch(
-	VM_OWNER	*owner		// INPUT : Owner of memory to touch.
-	)
-{
-	if ( owner )
-	{
-		owner->age = ++pool.age;
-	}
+PUBLIC VOID VM_Touch(
+    VM_OWNER* owner // INPUT : Owner of memory to touch.
+) {
+    if ( owner ) {
+        owner->age = ++pool.age;
+    }
 }
 
 /*************************************************************************
  VM_Free - frees a block of memory allocated by VM_Malloc
  *************************************************************************/
-PUBLIC VOID
-VM_Free(
-   VOID     *mem        // INPUT : Memory Object to Free
-	)
-{
-   MCB      *mcb;
+PUBLIC VOID VM_Free(
+    VOID* mem // INPUT : Memory Object to Free
+) {
+    MCB* mcb;
 
-   if ( mem != NULL )
-   {
-      mcb = ( MCB * )( ( BYTE * ) mem - sizeof( MCB ) );
-      if ( ! ( mcb->size & BLK_FREE ) )
-      {
-         if ( mcb->owner != NULL )
-            mcb->owner->obj = NULL;
-         mcb->owner = NULL;
-         vm_ColaceMem( mcb );
-         pool.rover = mcb;
-      }
-   }
+    if ( mem != NULL ) {
+        mcb = (MCB*) ( (BYTE*) mem - sizeof( MCB ) );
+        if ( !( mcb->size & BLK_FREE ) ) {
+            if ( mcb->owner != NULL ) {
+                mcb->owner->obj = NULL;
+            }
+            mcb->owner = NULL;
+            vm_ColaceMem( mcb );
+            pool.rover = mcb;
+        }
+    }
 }
-
 
 /*************************************************************************
  VM_Lock - Locks a block of memory from being swapped out.
  *************************************************************************/
-PUBLIC VOID
-VM_Lock(
-   VOID     *mem        // INPUT : Memory Object to Free
-	)
-{
-   MCB      *mcb;
+PUBLIC VOID VM_Lock(
+    VOID* mem // INPUT : Memory Object to Free
+) {
+    MCB* mcb;
 
-   ASSERT( mem != NULL );
+    ASSERT( mem != NULL );
 
-   mcb = ( MCB * )( ( BYTE * ) mem - sizeof( MCB ) );
-   if ( ! ( mcb->size & BLK_FREE ) )
-   {
-      mcb->owner = NULL;
-   }
+    mcb = (MCB*) ( (BYTE*) mem - sizeof( MCB ) );
+    if ( !( mcb->size & BLK_FREE ) ) {
+        mcb->owner = NULL;
+    }
 }
-   
 
 /*************************************************************************
  VM_Unlock - Unlocks a block of memory allowing it to be swapped out.
  *************************************************************************/
-PUBLIC VOID
-VM_Unlock(
-   VOID     *mem,       // INPUT : Memory Object to Free
-	VM_OWNER *owner      // INPUT : Owner Structure, NULL=Locked
-	)
-{
-   MCB      *mcb;
+PUBLIC VOID VM_Unlock(
+    VOID* mem, // INPUT : Memory Object to Free
+    VM_OWNER* owner // INPUT : Owner Structure, NULL=Locked
+) {
+    MCB* mcb;
 
-   if ( mem != NULL )
-   {
-      mcb = ( MCB * )( ( BYTE * ) mem - sizeof( MCB ) );
-      if ( ! ( mcb->size & BLK_FREE ) )
-      {
-         mcb->owner = owner;
-			if ( owner != NULL )
-			{
-			   owner->obj = ( BYTE * ) mcb + sizeof( MCB );
-				owner->age = pool.age;
-			}
-      }
-   }
+    if ( mem != NULL ) {
+        mcb = (MCB*) ( (BYTE*) mem - sizeof( MCB ) );
+        if ( !( mcb->size & BLK_FREE ) ) {
+            mcb->owner = owner;
+            if ( owner != NULL ) {
+                owner->obj = (BYTE*) mcb + sizeof( MCB );
+                owner->age = pool.age;
+            }
+        }
+    }
 }
-  
 
 /*************************************************************************
  VM_GetCoreInfo - Get information on core resource
  *************************************************************************/
-PUBLIC VOID
-VM_GetCoreInfo(
-	DWORD			*largest,		// OUTPUT: Largest block free
-	DWORD			*totalfree,		// OUTPUT: Total amount free
-	DWORD			*totallocked,	// OUTPUT: Total amount locked
-	DWORD			*totalused,		// OUTPUT: Total amount used
-	DWORD			*discarded		// OUTPUT: Number of items discarded
-	)
-{
-	MCB			*mcb;
-	MCB         *next_mcb;
-	DWORD       mcb_size;
-	DWORD			mem_size;
-	DWORD			l_free;
-	DWORD			l_used;
-	DWORD			l_largest;
-	DWORD			l_locked;
+PUBLIC VOID VM_GetCoreInfo(
+    DWORD* largest, // OUTPUT: Largest block free
+    DWORD* totalfree, // OUTPUT: Total amount free
+    DWORD* totallocked, // OUTPUT: Total amount locked
+    DWORD* totalused, // OUTPUT: Total amount used
+    DWORD* discarded // OUTPUT: Number of items discarded
+) {
+    MCB* mcb;
+    MCB* next_mcb;
+    DWORD mcb_size;
+    DWORD mem_size;
+    DWORD l_free;
+    DWORD l_used;
+    DWORD l_largest;
+    DWORD l_locked;
 
-	l_locked = l_free = l_used = l_largest = 0;
-	mcb = ( MCB * ) pool.blk[ 0 ];
-	while ( mcb != NULL )
-	{
-		mcb_size = ( DWORD )( mcb->size & BLK_SIZE );
-		if ( mcb->size & BLK_FREE )
-		{
-			mem_size = mcb_size - 8;
-			l_free += mem_size;
-			if ( l_largest < mem_size )
-				l_largest = mem_size;
-			next_mcb = ( MCB * )( ( BYTE * ) mcb + mcb_size );
-		}
-		else
-		{
-			if ( mcb_size == 0 )
-			{
-         /*
-         * At end of block, use the block # encoded in the size to
-         * advance (or wrap) to the next block of memory.
-         */
-            mcb_size = mcb->size >> 24;
-            next_mcb = ( MCB * )( pool.blk[ mcb_size ] );
-			}
-			else
-			{
-				l_used += mcb_size;
-				if ( mcb->owner == NULL )
-					l_locked += mcb_size;
+    l_locked = l_free = l_used = l_largest = 0;
+    mcb = (MCB*) pool.blk[0];
+    while ( mcb != NULL ) {
+        mcb_size = (DWORD) ( mcb->size & BLK_SIZE );
+        if ( mcb->size & BLK_FREE ) {
+            mem_size = mcb_size - 8;
+            l_free += mem_size;
+            if ( l_largest < mem_size ) {
+                l_largest = mem_size;
+            }
+            next_mcb = (MCB*) ( (BYTE*) mcb + mcb_size );
+        } else {
+            if ( mcb_size == 0 ) {
+                /*
+                 * At end of block, use the block # encoded in the size to
+                 * advance (or wrap) to the next block of memory.
+                 */
+                mcb_size = mcb->size >> 24;
+                next_mcb = (MCB*) ( pool.blk[mcb_size] );
+            } else {
+                l_used += mcb_size;
+                if ( mcb->owner == NULL ) {
+                    l_locked += mcb_size;
+                }
 
-				next_mcb = ( MCB * )( ( BYTE * ) mcb + mcb_size );
-			}
-		}
-		if ( next_mcb == ( MCB * ) pool.blk[ 0 ] )
-			break;
-		mcb = next_mcb;
-	}
-	if ( largest )
-		*largest = l_largest;
-	if ( totalfree )
-		*totalfree = l_free;
-	if ( totallocked )
-		*totallocked = l_locked;
-	if ( totalused )
-		*totalused = l_used;
-	if ( discarded )
-		*discarded = pool.discarded;
+                next_mcb = (MCB*) ( (BYTE*) mcb + mcb_size );
+            }
+        }
+        if ( next_mcb == (MCB*) pool.blk[0] ) {
+            break;
+        }
+        mcb = next_mcb;
+    }
+    if ( largest ) {
+        *largest = l_largest;
+    }
+    if ( totalfree ) {
+        *totalfree = l_free;
+    }
+    if ( totallocked ) {
+        *totallocked = l_locked;
+    }
+    if ( totalused ) {
+        *totalused = l_used;
+    }
+    if ( discarded ) {
+        *discarded = pool.discarded;
+    }
 }
 
-
 #if 0
-#define MAX_OBJECTS		256
+#define MAX_OBJECTS 256
 
 VM_OWNER	obj_owner[ MAX_OBJECTS ];
 BYTE	cmp_buf[ 32768 ];
@@ -581,7 +518,6 @@ WalkHeap(
 	}
 	printf( "--------------MEMORY COMPLETE--------------\n" );
 }
-
 
 dumpbuf( char *buf, int len )
 {
