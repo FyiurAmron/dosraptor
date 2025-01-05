@@ -22,6 +22,13 @@ typedef unsigned short USHORT;
 typedef int INT;
 typedef unsigned int UINT;
 
+typedef unsigned char uint8_t;
+typedef unsigned short uint16_t;
+typedef unsigned int uint32_t;
+typedef signed char int8_t;
+typedef signed short int16_t;
+typedef signed int int32_t;
+
 int random( int );
 #define random( x ) ( rand() % x )
 
