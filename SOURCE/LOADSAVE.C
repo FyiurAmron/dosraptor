@@ -301,8 +301,8 @@ BOOL RAP_SavePlayer( void ) {
 void RAP_LoadMap( void ) {
     CHAR temp[42];
 
-    if ( !gameflag[cur_game] ) {
-        EXIT_Error( "Loading Invalid map game %d", cur_game );
+    if ( !reg_flag && cur_game > 0 ) {
+        EXIT_Error( "!reg_flag && cur_game %d > 0", cur_game );
     }
 
     GLB_FreeAll();

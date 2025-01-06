@@ -290,7 +290,7 @@ BOOL INTRO_Base( void ) {
     INT framecnt = maxframes - 1;
     FRAME* cur = frm;
 
-    if ( !gameflag[1] ) {
+    if ( !reg_flag ) {
         return TRUE;
     }
 
@@ -613,7 +613,7 @@ INTRO_EndGame() - Ends the current game anims
 void INTRO_EndGame( INT game ) {
     IMS_StartAck();
 
-    if ( !gameflag[game] ) {
+    if ( !reg_flag && game > 0 ) {
         return;
     }
 
@@ -806,7 +806,7 @@ BOOL INTRO_Credits( void ) {
 INTRO_BaseLanding() - BaseLanding PLays all needed MOVES
  ***************************************************************************/
 void INTRO_BaseLanding( void ) {
-    if ( !gameflag[1] ) {
+    if ( !reg_flag ) {
         return;
     }
 

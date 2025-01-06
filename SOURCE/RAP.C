@@ -42,7 +42,6 @@ PUBLIC INT o_gun3[8] = { 2, 6, 8, 11, 8, 6, 2 };
 PUBLIC INT gl_cnt = 0;
 PUBLIC BOOL end_wave = FALSE;
 PUBLIC PLAYEROBJ plr;
-PUBLIC BOOL gameflag[4] = { FALSE, FALSE, FALSE, FALSE };
 PUBLIC INT player_cx = PLAYERINITX;
 PUBLIC INT player_cy = PLAYERINITY;
 PUBLIC INT playerx = PLAYERINITX;
@@ -57,7 +56,7 @@ PUBLIC BOOL startfadeflag = FALSE;
 PUBLIC BOOL fadeflag = FALSE;
 PUBLIC BOOL start_end_fade = FALSE;
 PUBLIC BOOL end_fadeflag = FALSE;
-PUBLIC FLATS* flatlib[4];
+PUBLIC FLATS* flatlib[4] = { NULL, NULL, NULL, NULL };
 PUBLIC BOOL debugflag = FALSE;
 PUBLIC BOOL testflag = FALSE;
 PUBLIC INT g_oldshield = EMPTY;
@@ -1088,10 +1087,10 @@ void JoyHack( void ) {
 
 void main( INT argc, CHAR* argv[] ) {
     INT i;
-    INT numfiles = 0;
     DWORD item;
     BOOL ptrflag = FALSE;
     void* tptr;
+    int lib_max = 1;
 
     char* banner = "================================ vaxRaptor v1.3 ===============================";
     char* bannerColor = ANSI_ESCAPE ANSI_BKGD ANSI_BLUE ";" ANSI_BOLD ";" ANSI_FONT ANSI_YELLOW ANSI_END;
@@ -1137,32 +1136,18 @@ void main( INT argc, CHAR* argv[] ) {
 
     cur_diff = 0;
 
-    if ( access( "FILE0001.GLB", 0 ) == 0 ) {
-        gameflag[0] = TRUE;
+    if ( access( "FILE0000.GLB", 0 ) != 0 || access( "FILE0001.GLB", 0 ) != 0 ) {
+        EXIT_Error( "required globs FILE0000 & FILE0001 are missing - cannot proceed!\n" );
     }
 
-    if ( access( "FILE0002.GLB", 0 ) == 0 ) {
-        gameflag[1] = TRUE;
-    }
-
-    if ( access( "FILE0003.GLB", 0 ) == 0 && access( "FILE0004.GLB", 0 ) == 0 ) {
-        gameflag[2] = TRUE;
-        gameflag[3] = TRUE;
-    }
-
-    if ( gameflag[1] + gameflag[2] ) {
+    if ( access( "FILE0002.GLB", 0 ) == 0 //
+         && access( "FILE0003.GLB", 0 ) == 0 //
+         && access( "FILE0004.GLB", 0 ) == 0 ) {
         reg_flag = TRUE;
+        lib_max = 4;
     }
 
-    for ( i = 0; i < 4; i++ ) {
-        if ( gameflag[i] ) {
-            numfiles++;
-        }
-    }
-
-    if ( access( "FILE0000.GLB", 0 ) != 0 || numfiles == 0 ) {
-        EXIT_Error( "Not all of the required game data files found - cannot proceed!\n" );
-    }
+    log_to_file_and_screen( reg_flag ? "registered data found" : "shareware data found" );
 
     EXIT_Install( ShutDown );
 
@@ -1191,8 +1176,6 @@ void main( INT argc, CHAR* argv[] ) {
             break;
     }
 
-    log_to_file_and_screen( "Registered EXE" );
-
     GLB_InitSystem( argv[0], 6, NULL );
 
     SND_InitSound();
@@ -1219,20 +1202,16 @@ void main( INT argc, CHAR* argv[] ) {
     for ( i = 0; i < 7; i++ ) {
         lship[i] = LPLAYER_PIC + (DWORD) i;
 
-        if ( gameflag[1] ) {
+        if ( reg_flag ) {
             dship[i] = DPLAYER_PIC + (DWORD) i;
             fship[i] = FPLAYER_PIC + (DWORD) i;
         }
     }
 
     // = LOAD IN FLAT LIBS  =========================
-    for ( i = 0; i < 4; i++ ) {
-        if ( gameflag[i] ) {
-            item = GLB_GetItemID( flatnames[i] );
-            flatlib[i] = (FLATS*) GLB_LockItem( item );
-        } else {
-            flatlib[i] = NULL;
-        }
+    for ( i = 0; i < lib_max; i++ ) {
+        item = GLB_GetItemID( flatnames[i] );
+        flatlib[i] = (FLATS*) GLB_LockItem( item );
     }
 
     // = LOAD IN 0-9 $ SPRITE PICS  =========================

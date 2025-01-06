@@ -123,7 +123,6 @@ extern BYTE* patch2;
 extern BOOL end_wave;
 extern INT gl_cnt;
 extern BOOL testflag;
-extern BOOL gameflag[];
 extern INT startendwave;
 extern BOOL reg_flag;
 extern BOOL lowmem_flag;
