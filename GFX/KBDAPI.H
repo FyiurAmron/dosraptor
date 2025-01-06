@@ -1,28 +1,12 @@
 /****************************************************************************
  * KBDapi  - keyboard routines
- *----------------------------------------------------------------------------
- * Copyright (C) 1992  Scott Hostynski All Rights Reserved
- *----------------------------------------------------------------------------
- *
- * Created by:  Scott Host
- * Date:        Oct, 1992
- *
- * CONTENTS: kbdapi.c kbdapi.h keys.h
- *
- * EXTERN MODULES - NONE
- *
  *---------------------------------------------------------------------------*/
 
-#ifndef _TYPES_H
-#include <types.h>
-#endif
+#ifndef KBDAPI_H
+#define KBDAPI_H
 
-#ifndef SC_NONE
+#include "types.h"
 #include "keys.h"
-#endif
-
-#ifndef _KBDAPI
-#define _KBDAPI
 
 /***************************************************************************
    KBD_Clear() - Resets all flags

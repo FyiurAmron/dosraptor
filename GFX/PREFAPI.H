@@ -1,5 +1,5 @@
-#ifndef _PREF_H
-#define _PREF_H
+#ifndef PREF_H
+#define PREF_H
 
 /****************************************************************************
  * INI_InitPreference - Specify the preference program file

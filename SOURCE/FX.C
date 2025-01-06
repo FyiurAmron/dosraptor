@@ -5,6 +5,7 @@
 #include <string.h>
 
 #include "../gfx/prefapi.h"
+#include "../apodmx/dmx.h"
 #include "raptor.h"
 
 #include "file0000.inc"

@@ -12,8 +12,6 @@
 #include "../gfx/types.h"
 #include "../gfx/vmemapi.h"
 
-#include "../apodmx/dmx.h"
-
 #define MAX_SHIELD 100
 #define MAX_SUPER  100
 

@@ -20,6 +20,8 @@
 #include "file0002.inc"
 
 #include "../gfx/prefapi.h"
+#include "../gfx/dpmiapi.h"
+#include "../apodmx/dmx.h"
 #include "ansi_esc.h"
 #include "raptor.h"
 #include "tile_a.h"

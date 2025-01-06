@@ -2,9 +2,10 @@
  * SWDapi  - windowing routines
  *---------------------------------------------------------------------------*/
 
-#ifndef _TYPES_H
+#ifndef SWDAPI_H
+#define SWDAPI_H
+
 #include "types.h"
-#endif
 
 typedef enum {
     C_IDLE,
@@ -211,12 +212,13 @@ void SWD_SetClearFlag( BOOL inflag );
  SWD_ShowAllWindows()- Displays all windows & puts active window on top
  ***************************************************************************/
 BOOL // RETURN : TRUE = OK, FALSE = Error
-    SWD_ShowAllWindows( void );
+SWD_ShowAllWindows( void );
 
 /***************************************************************************
    SWD_SetViewDrawHook () Sets function to draw after the master window
  ***************************************************************************/
-void SWD_SetViewDrawHook( void ( *func )( void ) // INPUT : pointer to function
+void SWD_SetViewDrawHook(
+    void ( *func )( void ) // INPUT : pointer to function
 );
 
 /***************************************************************************
@@ -464,3 +466,5 @@ INT SWD_GetFieldXYL(
     INT* lx, // OUTPUT: width
     INT* ly // OUTPUT: height
 );
+
+#endif

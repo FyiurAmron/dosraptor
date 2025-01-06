@@ -28,8 +28,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
    (c) Copyright 1994 James R. Dose.  All Rights Reserved.
 **********************************************************************/
 
-#ifndef __DPMI_H
-#define __DPMI_H
+#ifndef DPMI_H
+#define DPMI_H
 
 /* These functions simply call DPMI_LockMemory and DPMI_UnlockMemory,
 respectively. They're used for compatibility with existing sources or

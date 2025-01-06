@@ -1,24 +1,11 @@
 /****************************************************************************
  * IMSapi  - Input Managenment System
- *----------------------------------------------------------------------------
- * Copyright (C) 1992  Scott Hostynski All Rights Reserved
- *----------------------------------------------------------------------------
- *
- * Created by:  Scott Host
- * Date:        Oct, 1992
- *
- * CONTENTS: imsapi.c imsapi.h keys.h
- *
- * EXTERN MODULES - ptrapi, kbdapi, tsmapi
- *
  *---------------------------------------------------------------------------*/
 
-#ifndef _TYPES_H
-#include <types.h>
-#endif
+#ifndef IMSAPI_H
+#define IMSAPI_H
 
-#ifndef _IMSAPI
-#define _IMSAPI
+#include "types.h"
 
 /***************************************************************************
 IMS_StartAck () - Starts up checking for a happening

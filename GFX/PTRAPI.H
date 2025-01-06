@@ -1,26 +1,11 @@
 /****************************************************************************
  * PTRapi  - Cursor routines
- *----------------------------------------------------------------------------
- * Copyright (C) 1992  Scott Hostynski All Rights Reserved
- *----------------------------------------------------------------------------
- *
- * Created by:  Scott Host
- * Date:        Oct, 1992
- *
- * CONTENTS: ptrapi.c ptrapi_a.asm ptrapi.h
- *
- * EXTERN MODULES - GFX, TSM and MOUSE.LIB
- *
  *---------------------------------------------------------------------------*/
 
-#ifndef _TYPES_H
-#include <types.h>
-#endif
+#ifndef PTRAPI_H
+#define PTRAPI_H
 
-#ifndef _PTRAPI
-#define _PTRAPI
-
-#include "dpmiapi.h"
+#include "types.h"
 
 typedef enum { P_AUTO, P_MOUSE, P_JOYSTICK } PTRTYPE;
 
