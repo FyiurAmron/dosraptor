@@ -15,15 +15,21 @@ The goals of the project:
   or opinionated stuff I do or simply to cherry-pick the goodies
 
 ## Build
-Original DOS version was built using Watcom C 10.0 and TASM 3.1.
-Currently, as a stepping stone, [Open Watcom V2](https://github.com/open-watcom/open-watcom-v2) is the suggested compiler.
-An effort to drop the requirement for external assembler is underway.
+ Currently supported compiler(s): [Open Watcom V2](https://github.com/open-watcom/open-watcom-v2)
+ 
+ Code migration status:
+ * SOURCE: all asm and int386 calls removed, fully compatible
+ 
+ and the full migration is pending for GFX due to asm usage
+ - an effort to rewrite the code to pure C and thus drop the requirement
+ for external assembler is ongoing.
 
 ## License
 Code is distributed under the GPL Version 2 or newer, see [LICENSE](https://github.com/FyiurAmron/dosraptor/blob/master/LICENSE).
 
 ## Thanks
 Thanks go to:
-* [Scott Host](https://www.mking.com) - original author of the code
-* [nukeykt](https://github.com/nukeykt) & [NY00123](https://github.com/NY00123) - helped with the original DOS code release
-* [skynettx](https://github.com/skynettx) - handled the original release as [dosraptor](https://github.com/skynettx/dosraptor)
+* [Scott Host](https://www.mking.com) - original author of Raptor
+* [skynettx](https://github.com/skynettx) - handled the original code release as [dosraptor](https://github.com/skynettx/dosraptor)
+* [nukeykt](https://github.com/nukeykt) - maintainer of APODMX
+* [NY00123](https://github.com/NY00123) - helped with the original DOS code release
