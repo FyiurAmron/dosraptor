@@ -61,9 +61,10 @@ add_executable(SOURCE
     STORE.INC
     TILE.C
     TILE.H
-    TILE_A.ASM
     WINDOWS.C
     WINDOWS.H
     WINGAME.INC
     ansi_esc.h
+    utils.c
+    utils.h
 )

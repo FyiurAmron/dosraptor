@@ -22,6 +22,7 @@
 #include "file0000.inc"
 #include "file0001.inc"
 #include "file0002.inc"
+#include "utils.h"
 
 BYTE* palette;
 BYTE* cursor_pic;
@@ -220,6 +221,8 @@ SPECIAL void ShutDown( INT errcode ) {
     SWD_End();
 
     free( g_highmem );
+
+    log_to_file_and_screen( "vaxRaptor ShutDown(%d) complete.", errcode );
 }
 
 void RAP_ClearSides( void ) {
@@ -1200,9 +1203,14 @@ void main( INT argc, CHAR* argv[] ) {
     BOOL ptrflag = FALSE;
     void* tptr;
 
-    printf( ANSI_ESCAPE ANSI_BKGD ANSI_BLUE ";" ANSI_BOLD ";" ANSI_FONT ANSI_YELLOW ANSI_END );
-    printf( "================================ vaxRaptor v1.3 ===============================" ANSI_RESET "\n" );
-    printf( "argc == %d\n", argc );
+    char* banner = "================================ vaxRaptor v1.3 ===============================";
+    char* bannerColor = ANSI_ESCAPE ANSI_BKGD ANSI_BLUE ";" ANSI_BOLD ";" ANSI_FONT ANSI_YELLOW ANSI_END;
+
+    log_file_init();
+
+    log_to_screen( "%s%s%s", bannerColor, banner, ANSI_RESET );
+    log_to_file( banner );
+    log_to_file_and_screen( "argc == %d", argc );
 
     if ( strcmpi( argv[1], "joycal" ) == 0 ) {
         JoyHack();
@@ -1211,28 +1219,27 @@ void main( INT argc, CHAR* argv[] ) {
     RAP_InitLoadSave();
 
     if ( access( RAP_SetupFilename(), 0 ) != 0 ) {
-        printf( "\n%s not found - please run SETUP.EXE first!\n", RAP_SetupFilename() );
-        exit( 0 );
+        EXIT_Error( "%s not found - please run SETUP.EXE first!\n", RAP_SetupFilename() );
     }
     if ( !INI_InitPreference( RAP_SetupFilename() ) ) {
-        EXIT_Error( "Can't load %s due to error!", RAP_SetupFilename() );
+        EXIT_Error( "Can't load %s due to error!\n", RAP_SetupFilename() );
     }
 
     godmode = strcmp( (CHAR*) s_host, gdmodestr ) == 0 ? TRUE : FALSE;
 
     if ( godmode ) {
-        printf( "GOD mode enabled\n" );
+        log_to_file_and_screen( "GOD mode enabled" );
     }
 
     if ( strcmpi( argv[1], "REC" ) == 0 ) {
         DEMO_SetFileName( argv[2] );
         demo_flag = DEMO_RECORD;
-        printf( "DEMO RECORD enabled\n" );
+        log_to_file_and_screen( "DEMO RECORD enabled" );
     } else if ( strcmpi( argv[1], "PLAY" ) == 0 ) {
         if ( access( argv[2], 0 ) == 0 ) {
             DEMO_SetFileName( argv[2] );
             demo_flag = DEMO_PLAYBACK;
-            printf( "DEMO PLAYBACK enabled\n" );
+            log_to_file_and_screen( "DEMO PLAYBACK enabled" );
         }
     }
 
@@ -1263,11 +1270,9 @@ void main( INT argc, CHAR* argv[] ) {
     }
 
     if ( access( "FILE0000.GLB", 0 ) != 0 || numfiles == 0 ) {
-        printf( "All game data files NOT FOUND cannot proceed !!\n" );
-        exit( 0 );
+        EXIT_Error( "Not all of the required game data files found - cannot proceed!\n" );
     }
 
-    printf( "Init -\n" );
     EXIT_Install( ShutDown );
 
     // ================================================
@@ -1309,7 +1314,7 @@ void main( INT argc, CHAR* argv[] ) {
     RAP_Bday();
 
     if ( bday_num != EMPTY ) {
-        printf( "Birthday() = %s\n", bday[bday_num].name );
+        log_to_file_and_screen( "Birthday() = %s", bday[bday_num].name );
     }
 
     fflush( stdout );
@@ -1322,29 +1327,26 @@ void main( INT argc, CHAR* argv[] ) {
 
     switch ( control ) {
         default:
-            printf( "PTR_Init()-Auto\n" );
-            fflush( stdout );
+            log_to_file_and_screen( "PTR_Init() - Auto" );
             ptrflag = PTR_Init( P_MOUSE );
             usekb_flag = TRUE;
             break;
 
         case I_JOYSTICK:
-            printf( "PTR_Init()-Joystick\n" );
-            fflush( stdout );
+            log_to_file_and_screen( "PTR_Init() - Joystick" );
             ptrflag = PTR_Init( P_JOYSTICK );
             usekb_flag = FALSE;
             break;
 
         case I_MOUSE:
-            printf( "PTR_Init()-Mouse\n" );
-            fflush( stdout );
+            log_to_file_and_screen( "PTR_Init() - Mouse" );
             ptrflag = PTR_Init( P_MOUSE );
             usekb_flag = FALSE;
             break;
     }
 
-    printf( "Registered EXE!\n" );
-    fflush( stdout );
+    log_to_file_and_screen( "Registered EXE" );
+
     GLB_InitSystem( argv[0], 6, NULL );
 
     SND_InitSound();
@@ -1352,15 +1354,13 @@ void main( INT argc, CHAR* argv[] ) {
     GLB_FreeAll();
     RAP_InitMem();
 
-    printf( "Loading Graphics\n" );
+    log_to_file_and_screen( "Loading graphics..." );
 
     tptr = GLB_LockItem( PALETTE_DAT );
     memset( tptr, 0, 3 );
     palette = (BYTE*) tptr;
     SHADOW_Init();
     FLAME_Init();
-
-    fflush( stdout );
 
     if ( ptrflag ) {
         cursor_pic = GLB_LockItem( CURSOR_PIC );
