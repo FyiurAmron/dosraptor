@@ -68,7 +68,7 @@ typedef struct {
 /*==========================================================================
    GFX_TimeFrameRate () - Should be interrupt called at 70 fps
  ==========================================================================*/
-INT GFX_TimeFrameRate( void );
+void GFX_TimeFrameRate( void );
 
 /***************************************************************************
 GFX_SetDebug () - Sets Debug mode

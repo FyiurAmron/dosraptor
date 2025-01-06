@@ -19,7 +19,7 @@ PRIVATE BOOL kbactive = FALSE;
 PRIVATE INT prev_window = EMPTY;
 PRIVATE INT master_window = EMPTY;
 PRIVATE INT active_window = EMPTY;
-PRIVATE INT active_field = EMPTY;
+INT active_field = EMPTY;
 PRIVATE SFIELD* lastfld = NULL;
 PRIVATE BOOL highlight_flag = FALSE;
 PRIVATE SWD_WIN g_wins[MAX_WINDOWS];
@@ -224,7 +224,7 @@ INT SWD_GetLine( BYTE* inmem ) {
     }
 
     memcpy( textfill, text, curpos );
-    textfill[curpos] = NULL;
+    textfill[curpos] = '\0';
 
     while ( *( text + curpos ) <= 31 ) {
         curpos++;
@@ -953,57 +953,6 @@ PRIVATE INT SWD_GetPrevField(
 }
 
 /*------------------------------------------------------------------------
-  SWD_GetRightField() - Gets the closest right selectable field
-  ------------------------------------------------------------------------*/
-PRIVATE INT SWD_GetRightField(
-    SFIELD* firstfld, // INPUT : pointer to first field
-    INT maxfields // INPUT : number of fields
-) {
-    SFIELD* activefld = firstfld + active_field;
-    SFIELD* curfld;
-    INT loop;
-    INT rval = EMPTY;
-    INT low = 0x7fff;
-    INT del;
-
-    for ( loop = 0; loop < maxfields; loop++ ) {
-        curfld = firstfld + loop;
-
-        switch ( curfld->opt ) {
-            case FLD_DRAGBAR:
-            case FLD_BUMPIN:
-            case FLD_BUMPOUT:
-            case FLD_OFF:
-            case FLD_TEXT:
-            case FLD_ICON:
-                break;
-
-            default:
-                if ( curfld->x > activefld->x ) {
-                    del = abs( curfld->x - activefld->x );
-                    del += abs( curfld->y - activefld->y );
-
-                    if ( del < low ) {
-                        if ( curfld->selectable ) {
-                            low = del;
-                            rval = loop;
-                        }
-                    }
-                }
-                break;
-        }
-    }
-
-    if ( rval < 0 ) {
-        SWD_GetNextField( firstfld, maxfields );
-    } else {
-        active_field = rval;
-    }
-
-    return rval;
-}
-
-/*------------------------------------------------------------------------
   SWD_GetUpField() - Gets the closest right selectable field
   ------------------------------------------------------------------------*/
 PRIVATE INT SWD_GetUpField(
@@ -1102,57 +1051,6 @@ PRIVATE INT SWD_GetDownField(
 
     if ( rval < 0 ) {
         active_field = SWD_GetFirstField();
-    } else {
-        active_field = rval;
-    }
-
-    return rval;
-}
-
-/*------------------------------------------------------------------------
-  SWD_GetLeftField() - Gets the closest right selectable field
-  ------------------------------------------------------------------------*/
-PRIVATE INT SWD_GetLeftField(
-    SFIELD* firstfld, // INPUT : pointer to first field
-    INT maxfields // INPUT : number of fields
-) {
-    SFIELD* activefld = firstfld + active_field;
-    SFIELD* curfld;
-    INT loop;
-    INT rval = EMPTY;
-    INT low = 0x7fff;
-    INT del;
-
-    for ( loop = 0; loop < maxfields; loop++ ) {
-        curfld = firstfld + loop;
-
-        switch ( curfld->opt ) {
-            case FLD_DRAGBAR:
-            case FLD_BUMPIN:
-            case FLD_BUMPOUT:
-            case FLD_OFF:
-            case FLD_TEXT:
-            case FLD_ICON:
-                break;
-
-            default:
-                if ( curfld->x < activefld->x ) {
-                    del = abs( curfld->x - activefld->x );
-                    del += abs( curfld->y - activefld->y );
-
-                    if ( del < low ) {
-                        if ( curfld->selectable ) {
-                            low = del;
-                            rval = loop;
-                        }
-                    }
-                }
-                break;
-        }
-    }
-
-    if ( rval < 0 ) {
-        SWD_GetPrevField( firstfld, maxfields );
     } else {
         active_field = rval;
     }
@@ -1761,43 +1659,6 @@ void SWD_DestroyWindow(
 }
 
 /*------------------------------------------------------------------------
-   SWD_FindWindow() - finds window at x, y pos else returns EMPTY
-  ------------------------------------------------------------------------*/
-PRIVATE INT SWD_FindWindow(
-    INT x, // INPUT : x position
-    INT y // INPUT : y position
-) {
-    SWIN* curwin;
-    INT rval = EMPTY;
-    INT loop;
-    INT x2;
-    INT y2;
-
-    curwin = g_wins[active_window].win;
-    x2 = curwin->x + curwin->lx;
-    y2 = curwin->y + curwin->ly;
-
-    if ( x > curwin->x && x < x2 && y > curwin->y && y < y2 ) {
-        rval = active_window;
-    } else {
-        for ( loop = 0; loop < MAX_WINDOWS; loop++ ) {
-            if ( g_wins[loop].flag == TRUE ) {
-                curwin = g_wins[loop].win;
-                x2 = curwin->x + curwin->lx;
-                y2 = curwin->y + curwin->ly;
-
-                if ( x > curwin->x && x < x2 && y > curwin->y && y < y2 ) {
-                    rval = loop;
-                    break;
-                }
-            }
-        }
-    }
-
-    return rval;
-}
-
-/*------------------------------------------------------------------------
    SWD_CheckMouse () does mouse stuff and returns SWD_XXX code
   ------------------------------------------------------------------------*/
 PRIVATE BOOL SWD_CheckMouse(
@@ -1814,25 +1675,6 @@ PRIVATE BOOL SWD_CheckMouse(
     INT x2;
     INT y2;
     BOOL mflag = FALSE;
-
-#if 0
-   if ( !lockflag )
-   {
-      rval = SWD_FindWindow ( px, py );
-
-      if ( rval >= 0 )
-         mflag = TRUE;
-
-      if ( rval != active_window && rval >= 0 )
-      {
-         active_window = rval;
-         active_field = curwin->firstfld;
-         cur_act = S_WIN_COMMAND;
-         cur_cmd = W_NEW;
-         return ( TRUE );
-      }
-   }
-#endif
 
     for ( loop = 0; loop < curwin->numflds; loop++, curfld++ ) {
         x1 = curfld->x + curwin->x;
@@ -2383,10 +2225,10 @@ SWD_SetFieldText(
     text = (BYTE*) curfld + curfld->txtoff;
 
     if ( in_text ) {
-        text[curfld->maxchars - 1] = NULL;
+        text[curfld->maxchars - 1] = '\0';
         memcpy( text, in_text, curfld->maxchars - 1 );
     } else {
-        *text = NULL;
+        *text = '\0';
     }
 
     return curfld->maxchars;
