@@ -15,11 +15,10 @@ The goals of the project:
   or opinionated stuff I do or simply to cherry-pick the goodies
 
 ## Build
- Currently supported compiler(s): [Open Watcom V2](https://github.com/open-watcom/open-watcom-v2)
+ Currently supported language/compiler(s): C99 on [Open Watcom V2](https://github.com/open-watcom/open-watcom-v2)
 
- <sub><sup>Older versions of Watcom C might or might not work now (Watcom C 10.0 was used previously);
-  remove `-za99` from WCC option in makefiles if you want to try it for any reason.</sup></sub>
- 
+<sub><sup>Older versions of Watcom C will not work now (Watcom C 10.0 was used previously) due to no support for C99</sup></sub>
+
  Code migration status:
  * SOURCE: all asm and int386 calls removed, fully compatible
  * GFX: rewriting asm to C in progress; cross-compilation with Win64 OWv2 possible
