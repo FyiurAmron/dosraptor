@@ -109,7 +109,6 @@ RAP_ReadFile(
     void* buffer, // OUTPUT: pointer to buffer
     INT sizerec // INPUT : number of bytes to read
 ) {
-    extern CHAR gdmodestr[];
     INT handle;
 
     if ( ( handle = open( name, O_RDONLY | O_BINARY ) ) == -1 ) {
@@ -118,8 +117,6 @@ RAP_ReadFile(
     }
 
     read( handle, buffer, sizerec );
-
-    GLB_DeCrypt( gdmodestr, buffer, sizerec );
 
     close( handle );
 
@@ -189,7 +186,6 @@ BOOL RAP_IsSaveFile( PLAYEROBJ* in_plr ) {
 RAP_LoadPlayer () - Loads player from disk
  ***************************************************************************/
 BOOL RAP_LoadPlayer( void ) {
-    extern CHAR gdmodestr[];
     CHAR filename[41];
     INT handle;
     INT i;
@@ -216,11 +212,9 @@ BOOL RAP_LoadPlayer( void ) {
     }
 
     read( handle, &plr, sizeof( PLAYEROBJ ) );
-    GLB_DeCrypt( gdmodestr, (void*) &plr, sizeof( PLAYEROBJ ) );
 
     for ( i = 0; i < plr.numobjs; i++ ) {
         read( handle, &inobj, sizeof( OBJ ) );
-        GLB_DeCrypt( gdmodestr, (void*) &inobj, sizeof( OBJ ) );
 
         if ( !OBJS_Load( &inobj ) ) {
             break;
@@ -252,7 +246,6 @@ BOOL RAP_LoadPlayer( void ) {
 RAP_SavePlayer() - Saves player data to filename
  ***************************************************************************/
 BOOL RAP_SavePlayer( void ) {
-    extern CHAR gdmodestr[];
     extern OBJ first_objs;
     extern OBJ last_objs;
     CHAR filename[41];
@@ -289,14 +282,10 @@ BOOL RAP_SavePlayer( void ) {
         plr.numobjs++;
     }
 
-    GLB_EnCrypt( gdmodestr, (void*) &plr, sizeof( PLAYEROBJ ) );
     write( handle, &plr, sizeof( PLAYEROBJ ) );
-    GLB_DeCrypt( gdmodestr, (void*) &plr, sizeof( PLAYEROBJ ) );
 
     for ( cur = first_objs.next; cur != &last_objs; cur = cur->next ) {
-        GLB_EnCrypt( gdmodestr, (void*) cur, sizeof( OBJ ) );
         write( handle, cur, sizeof( OBJ ) );
-        GLB_DeCrypt( gdmodestr, (void*) cur, sizeof( OBJ ) );
     }
 
     rval = TRUE;
