@@ -24,7 +24,6 @@ add_executable(GFX
         PREFAPI.H
         PTRAPI.C
         PTRAPI.H
-        PTRAPI_A.ASM
         swdapi.c
         SWDAPI.H
         TSMAPI.C
@@ -32,4 +31,6 @@ add_executable(GFX
         types.h
         VMEMAPI.C
         VMEMAPI.H
+        ptrapi_a.c
+        ptrapi_a.h
 )

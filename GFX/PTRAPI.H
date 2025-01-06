@@ -6,6 +6,7 @@
 #define PTRAPI_H
 
 #include "types.h"
+#include "ptrapi_a.h"
 
 typedef enum { P_AUTO, P_MOUSE, P_JOYSTICK } PTRTYPE;
 
@@ -119,41 +120,5 @@ PTR_Init(
  PTR_End() - End Cursor system
  ***************************************************************************/
 void PTR_End( void );
-
-/*==========================================================================
-; PTR_Save() - Saves screen before a cursor draw
- ==========================================================================*/
-#pragma aux PTR_Save "_*";
-void PTR_Save( void );
-
-/*==========================================================================
-; PTR_ClipSave() - Saves screen before a cursor draw
- ==========================================================================*/
-#pragma aux PTR_ClipSave "_*";
-void PTR_ClipSave( void );
-
-/*==========================================================================
-; PTR_Erase() - Erases cursor and clips edges of screen
- ==========================================================================*/
-#pragma aux PTR_Erase "_*";
-void PTR_Erase( void );
-
-/*==========================================================================
-; PTR_ClipErase() - Erases cursor and clips edges of screen
- ==========================================================================*/
-#pragma aux PTR_ClipErase "_*";
-void PTR_ClipErase( void );
-
-/*==========================================================================
-; PTR_Draw() - Draws Cursor
- ==========================================================================*/
-#pragma aux PTR_Draw "_*";
-void PTR_Draw( void );
-
-/*==========================================================================
-;PTR_ReadJoyStick() - Reads JoyStick Values
- ==========================================================================*/
-#pragma aux PTR_ReadJoyStick "_*";
-void PTR_ReadJoyStick( void );
 
 #endif
