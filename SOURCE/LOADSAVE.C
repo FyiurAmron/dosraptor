@@ -33,9 +33,6 @@ void RAP_SetPlayerDiff( void ) {
 
     switch ( curplr_diff ) {
         case DIFF_0:
-            cur_diff |= EB_EASY_LEVEL;
-            break;
-
         case DIFF_1:
             cur_diff |= EB_EASY_LEVEL;
             break;
