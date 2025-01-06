@@ -7,8 +7,8 @@ The goals of the project:
 * provide an executable for people to run Raptor with DOS v1.2 GLBs without having
   to do Steam or Windows release shenanigans
 * fix some minor bugs and nuisances
-* add long-needed features
-* remove obsolete or unneeded stuff
+* add long-needed features (e.g. quick mode)
+* remove obsolete or unneeded stuff (including GLB/save encryption)
 * add modding support
 * expose some fun stuff
 * have a clean commit history allowing potential hackers to undo the more arguable
