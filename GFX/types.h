@@ -7,7 +7,6 @@ typedef enum { FALSE, TRUE } BOOL;
 #define PUBLIC
 #define EMPTY       ~0
 #define ASIZE( a )  ( sizeof( a ) / sizeof( ( a )[0] ) )
-#define FMUL32( a ) ( ( a ) << 5 )
 
 typedef unsigned char BYTE;
 typedef unsigned short WORD;

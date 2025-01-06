@@ -161,7 +161,7 @@ void TILE_Put(
     tilepic = inpic;
 
     if ( y < 0 ) {
-        tilepic += FMUL32( -y );
+        tilepic -= y * 32;
         tileloopy += y;
         y = 0;
         flag = TRUE;
