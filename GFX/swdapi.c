@@ -102,7 +102,7 @@ INT SWD_GetLine( BYTE* inmem ) {
     CHAR* cbrks = "\n\v\r \t,;\b";
     INT curpos = 0;
     BYTE* cmd;
-    int loop;
+    int i;
     INT x, y;
     DWORD item;
     BYTE* pic;
@@ -119,8 +119,8 @@ INT SWD_GetLine( BYTE* inmem ) {
 
     cmd = strtok( temp, cbrks );
 
-    for ( loop = 0; loop < T_LASTCMD - 1; loop++ ) {
-        if ( strcmp( cmd, tcmds[loop] ) == 0 ) {
+    for ( i = 0; i < T_LASTCMD - 1; i++ ) {
+        if ( strcmp( cmd, tcmds[i] ) == 0 ) {
             textcmd_flag = TRUE;
 
             while ( *( text + curpos ) > 31 ) {
@@ -135,7 +135,7 @@ INT SWD_GetLine( BYTE* inmem ) {
 
             cmd = strtok( NULL, cbrks );
 
-            switch ( loop + 1 ) {
+            switch ( i + 1 ) {
                 default:
                     break;
 
@@ -306,7 +306,7 @@ PRIVATE void SWD_PutField(
     INT curpos;
     BYTE* pic;
     INT rval;
-    INT loop;
+    INT i;
     INT text_x;
     INT text_y;
     GFX_PIC* h;
@@ -496,8 +496,8 @@ PRIVATE void SWD_PutField(
                 GFX_ShadeArea( DARK, fld_x, fld_y, curfld->lx, curfld->ly );
 
                 if ( curfld->color ) {
-                    for ( loop = 0; loop < curfld->ly; loop += 2 ) {
-                        GFX_HShadeLine( DARK, fld_x, fld_y + loop, curfld->lx );
+                    for ( i = 0; i < curfld->ly; i += 2 ) {
+                        GFX_HShadeLine( DARK, fld_x, fld_y + i, curfld->lx );
                     }
                 }
             }
@@ -773,7 +773,7 @@ PRIVATE void SWD_GetObjAreaInfo(
 ) {
     SWIN* cwin = g_wins[handle].win;
     SFIELD* curfld;
-    INT loop;
+    INT i;
 
     obj_x = 0;
     obj_y = 0;
@@ -782,7 +782,7 @@ PRIVATE void SWD_GetObjAreaInfo(
 
     curfld = (SFIELD*) ( (BYTE*) cwin + cwin->fldofs );
 
-    for ( loop = 0; loop < cwin->numflds; loop++, curfld++ ) {
+    for ( i = 0; i < cwin->numflds; i++, curfld++ ) {
         if ( curfld->opt == FLD_OBJAREA ) {
             obj_x = curfld->x;
             obj_y = curfld->y;
@@ -797,7 +797,7 @@ PRIVATE void SWD_GetObjAreaInfo(
   SWD_GetNextWindow() - Gets the Next Active Window
   ------------------------------------------------------------------------*/
 PRIVATE void SWD_GetNextWindow( void ) {
-    INT loop;
+    INT i;
     INT pos = active_window - 1;
 
     active_window = EMPTY;
@@ -806,7 +806,7 @@ PRIVATE void SWD_GetNextWindow( void ) {
         pos = MAX_WINDOWS - 1;
     }
 
-    for ( loop = 0; loop < MAX_WINDOWS; loop++ ) {
+    for ( i = 0; i < MAX_WINDOWS; i++ ) {
         if ( g_wins[pos].flag && g_wins[pos].win->display ) {
             active_window = pos;
             active_field = g_wins[pos].win->firstfld;
@@ -843,12 +843,12 @@ PRIVATE INT SWD_GetLastField(
     SFIELD* firstfld, // INPUT : pointer to first field
     INT maxfields // INPUT : number of fields
 ) {
-    INT loop;
+    INT i;
     SFIELD* curfld;
     INT rval = EMPTY;
 
-    for ( loop = maxfields - 1; loop >= 0; loop-- ) {
-        curfld = firstfld + loop;
+    for ( i = maxfields - 1; i >= 0; i-- ) {
+        curfld = firstfld + i;
 
         switch ( curfld->opt ) {
             case FLD_DRAGBAR:
@@ -861,7 +861,7 @@ PRIVATE INT SWD_GetLastField(
 
             default:
                 if ( curfld->selectable ) {
-                    rval = loop;
+                    rval = i;
                 }
                 break;
         }
@@ -884,14 +884,14 @@ PRIVATE INT SWD_GetNextField(
     SFIELD* activefld = firstfld + active_field;
     SFIELD* curfld;
     INT low = 0x7fff;
-    INT loop;
+    INT i;
     INT rval;
     INT del;
 
     rval = SWD_GetFirstField();
 
-    for ( loop = 0; loop < maxfields; loop++ ) {
-        curfld = firstfld + loop;
+    for ( i = 0; i < maxfields; i++ ) {
+        curfld = firstfld + i;
 
         if ( curfld->opt == FLD_DRAGBAR ) {
             continue;
@@ -901,7 +901,7 @@ PRIVATE INT SWD_GetNextField(
             del = abs( curfld->id - activefld->id );
             if ( del < low ) {
                 low = del;
-                rval = loop;
+                rval = i;
             }
         }
     }
@@ -923,14 +923,14 @@ PRIVATE INT SWD_GetPrevField(
     SFIELD* activefld = firstfld + active_field;
     SFIELD* curfld;
     INT low = 0x7fff;
-    INT loop;
+    INT i;
     INT rval;
     INT del;
 
     rval = SWD_GetLastField( firstfld, maxfields );
 
-    for ( loop = 0; loop < maxfields; loop++ ) {
-        curfld = firstfld + loop;
+    for ( i = 0; i < maxfields; i++ ) {
+        curfld = firstfld + i;
 
         if ( curfld->opt == FLD_DRAGBAR ) {
             continue;
@@ -940,7 +940,7 @@ PRIVATE INT SWD_GetPrevField(
             del = abs( activefld->id - curfld->id );
             if ( del < low ) {
                 low = del;
-                rval = loop;
+                rval = i;
             }
         }
     }
@@ -961,15 +961,15 @@ PRIVATE INT SWD_GetUpField(
 ) {
     SFIELD* activefld = firstfld + active_field;
     SFIELD* curfld;
-    INT loop;
+    INT i;
     INT rval = EMPTY;
     INT low = 0x7fff;
     INT del;
 
     rval = SWD_GetLastField( firstfld, maxfields );
 
-    for ( loop = 0; loop < maxfields; loop++ ) {
-        curfld = firstfld + loop;
+    for ( i = 0; i < maxfields; i++ ) {
+        curfld = firstfld + i;
 
         switch ( curfld->opt ) {
             case FLD_DRAGBAR:
@@ -988,7 +988,7 @@ PRIVATE INT SWD_GetUpField(
                     if ( del < low ) {
                         if ( curfld->selectable ) {
                             low = del;
-                            rval = loop;
+                            rval = i;
                         }
                     }
                 }
@@ -1014,15 +1014,15 @@ PRIVATE INT SWD_GetDownField(
 ) {
     SFIELD* activefld = firstfld + active_field;
     SFIELD* curfld;
-    INT loop;
+    INT i;
     INT rval = EMPTY;
     INT low = 0x7fff;
     INT del;
 
     rval = SWD_GetFirstField();
 
-    for ( loop = 0; loop < maxfields; loop++ ) {
-        curfld = firstfld + loop;
+    for ( i = 0; i < maxfields; i++ ) {
+        curfld = firstfld + i;
 
         switch ( curfld->opt ) {
             case FLD_DRAGBAR:
@@ -1041,7 +1041,7 @@ PRIVATE INT SWD_GetDownField(
                     if ( del < low ) {
                         if ( curfld->selectable ) {
                             low = del;
-                            rval = loop;
+                            rval = i;
                         }
                     }
                 }
@@ -1068,13 +1068,13 @@ SWD_ShowAllFields(
     SWIN* header = (SWIN*) inptr;
     SFIELD* fld = (SFIELD*) ( ( (BYTE*) inptr ) + header->fldofs );
     INT numflds = 0;
-    INT loop;
+    INT i;
     INT fx;
     INT fy;
     BYTE* picdata;
     GFX_PIC* pich;
 
-    for ( loop = 0; loop < header->numflds; loop++, fld++, numflds++ ) {
+    for ( i = 0; i < header->numflds; i++, fld++, numflds++ ) {
         if ( fld->opt != FLD_OFF ) {
             fx = header->x + fld->x;
             fy = header->y + fld->y;
@@ -1102,7 +1102,7 @@ SWD_ShowAllFields(
             SWD_PutField( header, fld );
         }
     }
-    return loop;
+    return i;
 }
 
 /*------------------------------------------------------------------------
@@ -1284,7 +1284,7 @@ SWD_InitWindow(
     SFIELD* curfld;
     INT pic_size;
     INT rec_num;
-    INT loop;
+    INT i;
 
     PTR_JoyReset();
 
@@ -1323,7 +1323,7 @@ SWD_InitWindow(
                 GLB_LockItem( header->item );
             }
 
-            for ( loop = 0; loop < header->numflds; loop++, curfld++ ) {
+            for ( i = 0; i < header->numflds; i++, curfld++ ) {
                 if ( curfld->opt != FLD_OFF ) {
                     if ( curfld->opt == FLD_VIEWAREA ) {
                         g_wins[active_window].viewflag = TRUE;
@@ -1436,7 +1436,7 @@ void SWD_SetClearFlag( BOOL inflag ) {
  ***************************************************************************/
 BOOL // RETURN : TRUE = OK, FALSE = Error
 SWD_ShowAllWindows( void ) {
-    INT loop;
+    INT i;
 
     if ( active_window < 0 ) {
         return FALSE;
@@ -1456,9 +1456,9 @@ SWD_ShowAllWindows( void ) {
         viewdraw();
     }
 
-    for ( loop = 0; loop < MAX_WINDOWS; loop++ ) {
-        if ( g_wins[loop].flag && loop != active_window && loop != master_window ) {
-            SWD_PutWin( loop );
+    for ( i = 0; i < MAX_WINDOWS; i++ ) {
+        if ( g_wins[i].flag && i != active_window && i != master_window ) {
+            SWD_PutWin( i );
         }
     }
 
@@ -1586,7 +1586,7 @@ void SWD_DestroyWindow(
     BYTE* windat = (BYTE*) g_wins[handle].win;
     SWIN* curwin = (SWIN*) windat;
     SFIELD* curfld;
-    INT loop;
+    INT i;
     INT hold;
 
     PTR_JoyReset();
@@ -1597,7 +1597,7 @@ void SWD_DestroyWindow(
 
     curfld = (SFIELD*) ( windat + curwin->fldofs );
 
-    for ( loop = 0; loop < curwin->numflds; loop++, curfld++ ) {
+    for ( i = 0; i < curwin->numflds; i++, curfld++ ) {
         if ( curfld->item != EMPTY ) {
             GLB_FreeItem( curfld->item );
         }
@@ -1665,7 +1665,7 @@ PRIVATE BOOL SWD_CheckMouse(
     SWIN* curwin, // INPUT : pointer to current window
     SFIELD* firstfld // INPUT : pointer to current field
 ) {
-    INT loop;
+    INT i;
     SFIELD* curfld = firstfld;
     BOOL flag = TRUE;
     INT px = PTR_X;
@@ -1676,7 +1676,7 @@ PRIVATE BOOL SWD_CheckMouse(
     INT y2;
     BOOL mflag = FALSE;
 
-    for ( loop = 0; loop < curwin->numflds; loop++, curfld++ ) {
+    for ( i = 0; i < curwin->numflds; i++, curfld++ ) {
         x1 = curfld->x + curwin->x;
         y1 = curfld->y + curwin->y;
         x2 = x1 + curfld->lx + 1;
@@ -1697,7 +1697,7 @@ PRIVATE BOOL SWD_CheckMouse(
                         mflag = FALSE;
                         cur_act = S_WIN_COMMAND;
                         cur_cmd = W_MOVE;
-                        active_field = loop;
+                        active_field = i;
                     } else {
                         flag = FALSE;
                     }
@@ -1710,7 +1710,7 @@ PRIVATE BOOL SWD_CheckMouse(
                     mflag = FALSE;
                     cur_act = S_FLD_COMMAND;
                     cur_cmd = F_SELECT;
-                    active_field = loop;
+                    active_field = i;
                     break;
 
                 case FLD_OBJAREA:
@@ -1747,7 +1747,7 @@ PRIVATE BOOL SWD_CheckViewArea(
     SWIN* curwin, // INPUT : pointer to current window
     SFIELD* curfld // INPUT : pointer to current field
 ) {
-    INT loop;
+    INT i;
     BOOL flag = FALSE;
     INT px = PTR_X;
     INT py = PTR_Y;
@@ -1756,7 +1756,7 @@ PRIVATE BOOL SWD_CheckViewArea(
     INT x2;
     INT y2;
 
-    for ( loop = 0; loop < curwin->numflds; loop++, curfld++ ) {
+    for ( i = 0; i < curwin->numflds; i++, curfld++ ) {
         x1 = curfld->x + curwin->x;
         y1 = curfld->y + curwin->y;
         x2 = x1 + curfld->lx + 1;
@@ -1774,7 +1774,7 @@ PRIVATE BOOL SWD_CheckViewArea(
                     dlg->sy = curfld->y;
                     dlg->height = curfld->lx;
                     dlg->width = curfld->ly;
-                    dlg->sfield = loop;
+                    dlg->sfield = i;
                     break;
             }
             if ( flag ) {
@@ -1790,17 +1790,17 @@ PRIVATE BOOL SWD_CheckViewArea(
    SWD_ClearAllButtons () Clears all buttons in all windows to NORMAL
   ------------------------------------------------------------------------*/
 PRIVATE void SWD_ClearAllButtons( void ) {
-    INT wloop;
-    INT loop;
+    INT j;
+    INT i;
     SFIELD* curfld;
     SWIN* curwin;
 
-    for ( wloop = 0; wloop < MAX_WINDOWS; wloop++ ) {
-        if ( g_wins[wloop].flag ) {
-            curwin = g_wins[wloop].win;
+    for ( j = 0; j < MAX_WINDOWS; j++ ) {
+        if ( g_wins[j].flag ) {
+            curwin = g_wins[j].win;
             curfld = (SFIELD*) ( (BYTE*) curwin + curwin->fldofs );
 
-            for ( loop = 0; loop < curwin->numflds; loop++, curfld++ ) {
+            for ( i = 0; i < curwin->numflds; i++, curfld++ ) {
                 curfld->bstatus = NORMAL;
             }
         }
@@ -1821,7 +1821,7 @@ void SWD_Dialog(
     INT y;
     INT sx;
     INT sy;
-    INT loop;
+    INT i;
     BOOL update;
 
     _disable();
@@ -1914,13 +1914,13 @@ void SWD_Dialog(
             fldfuncs[curfld->opt]( curwin, curfld );
 
             testfld = firstfld;
-            for ( loop = 0; loop < curwin->numflds; loop++, testfld++ ) {
+            for ( i = 0; i < curwin->numflds; i++, testfld++ ) {
                 if ( testfld->hotkey != SC_NONE ) {
                     if ( testfld->hotkey == (unsigned int) g_key ) {
                         if ( !usekb_flag ) {
                             kbactive = FALSE;
                         }
-                        active_field = loop;
+                        active_field = i;
                         curfld = firstfld + active_field;
                         if ( lastfld ) {
                             lastfld->bstatus = NORMAL;

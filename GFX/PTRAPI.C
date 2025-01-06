@@ -103,20 +103,20 @@ PRIVATE INT g_addy = 0;
 PTR_IsJoyPresent() - Checks to see if joystick is present
   ------------------------------------------------------------------------*/
 BOOL PTR_IsJoyPresent( void ) {
-    INT loop;
+    INT i;
     INT rval = TRUE;
 
     _disable();
     outp( 0x201, 1 );
     inp( 0x201 );
-    for ( loop = 0; loop <= 10000; loop++ ) {
+    for ( i = 0; i <= 10000; i++ ) {
         if ( ( inp( 0x201 ) & 0x0f ) == 0 ) {
             break;
         }
     }
     _enable();
 
-    if ( loop >= 10000 ) {
+    if ( i >= 10000 ) {
         rval = FALSE;
     }
 
@@ -504,7 +504,7 @@ void PTR_SetPic(
     BYTE* newp // INPUT : pointer to new Cursor picture
 ) {
     BYTE* pic;
-    INT loop;
+    INT i;
 
     hot_mx = 0;
     hot_my = 0;
@@ -517,11 +517,11 @@ void PTR_SetPic(
 
     pic = (BYTE*) cursorpic;
 
-    for ( loop = 0; loop < CURSORSIZE; loop++, newp++, pic++ ) {
+    for ( i = 0; i < CURSORSIZE; i++, newp++, pic++ ) {
         *pic = *newp;
         if ( *newp == (BYTE) HOTSPOTCOLOR ) {
-            hot_mx = loop % CURSORWIDTH;
-            hot_my = loop / CURSORWIDTH;
+            hot_mx = i % CURSORWIDTH;
+            hot_my = i / CURSORWIDTH;
             *pic = *( newp + 1 );
         }
     }
