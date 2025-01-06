@@ -766,12 +766,13 @@ void IPT_FMovePlayer(
 IPT_LoadPrefs() - Load Input Prefs from setup.ini
  ***************************************************************************/
 void IPT_LoadPrefs( void ) {
-    extern INT tai_flag, quick_mode;
+    extern INT tai_flag, quick_mode, bday_num;
 
     opt_detail = INI_GetPreferenceLong( "Setup", "Detail", 1 );
     control = INI_GetPreferenceLong( "Setup", "Control", 0 );
     quick_mode = INI_GetPreferenceLong( "Setup", "QuickMode", 0 );
     tai_flag = INI_GetPreferenceLong( "Setup", "TaiwanFlag", 0 );
+    bday_num = INI_GetPreferenceLong( "Setup", "BirthdayNum", EMPTY );
 
     k_Up = INI_GetPreferenceLong( "Keyboard", "MoveUp", SC_UP );
     k_Down = INI_GetPreferenceLong( "Keyboard", "MoveDn", SC_DOWN );

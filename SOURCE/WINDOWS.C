@@ -541,6 +541,12 @@ mainloop:
     goto mainloop;
 }
 
+void SND_PlayPatchAndWait( DEFX type ) {
+    SND_Patch( type, 127 );
+    while ( SND_IsPatchPlaying( type ) )
+        ;
+}
+
 /***************************************************************************
 WIN_AskExit () - Opens Windows and Askes if USer wants 2 quit
  ***************************************************************************/
@@ -551,59 +557,41 @@ void WIN_AskExit( void ) {
     } else if ( WIN_AskBool( "EXIT TO DOS" ) ) {
         SND_FadeOutSong();
 
-        switch ( bday_num ) {
-            default:
-                break;
-
-            case 0:
-                SND_Patch( FX_MON3, 127 ); // TODO wrap these two to function
-                while ( SND_IsPatchPlaying( FX_MON3 ) )
-                    ;
-                break;
-
-            case 1:
-                SND_Patch( FX_DAVE, 127 );
-                while ( SND_IsPatchPlaying( FX_DAVE ) )
-                    ;
-                break;
-
-            case 2:
-                SND_Patch( FX_MON4, 127 );
-                while ( SND_IsPatchPlaying( FX_MON4 ) )
-                    ;
-                SND_Patch( FX_MON4, 127 );
-                while ( SND_IsPatchPlaying( FX_MON4 ) )
-                    ;
-                break;
-
-            case 3:
-                SND_Patch( FX_MON1, 127 );
-                while ( SND_IsPatchPlaying( FX_MON1 ) )
-                    ;
-                break;
-
-            case 4:
-                SND_Patch( FX_MON2, 127 );
-                while ( SND_IsPatchPlaying( FX_MON2 ) )
-                    ;
-                SND_Patch( FX_MON2, 127 );
-                while ( SND_IsPatchPlaying( FX_MON2 ) )
-                    ;
-                break;
-
-            case 5:
-                SND_Patch( FX_MON6, 127 );
-                while ( SND_IsPatchPlaying( FX_MON6 ) )
-                    ;
-                break;
-        }
-
         GFX_SetRetraceFlag( TRUE );
         GFX_FadeOut( 60, 15, 2, 32 );
         GFX_FadeOut( 0, 0, 0, 6 );
     } else {
         return;
     }
+
+    switch ( bday_num ) {
+        default:
+            break;
+        case 0:
+            SND_PlayPatchAndWait( FX_MON3 );
+            break;
+        case 1:
+            SND_PlayPatchAndWait( FX_DAVE );
+            break;
+        case 2:
+            SND_PlayPatchAndWait( FX_MON4 );
+            SND_PlayPatchAndWait( FX_MON4 );
+            break;
+        case 3:
+            SND_PlayPatchAndWait( FX_MON1 );
+            break;
+        case 4:
+            SND_PlayPatchAndWait( FX_MON2 );
+            SND_PlayPatchAndWait( FX_MON2 );
+            break;
+        case 5:
+            SND_PlayPatchAndWait( FX_MON6 );
+            break;
+        case 6: // new one :)
+            SND_PlayPatchAndWait( FX_MON5 );
+            break;
+    }
+
     EXIT_Clean();
 }
 
@@ -1298,7 +1286,7 @@ BOOL WIN_ShipComp( void ) {
     SWD_SetFieldItem( window, COMP_LITE2, LIGHTOFF_PIC );
     SWD_SetFieldItem( window, COMP_LITE3, LIGHTOFF_PIC );
 
-    if ( bday_flag ) {
+    if ( bday_num != EMPTY ) {
         secret = TRUE;
         secret1 = TRUE;
         secret2 = TRUE;
@@ -1527,7 +1515,7 @@ abort_shipcomp:
         }
     }
 
-    if ( bday_flag ) {
+    if ( bday_num != EMPTY ) {
         cur_diff |= EB_SECRET_1;
         cur_diff |= EB_SECRET_2;
         cur_diff |= EB_SECRET_3;

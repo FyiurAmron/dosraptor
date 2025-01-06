@@ -128,7 +128,6 @@ extern INT startendwave;
 extern BOOL reg_flag;
 extern BOOL lowmem_flag;
 extern INT curplr_diff;
-extern BOOL bday_flag;
 extern INT bday_num;
 extern INT demo_flag;
 
