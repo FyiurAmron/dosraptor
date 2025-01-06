@@ -64,6 +64,8 @@ add_executable(SOURCE
     WINDOWS.C
     WINDOWS.H
     WINGAME.INC
+    tile_a.c
+    tile_a.h
     ansi_esc.h
     utils.c
     utils.h

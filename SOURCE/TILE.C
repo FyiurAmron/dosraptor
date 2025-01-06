@@ -3,6 +3,7 @@
 #include <string.h>
 
 #include "raptor.h"
+#include "tile_a.h"
 
 #define MAX_STILES ( MAP_ONSCREEN * MAP_COLS )
 
@@ -173,11 +174,7 @@ void TILE_Put(
 
     tilestart = displaybuffer + x + ylookup[y];
 
-    if ( flag ) {
-        TILE_ClipDraw();
-    } else {
-        TILE_Draw();
-    }
+    TILE_Draw( flag ? tileloopy : 32 );
 }
 
 /***************************************************************************

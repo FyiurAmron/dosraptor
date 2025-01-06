@@ -15,14 +15,15 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "../gfx/prefapi.h"
-#include "ansi_esc.h"
-#include "raptor.h"
-
 #include "file0000.inc"
 #include "file0001.inc"
 #include "file0002.inc"
+
+#include "../gfx/prefapi.h"
+#include "ansi_esc.h"
+#include "raptor.h"
 #include "utils.h"
+#include "tile_a.h"
 
 BYTE* palette;
 BYTE* cursor_pic;
@@ -985,9 +986,9 @@ Do_Game( void ) {
         local_cnt = FRAME_COUNT;
 
         if ( fadeflag ) {
-            TILE_ShakeScreen();
+            TILE_DisplayScreen( MAP_LEFT - 4, g_mapleft - 4, SCREENWIDTH - 24 ); // shaking screen
         } else {
-            TILE_DisplayScreen();
+            TILE_DisplayScreen( MAP_LEFT, MAP_LEFT, SCREENWIDTH - 32 );
         }
 
         if ( startfadeflag ) {

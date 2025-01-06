@@ -103,18 +103,6 @@ void TILE_Explode(
     INT delay // INPUT : frames to delay
 );
 
-#pragma aux TILE_Draw "_*" modify[EAX EBX ECX EDX ESI EDI];
-void TILE_Draw( void );
-
-#pragma aux TILE_ClipDraw "_*" modify[EAX EBX ECX EDX ESI EDI];
-void TILE_ClipDraw( void );
-
-#pragma aux TILE_DisplayScreen "_*" modify[EAX EBX ECX EDX ESI EDI];
-void TILE_DisplayScreen( void );
-
-#pragma aux TILE_ShakeScreen "_*" modify[EAX EBX ECX EDX ESI EDI];
-void TILE_ShakeScreen( void );
-
 extern DWORD startflat[4];
 extern INT tilepos;
 extern INT tileyoff;
