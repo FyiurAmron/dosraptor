@@ -23,10 +23,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys\stat.h>
-#include <sys\types.h>
-
-// #include <windows.h>
-// #include <windowsx.h>
 
 #include "exitapi.h"
 #include "glbapi.h"
@@ -36,7 +32,6 @@
 
 PRIVATE CHAR exePath[_MAX_PATH];
 PRIVATE INT num_glbs;
-PRIVATE KEYFILE g_key;
 PRIVATE CHAR prefix[5] = "FILE";
 PRIVATE BOOL fVmem = FALSE;
 
@@ -83,7 +78,6 @@ PRIVATE INT GLB_FindFile(
     INT filenum, // INPUT : file number
     INT permissions // INPUT : file access permissions
 ) {
-    char* routine = "GLB_FindFile";
     char filename[_MAX_PATH];
     int handle;
     FILEDESC* fd;
@@ -154,20 +148,6 @@ PRIVATE INT GLB_OpenFile(
         lseek( fd->handle, 0L, SEEK_SET );
     }
     return fd->handle;
-}
-
-/*------------------------------------------------------------------------
-   GLB_CloseFiles() - Closes all cached files.
- ------------------------------------------------------------------------*/
-PRIVATE void GLB_CloseFiles( void ) {
-    INT j;
-
-    for ( j = 0; j < MAX_GLB_FILES; j++ ) {
-        if ( filedesc[j].handle ) {
-            close( filedesc[j].handle );
-            filedesc[j].handle = 0;
-        }
-    }
 }
 
 /*------------------------------------------------------------------------

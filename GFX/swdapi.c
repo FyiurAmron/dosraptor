@@ -555,7 +555,6 @@ PutField_Exit:
         GFX_Print( text_x, text_y, fld_text, fld_font, curfld->fontbasecolor );
     }
 
-    return;
 }
 
 /*------------------------------------------------------------------------
@@ -565,6 +564,8 @@ PRIVATE void SWD_DoButton(
     SWIN* curwin, // INPUT : pointer to current window
     SFIELD* curfld // INPUT : pointer to current field
 ) {
+    curfld = curfld; // unused, but required for signature compatibility
+
     if ( !g_button_flag ) {
         return;
     }
