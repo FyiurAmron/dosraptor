@@ -143,6 +143,4 @@ func_exit:
     SWD_DestroyWindow( window );
     SWD_ShowAllWindows();
     GFX_DisplayUpdate();
-
-    return;
 }
