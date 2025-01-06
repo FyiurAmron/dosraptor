@@ -769,25 +769,25 @@ void IPT_LoadPrefs( void ) {
     extern INT tai_flag, quick_mode;
 
     opt_detail = INI_GetPreferenceLong( "Setup", "Detail", 1 );
-    control = INI_GetPreferenceLong( "Setup", "Control", 0L );
+    control = INI_GetPreferenceLong( "Setup", "Control", 0 );
     quick_mode = INI_GetPreferenceLong( "Setup", "QuickMode", 0 );
     tai_flag = INI_GetPreferenceLong( "Setup", "TaiwanFlag", 0 );
 
-    k_Up = INI_GetPreferenceLong( "Keyboard", "MoveUp", (long) SC_UP );
-    k_Down = INI_GetPreferenceLong( "Keyboard", "MoveDn", (long) SC_DOWN );
-    k_Left = INI_GetPreferenceLong( "Keyboard", "MoveLeft", (long) SC_LEFT );
-    k_Right = INI_GetPreferenceLong( "Keyboard", "MoveRight", (long) SC_RIGHT );
-    k_Fire = INI_GetPreferenceLong( "Keyboard", "Fire", (long) SC_CTRL );
-    k_FireSp = INI_GetPreferenceLong( "Keyboard", "FireSp", (long) SC_ALT );
-    k_ChangeSp = INI_GetPreferenceLong( "Keyboard", "ChangeSp", (long) SC_SPACE );
-    k_Mega = INI_GetPreferenceLong( "Keyboard", "MegaFire", (long) SC_RIGHT_SHIFT );
+    k_Up = INI_GetPreferenceLong( "Keyboard", "MoveUp", SC_UP );
+    k_Down = INI_GetPreferenceLong( "Keyboard", "MoveDn", SC_DOWN );
+    k_Left = INI_GetPreferenceLong( "Keyboard", "MoveLeft", SC_LEFT );
+    k_Right = INI_GetPreferenceLong( "Keyboard", "MoveRight", SC_RIGHT );
+    k_Fire = INI_GetPreferenceLong( "Keyboard", "Fire", SC_CTRL );
+    k_FireSp = INI_GetPreferenceLong( "Keyboard", "FireSp", SC_ALT );
+    k_ChangeSp = INI_GetPreferenceLong( "Keyboard", "ChangeSp", SC_SPACE );
+    k_Mega = INI_GetPreferenceLong( "Keyboard", "MegaFire", SC_RIGHT_SHIFT );
 
-    m_lookup[0] = INI_GetPreferenceLong( "Mouse", "Fire", 0L );
-    m_lookup[1] = INI_GetPreferenceLong( "Mouse", "FireSp", 1L );
-    m_lookup[2] = INI_GetPreferenceLong( "Mouse", "ChangeSp", 2L );
+    m_lookup[0] = INI_GetPreferenceLong( "Mouse", "Fire", 0 );
+    m_lookup[1] = INI_GetPreferenceLong( "Mouse", "FireSp", 1 );
+    m_lookup[2] = INI_GetPreferenceLong( "Mouse", "ChangeSp", 2 );
 
-    j_lookup[0] = INI_GetPreferenceLong( "JoyStick", "Fire", 0L );
-    j_lookup[1] = INI_GetPreferenceLong( "JoyStick", "FireSp", 1L );
-    j_lookup[2] = INI_GetPreferenceLong( "JoyStick", "ChangeSp", 2L );
-    j_lookup[3] = INI_GetPreferenceLong( "JoyStick", "MegaFire", 3L );
+    j_lookup[0] = INI_GetPreferenceLong( "JoyStick", "Fire", 0 );
+    j_lookup[1] = INI_GetPreferenceLong( "JoyStick", "FireSp", 1 );
+    j_lookup[2] = INI_GetPreferenceLong( "JoyStick", "ChangeSp", 2 );
+    j_lookup[3] = INI_GetPreferenceLong( "JoyStick", "MegaFire", 3 );
 }
