@@ -80,9 +80,8 @@ PUBLIC INT gfx_imga = 0;
 /*==========================================================================
    GFX_TimeFrameRate () - Should be interrupt called at 70 fps
  ==========================================================================*/
-INT GFX_TimeFrameRate( void ) {
+void GFX_TimeFrameRate( void ) {
     framecount++;
-    return ( 0 );
 }
 
 /***************************************************************************
@@ -1484,7 +1483,7 @@ void GFX_OverlayImage(
 INT // RETURNS : pixel length
 GFX_StrPixelLen(
     void* infont, // INPUT : pointer to current font
-    CHAR* instr, // INPUT : pointer to string
+    unsigned char* instr, // INPUT : pointer to string
     size_t maxloop // INPUT : length of string
 ) {
     INT loop;
