@@ -1,16 +1,5 @@
 /****************************************************************************
  * SWDapi  - windowing routines
- *----------------------------------------------------------------------------
- * Copyright (C) 1992  Scott Hostynski All Rights Reserved
- *----------------------------------------------------------------------------
- *
- * Created by:  Scott Host
- * Date:        Oct, 1992
- *
- * CONTENTS: ptrapi.c ptrapi_a.asm ptrapi.h
- *
- * EXTERN MODULES - GFX, TSM and MOUSE.LIB
- *
  *---------------------------------------------------------------------------*/
 
 #ifndef _TYPES_H
@@ -173,12 +162,12 @@ void SWD_Install(
 );
 
 /***************************************************************************
-   SWD_End () Frees up resources used by SWD System
+   SWD_End () - Frees up resources used by SWD System
  ***************************************************************************/
 void SWD_End( void );
 
 /***************************************************************************
-SWD_FillText () - Fills Text from GLB intro an AREA
+SWD_FillText () - Fills text from GLB intro an AREA
  ***************************************************************************/
 void SWD_FillText(
     FONT* font, // INPUT : pointer to FONT
@@ -191,7 +180,7 @@ void SWD_FillText(
 );
 
 /***************************************************************************
- SWD_InitWindow() - Adds window to list and initailizes
+ SWD_InitWindow() - Adds window to list and initializes
  ***************************************************************************/
 INT // RETURN: handle to window
 SWD_InitWindow(
@@ -199,7 +188,7 @@ SWD_InitWindow(
 );
 
 /***************************************************************************
-   SWD_InitMasterWindow () - Inits the Master Window ( must be full screen )
+   SWD_InitMasterWindow () - Inits the master window (must be full screen)
  ***************************************************************************/
 INT SWD_InitMasterWindow(
     DWORD handle // INPUT : GLB Item Number
@@ -219,26 +208,26 @@ SWD_SetClearFlag() - Turns ON/OFF memsetting of display buffer in showallwins
 void SWD_SetClearFlag( BOOL inflag );
 
 /***************************************************************************
- SWD_ShowAllWindows()- Diplays all windows.. puts active window on top
+ SWD_ShowAllWindows()- Displays all windows & puts active window on top
  ***************************************************************************/
 BOOL // RETURN : TRUE = OK, FALSE = Error
     SWD_ShowAllWindows( void );
 
 /***************************************************************************
-   SWD_SetViewDrawHook () Sets Function to draw after the master window
+   SWD_SetViewDrawHook () Sets function to draw after the master window
  ***************************************************************************/
 void SWD_SetViewDrawHook( void ( *func )( void ) // INPUT : pointer to function
 );
 
 /***************************************************************************
-SWD_SetWindowPtr() - Sets Pointer to center of active field
+SWD_SetWindowPtr() - Sets pointer to center of active field
  ***************************************************************************/
 void SWD_SetWindowPtr(
     INT handle // INPUT : number/handle of window
 );
 
 /***************************************************************************
-SWD_SetFieldPtr () - Sets Pointer on a field
+SWD_SetFieldPtr () - Sets pointer on a field
  ***************************************************************************/
 void SWD_SetFieldPtr(
     INT handle, // INPUT : number/handle of window
@@ -268,14 +257,14 @@ void SWD_DestroyWindow(
 );
 
 /***************************************************************************
-   SWD_Dialog () - performs all window in/out/diaplay/move stuff
+   SWD_Dialog () - performs all window in/out/display/move stuff
  ***************************************************************************/
 void SWD_Dialog(
     SWD_DLG* swd_dlg // OUTPUT: pointer to info structure
 );
 
 /***************************************************************************
-   SWD_SetWindowLock() - Locks Window so no others can be selected
+   SWD_SetWindowLock() - Locks window so no others can be selected
  ***************************************************************************/
 void SWD_SetWindowLock(
     INT handle, // INPUT : handle to window
@@ -293,7 +282,7 @@ SWD_SetWindowXY(
 );
 
 /***************************************************************************
- SWD_GetWindowXYL () - gets the window x,y ,x length, y length
+ SWD_GetWindowXYL () - gets the window x,y, x length, y length
  ***************************************************************************/
 INT // RETURN: window opt flag
 SWD_GetWindowXYL(
@@ -315,7 +304,7 @@ SWD_GetFieldText(
 );
 
 /***************************************************************************
- SWD_SetFieldText() - Sets The default field text
+ SWD_SetFieldText() - Sets the default field text
  ***************************************************************************/
 INT // RETURN: text max length
 SWD_SetFieldText(
@@ -333,7 +322,7 @@ INT SWD_GetFieldValue(
 );
 
 /***************************************************************************
-   SWD_SetFieldValue () Sets Numeric (INT) Value into Field Text
+   SWD_SetFieldValue () Sets numeric (INT) value into field text
  ***************************************************************************/
 INT SWD_SetFieldValue(
     INT handle, // INPUT : window handle
@@ -342,7 +331,7 @@ INT SWD_SetFieldValue(
 );
 
 /***************************************************************************
-SWD_SetFieldSelect() - Sets Field Selectable status
+SWD_SetFieldSelect() - Sets field selectable status
  ***************************************************************************/
 void SWD_SetFieldSelect(
     INT handle, // INPUT : window handle
@@ -369,7 +358,7 @@ SWD_GetFieldInputOpt(
 );
 
 /***************************************************************************
- SWD_SetFieldInputOpt() - Sets the Field InputOpt ( button )
+ SWD_SetFieldInputOpt() - Sets the field InputOpt ( button )
  ***************************************************************************/
 INPUTOPT // RETURN: InputOpt status
 SWD_SetFieldInputOpt(
@@ -388,7 +377,7 @@ void SWD_SetFieldItem(
 );
 
 /***************************************************************************
-   SWD_GetFieldItem () - Returns Field Item number
+   SWD_GetFieldItem () - Returns field item number
  ***************************************************************************/
 DWORD // RETURN: Item GLB ID
 SWD_GetFieldItem(
