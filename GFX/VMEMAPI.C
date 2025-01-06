@@ -176,7 +176,6 @@ PUBLIC MCB* vm_DiscardMem( DWORD size ) {
                 }
 
                 mcb = (MCB*) ( (BYTE*) mcb + mcb_size );
-                continue;
             } else if ( mcb_size ) {
                 if ( mcb->owner != NULL && mcb->owner->age <= oldage ) {
                     pool.discarded++;

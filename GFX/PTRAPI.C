@@ -346,8 +346,6 @@ void PTR_UpdateCursor( void ) {
         cursory = dm_y;
         not_in_update = TRUE;
     }
-
-    return;
 }
 
 /*==========================================================================
