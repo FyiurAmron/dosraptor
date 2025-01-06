@@ -412,7 +412,7 @@ void WIN_Order( void ) {
     INT window;
     BOOL dchold = drawcursor;
 
-    if ( gameflag[1] || gameflag[2] || gameflag[3] ) {
+    if ( reg_flag ) {
         return;
     }
 
@@ -1418,7 +1418,7 @@ mainloop:
                             goto exit_shipcomp;
 
                         case COMP_GAME2:
-                            if ( !gameflag[1] ) {
+                            if ( !reg_flag ) {
                                 WIN_Order();
                                 rval = FALSE;
                                 goto abort_shipcomp;
@@ -1427,7 +1427,7 @@ mainloop:
                             goto exit_shipcomp;
 
                         case COMP_GAME3:
-                            if ( !gameflag[2] ) {
+                            if ( !reg_flag ) {
                                 WIN_Order();
                                 rval = FALSE;
                                 goto abort_shipcomp;
@@ -1684,7 +1684,7 @@ void WIN_MainLoop( void ) {
                 cur_game = 0;
             }
 
-            if ( !gameflag[cur_game] ) {
+            if ( !reg_flag ) {
                 cur_game = 0;
             }
         } else {
@@ -1707,12 +1707,8 @@ void WIN_MainAuto( INT cur_opt ) {
 
     PTR_DrawCursor( FALSE );
 
-    if ( gameflag[1] ) {
-        max_opt += 3;
-    }
-
-    if ( gameflag[2] + gameflag[3] ) {
-        max_opt += 3;
+    if ( reg_flag ) {
+        max_opt += 6;
     }
 
     for ( ;; ) {
