@@ -236,7 +236,7 @@ PRIVATE INT GLB_NumItems( INT filenum ) {
     }
 
     lseek( handle, 0L, SEEK_SET );
-    if ( !read( handle, (void*) &key, sizeof( KEYFILE ) ) ) {
+    if ( !read( handle, &key, sizeof( KEYFILE ) ) ) {
         EXIT_Error( "GLB_NumItems: Read failed!" );
     }
 
@@ -270,7 +270,7 @@ PRIVATE void GLB_LoadIDT(
             k = SIZE( key );
         }
 
-        read( handle, (void*) key, k * sizeof( KEYFILE ) );
+        read( handle, key, k * sizeof( KEYFILE ) );
         for ( n = 0; n < k; n++ ) {
 #ifdef _SCOTTGAME
             GLB_DeCrypt( serial, (BYTE*) &key[n], sizeof( KEYFILE ) );
@@ -382,7 +382,7 @@ GLB_Load(
             memcpy( inmem, ii->vm_mem.obj, ii->size );
         } else {
             lseek( handle, ii->offset, SEEK_SET );
-            read( handle, (void*) inmem, ii->size );
+            read( handle, inmem, ii->size );
 #ifdef _SCOTTGAME
             if ( ii->flags & ITF_ENCODED ) {
                 GLB_DeCrypt( serial, inmem, ii->size );
