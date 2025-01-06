@@ -1278,8 +1278,7 @@ void main( INT argc, CHAR* argv[] ) {
         log_to_file_and_screen( "Birthday() = %s", bday[bday_num].name );
     }
 
-    fflush( stdout );
-    TSM_Install( 140 );
+    TSM_Install();
     KBD_Install();
     GFX_InitSystem();
     SWD_Install( FALSE );

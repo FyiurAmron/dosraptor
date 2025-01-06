@@ -294,9 +294,9 @@ PRIVATE void PTR_ClipCursor( void ) {
 /*========================================================================
   PTR_UpdateCursor() - Updates Mouse Cursor - should be called by intterupt
   ========================================================================*/
-INT PTR_UpdateCursor( void ) {
+void PTR_UpdateCursor( void ) {
     if ( mouseonhold ) {
-        return 0;
+        return;
     }
 
     if ( joyactive ) {
@@ -347,7 +347,7 @@ INT PTR_UpdateCursor( void ) {
         not_in_update = TRUE;
     }
 
-    return 0;
+    return;
 }
 
 /*==========================================================================
@@ -627,8 +627,7 @@ PTR_Init(
     CHAR* err = "PTR_Init() - DosMemAlloc";
     struct SREGS sregs;
     union REGS regs;
-    int( far * function_ptr )();
-    INT rval = 0;
+    void( far * function_ptr )();
     DWORD segment;
 
     drawcursor = FALSE;

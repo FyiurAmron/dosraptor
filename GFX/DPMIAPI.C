@@ -14,6 +14,7 @@
 // GNU General Public License for more details.
 //
 #include <dos.h>
+#include <string.h>
 #include "dpmiapi.h"
 
 int DPMI_LockMemory( void* address, unsigned length );
@@ -28,7 +29,7 @@ int _dpmi_unlockregion( void* address, unsigned length ) {
 }
 
 int _dpmi_dosalloc( unsigned short size, unsigned int* segment ) {
-    char* ptr;
+    void* ptr;
     int i;
     int ret = DPMI_GetDOSMemory( &ptr, &i, size << 4 );
     if ( !ret ) {
