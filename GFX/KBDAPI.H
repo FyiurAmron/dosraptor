@@ -71,9 +71,12 @@ void KBD_End( void );
 /***************************************************************************
    KBD_Key() - returns true/false for scancode
  ***************************************************************************/
-MACRO void KBD_Key(
+// implemented as a macro
+/*
+void KBD_Key(
     INT scancode // INPUT : scan code to read
 );
+*/
 
 extern BOOL paused, capslock, kbd_ack;
 extern BOOL keyboard[256];
