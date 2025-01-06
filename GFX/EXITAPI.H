@@ -1,26 +1,11 @@
 /****************************************************************************
  * EXITapi  - Program Exiting routines
- *----------------------------------------------------------------------------
- * Copyright (C) 1992  Scott Hostynski All Rights Reserved
- *----------------------------------------------------------------------------
- *
- * Created by:  Scott Host
- * Date:        Oct, 1992
- *
- * CONTENTS: exitapi.c exitapi.h
- *
- * EXTERN MODULES - Main module of your program
- *
- * NOTES: Use EXIT_Install ( function pointer ) and set it to a routine
- *        that Shuts down all your systems
  *---------------------------------------------------------------------------*/
 
-#ifndef _TYPES_H
-#include "types.h"
-#endif
+#ifndef EXITAPI_H
+#define EXITAPI_H
 
-#ifndef _EXITAPI
-#define _EXITAPI
+#include "types.h"
 
 #undef ASSERT
 

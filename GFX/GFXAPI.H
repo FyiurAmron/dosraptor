@@ -1,26 +1,12 @@
 /****************************************************************************
  * GFXapi  - Graphic Library for 320x200 256 color vga/mcga
- *----------------------------------------------------------------------------
- * Copyright (C) 1992  Scott Hostynski All Rights Reserved
- *----------------------------------------------------------------------------
- *
- * Created by:  Scott Host
- * Date:        Oct, 1992
- *
- * CONTENTS: gfxapi.c gfxapi_a.asm gfxapi.h
- *
- * EXTERN MODULES - NONE
- *
  *---------------------------------------------------------------------------*/
 
+#ifndef GFXAPI_H
+#define GFXAPI_H
+
 #include <stddef.h>
-
-#ifndef _TYPES_H
-#include <types.h>
-#endif
-
-#ifndef _GFXAPI
-#define _GFXAPI
+#include "types.h"
 
 #define GFX_DARK     0
 #define GFX_LITE     1

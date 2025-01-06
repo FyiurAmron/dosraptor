@@ -1,4 +1,6 @@
-// SCAN CODES
+#ifndef KEYS_H
+#define KEYS_H
+
 #define SC_NONE        0x0000
 #define SC_BAD         0x00ff
 #define SC_ESC         0x0001
@@ -87,3 +89,5 @@
 #define SC_SPACE       0x0039
 #define SC_RELEASE     0x0080
 #define SC_MINUS       12
+
+#endif

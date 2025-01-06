@@ -1,28 +1,13 @@
 /****************************************************************************
  * GLBapi  - File loading routines
- *----------------------------------------------------------------------------
- * Copyright (C) 1992  Scott Hostynski All Rights Reserved
- *----------------------------------------------------------------------------
- *
- * Created by:  Scott Host
- * Date:        Aug, 1992
- *
- * CONTENTS: glbapi.c glbapi.h
- *
- * EXTERN MODULES - Main module of your program
- *
- * NOTES:
- *
  *---------------------------------------------------------------------------*/
 
 #include <stddef.h>
 
-#ifndef _TYPES_H
-#include "types.h"
-#endif
+#ifndef GLBAPI_H
+#define GLBAPI_H
 
-#ifndef _GLBAPI
-#define _GLBAPI
+#include "types.h"
 
 typedef struct {
     DWORD opt; // option (encode on/off)

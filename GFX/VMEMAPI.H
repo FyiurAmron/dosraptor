@@ -1,24 +1,11 @@
 /****************************************************************************
  * VMEMapi  - Virtual Memory Routines
- *----------------------------------------------------------------------------
- *
- * Created by:  Paul Radek
- * Date:        Nov, 1993
- *
- * CONTENTS:glbapi.c glbapi.h
- *
- * EXTERN MODULES - Main module of your program
- *
- * NOTES:
- *
  *---------------------------------------------------------------------------*/
-
-#ifndef _TYPES_H
-#include "types.h"
-#endif
 
 #ifndef _VMEMAPI
 #define _VMEMAPI
+
+#include "types.h"
 
 typedef struct {
     BYTE* obj;

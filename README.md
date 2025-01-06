@@ -16,13 +16,13 @@ The goals of the project:
 
 ## Build
  Currently supported compiler(s): [Open Watcom V2](https://github.com/open-watcom/open-watcom-v2)
+
+ <sub><sup>Older versions of Watcom C might or might not work now (Watcom C 10.0 was used previously);
+  remove `-za99` from WCC option in makefiles if you want to try it for any reason.</sup></sub>
  
  Code migration status:
  * SOURCE: all asm and int386 calls removed, fully compatible
- 
- and the full migration is pending for GFX due to asm usage
- - an effort to rewrite the code to pure C and thus drop the requirement
- for external assembler is ongoing.
+ * GFX: rewriting asm to C in progress; cross-compilation with Win64 OWv2 possible
 
 ## License
 Code is distributed under the GPL Version 2 or newer, see [LICENSE](https://github.com/FyiurAmron/dosraptor/blob/master/LICENSE).
