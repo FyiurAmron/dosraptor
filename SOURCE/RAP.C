@@ -87,8 +87,6 @@ INT glowtable[20] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 9, 8, 7, 6, 5, 4, 3, 2, 
 
 CHAR flatnames[4][14] = { "FLATSG1_ITM", "FLATSG2_ITM", "FLATSG3_ITM", "FLATSG4_ITM" };
 
-PRIVATE CHAR* copyright = "RAPTOR 'Call of the Shadows' Copyright 1994 Cygnus Studios Inc.";
-
 PRIVATE BYTE* g_lowmem;
 PRIVATE BYTE* g_highmem;
 PUBLIC INT demo_flag = DEMO_OFF;
@@ -1391,10 +1389,6 @@ void main( INT argc, CHAR* argv[] ) {
     game_wave[1] = 0;
     game_wave[2] = 0;
     game_wave[3] = 0;
-
-    if ( cur_game != 0 ) {
-        printf( copyright );
-    }
 
     for ( ;; ) {
         WIN_MainMenu();
