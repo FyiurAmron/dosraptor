@@ -175,7 +175,7 @@ void RAP_PrintVmem( CHAR* desc ) {
 /*==========================================================================
    ShutDown () Shut Down function called by EXIT_xxx funtions
  ==========================================================================*/
-SPECIAL void ShutDown( INT errcode ) {
+void ShutDown( INT errcode ) {
     GLB_FreeAll();
 
     IPT_DeInit();

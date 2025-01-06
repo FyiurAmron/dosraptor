@@ -62,7 +62,7 @@ PRIVATE INT ShiftNames[] = // Shifted ASCII for scan codes
 /*------------------------------------------------------------------------
    KBD_ReadScan () - reads scan code, ( interrupt routine )
   ------------------------------------------------------------------------*/
-SPECIAL void _interrupt KBD_ReadScan( void ) {
+void _interrupt KBD_ReadScan( void ) {
     static BYTE key;
 
     key = inp( 0x60 );

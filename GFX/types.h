@@ -7,7 +7,6 @@ typedef enum { FALSE, TRUE } BOOL;
 #define PRIVATE static
 #define PUBLIC
 #define TSMCALL
-#define SPECIAL
 #define MACRO
 #define EMPTY       ~0
 #define ASIZE( a )  ( sizeof( a ) / sizeof( ( a )[0] ) )
