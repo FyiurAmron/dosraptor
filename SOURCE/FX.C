@@ -9,7 +9,7 @@
 
 #include "file0000.inc"
 
-#define MAX_SFXS ( END_SFX - START_SFX - 1 ) / 5
+#define MAX_SFXS ( ( END_SFX - START_SFX - 1 ) / 5 )
 
 PUBLIC INT music_volume;
 PUBLIC INT fx_volume;
@@ -25,13 +25,13 @@ PRIVATE SND_TYPE snd_type = SND_NONE;
 PRIVATE BOOL init_flag = FALSE;
 
 typedef struct {
-    DWORD item; // GLB ITEM;
-    INT pri; // PRIORITY 0=LOW
+    DWORD item; // GLB ITEM
+    INT pri; // PRIORITY 0 = LOW
     INT pitch; // PITCH TO PLAY PATCH
     BOOL rpflag; // TRUE = RANDOM PITCHES
     SFX_HANDLE sid; // DMX EFFECT ID
     INT vol; // VOLUME
-    BOOL gcache; // CACHE FOR IN GAME USE ?
+    BOOL gcache; // CACHE FOR IN-GAME USE?
     BOOL odig; // TRUE = ONLY PLAY DIGITAL
 } DFX;
 
@@ -481,7 +481,7 @@ void SND_Setup( void ) {
 }
 
 /***************************************************************************
-SND_CacheFX () Caches all FX's
+SND_CacheFX() - Caches all FXs
  ***************************************************************************/
 void SND_CacheFX( void ) {
     DFX* lib;
@@ -497,7 +497,7 @@ void SND_CacheFX( void ) {
 }
 
 /***************************************************************************
-SND_CacheGFX () Caches in Game FX's
+SND_CacheGFX() - Caches in game FXs
  ***************************************************************************/
 void SND_CacheGFX( void ) {
     DFX* lib;
@@ -515,7 +515,7 @@ void SND_CacheGFX( void ) {
 }
 
 /***************************************************************************
-SND_CacheIFX () _ Caches intro and menu FX
+SND_CacheIFX() - Caches intro and menu FX
  ***************************************************************************/
 void SND_CacheIFX( void ) {
     DFX* lib;
@@ -542,7 +542,7 @@ BOOL SND_IsPatchPlaying(
 }
 
 /***************************************************************************
-SND_StopPatches () - STops all currently playing patches
+SND_StopPatches() - Stops all currently playing patches
  ***************************************************************************/
 void SND_StopPatches( void ) {
     DFX* curfld;
@@ -563,7 +563,7 @@ void SND_StopPatches( void ) {
 }
 
 /***************************************************************************
-SND_StopPatch () - STops Type patch
+SND_StopPatch() - Stops type patch
  ***************************************************************************/
 void SND_StopPatch(
     DEFX type // INPUT : DFX type patch to play
@@ -578,7 +578,7 @@ void SND_StopPatch(
 }
 
 /***************************************************************************
-SND_FreeFX () - Frees up Fx's
+SND_FreeFX () - Frees up FXs
  ***************************************************************************/
 void SND_FreeFX( void ) {
     DFX* lib;
@@ -655,7 +655,7 @@ void SND_Patch(
 }
 
 /***************************************************************************
-SND_3DPatch () - playes a patch in 3d for player during game play
+SND_3DPatch () - plays a patch in 3d for player during game play
  ***************************************************************************/
 void SND_3DPatch(
     DEFX type, // INPUT : DFX type patch to play
@@ -796,7 +796,7 @@ void SND_PlaySong(
 }
 
 /***************************************************************************
-SND_IsSongPlaying () - Is current song playing
+SND_IsSongPlaying () - Is current song playing?
  ***************************************************************************/
 BOOL SND_IsSongPlaying( void ) {
 
@@ -823,7 +823,7 @@ void SND_FadeOutSong( void ) {
 }
 
 /***************************************************************************
-SND_InitSound () - Does bout all i can think of for Music/FX initing
+SND_InitSound () - Handles music/FX initializing
  ***************************************************************************/
 void SND_InitSound( void ) {
     INT initmcard;
@@ -992,7 +992,7 @@ void SND_InitSound( void ) {
 
     if ( initdcard == EMPTY ) {
         initdcard = 0;
-        printf( "%s Not Found ( Sound FX Disabled )\n", cards[cardtype] );
+        printf( "%s Not Found (Sound FX Disabled)\n", cards[cardtype] );
     } else {
         fx_flag = TRUE;
         printf( "SoundFx Enabled (%s)\n", cards[cardtype] );
