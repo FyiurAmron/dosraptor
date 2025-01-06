@@ -579,7 +579,7 @@ PTR_SetPos(
         regs.x.eax = 4;
         regs.x.ecx = x << 1;
         regs.x.edx = y;
-        int386( 0x33, (const union REGS*) &regs, &regs );
+        int386( 0x33, &regs, &regs );
     }
 
     cur_mx = x;
@@ -711,5 +711,5 @@ void PTR_End( void ) {
 
     // reset to remove mouse handler ========
     regs.x.eax = 0x0;
-    int386( 0x33, (const union REGS*) &regs, &regs );
+    int386( 0x33, &regs, &regs );
 }

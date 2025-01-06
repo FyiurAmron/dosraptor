@@ -158,7 +158,7 @@ void GFX_SetVideoMode13( void ) {
     union REGS r;
 
     r.w.ax = 0x13;
-    int386( 0x10, (const union REGS*) &r, &r );
+    int386( 0x10, &r, &r );
 }
 
 /**************************************************************************
@@ -168,7 +168,7 @@ void GFX_RestoreMode( void ) {
     union REGS r;
 
     r.w.ax = 0x03;
-    int386( 0x10, (const union REGS*) &r, &r );
+    int386( 0x10, &r, &r );
 }
 
 /**************************************************************************
