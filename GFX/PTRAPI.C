@@ -353,7 +353,7 @@ TSMCALL INT PTR_UpdateCursor( void ) {
 /*==========================================================================
   PTR_FrameHook() - Mouse framehook Function
  ==========================================================================*/
-SPECIAL void PTR_FrameHook( void ( *update )( void ) // INPUT : pointer to function
+void PTR_FrameHook( void ( *update )( void ) // INPUT : pointer to function
 ) {
     INT ck_x1;
     INT ck_y1;
