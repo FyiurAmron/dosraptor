@@ -17,4 +17,5 @@ OBJS    =       rap.obj &
                 loadsave.obj &
                 help.obj &
                 windows.obj &
-                tile_a.obj
+                tile_a.obj &
+                utils.obj
