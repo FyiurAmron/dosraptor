@@ -1991,6 +1991,4 @@ menu_exit:
     ltable[0] = cz1;
 
     hangto = HANGTOSTORE;
-
-    return;
 }

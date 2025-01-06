@@ -650,8 +650,6 @@ void SND_Patch(
 
         curfld->sid = SFX_PlayPatch( patch, curfld->pitch + rnd, xpos, volume, 0, curfld->pri );
     }
-
-    return;
 }
 
 /***************************************************************************

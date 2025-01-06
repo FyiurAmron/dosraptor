@@ -220,7 +220,6 @@ void BONUS_Think( void ) {
 
         if ( cur->gy > 200 ) {
             cur = BONUS_Remove( cur );
-            continue;
         }
     }
 

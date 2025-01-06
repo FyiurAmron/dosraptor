@@ -813,9 +813,7 @@ void INTRO_BaseLanding( void ) {
     if ( INTRO_Base() ) {
         return;
     }
-    if ( INTRO_Landing() ) {
-        return;
-    }
+    INTRO_Landing();
 }
 
 /***************************************************************************

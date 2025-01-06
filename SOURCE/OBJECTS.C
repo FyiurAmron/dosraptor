@@ -785,7 +785,6 @@ void OBJS_Use(
         if ( plr.sweapon == type ) {
             OBJS_GetNext();
         }
-        return;
     }
 }
 
