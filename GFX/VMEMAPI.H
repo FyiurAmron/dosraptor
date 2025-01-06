@@ -40,7 +40,7 @@ PUBLIC void VM_InitMemory(
              needed.
  *************************************************************************/
 PUBLIC void* VM_Malloc(
-    UINT size, // INPUT : Size of object
+    DWORD size, // INPUT : Size of object
     VM_OWNER* owner, // INPUT : Owner Structure, NULL=Locked
     BOOL discard // INPUT : Discard memory to satisfy request.
 );
