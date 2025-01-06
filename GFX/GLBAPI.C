@@ -266,8 +266,8 @@ PRIVATE void GLB_LoadIDT(
     lseek( handle, sizeof( KEYFILE ), SEEK_SET );
     for ( j = 0; j < fd->items; ) {
         k = fd->items - j;
-        if ( k > ASIZE( key ) ) {
-            k = ASIZE( key );
+        if ( k > SIZE( key ) ) {
+            k = SIZE( key );
         }
 
         read( handle, (void*) key, k * sizeof( KEYFILE ) );
