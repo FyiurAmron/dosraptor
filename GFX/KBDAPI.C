@@ -138,11 +138,11 @@ KBD_Ascii2Scan(
 
     for ( loop = 0; loop < 100; loop++ ) {
         if ( ASCIINames[loop] == ascii ) {
-            return ( loop );
+            return loop;
         }
     }
 
-    return ( 0 );
+    return 0;
 }
 
 /***************************************************************************
@@ -173,10 +173,10 @@ BOOL KBD_IsKey(
 ) {
     if ( KBD_Key( scancode ) ) {
         KBD_Wait( scancode );
-        return ( TRUE );
+        return TRUE;
     }
 
-    return ( FALSE );
+    return FALSE;
 }
 
 /***************************************************************************

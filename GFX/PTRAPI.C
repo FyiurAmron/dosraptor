@@ -120,7 +120,7 @@ BOOL PTR_IsJoyPresent( void ) {
         rval = FALSE;
     }
 
-    return ( rval );
+    return rval;
 }
 
 /*------------------------------------------------------------------------
@@ -262,7 +262,7 @@ PRIVATE void PTR_ClipCursor( void ) {
 
     displaypic = cursorpic;
 
-    if ( ( dm_x + CURSORWIDTH ) > SCREENWIDTH ) {
+    if ( dm_x + CURSORWIDTH > SCREENWIDTH ) {
         cursorloopx = SCREENWIDTH - dm_x;
         lastclip = TRUE;
     } else {
@@ -276,7 +276,7 @@ PRIVATE void PTR_ClipCursor( void ) {
         }
     }
 
-    if ( ( dm_y + CURSORHEIGHT ) > SCREENHEIGHT ) {
+    if ( dm_y + CURSORHEIGHT > SCREENHEIGHT ) {
         cursorloopy = SCREENHEIGHT - dm_y;
         lastclip = TRUE;
     } else {
@@ -296,7 +296,7 @@ PRIVATE void PTR_ClipCursor( void ) {
   ========================================================================*/
 TSMCALL INT PTR_UpdateCursor( void ) {
     if ( mouseonhold ) {
-        return ( 0 );
+        return 0;
     }
 
     if ( joyactive ) {
@@ -347,7 +347,7 @@ TSMCALL INT PTR_UpdateCursor( void ) {
         not_in_update = TRUE;
     }
 
-    return ( 0 );
+    return 0;
 }
 
 /*==========================================================================
@@ -696,11 +696,7 @@ PTR_Init(
 
     PTR_SetPos( 160, 100 );
 
-    if ( mousepresent || joyactive ) {
-        return ( TRUE );
-    } else {
-        return ( FALSE );
-    }
+    return mousepresent || joyactive ? TRUE : FALSE;
 }
 
 /***************************************************************************

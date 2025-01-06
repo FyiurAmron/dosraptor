@@ -51,7 +51,7 @@ BOOL IMS_CheckAck( void ) {
         rval = TRUE;
     }
 
-    return ( rval );
+    return rval;
 }
 
 /***************************************************************************
@@ -71,7 +71,7 @@ BOOL IMS_IsAck( void ) {
         ret_val = TRUE;
     }
 
-    return ( ret_val );
+    return ret_val;
 }
 
 /***************************************************************************
@@ -127,5 +127,5 @@ end_func:
 
     IMS_StartAck();
 
-    return ( rval );
+    return rval;
 }
