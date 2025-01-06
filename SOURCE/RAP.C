@@ -22,8 +22,8 @@
 #include "../gfx/prefapi.h"
 #include "ansi_esc.h"
 #include "raptor.h"
-#include "utils.h"
 #include "tile_a.h"
+#include "utils.h"
 
 BYTE* palette;
 BYTE* cursor_pic;
@@ -67,8 +67,7 @@ PUBLIC INT curplr_diff = DIFF_2;
 
 PUBLIC INT startendwave = EMPTY;
 PUBLIC BOOL draw_player;
-PUBLIC BOOL bday_flag = FALSE;
-PUBLIC INT bday_num = EMPTY;
+PUBLIC INT bday_num;
 
 //==============================================
 
@@ -90,71 +89,6 @@ CHAR flatnames[4][14] = { "FLATSG1_ITM", "FLATSG2_ITM", "FLATSG3_ITM", "FLATSG4_
 PRIVATE BYTE* g_lowmem;
 PRIVATE BYTE* g_highmem;
 PUBLIC INT demo_flag = DEMO_OFF;
-
-typedef struct {
-    INT month;
-    INT day;
-    INT year;
-    CHAR* name;
-} BDAY;
-
-#define MAX_BDAY 6
-
-BDAY bday[MAX_BDAY];
-
-#define MONTH   2
-#define DAY     20
-#define YEAR    1994
-#define WLENGTH 12
-
-void RAP_Bday( void ) {
-    struct dosdate_t date;
-    INT i;
-
-    bday_flag = FALSE;
-    bday_num = EMPTY;
-
-    _dos_getdate( &date );
-
-    for ( i = 0; i < MAX_BDAY; i++ ) {
-        if ( bday[i].day == 0 ) {
-            continue;
-        }
-
-        if ( date.month == bday[i].month && date.day == bday[i].day && date.year >= bday[i].year ) {
-            bday_num = i;
-            if ( i == 0 ) {
-                bday_flag = TRUE;
-            }
-            break;
-        }
-    }
-}
-
-BOOL RAP_IsDate( void ) {
-    struct dosdate_t date;
-    INT comp1;
-    INT comp2;
-    INT num;
-
-    _dos_getdate( &date );
-
-    if ( date.year != YEAR ) {
-        return FALSE;
-    }
-
-    comp1 = date.month;
-    comp1 = comp1 << 5;
-    comp1 += date.day;
-
-    comp2 = MONTH;
-    comp2 = comp2 << 5;
-    comp2 += DAY;
-
-    num = comp1 - comp2;
-
-    return num >= 0 && num <= WLENGTH ? TRUE : FALSE;
-}
 
 void RAP_PrintVmem( CHAR* desc ) {
     DWORD largest;
@@ -1172,23 +1106,27 @@ void main( INT argc, CHAR* argv[] ) {
     log_to_file( banner );
     log_to_file_and_screen( "argc == %d", argc );
 
-    if ( strcmpi( argv[1], "joycal" ) == 0 ) {
-        JoyHack();
-    }
-
     RAP_InitLoadSave();
-
     if ( access( RAP_SetupFilename(), 0 ) != 0 ) {
         EXIT_Error( "%s not found - please run SETUP.EXE first!\n", RAP_SetupFilename() );
     }
     if ( !INI_InitPreference( RAP_SetupFilename() ) ) {
         EXIT_Error( "Can't load %s due to error!\n", RAP_SetupFilename() );
     }
+    IPT_LoadPrefs();
+
+    if ( strcmpi( argv[1], "joycal" ) == 0 ) {
+        JoyHack();
+    }
 
     godmode = strcmp( s_host, gdmodestr ) == 0 ? TRUE : FALSE;
 
     if ( godmode ) {
         log_to_file_and_screen( "GOD mode enabled" );
+    }
+
+    if ( bday_num != EMPTY ) {
+        log_to_file_and_screen( "bday_num == %d", bday_num );
     }
 
     if ( strcmpi( argv[1], "REC" ) == 0 ) {
@@ -1234,54 +1172,10 @@ void main( INT argc, CHAR* argv[] ) {
 
     EXIT_Install( ShutDown );
 
-    // ================================================
-    // SET UP B-DAY STUFF O RAMA
-    // ================================================
-
-    memset( bday, 0, sizeof( bday ) );
-
-    bday[0].month = 5; // Scott
-    bday[0].day = 16;
-    bday[0].year = 1994;
-    bday[0].name = "Scott Host";
-
-    bday[1].month = 2; // Dave
-    bday[1].day = 27;
-    bday[1].year = 1996;
-    bday[1].name = "Dave T.";
-
-    bday[2].month = 10; // JIM
-    bday[2].day = 2;
-    bday[2].year = 1995;
-    bday[2].name = "Jim M.";
-
-    bday[3].month = 3; // BOBBY P.
-    bday[3].day = 12;
-    bday[3].year = 1995;
-    bday[3].name = "Bobby P.";
-
-    bday[4].month = 8; // RICH
-    bday[4].day = 28;
-    bday[4].year = 1995;
-    bday[4].name = "Rich F.";
-
-    bday[5].month = 4; // Paul
-    bday[5].day = 24;
-    bday[5].year = 1996;
-    bday[5].name = "Paul R.";
-
-    RAP_Bday();
-
-    if ( bday_num != EMPTY ) {
-        log_to_file_and_screen( "Birthday() = %s", bday[bday_num].name );
-    }
-
     TSM_Install();
     KBD_Install();
     GFX_InitSystem();
     SWD_Install( FALSE );
-
-    IPT_LoadPrefs();
 
     switch ( control ) {
         default:
