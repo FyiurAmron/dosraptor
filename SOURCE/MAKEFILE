@@ -1,16 +1,11 @@
 # Raptor Makefile
 
-PROCESSOR = 386 # for the 32-bit compilers
 MODEL = f       # flat
 
-CC = wcc$(PROCESSOR)
-FC = wfc$(PROCESSOR)
-ASM = tasm
+CC = wcc386
 
-CFLAGS = -m$(MODEL) -zq -od -d2 -zp4 -ei -W4 # debug
+CFLAGS = -m$(MODEL) -za99 -zq -od -d2 -zp4 -ei -W4 # debug
 #CFLAGS  = -m$(MODEL) -zq -s -oxt -zp4 -ei -W4 # release
-FFLAGS  = -m$(MODEL) -noterm
-AFLAGS  = -mx -ml
 
 .EXTENSIONS:
 .EXTENSIONS: .exe .rex .lib .obj .wbj .asm .c .for
@@ -56,9 +51,3 @@ temp.lnk : objdef.mif makefile
 
 .c.wbj :
 	$(CC) $^& $(CFLAGS) -zw -fo=$^&.wbj
-
-.for.obj :
-	$(FC) $^& $(FFLAGS)
-
-.asm.obj :
-	$(ASM) $(AFLAGS) $^&;
