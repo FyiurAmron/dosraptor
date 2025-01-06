@@ -310,7 +310,7 @@ BOOL DEMO_Think( void ) {
 /*------------------------------------------------------------------------
    IPT_GetButtons () - Reads in Joystick and Keyboard game buttons
   ------------------------------------------------------------------------*/
-TSMCALL void IPT_GetButtons( void ) {
+void IPT_GetButtons( void ) {
     INT num;
 
     if ( control == I_JOYSTICK ) {

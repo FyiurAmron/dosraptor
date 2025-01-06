@@ -3,10 +3,8 @@
 
 typedef enum { FALSE, TRUE } BOOL;
 
-#define LOCAL   static
 #define PRIVATE static
 #define PUBLIC
-#define TSMCALL
 #define EMPTY       ~0
 #define ASIZE( a )  ( sizeof( a ) / sizeof( ( a )[0] ) )
 #define FMUL32( a ) ( ( a ) << 5 )

@@ -80,7 +80,7 @@ PUBLIC INT gfx_imga = 0;
 /*==========================================================================
    GFX_TimeFrameRate () - Should be interrupt called at 70 fps
  ==========================================================================*/
-TSMCALL INT GFX_TimeFrameRate( void ) {
+INT GFX_TimeFrameRate( void ) {
     framecount++;
     return ( 0 );
 }

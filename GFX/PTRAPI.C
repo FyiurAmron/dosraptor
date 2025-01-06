@@ -159,7 +159,7 @@ void PTR_JoyReset( void ) {
 /*------------------------------------------------------------------------
   PTR_JoyHandler () - Handles Joystick Input
   ------------------------------------------------------------------------*/
-TSMCALL void PTR_JoyHandler( void ) {
+void PTR_JoyHandler( void ) {
     INT xm;
     INT ym;
 
@@ -294,7 +294,7 @@ PRIVATE void PTR_ClipCursor( void ) {
 /*========================================================================
   PTR_UpdateCursor() - Updates Mouse Cursor - should be called by intterupt
   ========================================================================*/
-TSMCALL INT PTR_UpdateCursor( void ) {
+INT PTR_UpdateCursor( void ) {
     if ( mouseonhold ) {
         return 0;
     }
