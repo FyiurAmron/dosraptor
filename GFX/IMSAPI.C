@@ -97,7 +97,7 @@ IMS_WaitTimed(
     INT secs // INPUT : seconds to wait
 ) {
     volatile INT hold;
-    volatile INT loop;
+    INT i;
     INT rval;
 
     KBD_LASTSCAN = SC_NONE;
@@ -106,7 +106,7 @@ IMS_WaitTimed(
     IMS_StartAck();
 
     while ( secs > 0 ) {
-        for ( loop = 0; loop < 55; loop++ ) {
+        for ( i = 0; i < 55; i++ ) {
             hold = FRAME_COUNT;
             while ( FRAME_COUNT == hold )
                 ;
@@ -120,9 +120,9 @@ IMS_WaitTimed(
     }
 
 end_func:
-    loop = 100;
+    i = 100;
     while ( IMS_IsAck() ) {
-        loop--;
+        i--;
     }
 
     IMS_StartAck();

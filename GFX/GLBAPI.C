@@ -573,16 +573,16 @@ GLB_GetItemID(
     ITEM_H itm;
     INT filenum;
     INT itemnum;
-    INT maxloop;
+    INT items;
 
     ASSERT( in_name != NULL );
 
     itm.handle = ~0;
     if ( *in_name != ' ' && *in_name != '\0' ) {
         for ( filenum = 0; filenum < num_glbs; filenum++ ) {
-            maxloop = filedesc[filenum].items;
+            items = filedesc[filenum].items;
             ii = filedesc[filenum].item;
-            for ( itemnum = 0; itemnum < maxloop; itemnum++ ) {
+            for ( itemnum = 0; itemnum < items; itemnum++ ) {
                 if ( stricmp( ii->name, in_name ) == 0 ) {
                     itm.id.filenum = filenum;
                     itm.id.itemnum = itemnum;

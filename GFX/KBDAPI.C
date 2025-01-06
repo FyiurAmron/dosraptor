@@ -132,13 +132,13 @@ INT // RETURN: scan code
 KBD_Ascii2Scan(
     INT ascii // INPUT : ASCII character
 ) {
-    INT loop;
+    INT i;
 
     ascii = tolower( ascii );
 
-    for ( loop = 0; loop < 100; loop++ ) {
-        if ( ASCIINames[loop] == ascii ) {
-            return loop;
+    for ( i = 0; i < 100; i++ ) {
+        if ( ASCIINames[i] == ascii ) {
+            return i;
         }
     }
 
