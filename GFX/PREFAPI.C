@@ -291,7 +291,7 @@ long INI_GetPreferenceLong(
 
     ltoa( def, Def, 10 );
     INI_GetPreference( section, option, buffer, sizeof( buffer ), Def );
-    return ( atol( buffer ) );
+    return atol( buffer );
 }
 
 /****************************************************************************
@@ -311,7 +311,7 @@ long INI_GetPreferenceHex(
     ltoa( def, Def, 10 );
     INI_GetPreference( section, option, buffer, sizeof( buffer ), Def );
     sscanf( buffer, "%x", &def );
-    return ( def );
+    return def;
 }
 
 /****************************************************************************
@@ -341,7 +341,7 @@ short INI_GetPreferenceBool(
     ) {
         return 0;
     }
-    return ( atoi( buffer ) );
+    return atoi( buffer );
 }
 
 /****************************************************************************
@@ -383,11 +383,11 @@ short INI_PutPreferenceLong(
 
     if ( val == -1 ) {
         INI_DeletePreference( section, option );
-        return ( 0 );
+        return 0;
     }
 
     ltoa( val, buffer, 10 );
-    return ( INI_PutPreference( section, option, buffer ) );
+    return INI_PutPreference( section, option, buffer );
 }
 
 /****************************************************************************
@@ -406,12 +406,12 @@ short INI_PutPreferenceHex(
 
     if ( val == -1 ) {
         INI_DeletePreference( section, option );
-        return ( 0 );
+        return 0;
     }
 
     sprintf( buffer, "%x", val );
 
-    return ( INI_PutPreference( section, option, buffer ) );
+    return INI_PutPreference( section, option, buffer );
 }
 
 /****************************************************************************
@@ -426,7 +426,7 @@ short INI_PutPreferenceBool(
     char* option, /* INPUT:   Name of preference option       */
     short val /* INPUT:   Value to write                  */
 ) {
-    return ( INI_PutPreference( section, option, ( val ) ? "TRUE" : "FALSE" ) );
+    return INI_PutPreference( section, option, val ? "TRUE" : "FALSE" );
 }
 
 /****************************************************************************
@@ -445,7 +445,7 @@ short INI_PutPreference(
         return 0;
     }
 
-    return ( WritePrivateProfileString( section, option, val, ProfilePath ) );
+    return WritePrivateProfileString( section, option, val, ProfilePath );
 }
 
 /****************************************************************************
@@ -463,5 +463,5 @@ short INI_DeletePreference(
         return 0;
     }
 
-    return ( WritePrivateProfileString( section, option, NULL, ProfilePath ) );
+    return WritePrivateProfileString( section, option, NULL, ProfilePath );
 }

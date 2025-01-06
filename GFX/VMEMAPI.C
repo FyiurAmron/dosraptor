@@ -167,7 +167,7 @@ PUBLIC MCB* vm_DiscardMem( DWORD size ) {
         oldage += 2;
 
         for ( ;; ) {
-            mcb_size = ( mcb->size & BLK_SIZE );
+            mcb_size = mcb->size & BLK_SIZE;
             if ( mcb->size & BLK_FREE ) {
                 free_mcb = mcb;
                 mcb_size = vm_ColaceMem( mcb );
@@ -283,7 +283,7 @@ PUBLIC void* VM_Malloc(
     }
 
 FOUND_MCB:
-    if ( mcb_size - size < ( sizeof( MCB ) + 4 ) ) {
+    if ( mcb_size - size < sizeof( MCB ) + 4 ) {
         size = mcb_size;
         next_mcb = (MCB*) ( (BYTE*) mcb + size );
     } else {

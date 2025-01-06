@@ -215,7 +215,7 @@ INT SWD_GetLine( BYTE* inmem ) {
                     textdraw_y += y;
                     break;
             }
-            return ( curpos );
+            return curpos;
         }
     }
 
@@ -232,7 +232,7 @@ INT SWD_GetLine( BYTE* inmem ) {
 
     text += curpos;
 
-    return ( curpos );
+    return curpos;
 }
 
 /***************************************************************************
@@ -722,7 +722,7 @@ PRIVATE void SWD_FieldInput(
                 break;
             }
 
-            if ( g_key > 0 && curpos < ( curfld->maxchars - 1 ) ) {
+            if ( g_key > 0 && curpos < curfld->maxchars - 1 ) {
                 if ( g_ascii > 31 && g_ascii < 127 ) {
                     switch ( curfld->input_opt ) {
                         case I_NORM:
@@ -833,7 +833,7 @@ PRIVATE INT SWD_GetFirstField( void ) {
 
     rval = g_wins[active_window].win->firstfld;
 
-    return ( rval );
+    return rval;
 }
 
 /*------------------------------------------------------------------------
@@ -871,7 +871,7 @@ PRIVATE INT SWD_GetLastField(
         }
     }
 
-    return ( rval );
+    return rval;
 }
 
 /*------------------------------------------------------------------------
@@ -910,7 +910,7 @@ PRIVATE INT SWD_GetNextField(
         active_field = rval;
     }
 
-    return ( rval );
+    return rval;
 }
 
 /*------------------------------------------------------------------------
@@ -949,7 +949,7 @@ PRIVATE INT SWD_GetPrevField(
         active_field = rval;
     }
 
-    return ( rval );
+    return rval;
 }
 
 /*------------------------------------------------------------------------
@@ -1000,7 +1000,7 @@ PRIVATE INT SWD_GetRightField(
         active_field = rval;
     }
 
-    return ( rval );
+    return rval;
 }
 
 /*------------------------------------------------------------------------
@@ -1053,7 +1053,7 @@ PRIVATE INT SWD_GetUpField(
         active_field = rval;
     }
 
-    return ( rval );
+    return rval;
 }
 
 /*------------------------------------------------------------------------
@@ -1106,7 +1106,7 @@ PRIVATE INT SWD_GetDownField(
         active_field = rval;
     }
 
-    return ( rval );
+    return rval;
 }
 
 /*------------------------------------------------------------------------
@@ -1157,7 +1157,7 @@ PRIVATE INT SWD_GetLeftField(
         active_field = rval;
     }
 
-    return ( rval );
+    return rval;
 }
 
 /*------------------------------------------------------------------------
@@ -1204,7 +1204,7 @@ SWD_ShowAllFields(
             SWD_PutField( header, fld );
         }
     }
-    return ( loop );
+    return loop;
 }
 
 /*------------------------------------------------------------------------
@@ -1304,14 +1304,14 @@ PRIVATE void SWD_PutWin(
   ------------------------------------------------------------------------*/
 PRIVATE BOOL SWD_IsButtonDown( void ) {
     if ( KBD_Key( SC_ENTER ) ) {
-        return ( TRUE );
+        return TRUE;
     }
 
     if ( PTR_B1 ) {
-        return ( TRUE );
+        return TRUE;
     }
 
-    return ( FALSE );
+    return FALSE;
 }
 
 /***************************************************************************
@@ -1402,7 +1402,7 @@ SWD_InitWindow(
 
     header = (SWIN*) GLB_LockItem( handle );
 
-    curfld = (SFIELD*) ( ( (BYTE*) header ) + header->fldofs );
+    curfld = (SFIELD*) ( (BYTE*) header + header->fldofs );
 
     for ( rec_num = 0; rec_num < MAX_WINDOWS; rec_num++ ) {
         if ( g_wins[rec_num].flag == FALSE ) {
@@ -1416,7 +1416,7 @@ SWD_InitWindow(
 
             active_field = g_wins[rec_num].win->firstfld;
 
-            if ( !( ( curfld + active_field )->selectable ) ) {
+            if ( !( curfld + active_field )->selectable ) {
                 active_field = SWD_GetFirstField();
             }
 
@@ -1472,7 +1472,7 @@ SWD_InitWindow(
 
                     curfld->sptr = NULL;
                     if ( curfld->saveflag ) {
-                        pic_size = ( curfld->lx * curfld->ly ) + sizeof( GFX_PIC );
+                        pic_size = curfld->lx * curfld->ly + sizeof( GFX_PIC );
                         if ( pic_size < 0 || pic_size > 64000 ) {
                             EXIT_Error( "SWD Error: pic save to big..." );
                         }
@@ -1492,7 +1492,7 @@ SWD_InitWindow(
 
 SWD_InitWindow_Exit:
 
-    return ( rec_num );
+    return rec_num;
 }
 
 /***************************************************************************
@@ -1503,7 +1503,7 @@ INT SWD_InitMasterWindow(
 ) {
     master_window = SWD_InitWindow( handle );
 
-    return ( master_window );
+    return master_window;
 }
 
 /***************************************************************************
@@ -1541,7 +1541,7 @@ SWD_ShowAllWindows( void ) {
     INT loop;
 
     if ( active_window < 0 ) {
-        return ( FALSE );
+        return FALSE;
     }
 
     if ( clearscreenflag ) {
@@ -1572,7 +1572,7 @@ SWD_ShowAllWindows( void ) {
         SWD_PutWin( active_window );
     }
 
-    return ( TRUE );
+    return TRUE;
 }
 
 /***************************************************************************
@@ -1598,7 +1598,7 @@ void SWD_SetWindowPtr(
         return;
     }
 
-    curfld = (SFIELD*) ( ( (BYTE*) curwin ) + curwin->fldofs );
+    curfld = (SFIELD*) ( (BYTE*) curwin + curwin->fldofs );
     curfld += active_field;
 
     PTR_SetPos( curfld->x + ( curfld->lx >> 1 ), curfld->y + ( curfld->ly >> 1 ) );
@@ -1628,7 +1628,7 @@ void SWD_SetFieldPtr(
         return;
     }
 
-    curfld = (SFIELD*) ( ( (BYTE*) curwin ) + curwin->fldofs );
+    curfld = (SFIELD*) ( (BYTE*) curwin + curwin->fldofs );
     curfld += field;
 
     PTR_SetPos( curfld->x + ( curfld->lx >> 1 ), curfld->y + ( curfld->ly >> 1 ) );
@@ -1658,12 +1658,12 @@ void SWD_SetActiveField(
     SFIELD* curfld;
 
     if ( active_field != EMPTY ) {
-        curfld = (SFIELD*) ( ( (BYTE*) curwin ) + curwin->fldofs );
+        curfld = (SFIELD*) ( (BYTE*) curwin + curwin->fldofs );
         curfld += active_field;
         lastfld = curfld;
     }
 
-    curfld = (SFIELD*) ( ( (BYTE*) curwin ) + curwin->fldofs );
+    curfld = (SFIELD*) ( (BYTE*) curwin + curwin->fldofs );
     curfld += field_id;
 
     if ( curfld->kbflag ) {
@@ -1794,7 +1794,7 @@ PRIVATE INT SWD_FindWindow(
         }
     }
 
-    return ( rval );
+    return rval;
 }
 
 /*------------------------------------------------------------------------
@@ -1895,7 +1895,7 @@ PRIVATE BOOL SWD_CheckMouse(
             ;
     }
 
-    return ( flag );
+    return flag;
 }
 
 /*------------------------------------------------------------------------
@@ -1942,7 +1942,7 @@ PRIVATE BOOL SWD_CheckViewArea(
         }
     }
 
-    return ( flag );
+    return flag;
 }
 
 /*------------------------------------------------------------------------
@@ -2320,7 +2320,7 @@ SWD_SetWindowXY(
     curwin->x = xpos;
     curwin->x = ypos;
 
-    return ( curwin->opt );
+    return curwin->opt;
 }
 
 /***************************************************************************
@@ -2349,7 +2349,7 @@ SWD_GetWindowXYL(
         *ly = curwin->ly;
     }
 
-    return ( curwin->opt );
+    return curwin->opt;
 }
 
 /***************************************************************************
@@ -2365,14 +2365,14 @@ SWD_GetFieldText(
     SFIELD* curfld;
     BYTE* text;
 
-    curfld = (SFIELD*) ( ( (BYTE*) curwin ) + curwin->fldofs );
+    curfld = (SFIELD*) ( (BYTE*) curwin + curwin->fldofs );
     curfld += field_id;
 
-    text = ( (BYTE*) curfld ) + curfld->txtoff;
+    text = (BYTE*) curfld + curfld->txtoff;
 
     memcpy( out_text, text, (size_t) curfld->maxchars );
 
-    return ( curfld->maxchars );
+    return curfld->maxchars;
 }
 
 /***************************************************************************
@@ -2388,10 +2388,10 @@ SWD_SetFieldText(
     SFIELD* curfld;
     BYTE* text;
 
-    curfld = (SFIELD*) ( ( (BYTE*) curwin ) + curwin->fldofs );
+    curfld = (SFIELD*) ( (BYTE*) curwin + curwin->fldofs );
     curfld += field_id;
 
-    text = ( (BYTE*) curfld ) + curfld->txtoff;
+    text = (BYTE*) curfld + curfld->txtoff;
 
     if ( in_text ) {
         text[curfld->maxchars - 1] = NULL;
@@ -2400,7 +2400,7 @@ SWD_SetFieldText(
         *text = NULL;
     }
 
-    return ( curfld->maxchars );
+    return curfld->maxchars;
 }
 
 /***************************************************************************
@@ -2414,12 +2414,12 @@ INT SWD_GetFieldValue(
     SFIELD* curfld;
     BYTE* text;
 
-    curfld = (SFIELD*) ( ( (BYTE*) curwin ) + curwin->fldofs );
+    curfld = (SFIELD*) ( (BYTE*) curwin + curwin->fldofs );
     curfld += field_id;
 
-    text = ( (BYTE*) curfld ) + curfld->txtoff;
+    text = (BYTE*) curfld + curfld->txtoff;
 
-    return ( atoi( (CHAR*) text ) );
+    return atoi( (CHAR*) text );
 }
 
 /***************************************************************************
@@ -2434,14 +2434,14 @@ INT SWD_SetFieldValue(
     SFIELD* curfld;
     BYTE* text;
 
-    curfld = (SFIELD*) ( ( (BYTE*) curwin ) + curwin->fldofs );
+    curfld = (SFIELD*) ( (BYTE*) curwin + curwin->fldofs );
     curfld += field_id;
 
-    text = ( (BYTE*) curfld ) + curfld->txtoff;
+    text = (BYTE*) curfld + curfld->txtoff;
 
     sprintf( (CHAR*) text, "%d", num );
 
-    return ( atoi( (CHAR*) text ) );
+    return atoi( (CHAR*) text );
 }
 
 /***************************************************************************
@@ -2455,7 +2455,7 @@ void SWD_SetFieldSelect(
     SWIN* curwin = g_wins[handle].win;
     SFIELD* curfld;
 
-    curfld = (SFIELD*) ( ( (BYTE*) curwin ) + curwin->fldofs );
+    curfld = (SFIELD*) ( (BYTE*) curwin + curwin->fldofs );
     curfld += field_id;
 
     curfld->selectable = opt;
@@ -2472,10 +2472,10 @@ SWD_GetFieldMark(
     SWIN* curwin = g_wins[handle].win;
     SFIELD* curfld;
 
-    curfld = (SFIELD*) ( ( (BYTE*) curwin ) + curwin->fldofs );
+    curfld = (SFIELD*) ( (BYTE*) curwin + curwin->fldofs );
     curfld += field_id;
 
-    return ( curfld->mark );
+    return curfld->mark;
 }
 
 /***************************************************************************
@@ -2489,7 +2489,7 @@ void SWD_SetFieldMark(
     SWIN* curwin = g_wins[handle].win;
     SFIELD* curfld;
 
-    curfld = (SFIELD*) ( ( (BYTE*) curwin ) + curwin->fldofs );
+    curfld = (SFIELD*) ( (BYTE*) curwin + curwin->fldofs );
     curfld += field_id;
 
     curfld->mark = opt;
@@ -2506,10 +2506,10 @@ SWD_GetFieldInputOpt(
     SWIN* curwin = g_wins[handle].win;
     SFIELD* curfld;
 
-    curfld = (SFIELD*) ( ( (BYTE*) curwin ) + curwin->fldofs );
+    curfld = (SFIELD*) ( (BYTE*) curwin + curwin->fldofs );
     curfld += field_id;
 
-    return ( curfld->input_opt );
+    return curfld->input_opt;
 }
 
 /***************************************************************************
@@ -2525,13 +2525,13 @@ SWD_SetFieldInputOpt(
     SFIELD* curfld;
     INPUTOPT old_opt;
 
-    curfld = (SFIELD*) ( ( (BYTE*) curwin ) + curwin->fldofs );
+    curfld = (SFIELD*) ( (BYTE*) curwin + curwin->fldofs );
     curfld += field_id;
 
     old_opt = curfld->input_opt;
     curfld->input_opt = opt;
 
-    return ( old_opt );
+    return old_opt;
 }
 
 /***************************************************************************
@@ -2545,7 +2545,7 @@ void SWD_SetFieldItem(
     SWIN* curwin = g_wins[handle].win;
     SFIELD* curfld;
 
-    curfld = (SFIELD*) ( ( (BYTE*) curwin ) + curwin->fldofs );
+    curfld = (SFIELD*) ( (BYTE*) curwin + curwin->fldofs );
     curfld += field_id;
 
     if ( item != EMPTY ) {
@@ -2572,10 +2572,10 @@ SWD_GetFieldItem(
     SWIN* curwin = g_wins[handle].win;
     SFIELD* curfld;
 
-    curfld = (SFIELD*) ( ( (BYTE*) curwin ) + curwin->fldofs );
+    curfld = (SFIELD*) ( (BYTE*) curwin + curwin->fldofs );
     curfld += field_id;
 
-    return ( curfld->item );
+    return curfld->item;
 }
 
 /***************************************************************************
@@ -2590,7 +2590,7 @@ void SWD_SetFieldItemName(
     SFIELD* curfld;
     DWORD item;
 
-    curfld = (SFIELD*) ( ( (BYTE*) curwin ) + curwin->fldofs );
+    curfld = (SFIELD*) ( (BYTE*) curwin + curwin->fldofs );
     curfld += field_id;
 
     item = GLB_GetItemID( item_name );
@@ -2617,7 +2617,7 @@ void SWD_GetFieldItemName(
     SWIN* curwin = g_wins[handle].win;
     SFIELD* curfld;
 
-    curfld = (SFIELD*) ( ( (BYTE*) curwin ) + curwin->fldofs );
+    curfld = (SFIELD*) ( (BYTE*) curwin + curwin->fldofs );
     curfld += field_id;
 
     memcpy( item_name, curfld->item_name, 16 );
@@ -2636,7 +2636,7 @@ SWD_SetWindowID(
 
     curwin->id = id;
 
-    return ( old_id );
+    return old_id;
 }
 
 /***************************************************************************
@@ -2647,7 +2647,7 @@ INT SWD_GetWindowID(
 ) {
     SWIN* curwin = g_wins[handle].win;
 
-    return ( curwin->id );
+    return curwin->id;
 }
 
 /***************************************************************************
@@ -2663,7 +2663,7 @@ INT SWD_SetWindowFlag(
 
     SWD_GetNextWindow();
 
-    return ( curwin->id );
+    return curwin->id;
 }
 
 /***************************************************************************
@@ -2679,7 +2679,7 @@ SWD_SetWindowType(
 
     curwin->type = type;
 
-    return ( old_type );
+    return old_type;
 }
 
 /***************************************************************************
@@ -2691,7 +2691,7 @@ SWD_GetWindowType(
 ) {
     SWIN* curwin = g_wins[handle].win;
 
-    return ( curwin->type );
+    return curwin->type;
 }
 
 /***************************************************************************
@@ -2708,7 +2708,7 @@ INT SWD_GetFieldXYL(
     SWIN* curwin = g_wins[handle].win;
     SFIELD* curfld;
 
-    curfld = (SFIELD*) ( ( (BYTE*) curwin ) + curwin->fldofs );
+    curfld = (SFIELD*) ( (BYTE*) curwin + curwin->fldofs );
     curfld += field_id;
 
     if ( x ) {
@@ -2727,5 +2727,5 @@ INT SWD_GetFieldXYL(
         *ly = curfld->ly;
     }
 
-    return ( curfld->lx );
+    return curfld->lx;
 }

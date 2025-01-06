@@ -244,7 +244,7 @@ PRIVATE INT GLB_NumItems( INT filenum ) {
     GLB_DeCrypt( serial, (BYTE*) &key, sizeof( KEYFILE ) );
 #endif
 
-    return ( (int) key.offset );
+    return (int) key.offset;
 }
 
 /*--------------------------------------------------------------------------
@@ -350,7 +350,7 @@ GLB_InitSystem(
             opened++;
         }
     }
-    return ( opened );
+    return opened;
 }
 
 /*************************************************************************
@@ -531,7 +531,7 @@ GLB_IsLabel(
     ii = filedesc[itm.id.filenum].item;
     ii += itm.id.itemnum;
 
-    return ( ii->size == 0 ? TRUE : FALSE );
+    return ( ii->size == 0 ) ? TRUE : FALSE;
 }
 
 /***************************************************************************
@@ -737,7 +737,7 @@ GLB_ReadFile(
 
     close( handle );
 
-    return ( sizerec );
+    return sizerec;
 }
 
 /***************************************************************************
