@@ -23,7 +23,6 @@
 
 PRIVATE void ( *ShutDown )( INT ) = (void( * )) 0;
 PRIVATE CHAR* clean_exit_msg = "Clean Exit";
-PRIVATE CHAR* serial = "32768SH";
 
 /***************************************************************************
    EXIT_Install() Sets User routine to shut down systems

@@ -37,7 +37,6 @@ typedef struct {
 } ITEMS;
 
 #define MAX_GLB_FILES 0x000F
-#define SEED          0x0019
 
 #define GLB_NORMAL    0
 #define GLB_ENCODED   1
@@ -165,23 +164,5 @@ void GLB_SaveFile(
    GLB_UseVM - Use virtual memory functions for heap managment.
  *************************************************************************/
 PUBLIC void GLB_UseVM( void );
-
-/***************************************************************************
-  GLB_EnCrypt - Encrypt Data
- ***************************************************************************/
-void GLB_EnCrypt(
-    CHAR* key, // INPUT : Key that will allow Decryption
-    BYTE* buffer, // INPUT : Buffer to Encrypt
-    size_t length // INPUT : Length of Buffer
-);
-
-/***************************************************************************
-  GLB_DeCrypt - Decrypt Data
- ***************************************************************************/
-void GLB_DeCrypt(
-    CHAR* key, // INPUT : Key that will allow Decryption
-    BYTE* buffer, // INPUT : Buffer to Encrypt
-    size_t length // INPUT : Length of Buffer
-);
 
 #endif

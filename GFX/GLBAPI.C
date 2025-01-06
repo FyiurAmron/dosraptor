@@ -32,9 +32,8 @@
 #include "glbapi.h"
 #include "vmemapi.h"
 
-#define _SCOTTGAME
+#include "decrypt.c"
 
-PRIVATE CHAR* serial = "32768GLB";
 PRIVATE CHAR exePath[_MAX_PATH];
 PRIVATE INT num_glbs;
 PRIVATE KEYFILE g_key;
@@ -75,56 +74,6 @@ PRIVATE FILEDESC filedesc[MAX_GLB_FILES];
 
 #define ITF_LOCKED  0x80000000L
 #define ITF_ENCODED 0x40000000L
-
-/***************************************************************************
-  GLB_EnCrypt - Encrypt Data
- ***************************************************************************/
-void GLB_EnCrypt(
-    CHAR* key, // INPUT : Key that will allow Decryption
-    BYTE* buffer, // INPUT : Buffer to Encrypt
-    size_t length // INPUT : Length of Buffer
-) {
-    INT klen = strlen( key );
-    INT prev_byte;
-    INT kidx;
-
-    kidx = SEED % klen;
-    prev_byte = key[kidx];
-    while ( length-- ) {
-        prev_byte = ( *buffer + key[kidx] + prev_byte ) % 256;
-        *buffer++ = prev_byte;
-
-        if ( ++kidx >= klen ) {
-            kidx = 0;
-        }
-    }
-}
-
-/***************************************************************************
-  GLB_DeCrypt - Decrypt Data
- ***************************************************************************/
-void GLB_DeCrypt(
-    CHAR* key, // INPUT : Key that will allow Decryption
-    BYTE* buffer, // INPUT : Buffer to Encrypt
-    size_t length // INPUT : Length of Buffer
-) {
-    INT klen = strlen( key );
-    INT prev_byte;
-    INT kidx;
-    CHAR dchr;
-
-    kidx = SEED % klen;
-    prev_byte = key[kidx];
-    while ( length-- ) {
-        dchr = ( *buffer - key[kidx] - prev_byte ) % 256;
-        prev_byte = *buffer;
-        *buffer++ = dchr;
-
-        if ( ++kidx >= klen ) {
-            kidx = 0;
-        }
-    }
-}
 
 /*------------------------------------------------------------------------
    GLB_FindFile() - Finds a file, opens it, and stores it's path
@@ -240,9 +189,7 @@ PRIVATE INT GLB_NumItems( INT filenum ) {
         EXIT_Error( "GLB_NumItems: Read failed!" );
     }
 
-#ifdef _SCOTTGAME
     GLB_DeCrypt( serial, (BYTE*) &key, sizeof( KEYFILE ) );
-#endif
 
     return (int) key.offset;
 }
@@ -272,9 +219,8 @@ PRIVATE void GLB_LoadIDT(
 
         read( handle, key, k * sizeof( KEYFILE ) );
         for ( n = 0; n < k; n++ ) {
-#ifdef _SCOTTGAME
             GLB_DeCrypt( serial, (BYTE*) &key[n], sizeof( KEYFILE ) );
-#endif
+
             if ( key[n].opt == GLB_ENCODED ) {
                 ii->flags |= ITF_ENCODED;
             }
@@ -383,11 +329,10 @@ GLB_Load(
         } else {
             lseek( handle, ii->offset, SEEK_SET );
             read( handle, inmem, ii->size );
-#ifdef _SCOTTGAME
+
             if ( ii->flags & ITF_ENCODED ) {
                 GLB_DeCrypt( serial, inmem, ii->size );
             }
-#endif
         }
     }
     return ii->size;
