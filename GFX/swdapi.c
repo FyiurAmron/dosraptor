@@ -394,8 +394,7 @@ PRIVATE void SWD_PutField(
                 break;
 
             case FLD_TEXT:
-                SWD_FillText(
-                    fld_font, curfld->item, curfld->fontbasecolor, fld_x, fld_y, curfld->lx, curfld->ly );
+                SWD_FillText( fld_font, curfld->item, curfld->fontbasecolor, fld_x, fld_y, curfld->lx, curfld->ly );
                 break;
 
             default:
@@ -554,7 +553,6 @@ PutField_Exit:
     if ( draw_text && curfld->maxchars > 1 ) {
         GFX_Print( text_x, text_y, fld_text, fld_font, curfld->fontbasecolor );
     }
-
 }
 
 /*------------------------------------------------------------------------
@@ -575,8 +573,8 @@ PRIVATE void SWD_DoButton(
             if ( KBD_Key( SC_ALT ) ) {
                 cur_act = S_WIN_COMMAND;
                 cur_cmd = W_NEXT;
-                while ( (volatile) KBD_Key( SC_TAB ) )
-                    ;
+                while ( (volatile) KBD_Key( SC_TAB ) ) {
+                }
             } else {
                 cur_act = S_FLD_COMMAND;
 
@@ -651,8 +649,8 @@ PRIVATE void SWD_FieldInput(
     switch ( g_key ) {
         case SC_TAB:
             if ( KBD_Key( SC_ALT ) ) {
-                while ( (volatile) KBD_Key( SC_TAB ) )
-                    ;
+                while ( (volatile) KBD_Key( SC_TAB ) ) {
+                }
                 cur_act = S_WIN_COMMAND;
                 cur_cmd = W_NEXT;
             } else {
@@ -1408,7 +1406,8 @@ INT SWD_InitMasterWindow(
 /***************************************************************************
    SWD_SetViewDrawHook () Sets Function to draw after the master window
  ***************************************************************************/
-void SWD_SetViewDrawHook( void ( *func )( void ) // INPUT : pointer to function
+void SWD_SetViewDrawHook(
+    void ( *func )( void ) // INPUT : pointer to function
 ) {
     viewdraw = func;
 }
@@ -1733,8 +1732,8 @@ PRIVATE BOOL SWD_CheckMouse(
     }
 
     if ( mflag ) {
-        while ( PTR_B1 )
-            ;
+        while ( PTR_B1 ) {
+        }
     }
 
     return flag;
