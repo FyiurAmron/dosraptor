@@ -182,13 +182,14 @@ SPECIAL void ShutDown( INT errcode ) {
     DMX_DeInit();
     TSM_Remove();
 
-    GFX_EndSystem();
-
     PTR_End();
     KBD_End();
     SWD_End();
 
     free( g_highmem );
+
+    // memset( displayscreen, 0, 64000 );
+    GFX_RestoreMode();
 
     log_to_file_and_screen( "vaxRaptor ShutDown(%d) complete.", errcode );
 }
@@ -1139,7 +1140,6 @@ void RAP_InitMem( void ) {
 
 void JoyHack( void ) {
     extern INT joy_x, joy_y, joy_buttons;
-    union REGS regs;
 
     printf( "Calibrate joystick...\n" );
 
@@ -1148,7 +1148,7 @@ void JoyHack( void ) {
         PTR_ReadJoyStick();
         _enable();
 
-        printf( "JOY X %03d   JOY Y %03d\n    ", joy_x, joy_y );
+        printf( "JOY X %03d   JOY Y %03d\n", joy_x, joy_y );
         fflush( stdout );
 
         if ( ( joy_buttons & 0x0f ) != 0x0 ) {
@@ -1159,7 +1159,7 @@ void JoyHack( void ) {
 
 void main( INT argc, CHAR* argv[] ) {
     INT loop;
-    INT numfiles;
+    INT numfiles = 0;
     DWORD item;
     CHAR* s_host = getenv( "S_HOST" );
     BOOL ptrflag = FALSE;
@@ -1187,7 +1187,7 @@ void main( INT argc, CHAR* argv[] ) {
         EXIT_Error( "Can't load %s due to error!\n", RAP_SetupFilename() );
     }
 
-    godmode = strcmp( (CHAR*) s_host, gdmodestr ) == 0 ? TRUE : FALSE;
+    godmode = strcmp( s_host, gdmodestr ) == 0 ? TRUE : FALSE;
 
     if ( godmode ) {
         log_to_file_and_screen( "GOD mode enabled" );
@@ -1224,7 +1224,6 @@ void main( INT argc, CHAR* argv[] ) {
         reg_flag = TRUE;
     }
 
-    numfiles = 0;
     for ( loop = 0; loop < 4; loop++ ) {
         if ( gameflag[loop] ) {
             numfiles++;
