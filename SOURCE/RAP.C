@@ -67,16 +67,13 @@ PUBLIC INT curplr_diff = DIFF_2;
 
 PUBLIC INT startendwave = EMPTY;
 PUBLIC BOOL draw_player;
-PUBLIC INT bday_num;
 
-//==============================================
-
-PUBLIC CHAR gdmodestr[] = "CASTLE";
 PUBLIC BOOL lowmem_flag = FALSE;
 PUBLIC BOOL reg_flag = FALSE;
 PUBLIC BOOL tai_flag = FALSE;
 PUBLIC BOOL quick_mode = FALSE;
 PUBLIC BOOL godmode = FALSE;
+PUBLIC INT bday_num;
 
 #define ROTPAL_START 240
 #define FADE_FRAMES  20
@@ -1093,7 +1090,6 @@ void main( INT argc, CHAR* argv[] ) {
     INT i;
     INT numfiles = 0;
     DWORD item;
-    CHAR* s_host = getenv( "S_HOST" );
     BOOL ptrflag = FALSE;
     void* tptr;
 
@@ -1119,10 +1115,8 @@ void main( INT argc, CHAR* argv[] ) {
         JoyHack();
     }
 
-    godmode = strcmp( s_host, gdmodestr ) == 0 ? TRUE : FALSE;
-
     if ( godmode ) {
-        log_to_file_and_screen( "GOD mode enabled" );
+        log_to_file_and_screen( "godmode enabled" );
     }
 
     if ( bday_num != EMPTY ) {
