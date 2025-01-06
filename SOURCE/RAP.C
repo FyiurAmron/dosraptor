@@ -176,17 +176,6 @@ void RAP_PrintVmem( CHAR* desc ) {
    ShutDown () Shut Down function called by EXIT_xxx funtions
  ==========================================================================*/
 SPECIAL void ShutDown( INT errcode ) {
-    union REGS regs;
-    BYTE* scradr = (void*) 0xB8000;
-    BYTE* mem;
-    int loop;
-    int cnt = 0;
-    int i;
-
-    if ( !errcode && !godmode ) {
-        WIN_Order();
-    }
-
     GLB_FreeAll();
 
     IPT_DeInit();
@@ -194,28 +183,6 @@ SPECIAL void ShutDown( INT errcode ) {
     TSM_Remove();
 
     GFX_EndSystem();
-
-    if ( !errcode ) {
-        regs.w.ax = 0x200;
-        regs.h.bh = 0;
-        regs.h.dl = 0;
-        regs.h.dh = 22;
-        int386( 0x10, &regs, &regs );
-
-        mem = GLB_LockItem( reg_flag ? LASTSCR2_TXT : LASTSCR1_TXT );
-
-        for ( loop = 0; loop < 4000 - 160 * 2; loop++ ) {
-            *scradr = *mem;
-            scradr++;
-            mem++;
-            for ( i = 0; i < 5; i++ ) {
-                cnt = cnt + (INT) mem / (INT) scradr - cnt;
-                cnt++;
-            }
-        }
-
-        GLB_FreeItem( reg_flag ? LASTSCR2_TXT : LASTSCR1_TXT );
-    }
 
     PTR_End();
     KBD_End();
@@ -1177,12 +1144,6 @@ void JoyHack( void ) {
     printf( "Calibrate joystick...\n" );
 
     for ( ;; ) {
-        regs.w.ax = 0x200;
-        regs.h.bh = 0;
-        regs.h.dl = 0;
-        regs.h.dh = 1;
-        int386( 0x10, &regs, &regs );
-
         _disable();
         PTR_ReadJoyStick();
         _enable();
