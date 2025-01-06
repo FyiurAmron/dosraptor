@@ -23,7 +23,7 @@ PUBLIC INT shothigh = 0;
 SHOTS_Clear () * Clears out SHOTS Linklist
  ***************************************************************************/
 void SHOTS_Clear( void ) {
-    INT loop;
+    INT i;
 
     shotnum = 0;
 
@@ -37,8 +37,8 @@ void SHOTS_Clear( void ) {
 
     memset( shots, 0, sizeof( shots ) );
 
-    for ( loop = 0; loop < MAX_SHOTS * 1; loop++ ) {
-        shots[loop].next = &shots[loop + 1];
+    for ( i = 0; i < MAX_SHOTS * 1; i++ ) {
+        shots[i].next = &shots[i + 1];
     }
 }
 
@@ -1184,7 +1184,7 @@ SHOTS_Display () - Displays All active Shots
  ***************************************************************************/
 void SHOTS_Display( void ) {
     SHOTS* shot;
-    INT loop;
+    INT i;
     INT x, y;
     GFX_PIC* h;
 
@@ -1206,8 +1206,8 @@ void SHOTS_Display( void ) {
                 continue;
 
             case S_BEAM:
-                for ( loop = shot->move.y2; loop < shot->y; loop += 3 ) {
-                    GFX_PutSprite( shot->pic, shot->x, loop );
+                for ( i = shot->move.y2; i < shot->y; i += 3 ) {
+                    GFX_PutSprite( shot->pic, shot->x, i );
                 }
 
                 if ( shot->lib->type == S_DEATH_RAY ) {

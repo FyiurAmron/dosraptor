@@ -60,7 +60,7 @@ PRIVATE DEFX monkeys[6] = { FX_MON1, FX_MON2, FX_MON3, FX_MON4, FX_MON5, FX_MON6
 ESHOT_Clear () - Clears out ESHOT Linklist
  ***************************************************************************/
 void ESHOT_Clear( void ) {
-    INT loop;
+    INT i;
 
     eshotnum = 0;
 
@@ -74,8 +74,8 @@ void ESHOT_Clear( void ) {
 
     memset( eshots, 0, sizeof( eshots ) );
 
-    for ( loop = 0; loop < MAX_ESHOT - 1; loop++ ) {
-        eshots[loop].next = &eshots[loop + 1];
+    for ( i = 0; i < MAX_ESHOT - 1; i++ ) {
+        eshots[i].next = &eshots[i + 1];
     }
 }
 
@@ -134,13 +134,13 @@ ESHOT_Init () - Inits ESHOT system and clears link list
  ***************************************************************************/
 void ESHOT_Init( void ) {
     ESHOT_LIB* cur;
-    INT loop;
+    INT i;
     GFX_PIC* h;
     DWORD item;
 
-    for ( loop = 0; loop < 4; loop++ ) {
-        item = ELASEPOW_BLK + (DWORD) loop;
-        elaspow[loop] = GLB_LockItem( item );
+    for ( i = 0; i < 4; i++ ) {
+        item = ELASEPOW_BLK + (DWORD) i;
+        elaspow[i] = GLB_LockItem( item );
     }
 
     ESHOT_Clear();
@@ -153,9 +153,9 @@ void ESHOT_Init( void ) {
     cur->num_frames = 2;
     cur->smokeflag = FALSE;
     cur->speed = 6;
-    for ( loop = 0; loop < cur->num_frames; loop++ ) {
-        item = cur->item + (DWORD) loop;
-        cur->pic[loop] = GLB_LockItem( item );
+    for ( i = 0; i < cur->num_frames; i++ ) {
+        item = cur->item + (DWORD) i;
+        cur->pic[i] = GLB_LockItem( item );
     }
     h = (GFX_PIC*) cur->pic[0];
     cur->xoff = h->width >> 1;
@@ -167,9 +167,9 @@ void ESHOT_Init( void ) {
     cur->num_frames = 2;
     cur->smokeflag = FALSE;
     cur->speed = 6;
-    for ( loop = 0; loop < cur->num_frames; loop++ ) {
-        item = cur->item + (DWORD) loop;
-        cur->pic[loop] = GLB_LockItem( item );
+    for ( i = 0; i < cur->num_frames; i++ ) {
+        item = cur->item + (DWORD) i;
+        cur->pic[i] = GLB_LockItem( item );
     }
     h = (GFX_PIC*) cur->pic[0];
     cur->xoff = h->width >> 1;
@@ -181,9 +181,9 @@ void ESHOT_Init( void ) {
     cur->num_frames = 2;
     cur->smokeflag = TRUE;
     cur->speed = 10;
-    for ( loop = 0; loop < cur->num_frames; loop++ ) {
-        item = cur->item + (DWORD) loop;
-        cur->pic[loop] = GLB_LockItem( item );
+    for ( i = 0; i < cur->num_frames; i++ ) {
+        item = cur->item + (DWORD) i;
+        cur->pic[i] = GLB_LockItem( item );
     }
     h = (GFX_PIC*) cur->pic[0];
     cur->xoff = h->width >> 1;
@@ -195,9 +195,9 @@ void ESHOT_Init( void ) {
     cur->num_frames = 2;
     cur->smokeflag = FALSE;
     cur->speed = 0;
-    for ( loop = 0; loop < cur->num_frames; loop++ ) {
-        item = cur->item + (DWORD) loop;
-        cur->pic[loop] = GLB_LockItem( item );
+    for ( i = 0; i < cur->num_frames; i++ ) {
+        item = cur->item + (DWORD) i;
+        cur->pic[i] = GLB_LockItem( item );
     }
     h = (GFX_PIC*) cur->pic[0];
     cur->xoff = h->width >> 1;
@@ -209,9 +209,9 @@ void ESHOT_Init( void ) {
     cur->num_frames = 4;
     cur->smokeflag = FALSE;
     cur->speed = 6;
-    for ( loop = 0; loop < cur->num_frames; loop++ ) {
-        item = cur->item + (DWORD) loop;
-        cur->pic[loop] = GLB_LockItem( item );
+    for ( i = 0; i < cur->num_frames; i++ ) {
+        item = cur->item + (DWORD) i;
+        cur->pic[i] = GLB_LockItem( item );
     }
     h = (GFX_PIC*) cur->pic[0];
     cur->xoff = h->width >> 1;
@@ -223,9 +223,9 @@ void ESHOT_Init( void ) {
     cur->num_frames = 1;
     cur->smokeflag = FALSE;
     cur->speed = 10;
-    for ( loop = 0; loop < cur->num_frames; loop++ ) {
-        item = cur->item + (DWORD) loop;
-        cur->pic[loop] = GLB_LockItem( item );
+    for ( i = 0; i < cur->num_frames; i++ ) {
+        item = cur->item + (DWORD) i;
+        cur->pic[i] = GLB_LockItem( item );
     }
     h = (GFX_PIC*) cur->pic[0];
     cur->xoff = h->width >> 1;
@@ -237,9 +237,9 @@ void ESHOT_Init( void ) {
     cur->num_frames = 4;
     cur->smokeflag = FALSE;
     cur->speed = 6;
-    for ( loop = 0; loop < cur->num_frames; loop++ ) {
-        item = cur->item + (DWORD) loop;
-        cur->pic[loop] = GLB_LockItem( item );
+    for ( i = 0; i < cur->num_frames; i++ ) {
+        item = cur->item + (DWORD) i;
+        cur->pic[i] = GLB_LockItem( item );
     }
     h = (GFX_PIC*) cur->pic[0];
     cur->xoff = h->width >> 1;
@@ -503,14 +503,14 @@ ESHOT_Display () - Displays All active Shots
  ***************************************************************************/
 void ESHOT_Display( void ) {
     ESHOT* shot;
-    INT loop;
+    INT i;
     GFX_PIC* h;
     INT y;
 
     for ( shot = first_eshot.next; shot != &last_eshot; shot = shot->next ) {
         if ( shot->type == ES_LASER ) {
-            for ( loop = shot->y; loop < shot->move.y2; loop += 3 ) {
-                GFX_PutSprite( shot->pic, shot->x, loop );
+            for ( i = shot->y; i < shot->move.y2; i += 3 ) {
+                GFX_PutSprite( shot->pic, shot->x, i );
             }
 
             GFX_PutSprite( elaspow[shot->curframe - 1], shot->x, shot->y );

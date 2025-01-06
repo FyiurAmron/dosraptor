@@ -60,7 +60,7 @@ SND_Setup() - Inits SND System  called after SND_InitSound() and GLB_Init
  ***************************************************************************/
 void SND_Setup( void ) {
     DFX* lib;
-    INT loop;
+    INT i;
 
     memset( fxitems, 0, sizeof( fxitems ) );
 
@@ -467,8 +467,8 @@ void SND_Setup( void ) {
     lib->gcache = TRUE;
     lib->odig = TRUE;
 
-    for ( loop = 0; loop < FX_LAST_SND; loop++ ) {
-        lib = &fxitems[loop];
+    for ( i = 0; i < FX_LAST_SND; i++ ) {
+        lib = &fxitems[i];
         lib->sid = EMPTY;
 
         if ( lib->item > 0 ) {
@@ -485,10 +485,10 @@ SND_CacheFX () Caches all FX's
  ***************************************************************************/
 void SND_CacheFX( void ) {
     DFX* lib;
-    INT loop;
+    INT i;
 
-    for ( loop = 0; loop < FX_LAST_SND; loop++ ) {
-        lib = &fxitems[loop];
+    for ( i = 0; i < FX_LAST_SND; i++ ) {
+        lib = &fxitems[i];
 
         if ( lib->item != EMPTY ) {
             GLB_CacheItem( lib->item );
@@ -501,12 +501,12 @@ SND_CacheGFX () Caches in Game FX's
  ***************************************************************************/
 void SND_CacheGFX( void ) {
     DFX* lib;
-    INT loop;
+    INT i;
 
     SND_StopPatches();
 
-    for ( loop = 0; loop < FX_LAST_SND; loop++ ) {
-        lib = &fxitems[loop];
+    for ( i = 0; i < FX_LAST_SND; i++ ) {
+        lib = &fxitems[i];
 
         if ( lib->item != EMPTY && lib->gcache ) {
             GLB_CacheItem( lib->item );
@@ -519,10 +519,10 @@ SND_CacheIFX () _ Caches intro and menu FX
  ***************************************************************************/
 void SND_CacheIFX( void ) {
     DFX* lib;
-    INT loop;
+    INT i;
 
-    for ( loop = 0; loop < FX_LAST_SND; loop++ ) {
-        lib = &fxitems[loop];
+    for ( i = 0; i < FX_LAST_SND; i++ ) {
+        lib = &fxitems[i];
 
         if ( lib->item != EMPTY && !lib->gcache ) {
             GLB_CacheItem( lib->item );
@@ -546,15 +546,15 @@ SND_StopPatches () - STops all currently playing patches
  ***************************************************************************/
 void SND_StopPatches( void ) {
     DFX* curfld;
-    INT loop;
+    INT i;
 
-    for ( curfld = fxitems, loop = 0; loop < FX_LAST_SND; loop++, curfld++ ) {
+    for ( curfld = fxitems, i = 0; i < FX_LAST_SND; i++, curfld++ ) {
         if ( curfld->sid != EMPTY ) {
             SFX_StopPatch( curfld->sid );
         }
     }
 
-    for ( curfld = fxitems, loop = 0; loop < FX_LAST_SND; loop++, curfld++ ) {
+    for ( curfld = fxitems, i = 0; i < FX_LAST_SND; i++, curfld++ ) {
         if ( curfld->sid != EMPTY ) {
             GLB_UnlockItem( curfld->item );
             curfld->sid = EMPTY;
@@ -582,12 +582,12 @@ SND_FreeFX () - Frees up Fx's
  ***************************************************************************/
 void SND_FreeFX( void ) {
     DFX* lib;
-    INT loop;
+    INT i;
 
     SND_StopPatches();
 
-    for ( loop = 0; loop < FX_LAST_SND; loop++ ) {
-        lib = &fxitems[loop];
+    for ( i = 0; i < FX_LAST_SND; i++ ) {
+        lib = &fxitems[i];
 
         if ( lib->item > 0 ) {
             GLB_FreeItem( lib->item );
@@ -604,7 +604,7 @@ void SND_Patch(
 ) {
     DFX* curfld;
     BYTE* patch;
-    INT loop;
+    INT i;
     INT numsnds;
     INT rnd;
     INT volume;
@@ -616,13 +616,13 @@ void SND_Patch(
     rnd = 0;
     numsnds = 0;
 
-    for ( curfld = fxitems, loop = 0; loop < FX_LAST_SND; loop++, curfld++ ) {
+    for ( curfld = fxitems, i = 0; i < FX_LAST_SND; i++, curfld++ ) {
         if ( curfld->sid == EMPTY ) {
             continue;
         }
 
-        if ( !SFX_Playing( curfld->sid ) && type != loop ) {
-            SND_StopPatch( loop );
+        if ( !SFX_Playing( curfld->sid ) && type != i ) {
+            SND_StopPatch( i );
         } else {
             numsnds++;
         }
@@ -664,7 +664,7 @@ void SND_3DPatch(
 ) {
     DFX* curfld;
     BYTE* patch;
-    INT loop;
+    INT i;
     INT numsnds;
     INT rnd;
     INT xpos;
@@ -681,13 +681,13 @@ void SND_3DPatch(
     rnd = 0;
     numsnds = 0;
 
-    for ( curfld = fxitems, loop = 0; loop < FX_LAST_SND; loop++, curfld++ ) {
+    for ( curfld = fxitems, i = 0; i < FX_LAST_SND; i++, curfld++ ) {
         if ( curfld->sid == EMPTY ) {
             continue;
         }
 
         if ( !SFX_Playing( curfld->sid ) ) {
-            SND_StopPatch( loop );
+            SND_StopPatch( i );
         } else {
             numsnds++;
         }

@@ -50,7 +50,7 @@ PRIVATE INT adir[3] = { 0, -1, 1 };
 ANIMS_Clear () - Clears out All ANIM Objects
  ***************************************************************************/
 void ANIMS_Clear( void ) {
-    INT loop;
+    INT i;
 
     first_anims.prev = NULL;
     first_anims.next = &last_anims;
@@ -62,8 +62,8 @@ void ANIMS_Clear( void ) {
 
     memset( anims, 0, sizeof( anims ) );
 
-    for ( loop = 0; loop < MAX_ANIMS - 1; loop++ ) {
-        anims[loop].next = &anims[loop + 1];
+    for ( i = 0; i < MAX_ANIMS - 1; i++ ) {
+        anims[i].next = &anims[i + 1];
     }
 }
 
@@ -196,13 +196,13 @@ void ANIMS_Init( void ) {
 ANIMS_CachePics() - Cache registered anim pics
  ***************************************************************************/
 void ANIMS_CachePics( void ) {
-    INT loop;
+    INT i;
     ANIMLIB* cur;
     DWORD frames;
 
     cur = animlib;
 
-    for ( loop = 0; loop < curlib; loop++, cur++ ) {
+    for ( i = 0; i < curlib; i++, cur++ ) {
         for ( frames = 0; frames < cur->numframes; frames++ ) {
             GLB_CacheItem( cur->item + frames );
         }
@@ -213,13 +213,13 @@ void ANIMS_CachePics( void ) {
 ANIMS_FreePics() - Free Up Anims Used
  ***************************************************************************/
 void ANIMS_FreePics( void ) {
-    INT loop;
+    INT i;
     ANIMLIB* cur;
     DWORD frames;
 
     cur = animlib;
 
-    for ( loop = 0; loop < curlib; loop++, cur++ ) {
+    for ( i = 0; i < curlib; i++, cur++ ) {
         for ( frames = 0; frames < cur->numframes; frames++ ) {
             GLB_FreeItem( cur->item + frames );
         }

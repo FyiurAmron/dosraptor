@@ -99,19 +99,19 @@ INT MoveEobj(
 ENEMY_FreeSprites () - Free Memory Used by Sprites use in last level
  ***************************************************************************/
 void ENEMY_FreeSprites( void ) {
-    INT loop, i;
+    INT j, i;
     SPRITE* curlib;
     CSPRITE* curfld;
 
-    for ( loop = 0; loop < 4; loop++ ) {
-        if ( spriteflag[loop] ) {
-            GLB_FreeItem( spriteitm[loop] );
+    for ( j = 0; j < 4; j++ ) {
+        if ( spriteflag[j] ) {
+            GLB_FreeItem( spriteitm[j] );
         }
     }
 
-    for ( loop = 0; loop < ml->numsprites; loop++ ) {
-        curfld = &csprite[loop];
-        curlib = &slib[csprite[loop].game][csprite[loop].slib];
+    for ( j = 0; j < ml->numsprites; j++ ) {
+        curfld = &csprite[j];
+        curlib = &slib[csprite[j].game][csprite[j].slib];
 
         if ( curfld->level & cur_diff ) {
             for ( i = 0; i < curlib->num_frames; i++ ) {
@@ -125,7 +125,7 @@ void ENEMY_FreeSprites( void ) {
 ENEMY_LoadSprites() -
  ***************************************************************************/
 void ENEMY_LoadSprites( void ) {
-    INT loop, i;
+    INT j, i;
     SPRITE* curlib;
     CSPRITE* curfld;
     DWORD item;
@@ -134,9 +134,9 @@ void ENEMY_LoadSprites( void ) {
     cur_visable = 0;
     boss_sound = FALSE;
 
-    for ( loop = 0; loop < ml->numsprites; loop++ ) {
-        curfld = &csprite[loop];
-        curlib = &slib[csprite[loop].game][curfld->slib];
+    for ( j = 0; j < ml->numsprites; j++ ) {
+        curfld = &csprite[j];
+        curlib = &slib[csprite[j].game][curfld->slib];
         curlib->item = GLB_GetItemID( curlib->iname );
 
         switch ( curfld->level ) {
@@ -189,20 +189,20 @@ void ENEMY_LoadSprites( void ) {
 ENEMY_LoadLib () - Loads and Locks spritelib's MUST becalled b4 LoadSprites
  ***************************************************************************/
 void ENEMY_LoadLib( void ) {
-    INT loop;
+    INT i;
 
     memset( spriteflag, 0, sizeof( spriteflag ) );
 
-    for ( loop = 0; loop < ml->numsprites; loop++ ) {
-        spriteflag[csprite[loop].game] = TRUE;
+    for ( i = 0; i < ml->numsprites; i++ ) {
+        spriteflag[csprite[i].game] = TRUE;
     }
 
     g_numslibs = 0;
-    for ( loop = 0; loop < 4; loop++ ) {
-        slib[loop] = NULL;
-        numslib[loop] = 0;
+    for ( i = 0; i < 4; i++ ) {
+        slib[i] = NULL;
+        numslib[i] = 0;
 
-        if ( spriteflag[loop] ) {
+        if ( spriteflag[i] ) {
             g_numslibs++;
         }
     }
@@ -215,16 +215,16 @@ void ENEMY_LoadLib( void ) {
         }
     }
 
-    for ( loop = 0; loop < 4; loop++ ) {
-        if ( spriteflag[loop] ) {
-            slib[loop] = (SPRITE*) GLB_LockItem( spriteitm[loop] );
+    for ( i = 0; i < 4; i++ ) {
+        if ( spriteflag[i] ) {
+            slib[i] = (SPRITE*) GLB_LockItem( spriteitm[i] );
 
-            if ( slib[loop] == NULL ) {
+            if ( slib[i] == NULL ) {
                 EXIT_Error( "ENEMY_LoadSprites() - memory" );
             }
 
-            numslib[loop] = GLB_ItemSize( spriteitm[loop] );
-            numslib[loop] = numslib[loop] / sizeof( SPRITE );
+            numslib[i] = GLB_ItemSize( spriteitm[i] );
+            numslib[i] = numslib[i] / sizeof( SPRITE );
         }
     }
 }
@@ -233,7 +233,7 @@ void ENEMY_LoadLib( void ) {
 ENEMY_Clear()
  ***************************************************************************/
 void ENEMY_Clear( void ) {
-    INT loop;
+    INT i;
 
     numboss = 0;
     numships = 0;
@@ -249,8 +249,8 @@ void ENEMY_Clear( void ) {
 
     memset( ships, 0, sizeof( ships ) );
 
-    for ( loop = 0; loop < MAX_ONSCREEN - 1; loop++ ) {
-        ships[loop].next = &ships[loop + 1];
+    for ( i = 0; i < MAX_ONSCREEN - 1; i++ ) {
+        ships[i].next = &ships[i + 1];
     }
 
     if ( ml->numsprites ) {
@@ -451,18 +451,18 @@ ENEMY_GetRandomAir () - Returns a random ship thats visable
  ***************************************************************************/
 SPRITE_SHIP* ENEMY_GetRandomAir( void ) {
     INT pos;
-    INT loop;
+    INT i;
 
     if ( !cur_visable ) {
         return NULL;
     }
 
     pos = 0;
-    for ( loop = 0; loop < cur_visable; loop++ ) {
-        if ( onscreen[loop]->groundflag ) {
+    for ( i = 0; i < cur_visable; i++ ) {
+        if ( onscreen[i]->groundflag ) {
             continue;
         }
-        rscreen[pos] = onscreen[loop];
+        rscreen[pos] = onscreen[i];
         pos++;
     }
 
@@ -482,11 +482,11 @@ BOOL ENEMY_DamageAll(
     INT y, // INPUT : y position
     INT damage // INPUT : damage
 ) {
-    INT loop;
+    INT i;
     SPRITE_SHIP* cur;
 
-    for ( loop = 0; loop < cur_visable; loop++ ) {
-        cur = onscreen[loop];
+    for ( i = 0; i < cur_visable; i++ ) {
+        cur = onscreen[i];
 
         if ( x > cur->x && x < cur->x2 && y > cur->y && y < cur->y2 ) {
             cur->hits -= damage;
@@ -505,11 +505,11 @@ BOOL ENEMY_DamageGround(
     INT y, // INPUT : y position
     INT damage // INPUT : damage
 ) {
-    INT loop;
+    INT i;
     SPRITE_SHIP* cur;
 
-    for ( loop = 0; loop < cur_visable; loop++ ) {
-        cur = onscreen[loop];
+    for ( i = 0; i < cur_visable; i++ ) {
+        cur = onscreen[i];
 
         if ( !cur->groundflag ) {
             continue;
@@ -535,11 +535,11 @@ BOOL ENEMY_DamageAir(
     INT y, // INPUT : y position
     INT damage // INPUT : damage
 ) {
-    INT loop;
+    INT i;
     SPRITE_SHIP* cur;
 
-    for ( loop = 0; loop < cur_visable; loop++ ) {
-        cur = onscreen[loop];
+    for ( i = 0; i < cur_visable; i++ ) {
+        cur = onscreen[i];
 
         if ( cur->groundflag ) {
             continue;
@@ -564,11 +564,11 @@ SPRITE_SHIP* ENEMY_DamageEnergy(
     INT y, // INPUT : y position
     INT damage // INPUT : damage
 ) {
-    INT loop;
+    INT i;
     SPRITE_SHIP* cur;
 
-    for ( loop = 0; loop < cur_visable; loop++ ) {
-        cur = onscreen[loop];
+    for ( i = 0; i < cur_visable; i++ ) {
+        cur = onscreen[i];
 
         if ( cur->groundflag ) {
             continue;
@@ -602,7 +602,7 @@ void ENEMY_Think( void ) {
     SPRITE* curlib;
     CSPRITE* old_enemy;
     INT speed;
-    INT loop;
+    INT i;
     INT x;
     INT y;
     INT area;
@@ -901,8 +901,8 @@ void ENEMY_Think( void ) {
                     sprite->shootflag = curlib->shotspace;
 
                     if ( !sprite->shoot_disable ) {
-                        for ( loop = 0; loop < curlib->numguns; loop++ ) {
-                            ESHOT_Shoot( sprite, loop );
+                        for ( i = 0; i < curlib->numguns; i++ ) {
+                            ESHOT_Shoot( sprite, i );
                         }
                     }
 
@@ -991,10 +991,10 @@ void ENEMY_Think( void ) {
                 case EXP_AIRLARGE:
                     ANIMS_StartAnim( A_LARGE_AIR_EXPLO, sprite->x + sprite->hlx, sprite->y + sprite->hly );
                     area = ( sprite->width >> 4 ) * ( sprite->height >> 4 );
-                    for ( loop = 0; loop < area; loop++ ) {
+                    for ( i = 0; i < area; i++ ) {
                         x = sprite->x + random( sprite->width );
                         y = sprite->y + random( sprite->height );
-                        if ( loop & 1 ) {
+                        if ( i & 1 ) {
                             ANIMS_StartAnim( A_MED_AIR_EXPLO, x, y );
                         } else {
                             ANIMS_StartAAnim( A_MED_AIR_EXPLO2, x, y );
@@ -1020,7 +1020,7 @@ void ENEMY_Think( void ) {
                 case EXP_GRDLARGE:
                     ANIMS_StartAnim( A_LARGE_GROUND_EXPLO1, sprite->x + sprite->hlx, sprite->y + sprite->hly );
                     area = ( sprite->width >> 4 ) * ( sprite->height >> 4 );
-                    for ( loop = 0; loop < area; loop++ ) {
+                    for ( i = 0; i < area; i++ ) {
                         x = sprite->x + random( sprite->width );
                         y = sprite->y + random( sprite->height );
 
@@ -1037,11 +1037,11 @@ void ENEMY_Think( void ) {
                 case EXP_BOSS:
                     ANIMS_StartAnim( A_LARGE_AIR_EXPLO, sprite->x + sprite->hlx, sprite->y + sprite->hly );
                     area = ( sprite->width >> 4 ) * ( sprite->height >> 4 );
-                    for ( loop = 0; loop < area; loop++ ) {
+                    for ( i = 0; i < area; i++ ) {
                         x = sprite->x + random( sprite->width );
                         y = sprite->y + random( sprite->height );
                         ANIMS_StartAAnim( A_GROUND_FLARE, x, y );
-                        if ( loop & 1 ) {
+                        if ( i & 1 ) {
                             ANIMS_StartAnim( A_LARGE_AIR_EXPLO, x, y );
                         } else {
                             ANIMS_StartAnim( A_MED_AIR_EXPLO2, x, y );

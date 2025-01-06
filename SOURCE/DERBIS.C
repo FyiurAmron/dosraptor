@@ -22,7 +22,7 @@ PRIVATE ESHOT* free_derb;
 DERB_Clear () - Clears out ESHOT Linklist
  ***************************************************************************/
 void DERB_Clear( void ) {
-    INT loop;
+    INT i;
 
     eshotnum = 0;
 
@@ -36,8 +36,8 @@ void DERB_Clear( void ) {
 
     memset( eshots, 0, sizeof( eshots ) );
 
-    for ( loop = 0; loop < MAX_ESHOT - 1; loop++ ) {
-        eshots[loop].next = &eshots[loop + 1];
+    for ( i = 0; i < MAX_ESHOT - 1; i++ ) {
+        eshots[i].next = &eshots[i + 1];
     }
 }
 

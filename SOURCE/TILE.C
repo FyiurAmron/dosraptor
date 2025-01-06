@@ -43,7 +43,7 @@ PRIVATE INT flare_delay = 0;
 TClear () - Clears TILE Delay Link List
  *-------------------------------------------------------------------------*/
 PRIVATE void TClear( void ) {
-    INT loop;
+    INT i;
 
     first_delay.prev = NULL;
     first_delay.next = &last_delay;
@@ -55,8 +55,8 @@ PRIVATE void TClear( void ) {
 
     memset( tdel, 0, sizeof( tdel ) );
 
-    for ( loop = 0; loop < MAX_TILEDELAY - 1; loop++ ) {
-        tdel[loop].next = &tdel[loop + 1];
+    for ( i = 0; i < MAX_TILEDELAY - 1; i++ ) {
+        tdel[i].next = &tdel[i + 1];
     }
 }
 
@@ -110,12 +110,12 @@ PRIVATE void TILE_DoDamage( INT mapspot, INT damage ) {
     static INT mlookup[3] = { -1, -MAP_COLS, 1 };
     static INT xlookup[3] = { -1, 0, 1 };
     INT ix = mapspot % MAP_COLS;
-    INT loop;
+    INT i;
     INT spot;
     INT x;
 
-    for ( loop = 0; loop < 3; loop++ ) {
-        spot = mapspot + mlookup[loop];
+    for ( i = 0; i < 3; i++ ) {
+        spot = mapspot + mlookup[i];
 
         if ( spot < 0 ) {
             continue;
@@ -128,7 +128,7 @@ PRIVATE void TILE_DoDamage( INT mapspot, INT damage ) {
             continue;
         }
 
-        x = ix + xlookup[loop];
+        x = ix + xlookup[i];
         if ( x < 0 ) {
             continue;
         }
@@ -209,7 +209,7 @@ void TILE_CacheLevel( void ) {
     INT game;
     FLATS* lib;
     DWORD item;
-    INT loop;
+    INT i;
 
     TClear();
     g_mapleft = MAP_LEFT;
@@ -228,28 +228,28 @@ void TILE_CacheLevel( void ) {
     memset( tdead, 0, sizeof( tdead ) );
 
     // == CACHE TILES =========================
-    for ( loop = 0; loop < MAP_SIZE; loop++ ) {
-        game = ml->map[loop].fgame;
+    for ( i = 0; i < MAP_SIZE; i++ ) {
+        game = ml->map[i].fgame;
         lib = flatlib[game];
 
-        money[loop] = lib[ml->map[loop].flats].bounty;
+        money[i] = lib[ml->map[i].flats].bounty;
 
         item = startflat[game];
-        item += ml->map[loop].flats;
-        titems[loop] = item;
+        item += ml->map[i].flats;
+        titems[i] = item;
         GLB_CacheItem( item );
 
         item = startflat[game];
-        item += (DWORD) lib[ml->map[loop].flats].linkflat;
-        eitems[loop] = item;
-        if ( eitems[loop] != titems[loop] ) {
+        item += (DWORD) lib[ml->map[i].flats].linkflat;
+        eitems[i] = item;
+        if ( eitems[i] != titems[i] ) {
             GLB_CacheItem( item );
         }
 
-        if ( eitems[loop] != titems[loop] ) {
-            hits[loop] = lib[ml->map[loop].flats].bonus;
+        if ( eitems[i] != titems[i] ) {
+            hits[i] = lib[ml->map[i].flats].bonus;
         } else {
-            hits[loop] = 1;
+            hits[i] = 1;
         }
     }
 }
@@ -258,13 +258,13 @@ void TILE_CacheLevel( void ) {
 TILE_FreeLevel () - Free tile level
  ***************************************************************************/
 void TILE_FreeLevel( void ) {
-    INT loop;
+    INT i;
 
-    for ( loop = 0; loop < MAP_SIZE; loop++ ) {
-        GLB_FreeItem( titems[loop] );
+    for ( i = 0; i < MAP_SIZE; i++ ) {
+        GLB_FreeItem( titems[i] );
 
-        if ( eitems[loop] != titems[loop] ) {
-            GLB_FreeItem( eitems[loop] );
+        if ( eitems[i] != titems[i] ) {
+            GLB_FreeItem( eitems[i] );
         }
     }
 }
@@ -294,8 +294,8 @@ TILE_Think () - Does Position Calculations for tiles
 void TILE_Think( void ) {
     TILESPOT* ts;
     TILEDELAY* td;
-    INT loopx;
-    INT loopy;
+    INT ix;
+    INT iy;
     INT mapspot;
     INT x;
     INT y;
@@ -307,9 +307,9 @@ void TILE_Think( void ) {
 
     ts = tspots;
 
-    for ( loopy = 0; loopy < MAP_ONSCREEN; loopy++, y += 32 ) {
+    for ( iy = 0; iy < MAP_ONSCREEN; iy++, y += 32 ) {
         x = MAP_LEFT;
-        for ( loopx = 0; loopx < MAP_COLS; loopx++, x += 32, mapspot++, ts++ ) {
+        for ( ix = 0; ix < MAP_COLS; ix++, x += 32, mapspot++, ts++ ) {
             ts->mapspot = mapspot;
             ts->x = x;
             ts->y = y;

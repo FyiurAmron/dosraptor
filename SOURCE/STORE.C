@@ -51,7 +51,7 @@ extern OBJ p_objs[];
 MakeBuyItems () - Makes items you can Buy
  *-------------------------------------------------------------------------*/
 PRIVATE INT MakeBuyItems( void ) {
-    INT loop;
+    INT i;
     INT num;
     BOOL flag;
     INT cost1;
@@ -60,9 +60,9 @@ PRIVATE INT MakeBuyItems( void ) {
     buy_count = 0;
     memset( b_items, 0, sizeof( b_items ) );
 
-    for ( loop = 0; loop < S_ITEMBUY1; loop++ ) {
-        if ( OBJS_CanBuy( loop ) ) {
-            b_items[buy_count] = loop;
+    for ( i = 0; i < S_ITEMBUY1; i++ ) {
+        if ( OBJS_CanBuy( i ) ) {
+            b_items[buy_count] = i;
             buy_count++;
         }
     }
@@ -72,15 +72,15 @@ PRIVATE INT MakeBuyItems( void ) {
     if ( buy_count > 1 ) {
         for ( ;; ) {
             flag = FALSE;
-            for ( loop = 0; loop < buy_count - 1; loop++ ) {
-                cost1 = OBJS_GetCost( b_items[loop] );
-                cost2 = OBJS_GetCost( b_items[loop + 1] );
+            for ( i = 0; i < buy_count - 1; i++ ) {
+                cost1 = OBJS_GetCost( b_items[i] );
+                cost2 = OBJS_GetCost( b_items[i + 1] );
 
                 if ( cost1 > cost2 ) {
                     flag = TRUE;
-                    num = b_items[loop];
-                    b_items[loop] = b_items[loop + 1];
-                    b_items[loop + 1] = num;
+                    num = b_items[i];
+                    b_items[i] = b_items[i + 1];
+                    b_items[i + 1] = num;
                 }
             }
 
@@ -97,7 +97,7 @@ PRIVATE INT MakeBuyItems( void ) {
 MakeSellItems() - Makes the items that you can sell
  *-------------------------------------------------------------------------*/
 PRIVATE INT MakeSellItems( void ) {
-    INT loop;
+    INT i;
     INT num;
     BOOL flag;
     INT cost1;
@@ -106,9 +106,9 @@ PRIVATE INT MakeSellItems( void ) {
     memset( s_items, 0, sizeof( s_items ) );
 
     sell_count = 0;
-    for ( loop = 0; loop < S_LAST_OBJECT; loop++ ) {
-        if ( OBJS_CanSell( loop ) ) {
-            s_items[sell_count] = loop;
+    for ( i = 0; i < S_LAST_OBJECT; i++ ) {
+        if ( OBJS_CanSell( i ) ) {
+            s_items[sell_count] = i;
             sell_count++;
         }
     }
@@ -118,15 +118,15 @@ PRIVATE INT MakeSellItems( void ) {
     if ( sell_count > 1 ) {
         for ( ;; ) {
             flag = FALSE;
-            for ( loop = 0; loop < sell_count - 1; loop++ ) {
-                cost1 = OBJS_GetCost( s_items[loop] );
-                cost2 = OBJS_GetCost( s_items[loop + 1] );
+            for ( i = 0; i < sell_count - 1; i++ ) {
+                cost1 = OBJS_GetCost( s_items[i] );
+                cost2 = OBJS_GetCost( s_items[i + 1] );
 
                 if ( cost1 > cost2 ) {
                     flag = TRUE;
-                    num = s_items[loop];
-                    s_items[loop] = s_items[loop + 1];
-                    s_items[loop + 1] = num;
+                    num = s_items[i];
+                    s_items[i] = s_items[i + 1];
+                    s_items[i + 1] = num;
                 }
             }
 
@@ -202,7 +202,7 @@ void STORE_Enter( void ) {
     INT pos;
     INT num;
     INT cost;
-    INT loop;
+    INT i;
 
     PTR_DrawCursor( FALSE );
     KBD_Clear();
@@ -534,9 +534,9 @@ mainloop:
                                         break;
                                 }
                                 MakeBuyItems();
-                                for ( loop = 0; loop < buy_count; loop++ ) {
-                                    if ( b_items[loop] == pos ) {
-                                        cur_item = loop;
+                                for ( i = 0; i < buy_count; i++ ) {
+                                    if ( b_items[i] == pos ) {
+                                        cur_item = i;
                                         break;
                                     }
                                 }
@@ -545,9 +545,9 @@ mainloop:
                                 OBJS_Sell( pos );
                                 MakeSellItems();
                                 SND_Patch( FX_SWEP, 127 );
-                                for ( loop = 0; loop < sell_count; loop++ ) {
-                                    if ( s_items[loop] == pos ) {
-                                        cur_item = loop;
+                                for ( i = 0; i < sell_count; i++ ) {
+                                    if ( s_items[i] == pos ) {
+                                        cur_item = i;
                                         break;
                                     }
                                 }
