@@ -95,8 +95,13 @@ void RAP_PrintVmem( CHAR* desc ) {
 
     VM_GetCoreInfo( &largest, &totalfree, &totallocked, &totalused, &discarded );
     printf(
-        "\n%s\nVM CORE INFO\nLargest Block: %7d\nAmount Locked: %7d\n    Discarded: %7d\n  Amount Free: %7d\n  Amount "
-        "Used: %7d\n        Total: %7d\n",
+        "\n%s\nVM CORE INFO\n"
+        "Largest Block: %7d\n"
+        "Amount Locked: %7d\n"
+        "    Discarded: %7d\n"
+        "  Amount Free: %7d\n"
+        "  Amount Used: %7d\n"
+        "        Total: %7d\n",
         desc, largest, totallocked, discarded, totalfree, totalused, totalused + totalfree );
 }
 
@@ -1134,8 +1139,6 @@ void main( INT argc, CHAR* argv[] ) {
         }
     }
 
-    cur_diff = 0;
-
     if ( access( "FILE0000.GLB", 0 ) != 0 || access( "FILE0001.GLB", 0 ) != 0 ) {
         EXIT_Error( "required globs FILE0000 & FILE0001 are missing - cannot proceed!\n" );
     }
@@ -1234,8 +1237,6 @@ void main( INT argc, CHAR* argv[] ) {
     GFX_InitVideo( palette );
     SHADOW_MakeShades();
 
-    RAP_ClearPlayer();
-
     if ( demo_flag == DEMO_OFF ) {
         if ( !quick_mode ) {
             if ( tai_flag ) {
@@ -1251,7 +1252,10 @@ void main( INT argc, CHAR* argv[] ) {
         DEMO_Play();
     }
 
+    RAP_ClearPlayer();
+
     cur_game = 0;
+    cur_diff = 0;
     game_wave[0] = 0;
     game_wave[1] = 0;
     game_wave[2] = 0;
