@@ -23,7 +23,7 @@ PRIVATE INT think_cnt;
 OBJS_Clear () - Clears out All Objects
  ***************************************************************************/
 void OBJS_Clear( void ) {
-    INT loop;
+    INT i;
 
     obj_cnt = 0;
 
@@ -38,8 +38,8 @@ void OBJS_Clear( void ) {
     memset( objs, 0, sizeof( objs ) );
     memset( p_objs, 0, sizeof( p_objs ) );
 
-    for ( loop = 0; loop < MAX_OBJS - 1; loop++ ) {
-        objs[loop].next = &objs[loop + 1];
+    for ( i = 0; i < MAX_OBJS - 1; i++ ) {
+        objs[i].next = &objs[i + 1];
     }
 }
 
@@ -94,10 +94,10 @@ OBJS_CachePics () - PreLoad bonus/object pictures
  ***************************************************************************/
 void OBJS_CachePics( void ) {
     OBJ_LIB* lib;
-    INT loop, i;
+    INT j, i;
 
-    for ( loop = 0; loop < S_LAST_OBJECT; loop++ ) {
-        lib = &obj_lib[loop];
+    for ( j = 0; j < S_LAST_OBJECT; j++ ) {
+        lib = &obj_lib[j];
 
         if ( lib && lib->item != EMPTY ) {
             for ( i = 0; i < lib->numframes; i++ ) {
@@ -115,10 +115,10 @@ OBJS_FreePics () - Free bonus/object picstures
  ***************************************************************************/
 void OBJS_FreePics( void ) {
     OBJ_LIB* lib;
-    INT loop, i;
+    INT j, i;
 
-    for ( loop = 0; loop < S_LAST_OBJECT; loop++ ) {
-        lib = &obj_lib[loop];
+    for ( j = 0; j < S_LAST_OBJECT; j++ ) {
+        lib = &obj_lib[j];
 
         if ( lib && lib->item != EMPTY ) {
             for ( i = 0; i < lib->numframes; i++ ) {
@@ -548,15 +548,15 @@ OBJS_DisplayStats() - Display game screen object stuff
 void OBJS_DisplayStats( void ) {
     static int dpos = 0;
     DWORD item;
-    INT loop;
+    INT i;
     INT x;
     INT maxloop;
 
     if ( p_objs[S_DETECT] ) {
-        loop = ENEMY_GetBaseDamage();
-        if ( loop > 0 ) {
+        i = ENEMY_GetBaseDamage();
+        if ( i > 0 ) {
             GFX_ColorBox( 109, MAP_BOTTOM + 9, 102, 8, 74 );
-            GFX_ColorBox( 110, MAP_BOTTOM + 10, loop, 6, 68 );
+            GFX_ColorBox( 110, MAP_BOTTOM + 10, i, 6, 68 );
         } else {
             GFX_VLine( 110 + dpos, MAP_BOTTOM + 8, 3, 68 );
             GFX_VLine( 110 + 99 - dpos, MAP_BOTTOM + 8, 3, 68 );
@@ -573,7 +573,7 @@ void OBJS_DisplayStats( void ) {
     if ( p_objs[S_SUPER_SHIELD] ) {
         x = MAP_LEFT + 2;
         maxloop = OBJS_GetTotal( S_SUPER_SHIELD );
-        for ( loop = 0; loop < maxloop; loop++ ) {
+        for ( i = 0; i < maxloop; i++ ) {
             GFX_PutSprite( GLB_GetItem( SMSHIELD_PIC ), x, 1 );
             x += 13;
         }
@@ -581,7 +581,7 @@ void OBJS_DisplayStats( void ) {
 
     if ( p_objs[S_MEGA_BOMB] ) {
         x = MAP_LEFT + 2;
-        for ( loop = 0; loop < p_objs[S_MEGA_BOMB]->num; loop++ ) {
+        for ( i = 0; i < p_objs[S_MEGA_BOMB]->num; i++ ) {
             GFX_PutSprite( GLB_GetItem( SMBOMB_PIC ), x, 199 - 13 );
             x += 13;
         }
@@ -727,7 +727,7 @@ void OBJS_Del(
 OBJS_GetNext () - Sets plr.sweapon to next avalable weapon
  ***************************************************************************/
 void OBJS_GetNext( void ) {
-    INT loop;
+    INT i;
     INT pos;
     INT setval = EMPTY;
     OBJ* cur;
@@ -738,7 +738,7 @@ void OBJS_GetNext( void ) {
         pos = plr.sweapon + 1;
     }
 
-    for ( loop = FIRST_SPECIAL; loop <= LAST_WEAPON; loop++ ) {
+    for ( i = FIRST_SPECIAL; i <= LAST_WEAPON; i++ ) {
         if ( pos > LAST_WEAPON ) {
             pos = FIRST_SPECIAL;
         }

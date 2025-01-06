@@ -15,17 +15,17 @@ FRAME frm[40];
 INTRO_City () - Shows City with planes flying into it
  ***************************************************************************/
 BOOL INTRO_City( void ) {
-    INT loop;
+    INT i;
     INT maxframes = 30;
     INT framecnt = maxframes - 1;
     FRAME* cur = frm;
 
-    for ( loop = 0; loop < maxframes; loop++, cur++ ) {
+    for ( i = 0; i < maxframes; i++, cur++ ) {
         cur->holdframe = 0;
         cur->opt = M_ANIM;
         cur->framerate = 8;
         cur->numframes = framecnt--;
-        cur->item = CHASE_AGX + loop;
+        cur->item = CHASE_AGX + i;
         cur->startf = M_NORM;
         cur->startsteps = 0;
         cur->endf = M_NORM;
@@ -40,12 +40,12 @@ BOOL INTRO_City( void ) {
         cur->fx_vol = 0;
         cur->fx_xpos = 127;
 
-        if ( loop == 4 ) {
+        if ( i == 4 ) {
             cur->soundfx = FX_FLYBY;
             cur->fx_xpos = 210;
         }
 
-        if ( loop == 9 ) {
+        if ( i == 9 ) {
             cur->soundfx = FX_FLYBY;
             cur->fx_xpos = 100;
         }
@@ -69,19 +69,19 @@ BOOL INTRO_City( void ) {
 INTRO_Side1 () - Show Side OF Player ship going thru city
  ***************************************************************************/
 BOOL INTRO_Side1( void ) {
-    INT loop;
+    INT i;
     INT maxframes = 20;
     INT framecnt = maxframes - 1;
     FRAME* cur = frm;
 
     MOVIE_BPatch( FX_JETSND );
 
-    for ( loop = 0; loop < maxframes; loop++, cur++ ) {
+    for ( i = 0; i < maxframes; i++, cur++ ) {
         cur->holdframe = 0;
         cur->opt = M_ANIM;
         cur->framerate = 18;
         cur->numframes = framecnt--;
-        cur->item = SHIPSD1_AGX + loop;
+        cur->item = SHIPSD1_AGX + i;
         cur->startf = M_NORM;
         cur->startsteps = 0;
         cur->endf = M_NORM;
@@ -108,19 +108,19 @@ BOOL INTRO_Side1( void ) {
 INTRO_Pilot () - Shows Pilots Face with lights moving thru
  ***************************************************************************/
 BOOL INTRO_Pilot( void ) {
-    INT loop;
+    INT i;
     INT maxframes = 21;
     INT framecnt = maxframes - 1;
     FRAME* cur = frm;
 
     MOVIE_BPatch( FX_IJETSND );
 
-    for ( loop = 0; loop < maxframes; loop++, cur++ ) {
+    for ( i = 0; i < maxframes; i++, cur++ ) {
         cur->holdframe = 0;
         cur->opt = M_ANIM;
         cur->framerate = 10;
         cur->numframes = framecnt--;
-        cur->item = PILOT_AGX + loop;
+        cur->item = PILOT_AGX + i;
         cur->startf = M_NORM;
         cur->startsteps = 0;
         cur->endf = M_NORM;
@@ -147,19 +147,19 @@ BOOL INTRO_Pilot( void ) {
 INTRO_Explosion () - Bad Guy Blowing UP
  ***************************************************************************/
 BOOL INTRO_Explosion( void ) {
-    INT loop;
+    INT i;
     INT maxframes = 22;
     INT framecnt = maxframes - 1;
     FRAME* cur = frm;
 
     MOVIE_BPatch( FX_EJETSND );
 
-    for ( loop = 0; loop < maxframes; loop++, cur++ ) {
+    for ( i = 0; i < maxframes; i++, cur++ ) {
         cur->holdframe = 0;
         cur->opt = M_ANIM;
         cur->framerate = 12;
         cur->numframes = framecnt--;
-        cur->item = EXPLO_AGX + loop;
+        cur->item = EXPLO_AGX + i;
         cur->startf = M_NORM;
         cur->startsteps = 0;
         cur->endf = M_NORM;
@@ -174,13 +174,13 @@ BOOL INTRO_Explosion( void ) {
         cur->fx_xpos = 127;
         cur->fx_vol = 127;
 
-        if ( loop >= 2 && loop < 10 ) {
+        if ( i >= 2 && i < 10 ) {
             cur->soundfx = FX_INTROHIT;
             cur->fx_xpos = 110 + random( 40 );
         }
 
-        if ( loop >= 8 ) {
-            if ( loop & 1 ) {
+        if ( i >= 8 ) {
+            if ( i & 1 ) {
                 cur->soundfx = FX_AIREXPLO;
             }
         }
@@ -206,7 +206,7 @@ BOOL INTRO_Explosion( void ) {
 INTRO_Side2 () - Plaer Side flying thru city Shooting
  ***************************************************************************/
 BOOL INTRO_Side2( void ) {
-    INT loop;
+    INT i;
     INT maxframes = 20;
     INT framecnt = maxframes - 1;
     FRAME* cur = frm;
@@ -214,12 +214,12 @@ BOOL INTRO_Side2( void ) {
 
     MOVIE_BPatch( FX_JETSND );
 
-    for ( loop = 0; loop < maxframes; loop++, cur++ ) {
+    for ( i = 0; i < maxframes; i++, cur++ ) {
         cur->holdframe = 0;
         cur->opt = M_ANIM;
         cur->framerate = 18;
         cur->numframes = framecnt--;
-        cur->item = SHIPSD1_AGX + loop;
+        cur->item = SHIPSD1_AGX + i;
         cur->startf = M_NORM;
         cur->startsteps = 0;
         cur->endf = M_NORM;
@@ -249,12 +249,12 @@ BOOL INTRO_Side2( void ) {
     framecnt = maxframes - 1;
     cur = frm;
 
-    for ( loop = 0; loop < maxframes; loop++, cur++ ) {
+    for ( i = 0; i < maxframes; i++, cur++ ) {
         cur->holdframe = 0;
         cur->opt = M_ANIM;
         cur->framerate = 18;
         cur->numframes = framecnt--;
-        cur->item = SHIPSD2_AGX + loop;
+        cur->item = SHIPSD2_AGX + i;
         cur->startf = M_NORM;
         cur->startsteps = 0;
         cur->endf = M_NORM;
@@ -267,7 +267,7 @@ BOOL INTRO_Side2( void ) {
         cur->songstep = 0;
         cur->soundfx = EMPTY;
         cur->fx_xpos = 127;
-        if ( loop > 1 ) {
+        if ( i > 1 ) {
             cur->soundfx = FX_INTROGUN;
         }
     }
@@ -285,7 +285,7 @@ BOOL INTRO_Side2( void ) {
 INTRO_Base() - Base Landing at sunset
  ***************************************************************************/
 BOOL INTRO_Base( void ) {
-    INT loop;
+    INT i;
     INT maxframes = 30;
     INT framecnt = maxframes - 1;
     FRAME* cur = frm;
@@ -294,12 +294,12 @@ BOOL INTRO_Base( void ) {
         return TRUE;
     }
 
-    for ( loop = 0; loop < maxframes; loop++ ) {
+    for ( i = 0; i < maxframes; i++ ) {
         cur->holdframe = 0;
         cur->opt = M_ANIM;
         cur->framerate = 10;
         cur->numframes = framecnt--;
-        cur->item = BASE_AGX + loop;
+        cur->item = BASE_AGX + i;
         cur->startf = M_NORM;
         cur->startsteps = 0;
         cur->endf = M_NORM;
@@ -330,17 +330,17 @@ BOOL INTRO_Base( void ) {
 INTRO_Landing () - Ship Landing on Base
  ***************************************************************************/
 BOOL INTRO_Landing( void ) {
-    INT loop;
+    INT i;
     INT maxframes = 33;
     INT framecnt = maxframes - 1;
     FRAME* cur = frm;
 
-    for ( loop = 0; loop < maxframes; loop++ ) {
+    for ( i = 0; i < maxframes; i++ ) {
         cur->holdframe = 0;
         cur->opt = M_ANIM;
         cur->framerate = 10;
         cur->numframes = framecnt--;
-        cur->item = LANDING_AGX + loop;
+        cur->item = LANDING_AGX + i;
         cur->startf = M_NORM;
         cur->startsteps = 0;
         cur->endf = M_NORM;
@@ -372,17 +372,17 @@ BOOL INTRO_Landing( void ) {
 INTRO_Death2 () - Ground Death Scene
  ***************************************************************************/
 BOOL INTRO_Death2( void ) {
-    INT loop;
+    INT i;
     INT maxframes = 6;
     INT framecnt = maxframes - 1;
     FRAME* cur = frm;
 
-    for ( loop = 0; loop < maxframes; loop++, cur++ ) {
+    for ( i = 0; i < maxframes; i++, cur++ ) {
         cur->holdframe = 0;
         cur->opt = M_ANIM;
         cur->framerate = 3;
         cur->numframes = framecnt--;
-        cur->item = SDEATH_AGX + loop;
+        cur->item = SDEATH_AGX + i;
         cur->startf = M_NORM;
         cur->startsteps = 0;
         cur->endf = M_NORM;
@@ -413,17 +413,17 @@ BOOL INTRO_Death2( void ) {
 INTRO_Death1 () - Air Death Scene
  ***************************************************************************/
 BOOL INTRO_Death1( void ) {
-    INT loop;
+    INT i;
     INT maxframes = 30;
     INT framecnt = maxframes - 1;
     FRAME* cur = frm;
 
-    for ( loop = 0; loop < maxframes; loop++, cur++ ) {
+    for ( i = 0; i < maxframes; i++, cur++ ) {
         cur->holdframe = 0;
         cur->opt = M_ANIM;
         cur->framerate = 11;
         cur->numframes = framecnt--;
-        cur->item = DOWN_AGX + loop;
+        cur->item = DOWN_AGX + i;
         cur->startf = M_NORM;
         cur->startsteps = 0;
         cur->endf = M_NORM;
@@ -460,17 +460,17 @@ BOOL INTRO_Death( void ) {
 INTRO_Game1End () - Game 1 Victory
  ***************************************************************************/
 BOOL INTRO_Game1End( void ) {
-    INT loop;
+    INT i;
     INT maxframes = 5;
     INT framecnt = maxframes - 1;
     FRAME* cur = frm;
 
-    for ( loop = 0; loop < maxframes; loop++, cur++ ) {
+    for ( i = 0; i < maxframes; i++, cur++ ) {
         cur->holdframe = 0;
         cur->opt = M_ANIM;
         cur->framerate = 4;
         cur->numframes = framecnt--;
-        cur->item = GAME1END_AGX + loop;
+        cur->item = GAME1END_AGX + i;
         cur->startf = M_NORM;
         cur->startsteps = 0;
         cur->endf = M_NORM;
@@ -503,17 +503,17 @@ BOOL INTRO_Game1End( void ) {
 INTRO_Game2End () - Game 1 Victory
  ***************************************************************************/
 BOOL INTRO_Game2End( void ) {
-    INT loop;
+    INT i;
     INT maxframes = 25;
     INT framecnt = maxframes - 1;
     FRAME* cur = frm;
 
-    for ( loop = 0; loop < maxframes; loop++, cur++ ) {
+    for ( i = 0; i < maxframes; i++, cur++ ) {
         cur->holdframe = 0;
         cur->opt = M_ANIM;
         cur->framerate = 4;
         cur->numframes = framecnt--;
-        cur->item = GAME2END_AGX + loop;
+        cur->item = GAME2END_AGX + i;
         cur->startf = M_NORM;
         cur->startsteps = 0;
         cur->endf = M_NORM;
@@ -526,12 +526,12 @@ BOOL INTRO_Game2End( void ) {
         cur->songstep = 0;
         cur->soundfx = EMPTY;
 
-        if ( loop == 22 ) {
+        if ( i == 22 ) {
             cur->soundfx = FX_AIREXPLO;
             cur->fx_xpos = 127;
         }
 
-        if ( loop == 24 ) {
+        if ( i == 24 ) {
             cur->soundfx = FX_AIREXPLO;
             cur->fx_xpos = 127;
         }
@@ -556,19 +556,19 @@ BOOL INTRO_Game2End( void ) {
 INTRO_Game3End () - Game 1 Victory
  ***************************************************************************/
 BOOL INTRO_Game3End( void ) {
-    INT loop;
+    INT i;
     INT maxframes = 39;
     INT framecnt = maxframes - 1;
     FRAME* cur = frm;
 
     MOVIE_BPatch( FX_JETSND );
 
-    for ( loop = 0; loop < maxframes; loop++, cur++ ) {
+    for ( i = 0; i < maxframes; i++, cur++ ) {
         cur->holdframe = 0;
         cur->opt = M_ANIM;
         cur->framerate = 8;
         cur->numframes = framecnt--;
-        cur->item = GAME3END_AGX + loop;
+        cur->item = GAME3END_AGX + i;
         cur->startf = M_NORM;
         cur->startsteps = 0;
         cur->endf = M_NORM;
@@ -581,12 +581,12 @@ BOOL INTRO_Game3End( void ) {
         cur->songstep = 0;
         cur->soundfx = EMPTY;
 
-        if ( loop == 30 ) {
+        if ( i == 30 ) {
             cur->soundfx = FX_AIREXPLO;
             cur->fx_xpos = 100;
         }
 
-        if ( loop == 32 ) {
+        if ( i == 32 ) {
             cur->soundfx = FX_AIREXPLO;
             cur->fx_xpos = 100;
         }
@@ -664,7 +664,7 @@ void INTRO_EndGame( INT game ) {
 INTRO_Taiwan (
  ***************************************************************************/
 void INTRO_Taiwan( void ) {
-    INT loop;
+    INT i;
     BYTE* pal1;
     BYTE* pic1;
     INT local_cnt = FRAME_COUNT;
@@ -681,7 +681,7 @@ void INTRO_Taiwan( void ) {
 
     GFX_FadeIn( pal1, 64 );
 
-    for ( loop = 0; loop < 45; loop++ ) {
+    for ( i = 0; i < 45; i++ ) {
         local_cnt = FRAME_COUNT;
         if ( IMS_IsAck() ) {
             break;
@@ -700,7 +700,7 @@ void INTRO_Taiwan( void ) {
 INTRO_Credits() - Credits Screen
  ***************************************************************************/
 BOOL INTRO_Credits( void ) {
-    INT loop;
+    INT i;
     BYTE* pal1;
     BYTE* pal2;
     BYTE* pic1;
@@ -725,7 +725,7 @@ BOOL INTRO_Credits( void ) {
         SND_PlaySong( APOGEE_MUS, FALSE, FALSE );
     }
 
-    for ( loop = 0; loop < 30; loop++ ) {
+    for ( i = 0; i < 30; i++ ) {
         local_cnt = FRAME_COUNT;
         if ( IMS_IsAck() ) {
             break;
@@ -765,16 +765,16 @@ BOOL INTRO_Credits( void ) {
 
     GLB_CacheItem( RINTRO_MUS );
 
-    for ( loop = 0; loop < 65; loop++ ) {
-        if ( IMS_IsAck() && loop > 0 ) {
+    for ( i = 0; i < 65; i++ ) {
+        if ( IMS_IsAck() && i > 0 ) {
             break;
         }
 
-        if ( loop == 1 || loop == 40 ) {
+        if ( i == 1 || i == 40 ) {
             SND_Patch( FX_BOSS1, 127 );
         }
 
-        if ( loop == 45 ) {
+        if ( i == 45 ) {
             SND_PlaySong( RINTRO_MUS, TRUE, TRUE );
         }
 

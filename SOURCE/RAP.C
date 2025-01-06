@@ -109,21 +109,21 @@ BDAY bday[MAX_BDAY];
 
 void RAP_Bday( void ) {
     struct dosdate_t date;
-    INT loop;
+    INT i;
 
     bday_flag = FALSE;
     bday_num = EMPTY;
 
     _dos_getdate( &date );
 
-    for ( loop = 0; loop < MAX_BDAY; loop++ ) {
-        if ( bday[loop].day == 0 ) {
+    for ( i = 0; i < MAX_BDAY; i++ ) {
+        if ( bday[i].day == 0 ) {
             continue;
         }
 
-        if ( date.month == bday[loop].month && date.day == bday[loop].day && date.year >= bday[loop].year ) {
-            bday_num = loop;
-            if ( loop == 0 ) {
+        if ( date.month == bday[i].month && date.day == bday[i].day && date.year >= bday[i].year ) {
+            bday_num = i;
+            if ( i == 0 ) {
                 bday_flag = TRUE;
             }
             break;
@@ -201,7 +201,7 @@ void RAP_ClearSides( void ) {
 RAP_GetShipPic () - Loads Correct Ship Pics for Light/Dark Waves
  ***************************************************************************/
 void RAP_GetShipPic( void ) {
-    INT loop;
+    INT i;
     BOOL lightflag = TRUE;
 
     // GAME 2 wave 8
@@ -214,18 +214,18 @@ void RAP_GetShipPic( void ) {
         lightflag = FALSE;
     }
 
-    for ( loop = 0; loop < 7; loop++ ) {
+    for ( i = 0; i < 7; i++ ) {
         if ( lightflag ) {
-            curship[loop] = lship[loop];
-            curship[loop + 7] = lship[loop];
+            curship[i] = lship[i];
+            curship[i + 7] = lship[i];
         } else {
-            curship[loop] = dship[loop];
-            curship[loop + 7] = fship[loop];
+            curship[i] = dship[i];
+            curship[i + 7] = fship[i];
         }
     }
 
-    for ( loop = 0; loop < 14; loop++ ) {
-        GLB_CacheItem( curship[loop] );
+    for ( i = 0; i < 14; i++ ) {
+        GLB_CacheItem( curship[i] );
     }
 }
 
@@ -379,7 +379,7 @@ void RAP_PrintNum( INT x, INT y, CHAR* str ) {
 RAP_DisplayShieldLevel (
  ***************************************************************************/
 void RAP_DisplayShieldLevel( INT xpos, INT level ) {
-    INT loop;
+    INT i;
     BYTE* outbuf;
     DWORD addx;
     DWORD curs;
@@ -390,8 +390,8 @@ void RAP_DisplayShieldLevel( INT xpos, INT level ) {
     addx = ( SHIELD_COLOR_RUN << 16 ) / MAX_SHIELD;
     curs = 0;
 
-    for ( loop = 0; loop < MAX_SHIELD; loop++ ) {
-        if ( loop < level ) {
+    for ( i = 0; i < MAX_SHIELD; i++ ) {
+        if ( i < level ) {
             memset( outbuf, 74 - ( curs >> 16 ), 4 );
         } else {
             memset( outbuf, 0, 4 );
@@ -412,7 +412,7 @@ void RAP_DisplayStats( void ) {
     CHAR temp[21];
     INT shield;
     INT super;
-    INT loop;
+    INT i;
     INT x;
     INT y;
     BYTE* pic;
@@ -454,10 +454,10 @@ void RAP_DisplayStats( void ) {
             SND_Patch( FX_AIREXPLO, 127 );
             SND_Patch( FX_AIREXPLO2, 127 );
             ANIMS_StartAnim( A_LARGE_AIR_EXPLO, player_cx, player_cy );
-            for ( loop = 0; loop < ( PLAYERWIDTH * PLAYERHEIGHT ) / 2; loop++ ) {
+            for ( i = 0; i < ( PLAYERWIDTH * PLAYERHEIGHT ) / 2; i++ ) {
                 x = playerx - ( PLAYERWIDTH / 2 ) + random( PLAYERWIDTH * 2 );
                 y = playery - ( PLAYERHEIGHT / 2 ) + random( PLAYERHEIGHT * 2 );
-                if ( loop & 1 ) {
+                if ( i & 1 ) {
                     ANIMS_StartAnim( A_LARGE_AIR_EXPLO, x, y );
                 } else {
                     ANIMS_StartAAnim( A_MED_AIR_EXPLO2, x, y );
@@ -536,8 +536,8 @@ void RAP_DisplayStats( void ) {
         RAP_PrintNum( 18, MAP_TOP, temp );
 
         x = MAP_LEFT + 16;
-        for ( loop = 0; loop < 16; loop++ ) {
-            GFX_ColorBox( x, 0, 8, 8, 240 + loop );
+        for ( i = 0; i < 16; i++ ) {
+            GFX_ColorBox( x, 0, 8, 8, 240 + i );
             x += 8;
         }
     }
@@ -1156,7 +1156,7 @@ void JoyHack( void ) {
 }
 
 void main( INT argc, CHAR* argv[] ) {
-    INT loop;
+    INT i;
     INT numfiles = 0;
     DWORD item;
     CHAR* s_host = getenv( "S_HOST" );
@@ -1222,8 +1222,8 @@ void main( INT argc, CHAR* argv[] ) {
         reg_flag = TRUE;
     }
 
-    for ( loop = 0; loop < 4; loop++ ) {
-        if ( gameflag[loop] ) {
+    for ( i = 0; i < 4; i++ ) {
+        if ( gameflag[i] ) {
             numfiles++;
         }
     }
@@ -1328,29 +1328,29 @@ void main( INT argc, CHAR* argv[] ) {
     }
 
     // = SET UP SHIP PICTURES =========================
-    for ( loop = 0; loop < 7; loop++ ) {
-        lship[loop] = LPLAYER_PIC + (DWORD) loop;
+    for ( i = 0; i < 7; i++ ) {
+        lship[i] = LPLAYER_PIC + (DWORD) i;
 
         if ( gameflag[1] ) {
-            dship[loop] = DPLAYER_PIC + (DWORD) loop;
-            fship[loop] = FPLAYER_PIC + (DWORD) loop;
+            dship[i] = DPLAYER_PIC + (DWORD) i;
+            fship[i] = FPLAYER_PIC + (DWORD) i;
         }
     }
 
     // = LOAD IN FLAT LIBS  =========================
-    for ( loop = 0; loop < 4; loop++ ) {
-        if ( gameflag[loop] ) {
-            item = GLB_GetItemID( flatnames[loop] );
-            flatlib[loop] = (FLATS*) GLB_LockItem( item );
+    for ( i = 0; i < 4; i++ ) {
+        if ( gameflag[i] ) {
+            item = GLB_GetItemID( flatnames[i] );
+            flatlib[i] = (FLATS*) GLB_LockItem( item );
         } else {
-            flatlib[loop] = NULL;
+            flatlib[i] = NULL;
         }
     }
 
     // = LOAD IN 0-9 $ SPRITE PICS  =========================
-    for ( loop = 0; loop < 11; loop++ ) {
-        item = N0_PIC + (DWORD) loop;
-        numbers[loop] = GLB_LockItem( item );
+    for ( i = 0; i < 11; i++ ) {
+        item = N0_PIC + (DWORD) i;
+        numbers[i] = GLB_LockItem( item );
     }
 
     FLAME_InitShades();

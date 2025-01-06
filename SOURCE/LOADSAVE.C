@@ -83,13 +83,13 @@ RAP_AreSavedFiles() - Returns TRUE if thier are previously saved game files
  ***************************************************************************/
 BOOL RAP_AreSavedFiles( void ) {
     CHAR temp[41];
-    INT loop;
+    INT i;
 
-    for ( loop = 0; loop < MAX_SAVE; loop++ ) {
+    for ( i = 0; i < MAX_SAVE; i++ ) {
         if ( cdflag ) {
-            sprintf( temp, cdfmt, cdpath, loop );
+            sprintf( temp, cdfmt, cdpath, i );
         } else {
-            sprintf( temp, fmt, loop );
+            sprintf( temp, fmt, i );
         }
 
         if ( access( temp, 0 ) == 0 ) {
@@ -131,21 +131,21 @@ RAP_FFSaveFile() - Finds a filename to use
  ***************************************************************************/
 BOOL RAP_FFSaveFile( void ) {
     CHAR temp[41];
-    INT loop;
+    INT i;
     BOOL rval = FALSE;
 
     filepos = EMPTY;
 
-    for ( loop = 0; loop < MAX_SAVE; loop++ ) {
+    for ( i = 0; i < MAX_SAVE; i++ ) {
         if ( cdflag ) {
-            sprintf( temp, cdfmt, cdpath, loop );
+            sprintf( temp, cdfmt, cdpath, i );
         } else {
-            sprintf( temp, fmt, loop );
+            sprintf( temp, fmt, i );
         }
 
         if ( access( temp, 0 ) != 0 ) {
             RAP_ClearPlayer();
-            filepos = loop;
+            filepos = i;
             rval = TRUE;
             break;
         }
@@ -160,15 +160,15 @@ RAP_IsSaveFile() - Returns True if thier is a sopt to save a character
 BOOL RAP_IsSaveFile( PLAYEROBJ* in_plr ) {
     PLAYEROBJ tp;
     CHAR temp[41];
-    INT loop;
+    INT i;
     BOOL rval = FALSE;
     INT handle;
 
-    for ( loop = 0; loop < MAX_SAVE; loop++ ) {
+    for ( i = 0; i < MAX_SAVE; i++ ) {
         if ( cdflag ) {
-            sprintf( temp, cdfmt, cdpath, loop );
+            sprintf( temp, cdfmt, cdpath, i );
         } else {
-            sprintf( temp, fmt, loop );
+            sprintf( temp, fmt, i );
         }
 
         if ( ( handle = open( temp, O_RDONLY | O_BINARY ) ) != -1 ) {
@@ -192,7 +192,7 @@ BOOL RAP_LoadPlayer( void ) {
     extern CHAR gdmodestr[];
     CHAR filename[41];
     INT handle;
-    INT loop;
+    INT i;
     INT rval = FALSE;
     OBJ inobj;
 
@@ -218,7 +218,7 @@ BOOL RAP_LoadPlayer( void ) {
     read( handle, &plr, sizeof( PLAYEROBJ ) );
     GLB_DeCrypt( gdmodestr, (void*) &plr, sizeof( PLAYEROBJ ) );
 
-    for ( loop = 0; loop < plr.numobjs; loop++ ) {
+    for ( i = 0; i < plr.numobjs; i++ ) {
         read( handle, &inobj, sizeof( OBJ ) );
         GLB_DeCrypt( gdmodestr, (void*) &inobj, sizeof( OBJ ) );
 
@@ -378,7 +378,7 @@ RAP_LoadWin( void ) {
     SWD_DLG dlg;
     INT window;
     BOOL update = TRUE;
-    INT loop;
+    INT i;
     INT pos = EMPTY;
     INT oldpos = -2;
     INT addnum;
@@ -386,18 +386,18 @@ RAP_LoadWin( void ) {
     BOOL rval = 0;
 
     memset( filenames, 0, sizeof( filenames ) );
-    for ( loop = 0; loop < MAX_SAVE; loop++ ) {
+    for ( i = 0; i < MAX_SAVE; i++ ) {
         if ( cdflag ) {
-            sprintf( temp, cdfmt, cdpath, loop );
+            sprintf( temp, cdfmt, cdpath, i );
         } else {
-            sprintf( temp, fmt, loop );
+            sprintf( temp, fmt, i );
         }
 
         if ( access( temp, 0 ) == 0 ) {
             if ( pos == EMPTY ) {
-                pos = loop;
+                pos = i;
             }
-            strncpy( filenames[loop], temp, 66 );
+            strncpy( filenames[i], temp, 66 );
         }
     }
 
@@ -444,7 +444,7 @@ mainloop:
             }
 
             fndflag = FALSE;
-            for ( loop = 0; loop < MAX_SAVE; loop++ ) {
+            for ( i = 0; i < MAX_SAVE; i++ ) {
                 if ( filenames[pos][0] == NULL ) {
                     pos += addnum;
 

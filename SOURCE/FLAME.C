@@ -10,14 +10,14 @@ PRIVATE BYTE stmem[MAX_SHADES][512];
 FLAME_Init () - Inits Flame Tables and stuff
  ***************************************************************************/
 void FLAME_Init( void ) {
-    INT loop;
+    INT i;
 
-    for ( loop = 0; loop < MAX_SHADES; loop++ ) {
-        stable[loop] = stmem[loop];
+    for ( i = 0; i < MAX_SHADES; i++ ) {
+        stable[i] = stmem[i];
 
-        stable[loop] = (BYTE*) ( (INT) stable[loop] + 255 & ~0xff );
+        stable[i] = (BYTE*) ( (INT) stable[i] + 255 & ~0xff );
 
-        GFX_MakeLightTable( palette, stable[loop], ( MAX_SHADES - loop ) * 2 );
+        GFX_MakeLightTable( palette, stable[i], ( MAX_SHADES - i ) * 2 );
     }
 }
 
@@ -25,10 +25,10 @@ void FLAME_Init( void ) {
 FLAME_InitShades () - Inits shading stuff
  ***************************************************************************/
 void FLAME_InitShades( void ) {
-    INT loop;
+    INT i;
 
-    for ( loop = 0; loop < MAX_SHADES; loop++ ) {
-        GFX_MakeLightTable( palette, stable[loop], ( MAX_SHADES - loop ) * 2 );
+    for ( i = 0; i < MAX_SHADES; i++ ) {
+        GFX_MakeLightTable( palette, stable[i], ( MAX_SHADES - i ) * 2 );
     }
 }
 
@@ -44,7 +44,7 @@ void FLAME_Up(
     INT height[2] = { 5, 10 };
     BYTE* outbuf;
     INT y;
-    INT loop;
+    INT i;
     DWORD curs;
     DWORD addx;
     INT num;
@@ -63,7 +63,7 @@ void FLAME_Up(
         addx = ( MAX_SHADES << 16 ) / height[frame];
         curs = addx * ( height[frame] - 1 );
 
-        for ( loop = 0; loop < height[frame]; loop++ ) {
+        for ( i = 0; i < height[frame]; i++ ) {
             outbuf = displaybuffer + ix + ylookup[y];
 
             y++;
@@ -97,7 +97,7 @@ void FLAME_Down(
     INT height[2] = { 8, 12 };
     BYTE* outbuf;
     INT y;
-    INT loop;
+    INT i;
     DWORD curs;
     DWORD addx;
 
@@ -109,7 +109,7 @@ void FLAME_Down(
         curs = 0;
         addx = ( MAX_SHADES << 16 ) / height[frame];
 
-        for ( loop = 0; loop < height[frame]; loop++ ) {
+        for ( i = 0; i < height[frame]; i++ ) {
             outbuf = displaybuffer + ix + ylookup[y];
 
             y++;

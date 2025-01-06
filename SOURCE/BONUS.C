@@ -22,7 +22,7 @@ PRIVATE INT energy_count;
 BONUS_Clear () - Clears out All bonuses
  ***************************************************************************/
 void BONUS_Clear( void ) {
-    INT loop;
+    INT i;
 
     energy_count = 0;
 
@@ -36,8 +36,8 @@ void BONUS_Clear( void ) {
 
     memset( bons, 0, sizeof( bons ) );
 
-    for ( loop = 0; loop < MAX_BONUS - 1; loop++ ) {
-        bons[loop].next = &bons[loop + 1];
+    for ( i = 0; i < MAX_BONUS - 1; i++ ) {
+        bons[i].next = &bons[i + 1];
     }
 }
 
@@ -92,11 +92,11 @@ BONUS* BONUS_Remove( BONUS* sh ) {
 BONUS_Init () - Sets up Bonus stuff
  ***************************************************************************/
 void BONUS_Init( void ) {
-    INT loop;
+    INT i;
     GFX_PIC* h;
 
-    for ( loop = 0; loop < 4; loop++ ) {
-        glow[loop] = ICNGLW_BLK + (DWORD) loop;
+    for ( i = 0; i < 4; i++ ) {
+        glow[i] = ICNGLW_BLK + (DWORD) i;
     }
 
     h = (GFX_PIC*) GLB_CacheItem( ICNGLW_BLK );

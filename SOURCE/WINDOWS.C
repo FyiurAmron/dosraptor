@@ -689,7 +689,7 @@ BOOL WIN_Register( void ) {
     INT opt = EMPTY;
     INT oldopt = -99;
     BOOL rval = FALSE;
-    INT loop;
+    INT i;
     INT diff;
 
     PTR_DrawCursor( FALSE );
@@ -912,8 +912,8 @@ reg_exit:
             OBJS_Add( S_MEGA_BOMB );
             OBJS_Add( S_MEGA_BOMB );
             OBJS_Add( S_DETECT );
-            for ( loop = 1; loop < S_ENERGY; loop++ ) {
-                OBJS_Add( loop );
+            for ( i = 1; i < S_ENERGY; i++ ) {
+                OBJS_Add( i );
             }
         }
 
@@ -1575,7 +1575,7 @@ void WIN_MainLoop( void ) {
     INT rval = EMPTY;
     BOOL abort_flag = FALSE;
     INT dwrap;
-    INT loop;
+    INT i;
 
     ingameflag = TRUE;
 
@@ -1664,9 +1664,9 @@ void WIN_MainLoop( void ) {
                     plr.diff[cur_game]++;
                 }
 
-                for ( loop = 0; loop < 4; loop++ ) {
-                    if ( plr.diff[loop] == DIFF_0 ) {
-                        plr.diff[loop] = DIFF_1;
+                for ( i = 0; i < 4; i++ ) {
+                    if ( plr.diff[i] == DIFF_0 ) {
+                        plr.diff[i] = DIFF_1;
                     }
                 }
             } else {

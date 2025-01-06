@@ -57,7 +57,7 @@ INT MOVIE_Play(
     INT opt = K_OK;
     BYTE fill;
     INT hold;
-    INT loop;
+    INT i;
 
     memset( displaybuffer, 0, 64000 );
 
@@ -101,7 +101,7 @@ INT MOVIE_Play(
         }
 
         if ( curfld->holdframe ) {
-            for ( loop = 0; loop < curfld->holdframe; loop++ ) {
+            for ( i = 0; i < curfld->holdframe; i++ ) {
                 hold = FRAME_COUNT;
                 while ( FRAME_COUNT == hold ) {
                     if ( back_patch != EMPTY ) {
