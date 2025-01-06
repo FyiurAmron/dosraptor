@@ -332,7 +332,7 @@ void PTR_UpdateCursor( void ) {
 
             cursorstart = displayscreen + dm_x + ylookup[dm_y];
 
-            PTR_Save();
+            PTR_Save( CURSORHEIGHT );
             PTR_Draw();
 
             mouse_erase = TRUE;
@@ -351,7 +351,8 @@ void PTR_UpdateCursor( void ) {
 /*==========================================================================
   PTR_FrameHook() - Mouse framehook Function
  ==========================================================================*/
-void PTR_FrameHook( void ( *update )( void ) // INPUT : pointer to function
+void PTR_FrameHook(
+    void ( *update )( void ) // INPUT : pointer to function
 ) {
     INT ck_x1;
     INT ck_y1;
@@ -406,11 +407,7 @@ void PTR_FrameHook( void ( *update )( void ) // INPUT : pointer to function
 
         cursorstart = displaybuffer + dm_x + ylookup[dm_y];
 
-        if ( cursorloopy < CURSORHEIGHT ) {
-            PTR_ClipSave();
-        } else {
-            PTR_Save();
-        }
+        PTR_Save( ( cursorloopy < CURSORHEIGHT ) ? cursorloopy : CURSORHEIGHT );
 
         PTR_Draw();
 
@@ -440,7 +437,7 @@ void PTR_FrameHook( void ( *update )( void ) // INPUT : pointer to function
 
             cursorstart = displayscreen + dm_x + ylookup[dm_y];
 
-            PTR_Save();
+            PTR_Save( CURSORHEIGHT );
             PTR_Draw();
 
             mouse_erase = TRUE;
@@ -539,7 +536,8 @@ void PTR_SetPic(
  PTR_SetBoundsHook() - Sets User function to OK or change mouse x,y values
  ***************************************************************************/
 void // RETURN: none
-PTR_SetBoundsHook( void ( *func )( void ) // INPUT : pointer to function
+PTR_SetBoundsHook(
+    void ( *func )( void ) // INPUT : pointer to function
 ) {
     checkbounds = func;
     mouseaction = TRUE;
@@ -549,7 +547,8 @@ PTR_SetBoundsHook( void ( *func )( void ) // INPUT : pointer to function
  PTR_SetCursorHook() - Sets User function to call from mouse handler
  ***************************************************************************/
 void // RETURN: none
-PTR_SetCursorHook( void ( *hook )( void ) // INPUT : pointer to function
+PTR_SetCursorHook(
+    void ( *hook )( void ) // INPUT : pointer to function
 ) {
     cursorhook = hook;
     mouseaction = TRUE;
