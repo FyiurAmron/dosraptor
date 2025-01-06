@@ -55,7 +55,7 @@ extern BOOL ptr_init_flag;
 /*========================================================================
   PTR_UpdateCursor() - Updates Mouse Cursor - should be called by intterupt
   ========================================================================*/
-INT PTR_UpdateCursor( void );
+void PTR_UpdateCursor( void );
 
 /*==========================================================================
   PTR_FrameHook() - Mouse framehook Function

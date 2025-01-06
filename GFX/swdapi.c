@@ -1801,7 +1801,6 @@ PRIVATE INT SWD_FindWindow(
    SWD_CheckMouse () does mouse stuff and returns SWD_XXX code
   ------------------------------------------------------------------------*/
 PRIVATE BOOL SWD_CheckMouse(
-    BOOL lockflag, // INPUT : if window has lock on
     SWIN* curwin, // INPUT : pointer to current window
     SFIELD* firstfld // INPUT : pointer to current field
 ) {
@@ -2045,7 +2044,7 @@ void SWD_Dialog(
 
     if ( PTR_B1 && cur_act == S_IDLE ) {
         old_field = active_field;
-        if ( SWD_CheckMouse( curwin->lock, curwin, firstfld ) ) {
+        if ( SWD_CheckMouse( curwin, firstfld ) ) {
             if ( old_win != active_window ) {
                 SWD_ClearAllButtons();
                 lastfld = 0;
@@ -2148,16 +2147,6 @@ void SWD_Dialog(
                 case F_PREV:
                     SWD_GetPrevField( firstfld, curwin->numflds );
                     break;
-
-#if 0
-         case F_RIGHT:
-            SWD_GetRightField ( firstfld, curwin->numflds );
-            break;
-
-         case F_LEFT:
-            SWD_GetLeftField ( firstfld, curwin->numflds );
-            break;
-#endif
 
                 case F_TOP:
                     active_field = SWD_GetFirstField();

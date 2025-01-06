@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <string.h>
 #include "task_man.h"
 #include "tsmapi.h"
 
@@ -12,7 +13,7 @@ typedef struct {
 
 task_t tasks[MAX_TASKS];
 
-void TSM_Install( int rate ) {
+void TSM_Install() {
     memset( tasks, 0, sizeof( tasks ) );
 }
 
