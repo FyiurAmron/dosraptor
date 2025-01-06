@@ -365,8 +365,8 @@ void PTR_FrameHook( void ( *update )( void ) // INPUT : pointer to function
         return;
     }
 
-    while ( !(volatile) not_in_update )
-        ;
+    while ( !(volatile) not_in_update ) {
+    }
     not_in_update = FALSE;
     mouseonhold = TRUE;
 
@@ -656,9 +656,8 @@ PTR_Init(
     if ( type == P_AUTO || type == P_MOUSE ) {
         // Reset Mouse Driver ===================
         regs.w.ax = 0;
-        int386( 0x33, &regs, &regs );
 
-        if ( regs.w.ax == -1 ) {
+        if ( int386( 0x33, &regs, &regs ) ) {
             mousepresent = TRUE;
 
             // Hide Mouse ========================
