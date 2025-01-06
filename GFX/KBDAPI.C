@@ -113,7 +113,7 @@ void _interrupt KBD_ReadScan( void ) {
  ***************************************************************************/
 void KBD_Clear( void ) {
     lastscan = SC_NONE;
-    memset( (void*) keyboard, 0, sizeof( keyboard ) );
+    memset( keyboard, 0, sizeof( keyboard ) );
 }
 
 /***************************************************************************

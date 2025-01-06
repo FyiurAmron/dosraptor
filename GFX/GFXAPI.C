@@ -664,7 +664,7 @@ void GFX_ShadeArea(
     BYTE* cur_table;
     INT i;
 
-    if ( GFX_ClipLines( (BYTE**) 0, &x, &y, &lx, &ly ) ) {
+    if ( GFX_ClipLines( NULL, &x, &y, &lx, &ly ) ) {
         buf = displaybuffer + x + ylookup[y];
 
         switch ( opt ) {

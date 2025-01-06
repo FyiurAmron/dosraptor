@@ -395,7 +395,7 @@ PRIVATE void SWD_PutField(
 
             case FLD_TEXT:
                 SWD_FillText(
-                    (FONT*) fld_font, curfld->item, curfld->fontbasecolor, fld_x, fld_y, curfld->lx, curfld->ly );
+                    fld_font, curfld->item, curfld->fontbasecolor, fld_x, fld_y, curfld->lx, curfld->ly );
                 break;
 
             default:
@@ -442,7 +442,7 @@ PRIVATE void SWD_PutField(
 
             if ( curfld->bstatus != NORMAL ) {
                 curpos = strlen( fld_text );
-                rval = GFX_StrPixelLen( (FONT*) fld_font, fld_text, (size_t) curpos );
+                rval = GFX_StrPixelLen( fld_font, fld_text, curpos );
 
                 text_x = fld_x + 1 + rval;
 
@@ -1065,7 +1065,7 @@ PRIVATE INT // RETURN: number of fields displayed
 SWD_ShowAllFields(
     void* inptr // INPUT : pointer to window data
 ) {
-    SWIN* header = (SWIN*) inptr;
+    SWIN* header = inptr;
     SFIELD* fld = (SFIELD*) ( ( (BYTE*) inptr ) + header->fldofs );
     INT numflds = 0;
     INT i;
@@ -1080,7 +1080,7 @@ SWD_ShowAllFields(
             fy = header->y + fld->y;
 
             if ( fld->saveflag && fld->sptr ) {
-                picdata = (BYTE*) fld->sptr;
+                picdata = fld->sptr;
                 pich = (GFX_PIC*) picdata;
                 picdata += sizeof( GFX_PIC );
                 pich->width = (short) fld->lx;
@@ -1180,7 +1180,7 @@ PRIVATE void SWD_PutWin(
     }
 
     if ( cwin->numflds ) {
-        SWD_ShowAllFields( (void*) cwin );
+        SWD_ShowAllFields( cwin );
     }
 
     if ( winfuncs[handle] ) {
@@ -1222,7 +1222,7 @@ void SWD_Install(
     DWORD segment;
 
     g_key = 0;
-    memset( (BYTE*) g_wins, 0, sizeof( g_wins ) );
+    memset( g_wins, 0, sizeof( g_wins ) );
 
     if ( moveflag ) {
         if ( _dpmi_dosalloc( 4000, &segment ) ) {
@@ -1254,7 +1254,7 @@ void SWD_Install(
    SWD_End () Frees up resources used by SWD System
  ***************************************************************************/
 void SWD_End( void ) {
-    memset( (BYTE*) g_wins, 0, sizeof( g_wins ) );
+    memset( g_wins, 0, sizeof( g_wins ) );
 
     fldfuncs[0] = 0;
     fldfuncs[1] = 0;
@@ -2201,7 +2201,7 @@ SWD_GetFieldText(
 
     text = (BYTE*) curfld + curfld->txtoff;
 
-    memcpy( out_text, text, (size_t) curfld->maxchars );
+    memcpy( out_text, text, curfld->maxchars );
 
     return curfld->maxchars;
 }

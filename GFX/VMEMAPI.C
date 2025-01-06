@@ -298,7 +298,7 @@ FOUND_MCB:
         owner->obj = (BYTE*) mcb + sizeof( MCB );
         owner->age = ++pool.age;
     }
-    return (void*) ( (BYTE*) mcb + sizeof( MCB ) );
+    return (BYTE*) mcb + sizeof( MCB );
 }
 
 /*************************************************************************

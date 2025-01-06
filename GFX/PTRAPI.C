@@ -515,7 +515,7 @@ void PTR_SetPic(
 
     newp += sizeof( GFX_PIC );
 
-    pic = (BYTE*) cursorpic;
+    pic = cursorpic;
 
     for ( i = 0; i < CURSORSIZE; i++, newp++, pic++ ) {
         *pic = *newp;
