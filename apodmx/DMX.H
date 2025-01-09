@@ -15,7 +15,7 @@
 #ifndef _DMX_H_
 #define _DMX_H_
 
-#include "tsmapi.h"
+//#include "tsmapi.h"
 
 typedef int SFX_HANDLE;
 
