@@ -667,9 +667,9 @@ void INTRO_Taiwan( void ) {
     INT i;
     BYTE* pal1;
     BYTE* pic1;
-    INT local_cnt = FRAME_COUNT;
+    INT local_cnt = framecount;
 
-    FRAME_COUNT = 0;
+    framecount = 0;
 
     pic1 = GLB_GetItem( TAIWARN_PIC );
     pal1 = GLB_GetItem( TAIPAL_DAT );
@@ -682,11 +682,11 @@ void INTRO_Taiwan( void ) {
     GFX_FadeIn( pal1, 64 );
 
     for ( i = 0; i < 45; i++ ) {
-        local_cnt = FRAME_COUNT;
+        local_cnt = framecount;
         if ( IMS_IsAck() ) {
             break;
         }
-        while ( FRAME_COUNT - local_cnt < 4 )
+        while ( framecount - local_cnt < 4 )
             ;
     }
 
@@ -705,9 +705,9 @@ BOOL INTRO_Credits( void ) {
     BYTE* pal2;
     BYTE* pic1;
     BYTE* pic2;
-    INT local_cnt = FRAME_COUNT;
+    INT local_cnt = framecount;
 
-    FRAME_COUNT = 0;
+    framecount = 0;
 
     pic1 = GLB_GetItem( APOGEE_PIC );
     pal1 = GLB_GetItem( POGPAL_DAT );
@@ -726,11 +726,11 @@ BOOL INTRO_Credits( void ) {
     }
 
     for ( i = 0; i < 30; i++ ) {
-        local_cnt = FRAME_COUNT;
+        local_cnt = framecount;
         if ( IMS_IsAck() ) {
             break;
         }
-        while ( FRAME_COUNT - local_cnt < 4 )
+        while ( framecount - local_cnt < 4 )
             ;
     }
 
@@ -781,8 +781,8 @@ BOOL INTRO_Credits( void ) {
         if ( KBD_Key( SC_ESC ) ) {
             break;
         }
-        local_cnt = FRAME_COUNT;
-        while ( FRAME_COUNT - local_cnt < 3 )
+        local_cnt = framecount;
+        while ( framecount - local_cnt < 3 )
             ;
     }
 

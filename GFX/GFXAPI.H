@@ -459,8 +459,6 @@ void GFX_PutPic( void );
 void GFX_PutMaskPic( void );
 void GFX_DisplayScreen( void );
 
-#define FRAME_COUNT ( framecount ) // TODO inline this
-
 extern BYTE* displaybuffer;
 extern BYTE* displayscreen;
 extern BYTE* ltable;

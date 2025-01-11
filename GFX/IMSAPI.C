@@ -107,8 +107,8 @@ IMS_WaitTimed(
 
     while ( secs > 0 ) {
         for ( i = 0; i < 55; i++ ) {
-            hold = FRAME_COUNT;
-            while ( FRAME_COUNT == hold )
+            hold = framecount;
+            while ( framecount == hold )
                 ;
 
             if ( IMS_CheckAck() ) {

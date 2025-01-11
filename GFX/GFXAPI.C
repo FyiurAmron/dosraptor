@@ -1157,8 +1157,8 @@ void GFX_Delay(
     INT i;
 
     for ( i = 0; i < count; i++ ) {
-        hold = FRAME_COUNT;
-        while ( FRAME_COUNT == hold && gfxdebug == FALSE )
+        hold = framecount;
+        while ( framecount == hold && gfxdebug == FALSE )
             ;
     }
 }
@@ -1183,9 +1183,9 @@ void GFX_WaitUpdate(
     GFX_MarkUpdate( o_ud_x, o_ud_y, o_ud_lx, o_ud_ly );
 
     for ( i = 0; i < count; i++ ) {
-        while ( FRAME_COUNT == hold && gfxdebug == FALSE )
+        while ( framecount == hold && gfxdebug == FALSE )
             ;
-        hold = FRAME_COUNT;
+        hold = framecount;
     }
 
     if ( update_start ) {
@@ -1208,7 +1208,7 @@ void GFX_WaitUpdate(
 void GFX_DisplayUpdate( void ) {
     static INT hold = 0;
 
-    while ( FRAME_COUNT == hold && gfxdebug == FALSE )
+    while ( framecount == hold && gfxdebug == FALSE )
         ;
 
     GFX_MarkUpdate( o_ud_x, o_ud_y, o_ud_lx, o_ud_ly );
@@ -1226,7 +1226,7 @@ void GFX_DisplayUpdate( void ) {
     o_ud_lx = ud_lx;
     o_ud_ly = ud_ly;
 
-    hold = FRAME_COUNT;
+    hold = framecount;
 }
 
 /***************************************************************************

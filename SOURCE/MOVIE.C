@@ -102,8 +102,8 @@ INT MOVIE_Play(
 
         if ( curfld->holdframe ) {
             for ( i = 0; i < curfld->holdframe; i++ ) {
-                hold = FRAME_COUNT;
-                while ( FRAME_COUNT == hold ) {
+                hold = framecount;
+                while ( framecount == hold ) {
                     if ( back_patch != EMPTY ) {
                         if ( !SND_IsPatchPlaying( back_patch ) ) {
                             SND_Patch( back_patch, 127 );

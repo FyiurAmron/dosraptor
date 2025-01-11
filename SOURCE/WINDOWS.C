@@ -943,7 +943,7 @@ INT WIN_Hangar( void ) {
     INT ly;
     INT lx;
     DWORD item;
-    INT local_cnt = FRAME_COUNT;
+    INT local_cnt = framecount;
     INT pic_cnt = 0;
 
     PTR_DrawCursor( FALSE );
@@ -1007,8 +1007,8 @@ mainloop:
         SWD_ShowAllWindows();
         GFX_DisplayUpdate();
     } else {
-        local_cnt = FRAME_COUNT;
-        while ( FRAME_COUNT == local_cnt )
+        local_cnt = framecount;
+        while ( framecount == local_cnt )
             ;
     }
 
@@ -1795,8 +1795,8 @@ PRIVATE BOOL WIN_DemoDelay( BOOL startflag ) {
         return FALSE;
     }
 
-    local_cnt = FRAME_COUNT;
-    while ( local_cnt == FRAME_COUNT )
+    local_cnt = framecount;
+    while ( local_cnt == framecount )
         ;
 
     d_count++;

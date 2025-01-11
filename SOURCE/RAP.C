@@ -655,7 +655,7 @@ Do_Game( void ) {
     memset( displaybuffer, 0, 64000 );
     memset( displayscreen, 0, 64000 );
 
-    local_cnt = FRAME_COUNT;
+    local_cnt = framecount;
 
     g_flash = 0;
     g_oldsuper = EMPTY;
@@ -884,9 +884,9 @@ Do_Game( void ) {
 
         RAP_DisplayStats();
 
-        while ( FRAME_COUNT - local_cnt < 3 )
+        while ( framecount - local_cnt < 3 )
             ;
-        local_cnt = FRAME_COUNT;
+        local_cnt = framecount;
 
         if ( fadeflag ) {
             TILE_DisplayScreen( MAP_LEFT - 4, g_mapleft - 4, SCREENWIDTH - 24 ); // shaking screen
