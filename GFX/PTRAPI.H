@@ -6,6 +6,7 @@
 #define PTRAPI_H
 
 #include "types.h"
+#include "common.h"
 
 typedef enum { P_AUTO, P_MOUSE, P_JOYSTICK } PTRTYPE;
 

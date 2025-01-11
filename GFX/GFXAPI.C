@@ -22,10 +22,13 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "common.h"
+
 #include "dpmiapi.h"
 #include "exitapi.h"
-#include "gfxapi.h"
 #include "tsmapi.h"
+
+#include "gfxapi.h"
 
 #define G3D_DIST 200
 

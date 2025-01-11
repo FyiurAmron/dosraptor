@@ -30,4 +30,5 @@ add_executable(GFX
         types.h
         VMEMAPI.C
         VMEMAPI.H
+        common.h
 )

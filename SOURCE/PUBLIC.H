@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "../gfx/common.h"
 #include "../gfx/exitapi.h"
 #include "../gfx/swdapi.h"
 #include "../gfx/glbapi.h"
