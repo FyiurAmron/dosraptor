@@ -5,6 +5,9 @@
 #ifndef SWDAPI_H
 #define SWDAPI_H
 
+// required for FONT etc.
+#include "gfxapi.h"
+
 #include "types.h"
 
 typedef enum {
