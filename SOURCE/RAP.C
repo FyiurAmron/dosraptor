@@ -7,6 +7,7 @@
 #define REQ_LMEM   ( 500 * 1024 )
 
 #include <conio.h>
+#include <time.h>
 #include <ctype.h>
 #include <dos.h>
 #include <io.h>
@@ -75,6 +76,7 @@ PUBLIC BOOL tai_flag = FALSE;
 PUBLIC BOOL quick_mode = FALSE;
 PUBLIC BOOL godmode = FALSE;
 PUBLIC INT bday_num;
+int seed;
 
 #define ROTPAL_START 240
 #define FADE_FRAMES  20
@@ -627,8 +629,6 @@ Do_Game( void ) {
 
     draw_player = TRUE;
 
-    srand( 1024 * game_wave[cur_game] );
-
     fadeflag = FALSE;
     end_fadeflag = FALSE;
     KBD_Clear();
@@ -1120,6 +1120,12 @@ void main( INT argc, CHAR* argv[] ) {
     if ( strcmpi( argv[1], "joycal" ) == 0 ) {
         JoyHack();
     }
+
+    if ( seed == EMPTY ) {
+        seed = time( NULL );
+    }
+    srand( seed );
+    log_to_file_and_screen( "seed = %d", seed );
 
     if ( godmode ) {
         log_to_file_and_screen( "godmode enabled" );

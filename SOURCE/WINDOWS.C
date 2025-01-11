@@ -565,6 +565,10 @@ void WIN_AskExit( void ) {
         return;
     }
 
+    if ( bday_num == 2137 ) { // random monkey! :D
+        bday_num = random( 7 );
+    }
+
     switch ( bday_num ) {
         default:
             break;
