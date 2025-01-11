@@ -1,4 +1,9 @@
-#include "raptor.h"
+
+#include "public.h"
+
+#include "windows.h"
+
+#include "shadows.h"
 
 typedef struct {
     DWORD item;

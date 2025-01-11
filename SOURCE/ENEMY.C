@@ -1,17 +1,24 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
-#include "raptor.h"
+
+#include "public.h"
 
 #include "file0001.inc"
 #include "file0002.inc"
 #include "file0003.inc"
 #include "file0004.inc"
 
+#include "anims.h"
+#include "bonus.h"
+#include "eshot.h"
+#include "flame.h"
+#include "shadows.h"
+#include "tile.h"
+
+#include "enemy.h"
+
 SPRITE_SHIP ships[MAX_ONSCREEN];
 
-#define NORM_SHOOT  -1
+#define NORM_SHOOT  ( -1 )
 #define START_SHOOT 0
 
 ESHOT_TYPE ashot[2] = { ES_ANGLELEFT, ES_ANGLERIGHT };

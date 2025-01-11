@@ -1,14 +1,21 @@
+
 #include <conio.h>
 #include <dos.h>
 #include <io.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
 #include "../gfx/prefapi.h"
+#include "../gfx/ptrapi.h"
+#include "../gfx/tsmapi.h"
+#include "../gfx/kbdapi.h"
+
 #include "file0000.inc"
 #include "file0001.inc"
-#include "raptor.h"
+
+#include "bonus.h"
+#include "input.h"
+#include "intro.h"
+#include "loadsave.h"
+#include "windows.h"
 
 PUBLIC INT buttons[4] = { FALSE, FALSE, FALSE, FALSE };
 

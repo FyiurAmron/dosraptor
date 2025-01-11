@@ -7,11 +7,11 @@
 
 #define SCREENWIDTH  320
 #define SCREENHEIGHT 200
+
 #define TILEWIDTH    32
 #define TILEHEIGHT   32
-#define MAP_LEFT     16
 
-#include "..\gfx\types.h"
+#define MAP_LEFT     16
 
 void TILE_Draw( int max_y );
 void TILE_DisplayScreen( int srcOffset, int dstOffset, int cols  );

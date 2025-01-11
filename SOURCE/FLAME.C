@@ -1,5 +1,9 @@
 
-#include "raptor.h"
+#include "public.h"
+
+#include "windows.h"
+
+#include "flame.h"
 
 #define MAX_SHADES 8
 

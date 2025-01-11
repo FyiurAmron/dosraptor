@@ -1,9 +1,17 @@
 
-#include <stdio.h>
+
+#include "../gfx/kbdapi.h"
+
+#include "public.h"
 
 #include "file0001.inc"
+
 #include "helpwin.inc"
-#include "raptor.h"
+
+#include "fx.h"
+#include "windows.h"
+
+#include "help.h"
 
 PRIVATE DWORD startitem;
 PRIVATE INT curpage;

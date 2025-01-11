@@ -1,9 +1,15 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+
+#include "../gfx/gfxapi.h"
+
+#include "public.h"
 
 #include "file0001.inc"
-#include "raptor.h"
+
+#include "anims.h"
+#include "eshot.h"
+#include "tile.h"
+
+#include "shots.h"
 
 PRIVATE SHOTS shots[MAX_SHOTS];
 PRIVATE SHOT_LIB shot_lib[LAST_WEAPON + 1];

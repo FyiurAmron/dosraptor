@@ -7,26 +7,41 @@
 #define REQ_LMEM   ( 500 * 1024 )
 
 #include <conio.h>
-#include <time.h>
 #include <ctype.h>
 #include <dos.h>
 #include <io.h>
 #include <malloc.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <time.h>
+
+#include "../apodmx/dmx.h"
+#include "../gfx/dpmiapi.h"
+#include "../gfx/imsapi.h"
+#include "../gfx/kbdapi.h"
+#include "../gfx/prefapi.h"
+#include "../gfx/ptrapi.h"
+#include "../gfx/tsmapi.h"
+#include "../gfx/vmemapi.h"
 
 #include "file0000.inc"
 #include "file0001.inc"
 #include "file0002.inc"
 
-#include "../gfx/prefapi.h"
-#include "../gfx/dpmiapi.h"
-#include "../apodmx/dmx.h"
 #include "ansi_esc.h"
-#include "raptor.h"
+
+#include "anims.h"
+#include "bonus.h"
+#include "eshot.h"
+#include "flame.h"
+#include "help.h"
+#include "input.h"
+#include "intro.h"
+#include "loadsave.h"
+#include "shadows.h"
+#include "shots.h"
+#include "tile.h"
 #include "tile_a.h"
 #include "utils.h"
+#include "windows.h"
 
 BYTE* palette;
 BYTE* cursor_pic;

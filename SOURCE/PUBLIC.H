@@ -1,6 +1,18 @@
 #ifndef PUBLIC_H
 #define PUBLIC_H
 
+// commonly used includes
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include "../gfx/exitapi.h"
+#include "../gfx/swdapi.h"
+#include "../gfx/glbapi.h"
+
+// local includes
+#include "map.h"
+
 #define MAX_OBJS 20
 
 typedef enum { K_OK, K_NEXTFRAME, K_SKIPALL, K_EXITDOS } KEYOPTS;
@@ -64,6 +76,8 @@ typedef struct {
 // #define MAX_BADGUYS  300
 #define MAX_ONSCREEN     30
 
+#define MAX_SHIELD 100
+
 /***************************************************************************
    InitMobj() - Inits an object to be moved
  ***************************************************************************/
@@ -96,6 +110,10 @@ Do_Game () - The main game thing this is it dude
  ***************************************************************************/
 BOOL // TRUE=Aborted, FALSE = timeout
     Do_Game( void );
+
+inline int random( int max_excl ) {
+    return rand() % max_excl;
+}
 
 extern PLAYEROBJ plr;
 extern INT choose_special[];

@@ -1,8 +1,12 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
-#include "raptor.h"
+#include "../gfx/gfxapi.h"
+
+#include "public.h"
+
+#include "anims.h"
+#include "fx.h"
+
+#include "tile.h"
 #include "tile_a.h"
 
 #define MAX_STILES ( MAP_ONSCREEN * MAP_COLS )

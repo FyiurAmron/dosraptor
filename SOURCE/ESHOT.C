@@ -1,9 +1,13 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+
+
+#include "public.h"
 
 #include "file0001.inc"
-#include "raptor.h"
+
+#include "anims.h"
+#include "bonus.h"
+
+#include "eshot.h"
 
 #define MAX_ESHOT 80
 

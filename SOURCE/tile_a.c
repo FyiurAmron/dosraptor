@@ -1,7 +1,9 @@
 
-#include "tile_a.h"
-
 #include <string.h>
+
+#include "..\gfx\types.h"
+
+#include "tile_a.h"
 
 extern uint8_t* displaybuffer;
 extern uint8_t* displayscreen;

@@ -1,10 +1,9 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
-#include "raptor.h"
+#include "public.h"
 
 #include "file0001.inc"
+
+#include "bonus.h"
 
 PRIVATE BONUS bons[MAX_BONUS];
 

@@ -1,9 +1,12 @@
-#include <stdio.h>
-#include <string.h>
 
-#include "raptor.h"
+
+#include "public.h"
 
 #include "file0001.inc"
+
+#include "anims.h"
+#include "objects.h"
+#include "shots.h"
 
 PRIVATE OBJ objs[MAX_OBJS];
 

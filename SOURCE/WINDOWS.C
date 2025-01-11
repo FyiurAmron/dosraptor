@@ -1,11 +1,11 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
-#include "raptor.h"
-
-#include "../gfx/prefapi.h"
 #include "../apodmx/dmx.h"
+#include "../gfx/imsapi.h"
+#include "../gfx/kbdapi.h"
+#include "../gfx/prefapi.h"
+#include "../gfx/ptrapi.h"
+
+#include "public.h"
 
 #include "file0000.inc"
 #include "file0001.inc"
@@ -23,6 +23,16 @@
 #include "regist.inc"
 #include "shipcomp.inc"
 #include "wingame.inc"
+
+#include "bonus.h"
+#include "enemy.h"
+#include "help.h"
+#include "input.h"
+#include "intro.h"
+#include "loadsave.h"
+#include "store.h"
+
+#include "windows.h"
 
 extern BOOL godmode;
 

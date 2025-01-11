@@ -49,7 +49,6 @@ add_executable(SOURCE
         OPTS.INC
         PUBLIC.H
         RAP.C
-        RAPTOR.H
         REGIST.INC
         SHADOWS.C
         SHADOWS.H

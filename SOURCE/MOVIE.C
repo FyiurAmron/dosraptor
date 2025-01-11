@@ -1,7 +1,13 @@
 
-#include <string.h>
 
-#include "raptor.h"
+#include "../gfx/imsapi.h"
+#include "../gfx/kbdapi.h"
+
+#include "public.h"
+
+#include "fx.h"
+
+#include "movie.h"
 
 PRIVATE INT back_patch = EMPTY;
 

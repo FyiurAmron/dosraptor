@@ -2,6 +2,8 @@
 #define LOADSAVE_H
 
 #include "../gfx/types.h"
+
+// required for PLAYEROBJ
 #include "public.h"
 
 /***************************************************************************

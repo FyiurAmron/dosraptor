@@ -1,14 +1,15 @@
+
 #include <dos.h>
 #include <io.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
-#include "../gfx/prefapi.h"
 #include "../apodmx/dmx.h"
-#include "raptor.h"
+#include "../gfx/prefapi.h"
+
+#include "public.h"
 
 #include "file0000.inc"
+
+#include "fx.h"
 
 #define MAX_SFXS ( ( END_SFX - START_SFX - 1 ) / 5 )
 

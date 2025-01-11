@@ -1,15 +1,20 @@
+
 #include <conio.h>
 #include <dos.h>
 #include <fcntl.h>
 #include <io.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+
+#include "../gfx/kbdapi.h"
+
+#include "public.h"
 
 #include "file0001.inc"
-
 #include "load.inc"
-#include "raptor.h"
+
+#include "anims.h"
+#include "bonus.h"
+#include "windows.h"
+#include "tile.h"
 
 #define MAX_SAVE 10
 
