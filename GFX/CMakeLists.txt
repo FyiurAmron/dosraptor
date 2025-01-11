@@ -12,7 +12,8 @@ add_executable(GFX
         EXITAPI.H
         GFXAPI.C
         GFXAPI.H
-        GFXAPI_A.ASM
+        gfxapi_a.c
+        gfxapi_a.h
         GLBAPI.C
         GLBAPI.H
         IMSAPI.C
@@ -24,6 +25,8 @@ add_executable(GFX
         PREFAPI.H
         PTRAPI.C
         PTRAPI.H
+        ptrapi_a.c
+        ptrapi_a.h
         swdapi.c
         SWDAPI.H
         TSMAPI.C
@@ -31,6 +34,4 @@ add_executable(GFX
         types.h
         VMEMAPI.C
         VMEMAPI.H
-        ptrapi_a.c
-        ptrapi_a.h
 )

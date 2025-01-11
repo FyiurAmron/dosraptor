@@ -8,6 +8,8 @@
 #include <stddef.h>
 #include "types.h"
 
+#include "gfxapi_a.h"
+
 #define GFX_DARK     0
 #define GFX_LITE     1
 
@@ -311,18 +313,6 @@ void GFX_Line(
 );
 
 /*************************************************************************
-   GFX_ScalePic () - Scales picture optionaly make color 0 see thru
- *************************************************************************/
-void GFX_ScalePic(
-    BYTE* buffin, // INPUT : pointer to pic data
-    INT x, // INPUT : x display position
-    INT y, // INPUT : y display position
-    INT new_lx, // INPUT : new x length
-    INT new_ly, // INPUT : new y length
-    BOOL see_thru // INPUT : TRUE = see thru
-);
-
-/*************************************************************************
    GFX_MarkUpdate () Marks an area to be draw with GFX_DrawScreen()
  *************************************************************************/
 void GFX_MarkUpdate(
@@ -345,7 +335,8 @@ void GFX_ForceUpdate(
 /***************************************************************************
    GFX_SetFrameHook () sets function to call before every screen update
  ***************************************************************************/
-void GFX_SetFrameHook( void ( *func )( void ( * )( void ) ) // INPUT : pointer to function
+void GFX_SetFrameHook(
+    void ( *func )( void ( * )( void ) ) // INPUT : pointer to function
 );
 
 /***************************************************************************
@@ -428,17 +419,6 @@ void GFX_3D_SetView(
 );
 
 /***************************************************************************
-   GFX_3D_PutImage() - places image in displaybuffer and performs cliping
- ***************************************************************************/
-void GFX_3D_PutImage(
-    BYTE* image, // INPUT : image data
-    INT x, // INPUT : x position
-    INT y, // INPUT : y position
-    INT z, // INPUT : z position ( distance )
-    BOOL see_thru // INPUT : true = masked, false = put block
-);
-
-/***************************************************************************
    GFX_Print () - prints a string using specified font with basecolor
  ***************************************************************************/
 INT GFX_Print(
@@ -447,6 +427,14 @@ INT GFX_Print(
     CHAR* str, // INPUT : string to print
     void* infont, // INPUT : pointer to font
     INT basecolor // INPUT : basecolor of font
+);
+
+/**************************************************************************
+  GFX_SetPalette() - Sets 256 color palette
+ **************************************************************************/
+void GFX_SetPalette(
+    BYTE* curpal, // INPUT : pointer to palette data
+    INT startpal // INPUT : palette start number 0 -256
 );
 
 /***************************************************************************
@@ -463,86 +451,7 @@ void GFX_3D_SetView(
  ***************************************************************************/
 void GFX_3DPoint( void );
 
-/**************************************************************************
-  GFX_SetPalette() - Sets 256 color palette
- **************************************************************************/
-void GFX_SetPalette(
-    BYTE* curpal, // INPUT : pointer to palette data
-    INT startpal // INPUT : palette start number 0 -256
-);
-
-/*========================================================================
-;  GFX_ScaleLine() - scale from scale table (stable) color 0 transparent
- ========================================================================*/
-void __cdecl GFX_ScaleLine(
-    BYTE* outmem, // INPUT : pointer to destination
-    BYTE* inmem // INPUT : pointer to picture data
-);
-
-/*========================================================================
-; GFX_CScaleLine() - scale from scale table (stable) color 0 transparent
- ========================================================================*/
-void __cdecl GFX_CScaleLine(
-    BYTE* outmem, // INPUT : pointer to destination
-    BYTE* inmem // INPUT : pointer to picture data
-);
-
-/*========================================================================
-GFX_ShadeSprite () - Shades a Sprite shape into displaybuffer
- ========================================================================*/
-#pragma aux GFX_ShadeSprite "_*" parm[EDX][ESI][EAX] modify[EBX ECX EDI]
-void GFX_ShadeSprite( BYTE* dest, BYTE* inmem, BYTE* dtable );
-
-/*========================================================================
-GFX_DrawSprite () - Draws a Sprite into displaybuffer
- ========================================================================*/
-#pragma aux GFX_DrawSprite "_*" parm[EDX][ESI] modify[EAX EBX ECX EDI]
-void GFX_DrawSprite( BYTE* dest, BYTE* inmem );
-
-/*========================================================================
-; GFX_Shade() - Remaps Bytes according to shade table
- ========================================================================*/
-#pragma aux GFX_Shade "_*" parm[EDI][ECX][EAX] modify[EBX EDX ESI]
-void GFX_Shade(
-    BYTE* outmem, // INPUT : EAX pointer to destination
-    INT maxlen, // INPUT : EDX length of buffer to shade
-    BYTE* dtable // INPUT : EBX pointer to shade table
-);
-
-/*========================================================================
-; GFX_PutPic() - Puts Picture into buffer
- ========================================================================*/
-#pragma aux GFX_PutPic "_*" modify[EAX EBX ECX EDX ESI EDI]
-void GFX_PutPic( void );
-
-/*========================================================================
-; GFX_PutMaskPic() - Puts Picture into buffer with color 0 see thru
- ========================================================================*/
-#pragma aux GFX_PutMaskPic "_*" modify[EAX EBX ECX EDX ESI EDI]
-void GFX_PutMaskPic( void );
-
-/*========================================================================
- ========================================================================*/
-void __cdecl GFX_DrawChar(
-    BYTE* dest, // OUTPUT: destination buffer
-    BYTE* inmem, // INPUT : source buffer
-    INT width, // INPUT : width of character
-    INT height, // INPUT : height of character
-    INT addx, // INPUT : addx offset
-    INT color // INPUT : base color
-);
-
-/*========================================================================
-; GFX_DisplayScreen() - Puts Display Buffer into Video memory
- ========================================================================*/
-#pragma aux GFX_DisplayScreen "_*" modify[EAX EBX ECX EDX ESI EDI]
-void GFX_DisplayScreen( void );
-
-void GFX_SetRetraceFlag( BOOL flag );
-
-#define GFX_SetRetraceFlag( x ) ( retraceflag = x )
-
-#define FRAME_COUNT             ( framecount )
+#define FRAME_COUNT ( framecount ) // TODO inline this
 
 extern BYTE* displaybuffer;
 extern BYTE* displayscreen;
@@ -562,5 +471,9 @@ extern INT G3D_screeny; // output: screen y pos
 extern INT G3D_viewx; // user view x pos
 extern INT G3D_viewy; // user view y pos
 extern INT G3D_viewz; // user view z pos
+
+inline void GFX_SetRetraceFlag( BOOL flag ) {
+    retraceflag = flag;
+}
 
 #endif

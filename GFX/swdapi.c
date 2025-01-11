@@ -381,7 +381,12 @@ PRIVATE void SWD_PutField(
 
                 h = (GFX_PIC*) pic;
                 if ( curfld->lx < h->width || curfld->ly < h->height ) {
-                    GFX_ScalePic( pic, fld_x, fld_y, curfld->lx, curfld->ly, FALSE );
+                    GFX_PIC* gfx_pic = (GFX_PIC*) pic;
+                    if ( gfx_pic->type == GSPRITE ) {
+                        GFX_PutSprite( pic, fld_x, fld_y );
+                    } else {
+                        EXIT_Error( "trying to use obsolete GFX_ScalePic functionality" );
+                    }
                 } else {
                     GFX_PutImage( pic, fld_x, fld_y, draw_style );
                 }

@@ -69,12 +69,12 @@ PRIVATE DWORD tsm_id;
 PRIVATE INT start_lookup = 0;
 PRIVATE INT end_lookup = 255;
 
-// USED TO PASS STUFF TO GFXAPI_A.ASM
-PUBLIC BYTE* gfx_inmem = 0;
-PUBLIC INT gfx_xp = 0;
-PUBLIC INT gfx_yp = 0;
-PUBLIC INT gfx_lx = 0;
-PUBLIC INT gfx_ly = 0;
+// USED TO PASS STUFF TO GFXAPI_A
+PUBLIC BYTE* gfx_inmem = NULL;
+PUBLIC INT gfx_xp = 0; // x pos
+PUBLIC INT gfx_yp = 0; // y pos
+PUBLIC INT gfx_lx = 0; // len x
+PUBLIC INT gfx_ly = 0; // len y
 PUBLIC INT gfx_imga = 0;
 
 /*==========================================================================
@@ -96,7 +96,7 @@ void GFX_SetDebug(
 /*************************************************************************
    GFX_ClipLines ()
  *************************************************************************/
-INT // RETURN: 0 = Off, 1 == No Clip , 2 == Cliped
+INT // RETURN: 0 = Off, 1 == No Clip , 2 == Clipped
 GFX_ClipLines(
     BYTE** image, // INOUT : pointer to image or NULL
     INT* x, // INOUT : pointer to x pos
@@ -107,16 +107,16 @@ GFX_ClipLines(
     INT rval = 1;
 
     if ( *x >= SCREENWIDTH ) {
-        return ( 0 );
+        return 0;
     }
     if ( *y >= SCREENHEIGHT ) {
-        return ( 0 );
+        return 0;
     }
     if ( *x + *lx <= 0 ) {
-        return ( 0 );
+        return 0;
     }
     if ( *y + *ly <= 0 ) {
-        return ( 0 );
+        return 0;
     }
 
     if ( *y < 0 ) {
@@ -147,27 +147,25 @@ GFX_ClipLines(
         *lx = SCREENWIDTH - *x;
     }
 
-    return ( rval );
+    return rval;
 }
 
 /**************************************************************************
    GFX_SetVideoMode13() - sets 256 color 320x200 mode
  **************************************************************************/
 void GFX_SetVideoMode13( void ) {
-    union REGS r;
-
-    r.w.ax = 0x13;
-    int386( 0x10, &r, &r );
+    union REGS regs;
+    regs.w.ax = 0x13;
+    int386( 0x10, &regs, &regs );
 }
 
 /**************************************************************************
-   GFX_RestoreMode() - Restores Original video mode
+   GFX_RestoreMode() - set text mode
  **************************************************************************/
 void GFX_RestoreMode( void ) {
-    union REGS r;
-
-    r.w.ax = 0x03;
-    int386( 0x10, &r, &r );
+    union REGS regs;
+    regs.w.ax = 0x03;
+    int386( 0x10, &regs, &regs );
 }
 
 /**************************************************************************
@@ -176,7 +174,7 @@ GFX_SetPalette() - Sets VGA palette
 void GFX_SetPalette( BYTE* palette, INT start_pal ) {
     volatile INT num = 0;
 
-    palette += ( start_pal * 3 );
+    palette += start_pal * 3;
 
     if ( retraceflag ) {
     retrace1:
@@ -205,7 +203,6 @@ void GFX_SetPalette( BYTE* palette, INT start_pal ) {
  **************************************************************************/
 void GFX_InitSystem( void ) {
     CHAR* err = "GFX_Init() - DosMemAlloc";
-    INT i;
     DWORD segment;
 
     if ( _dpmi_dosalloc( 4000, &segment ) ) {
@@ -218,7 +215,7 @@ void GFX_InitSystem( void ) {
 
     tsm_id = TSM_NewService( GFX_TimeFrameRate, 70, 255, 0 );
 
-    for ( i = 0; i < SCREENHEIGHT; i++ ) {
+    for ( INT i = 0; i < SCREENHEIGHT; i++ ) {
         ylookup[i] = SCREENWIDTH * i;
     }
 
@@ -339,17 +336,15 @@ void GFX_FadeIn(
     BYTE* palette, // INPUT : palette to fade into
     INT steps // INPUT : steps of fade ( 0 - 255 )
 ) {
-    INT j, i;
     BYTE pal1[768];
     BYTE pal2[768];
-    INT delta;
 
     GFX_GetPalette( pal1 );
     memcpy( pal2, pal1, 768 );
 
-    for ( j = 0; j < steps; j++ ) {
-        for ( i = 0; i < 768; i++ ) {
-            delta = palette[i] - pal1[i];
+    for ( INT j = 0; j < steps; j++ ) {
+        for ( INT i = 0; i < 768; i++ ) {
+            INT delta = palette[i] - pal1[i];
             pal2[i] = pal1[i] + delta * j / steps;
         }
 
@@ -375,11 +370,9 @@ void GFX_FadeFrame(
     INT cur_step, // INPUT : cur step position
     INT steps // INPUT : total steps of fade ( 0 - 255 )
 ) {
-    INT i;
-    INT delta;
 
-    for ( i = 0; i < 768; i++ ) {
-        delta = palette[i] - tpal1[i];
+    for ( INT i = 0; i < 768; i++ ) {
+        INT delta = palette[i] - tpal1[i];
         tpal2[i] = tpal1[i] + delta * cur_step / steps;
     }
 
@@ -422,15 +415,12 @@ GFX_Remap(
     INT blue // INPUT : blue ( 0 - 63 )
 ) {
     INT pos = 0;
-    INT i;
     INT color[3];
     INT diff[3];
-    INT low;
-    INT num;
 
-    low = ( 256 * 3 ) + 1;
+    INT low = 256 * 3 + 1;
 
-    for ( i = start_lookup; i < end_lookup + 1; i++ ) {
+    for ( INT i = start_lookup; i < end_lookup + 1; i++ ) {
 
         GFX_GetRGB( pal, i, &color[0], &color[1], &color[2] );
 
@@ -438,14 +428,14 @@ GFX_Remap(
         diff[1] = abs( color[1] - green );
         diff[2] = abs( color[2] - blue );
 
-        num = diff[0] + diff[1] + diff[2];
+        INT num = diff[0] + diff[1] + diff[2];
 
         if ( num <= low ) {
             low = num;
             pos = i;
         }
     }
-    return ( pos );
+    return pos;
 }
 
 /**************************************************************************
@@ -518,23 +508,13 @@ void GFX_MakeGreyTable(
     BYTE* palette, // INPUT : pointer to palette data
     BYTE* ltable // OUTPUT: pointer to lookup table
 ) {
-    INT i;
-    INT red;
-    INT green;
-    INT blue;
-    INT n_red;
-    INT n_green;
-    INT n_blue;
+    INT red, green, blue;
 
-    for ( i = 0; i < 256; i++ ) {
+    for ( INT i = 0; i < 256; i++ ) {
         GFX_GetRGB( palette, i, &red, &green, &blue );
+        INT avg = ( red + green + blue ) / 3;
 
-        n_red = ( ( red + green + blue ) / 3 );
-
-        n_green = n_red;
-        n_blue = n_red;
-
-        ltable[i] = GFX_Remap( palette, n_red, n_green, n_blue );
+        ltable[i] = GFX_Remap( palette, avg, avg, avg );
     }
 }
 
@@ -548,13 +528,12 @@ void GFX_GetScreen(
     INT lx, // INPUT : x length
     INT ly // INPUT : y length
 ) {
-    BYTE* source;
-    INT i;
 
     if ( GFX_ClipLines( &outmem, &x, &y, &lx, &ly ) ) {
+        BYTE* source;
         source = displaybuffer + x + ylookup[y];
 
-        for ( i = 0; i < ly; i++, outmem += lx, source += SCREENWIDTH ) {
+        for ( INT i = 0; i < ly; i++, outmem += lx, source += SCREENWIDTH ) {
             memcpy( outmem, source, (size_t) lx );
         }
     }
@@ -571,20 +550,13 @@ void GFX_PutTexture(
     INT ly // INPUT : y length
 ) {
     GFX_PIC* h = (GFX_PIC*) intxt;
-    BYTE* buf;
-    INT ix;
-    INT iy;
     INT xpos;
     INT ypos;
-    INT new_lx;
-    INT new_ly;
     INT maxxloop = abs( x ) + lx;
     INT maxyloop = abs( y ) + ly;
-    INT x2;
-    INT y2;
 
-    x2 = x + lx - 1;
-    y2 = y + ly - 1;
+    INT x2 = x + lx - 1;
+    INT y2 = y + ly - 1;
 
     if ( x2 >= SCREENWIDTH ) {
         x2 = SCREENWIDTH - 1;
@@ -593,32 +565,29 @@ void GFX_PutTexture(
         y2 = SCREENHEIGHT - 1;
     }
 
-    for ( iy = y; iy < maxyloop; iy += h->height ) {
+    for ( INT iy = y; iy < maxyloop; iy += h->height ) {
         if ( iy > y2 ) {
             continue;
         }
+
         if ( iy + h->height <= 0 ) {
             continue;
         }
-        if ( iy < 0 ) {
-            buf += ( -iy * h->width );
-            new_ly += iy;
-            ypos = 0;
-        } else {
-            ypos = iy;
-        }
 
-        for ( ix = x; ix < maxxloop; ix += h->width ) {
+        ypos = ( iy < 0 ) ? 0 : iy;
+
+        for ( INT ix = x; ix < maxxloop; ix += h->width ) {
             if ( ix > x2 ) {
                 continue;
             }
-            if ( ix + (INT) h->width <= 0 ) {
+            if ( ix + h->width <= 0 ) {
                 continue;
             }
-            buf = intxt + sizeof( GFX_PIC );
 
-            new_lx = h->width;
-            new_ly = h->height;
+            BYTE* buf = intxt + sizeof( GFX_PIC );
+
+            INT new_lx = h->width;
+            INT new_ly = h->height;
 
             if ( ix < 0 ) {
                 buf += -ix;
@@ -628,12 +597,12 @@ void GFX_PutTexture(
                 xpos = ix;
             }
 
-            if ( ( xpos + new_lx - 1 ) >= x2 ) {
-                new_lx = ( x2 + 1 ) - xpos;
+            if ( xpos + new_lx - 1 >= x2 ) {
+                new_lx = x2 + 1 - xpos;
             }
 
-            if ( ( ypos + new_ly - 1 ) >= y2 ) {
-                new_ly = ( y2 + 1 ) - ypos;
+            if ( ypos + new_ly - 1 >= y2 ) {
+                new_ly = y2 + 1 - ypos;
             }
 
             gfx_inmem = buf;
@@ -641,7 +610,7 @@ void GFX_PutTexture(
             gfx_yp = ypos;
             gfx_lx = new_lx;
             gfx_ly = new_ly;
-            gfx_imga = ( h->width - new_lx );
+            gfx_imga = h->width - new_lx;
 
             GFX_PutPic();
 
@@ -660,13 +629,12 @@ void GFX_ShadeArea(
     INT lx, // INPUT : x length
     INT ly // INPUT : y length
 ) {
-    BYTE* buf;
-    BYTE* cur_table;
     INT i;
 
     if ( GFX_ClipLines( NULL, &x, &y, &lx, &ly ) ) {
-        buf = displaybuffer + x + ylookup[y];
+        BYTE* buf = displaybuffer + x + ylookup[y];
 
+        BYTE* cur_table;
         switch ( opt ) {
             case DARK:
                 cur_table = dtable;
@@ -703,7 +671,6 @@ void GFX_ShadeShape(
     GFX_SPRITE* ah;
     BYTE* cur_table;
     BYTE* dest;
-    INT rval;
     INT ox = x;
     INT oy = y;
     INT lx = h->width;
@@ -711,7 +678,7 @@ void GFX_ShadeShape(
 
     inmem += sizeof( GFX_PIC );
 
-    rval = GFX_ClipLines( NULL, &ox, &oy, &lx, &ly );
+    INT rval = GFX_ClipLines( NULL, &ox, &oy, &lx, &ly );
     if ( !rval ) {
         return;
     }
@@ -731,9 +698,6 @@ void GFX_ShadeShape(
     }
 
     switch ( rval ) {
-        default:
-            break;
-
         case 1:
             dest = displaybuffer + ox + ylookup[oy];
 
@@ -765,6 +729,8 @@ void GFX_ShadeShape(
                 ah = (GFX_SPRITE*) inmem;
             }
             break;
+        default:
+            break;
     }
 }
 
@@ -778,14 +744,13 @@ void GFX_VShadeLine(
     INT ly // INPUT : length of line
 ) {
     INT lx = 1;
-    BYTE* outbuf;
-    BYTE* cur_table;
 
     if ( ly < 1 ) {
         return;
     }
 
-    if ( GFX_ClipLines( (BYTE**) 0, &x, &y, &lx, &ly ) ) {
+    if ( GFX_ClipLines( NULL, &x, &y, &lx, &ly ) ) {
+        BYTE* cur_table;
         switch ( opt ) {
             case DARK:
                 cur_table = dtable;
@@ -802,7 +767,7 @@ void GFX_VShadeLine(
 
         GFX_MarkUpdate( x, y, lx, ly );
 
-        outbuf = displaybuffer + x + ylookup[y];
+        BYTE* outbuf = displaybuffer + x + ylookup[y];
 
         while ( ly-- ) {
             *outbuf = *( cur_table + *outbuf );
@@ -821,14 +786,13 @@ void GFX_HShadeLine(
     INT lx // INPUT : length of line
 ) {
     INT ly = 1;
-    BYTE* outbuf;
-    BYTE* cur_table;
 
     if ( lx < 1 ) {
         return;
     }
 
-    if ( GFX_ClipLines( (BYTE**) 0, &x, &y, &lx, &ly ) ) {
+    if ( GFX_ClipLines( NULL, &x, &y, &lx, &ly ) ) {
+        BYTE* cur_table;
         switch ( opt ) {
             case DARK:
                 cur_table = dtable;
@@ -845,7 +809,7 @@ void GFX_HShadeLine(
 
         GFX_MarkUpdate( x, y, lx, ly );
 
-        outbuf = displaybuffer + x + ylookup[y];
+        BYTE* outbuf = displaybuffer + x + ylookup[y];
 
         GFX_Shade( outbuf, lx, cur_table );
     }
@@ -919,7 +883,7 @@ void GFX_ColorBox(
         return;
     }
 
-    if ( GFX_ClipLines( (BYTE**) 0, &x, &y, &lx, &ly ) ) {
+    if ( GFX_ClipLines( NULL, &x, &y, &lx, &ly ) ) {
         outbuf = displaybuffer + x + ylookup[y];
 
         GFX_MarkUpdate( x, y, lx, ly );
@@ -946,21 +910,19 @@ void GFX_HLine(
     INT lx, // INPUT : width
     INT color // INPUT : fill color ( 0 - 255 )
 ) {
-    BYTE* outbuf;
     INT ly = 1;
-    INT i;
 
     if ( lx < 1 ) {
         return;
     }
 
-    if ( GFX_ClipLines( (BYTE**) 0, &x, &y, &lx, &ly ) ) {
-        outbuf = displaybuffer + x + ylookup[y];
+    if ( GFX_ClipLines( NULL, &x, &y, &lx, &ly ) ) {
+        BYTE* outbuf = displaybuffer + x + ylookup[y];
 
         GFX_MarkUpdate( x, y, lx, 1 );
 
         if ( color < 0 ) {
-            for ( i = 0; i < lx; i++, outbuf++ ) {
+            for ( INT i = 0; i < lx; i++, outbuf++ ) {
                 *outbuf ^= (BYTE) ( 255 + color );
             }
         } else {
@@ -978,15 +940,14 @@ void GFX_VLine(
     INT ly, // INPUT : length
     INT color // INPUT : fill color ( 0 - 255 )
 ) {
-    BYTE* outbuf;
     INT lx = 1;
 
     if ( ly < 1 ) {
         return;
     }
 
-    if ( GFX_ClipLines( (BYTE**) 0, &x, &y, &lx, &ly ) ) {
-        outbuf = displaybuffer + x + ylookup[y];
+    if ( GFX_ClipLines( NULL, &x, &y, &lx, &ly ) ) {
+        BYTE* outbuf = displaybuffer + x + ylookup[y];
 
         GFX_MarkUpdate( x, y, 1, ly );
 
@@ -1094,80 +1055,22 @@ void GFX_Rectangle(
     GFX_VLine( x + lx - 1, y + 1, ly - 2, color );
 }
 
-/*************************************************************************
-   GFX_ScalePic () - Scales picture optionaly make color 0 see thru
- *************************************************************************/
 void GFX_ScalePic(
-    BYTE* buffin, // INPUT : pointer to pic data
+    BYTE* src, // INPUT : pointer to pic data
     INT x, // INPUT : x display position
     INT y, // INPUT : y display position
     INT new_lx, // INPUT : new x length
     INT new_ly, // INPUT : new y length
     BOOL see_thru // INPUT : TRUE = see thru
 ) {
-    GFX_PIC* h = (GFX_PIC*) buffin;
-    BYTE* dest = displaybuffer;
-    BYTE* pic = buffin + sizeof( GFX_PIC );
-    DWORD accum_y = 0;
-    DWORD accum_x = 0;
-    DWORD addx = ( ( h->width << 16 ) / new_lx );
-    DWORD addy = ( ( h->height << 16 ) / new_ly );
-    INT outpos;
+    GFX_PIC* h = (GFX_PIC*) src;
 
     if ( h->type == GSPRITE ) {
-        GFX_PutSprite( buffin, x, y );
+        GFX_PutSprite( src, x, y );
         return;
     }
 
-    if ( x < 0 ) {
-        accum_x = addx * (DWORD) -x;
-        pic += ( accum_x >> 16 );
-        new_lx += x;
-        accum_x = accum_x & 0x0000FFFF;
-        x = 0;
-    }
-
-    if ( y < 0 ) {
-        accum_y = addy * (DWORD) -y;
-        pic += ( ( accum_y >> 16 ) * h->width );
-        new_ly += y;
-        accum_y = accum_y & 0x0000FFFF;
-        y = 0;
-    }
-
-    if ( ( x + new_lx ) > (signed) SCREENWIDTH ) {
-        new_lx = SCREENWIDTH - x;
-    }
-    if ( ( y + new_ly ) > (signed) SCREENHEIGHT ) {
-        new_ly = SCREENHEIGHT - y;
-    }
-
-    dest += ( x + ylookup[y] );
-
-    GFX_MarkUpdate( x, y, new_lx, new_ly );
-
-    tablelen = outpos = new_lx;
-    outpos--;
-
-    while ( outpos >= 0 ) {
-        *( stable + outpos ) = ( accum_x >> 16 );
-        accum_x += addx;
-        outpos--;
-    }
-
-    if ( see_thru ) {
-        while ( new_ly-- > 0 ) {
-            GFX_CScaleLine( dest, pic + ( accum_y >> 16 ) * h->width );
-            accum_y += addy;
-            dest += SCREENWIDTH;
-        }
-    } else {
-        while ( new_ly-- > 0 ) {
-            GFX_ScaleLine( dest, pic + ( accum_y >> 16 ) * h->width );
-            accum_y += addy;
-            dest += SCREENWIDTH;
-        }
-    }
+    EXIT_Error( "trying to use obsolete GFX_ScalePic functionality" );
 }
 
 /*************************************************************************
@@ -1398,15 +1301,13 @@ void GFX_PutSprite(
     INT ly = h->height;
 
     rval = GFX_ClipLines( NULL, &ox, &oy, &lx, &ly );
-    if ( !rval ) {
+    if ( rval == 0 ) {
         return;
     }
 
     inmem += sizeof( GFX_PIC );
 
     switch ( rval ) {
-        default:
-            break;
 
         case 1:
             dest = displaybuffer + ox + ylookup[oy];
@@ -1440,6 +1341,8 @@ void GFX_PutSprite(
                 ah = (GFX_SPRITE*) inmem;
             }
             break;
+        default: // never happens
+            break;
     }
 }
 
@@ -1454,7 +1357,6 @@ void GFX_OverlayImage(
 ) {
     GFX_PIC* bh = (GFX_PIC*) baseimage;
     GFX_PIC* oh = (GFX_PIC*) overimage;
-    INT j, i, addnum;
     INT x2 = x + oh->width - 1;
     INT y2 = y + oh->height - 1;
 
@@ -1464,10 +1366,10 @@ void GFX_OverlayImage(
 
         overimage += sizeof( GFX_PIC );
 
-        addnum = bh->width - oh->width;
+        INT addnum = bh->width - oh->width;
 
-        for ( j = 0; j < oh->height; j++ ) {
-            for ( i = 0; i < oh->width; i++, baseimage++, overimage++ ) {
+        for ( INT j = 0; j < oh->height; j++ ) {
+            for ( INT i = 0; i < oh->width; i++, baseimage++, overimage++ ) {
                 if ( i != 255 ) {
                     *baseimage = *overimage;
                 }
@@ -1486,15 +1388,14 @@ GFX_StrPixelLen(
     unsigned char* instr, // INPUT : pointer to string
     size_t maxloop // INPUT : length of string
 ) {
-    INT i;
     INT outlen = 0;
 
-    for ( i = 0; i < maxloop; i++ ) {
+    for ( INT i = 0; i < maxloop; i++ ) {
         outlen += ( (FONT*) infont )->width[instr[i]];
         outlen += fontspacing;
     }
 
-    return ( outlen );
+    return outlen;
 }
 
 /*--------------------------------------------------------------------------
@@ -1512,10 +1413,9 @@ PRIVATE INT GFX_PutChar(
     INT ly = font->height;
     BYTE* cdata = source + font->charofs[inchar];
     INT addx = lx;
-    BYTE* dest;
 
     if ( GFX_ClipLines( &cdata, &x, &y, &lx, &ly ) ) {
-        dest = displaybuffer + x + ylookup[y];
+        BYTE* dest = displaybuffer + x + ylookup[y];
 
         GFX_MarkUpdate( x, y, lx, ly );
 
@@ -1523,10 +1423,10 @@ PRIVATE INT GFX_PutChar(
 
         GFX_DrawChar( dest, cdata, lx, ly, addx, basecolor );
 
-        return ( lx );
+        return lx;
     }
 
-    return ( 0 );
+    return 0;
 }
 
 /***************************************************************************
@@ -1542,7 +1442,6 @@ GFX_Print(
 ) {
     FONT* font = infont;
     INT lx = 0;
-    INT cwidth;
     BYTE ch;
 
     basecolor--;
@@ -1552,13 +1451,13 @@ GFX_Print(
             if ( font->charofs[ch] == (SHORT) EMPTY ) {
                 continue;
             }
-            cwidth = GFX_PutChar( x, y, ch, font, basecolor );
-            lx += ( cwidth + fontspacing );
-            x += ( font->width[ch] + fontspacing );
+            INT cwidth = GFX_PutChar( x, y, ch, font, basecolor );
+            lx += cwidth + fontspacing;
+            x += font->width[ch] + fontspacing;
         }
     }
 
-    return ( lx );
+    return lx;
 }
 
 /***************************************************************************
@@ -1582,49 +1481,9 @@ void GFX_3DPoint( void ) {
     G3D_y -= G3D_viewy;
     G3D_z -= G3D_viewz;
 
-    G3D_screenx = ( ( ( ( G3D_DIST << 11 ) * G3D_x ) / G3D_z ) >> 11 );
-    G3D_screeny = ( ( ( ( G3D_DIST << 11 ) * G3D_y ) / G3D_z ) >> 11 );
+    G3D_screenx = ( ( G3D_DIST << 11 ) * G3D_x / G3D_z ) >> 11;
+    G3D_screeny = ( ( G3D_DIST << 11 ) * G3D_y / G3D_z ) >> 11;
 
     G3D_screenx += G3D_viewx;
     G3D_screeny += G3D_viewy;
-}
-
-/***************************************************************************
-   GFX_3D_PutImage() - places image in displaybuffer and performs cliping
- ***************************************************************************/
-void GFX_3D_PutImage(
-    BYTE* image, // INPUT : image data
-    INT x, // INPUT : x position
-    INT y, // INPUT : y position
-    INT z, // INPUT : z position ( distance )
-    BOOL see_thru // INPUT : true = masked, false = put block
-) {
-    GFX_PIC* h = (GFX_PIC*) image;
-    INT new_lx;
-    INT new_ly;
-    INT x1;
-    INT y1;
-
-    if ( z == G3D_DIST ) {
-        GFX_MarkUpdate( x, y, (INT) h->width, (INT) h->height );
-        GFX_PutImage( image, x, y, see_thru );
-    } else {
-        G3D_x = x;
-        G3D_y = y;
-        G3D_z = z;
-        GFX_3DPoint();
-        x1 = G3D_screenx;
-        y1 = G3D_screeny;
-
-        G3D_x = x + h->width - 1;
-        G3D_y = y + h->height - 1;
-        G3D_z = z;
-        GFX_3DPoint();
-
-        new_lx = G3D_screenx - x1;
-        new_ly = G3D_screeny - y1;
-
-        GFX_MarkUpdate( x1, y1, new_lx, new_ly );
-        GFX_ScalePic( image, x1, y1, new_lx, new_ly, see_thru );
-    }
 }

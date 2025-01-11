@@ -9,7 +9,7 @@
 #include "ptrapi_a.h"
 
 typedef enum { P_AUTO, P_MOUSE, P_JOYSTICK } PTRTYPE;
-
+// TODO inline those below, dropping `volatile` in the process
 #define JOY_X       ( (volatile) cur_mx )
 #define JOY_Y       ( (volatile) cur_my )
 #define PTR_X       ( (volatile) cur_mx )
