@@ -1,6 +1,8 @@
 #ifndef _TYPES_H
 #define _TYPES_H
 
+#include <stdlib.h>
+
 typedef enum { FALSE, TRUE } BOOL;
 
 #define PRIVATE static
@@ -21,8 +23,5 @@ typedef unsigned int uint32_t;
 typedef signed char int8_t;
 typedef signed short int16_t;
 typedef signed int int32_t;
-
-int random( int );
-#define random( x ) ( rand() % x )
 
 #endif

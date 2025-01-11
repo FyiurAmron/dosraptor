@@ -35,4 +35,8 @@
 #include "tile.h"
 #include "windows.h"
 
+inline int random( int max_excl ) {
+    return rand() % max_excl;
+}
+
 #endif
