@@ -14,6 +14,7 @@
  * NOTES:
  *
  *---------------------------------------------------------------------------*/
+#include <sys\stat.h>
 #include <ctype.h>
 #include <dos.h>
 #include <fcntl.h>
@@ -22,11 +23,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys\stat.h>
 
 #include "exitapi.h"
-#include "glbapi.h"
 #include "vmemapi.h"
+#include "common.h"
+
+#include "glbapi.h"
 
 #include "decrypt.c"
 
