@@ -8,8 +8,6 @@
 #include <stddef.h>
 #include "types.h"
 
-#include "gfxapi_a.h"
-
 #define GFX_DARK     0
 #define GFX_LITE     1
 
@@ -450,6 +448,16 @@ void GFX_3D_SetView(
    GFX_3DPoint () plots a points in 3D space
  ***************************************************************************/
 void GFX_3DPoint( void );
+
+// gfxapi_a
+
+void GFX_Shade( uint8_t* dst, int maxlen, const uint8_t* shading_table );
+void GFX_ShadeSprite( uint8_t* dst, const uint8_t* src, const uint8_t* shading_table );
+void GFX_DrawSprite( uint8_t* dst, const uint8_t* src );
+void GFX_DrawChar( uint8_t* dst, const uint8_t* src, int lx, int ly, int add_x_src, uint8_t color );
+void GFX_PutPic( void );
+void GFX_PutMaskPic( void );
+void GFX_DisplayScreen( void );
 
 #define FRAME_COUNT ( framecount ) // TODO inline this
 

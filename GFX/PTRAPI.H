@@ -6,7 +6,6 @@
 #define PTRAPI_H
 
 #include "types.h"
-#include "ptrapi_a.h"
 
 typedef enum { P_AUTO, P_MOUSE, P_JOYSTICK } PTRTYPE;
 // TODO inline those below, dropping `volatile` in the process
@@ -120,5 +119,13 @@ PTR_Init(
  PTR_End() - End Cursor system
  ***************************************************************************/
 void PTR_End( void );
+
+// ptrapi_a
+
+void PTR_ReadJoyStick( void );
+void PTR_Save( int max_y );
+void PTR_Erase( void );
+void PTR_ClipErase( void );
+void PTR_Draw( void );
 
 #endif

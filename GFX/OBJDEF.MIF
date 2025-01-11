@@ -10,6 +10,4 @@ OBJS = &
     imsapi.obj &
     kbdapi.obj &
     swdapi.obj &
-    tsmapi.obj &
-    gfxapi_a.obj &
-    ptrapi_a.obj
+    tsmapi.obj
