@@ -286,11 +286,11 @@ mainloop:
                 break;
 
             case OPTS_VMUSIC:
-                if ( PTR_B1 ) {
+                if ( mouseb1 ) {
                     while ( IMS_IsAck() )
                         ;
                     SWD_GetFieldXYL( opt_window, OPTS_VMUSIC, &x, &y, &lx, &ly );
-                    new_vol = PTR_X - x;
+                    new_vol = cur_mx - x;
                     if ( new_vol < 0 ) {
                         new_vol = 0;
                     }
@@ -304,11 +304,11 @@ mainloop:
                 break;
 
             case OPTS_VFX:
-                if ( PTR_B1 ) {
+                if ( mouseb1 ) {
                     while ( IMS_IsAck() )
                         ;
                     SWD_GetFieldXYL( opt_window, OPTS_VFX, &x, &y, &lx, &ly );
-                    new_vol = PTR_X - x;
+                    new_vol = cur_mx - x;
                     if ( new_vol < 0 ) {
                         new_vol = 0;
                     }
@@ -492,8 +492,8 @@ WIN_AskBool(
     INT ly;
     BOOL dchold = drawcursor;
 
-    xh = PTR_X;
-    yh = PTR_Y;
+    xh = cur_mx;
+    yh = cur_my;
 
     KBD_Clear();
     ask_window = SWD_InitWindow( ASK_SWD );
@@ -743,7 +743,7 @@ mainloop:
 
             case REG_VIEWEXIT:
                 opt = dlg.sfield;
-                if ( PTR_B1 ) {
+                if ( mouseb1 ) {
                     while ( IMS_IsAck() )
                         ;
                     if ( RAP_IsSaveFile( &tp ) ) {
@@ -764,7 +764,7 @@ mainloop:
 
             case REG_VIEWID:
                 opt = dlg.sfield;
-                if ( PTR_B1 ) {
+                if ( mouseb1 ) {
                     while ( IMS_IsAck() )
                         ;
                     cur_id++;
@@ -1101,7 +1101,7 @@ mainloop:
             case HANG_MISSION:
                 pos = 0;
                 opt = dlg.sfield;
-                if ( PTR_B1 || dlg.keypress == SC_ENTER ) {
+                if ( mouseb1 || dlg.keypress == SC_ENTER ) {
                     SND_Patch( FX_DOOR, 60 );
                     while ( IMS_IsAck() )
                         ;
@@ -1119,7 +1119,7 @@ mainloop:
             case HANG_SUPPLIES:
                 pos = 1;
                 opt = dlg.sfield;
-                if ( PTR_B1 || dlg.keypress == SC_ENTER ) {
+                if ( mouseb1 || dlg.keypress == SC_ENTER ) {
                     SND_Patch( FX_DOOR, 127 );
                     while ( IMS_IsAck() )
                         ;
@@ -1137,7 +1137,7 @@ mainloop:
             case HANG_MAIN_MENU:
                 pos = 2;
                 opt = dlg.sfield;
-                if ( PTR_B1 || dlg.keypress == SC_ENTER ) {
+                if ( mouseb1 || dlg.keypress == SC_ENTER ) {
                     opt = -99;
                     SND_Patch( FX_DOOR, 200 );
                     while ( IMS_IsAck() )
@@ -1156,7 +1156,7 @@ mainloop:
             case HANG_QSAVE:
                 pos = 3;
                 opt = dlg.sfield;
-                if ( PTR_B1 || dlg.keypress == SC_ENTER ) {
+                if ( mouseb1 || dlg.keypress == SC_ENTER ) {
                     while ( IMS_IsAck() )
                         ;
                     sprintf( temp, "Save %s - %s ?", plr.name, plr.callsign );
@@ -1903,7 +1903,7 @@ mainloop:
         HELP_Win( "HELP1_TXT" );
     }
 
-    if ( PTR_B1 || PTR_B2 || dlg.keypress != SC_NONE ) {
+    if ( mouseb1 || mouseb2 || dlg.keypress != SC_NONE ) {
         WIN_DemoDelay( TRUE );
     }
 

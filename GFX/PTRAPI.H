@@ -8,17 +8,6 @@
 #include "types.h"
 
 typedef enum { P_AUTO, P_MOUSE, P_JOYSTICK } PTRTYPE;
-// TODO inline those below, dropping `volatile` in the process
-#define JOY_X       ( (volatile) cur_mx )
-#define JOY_Y       ( (volatile) cur_my )
-#define PTR_X       ( (volatile) cur_mx )
-#define PTR_Y       ( (volatile) cur_my )
-#define PTR_B1      ( (volatile) mouseb1 )
-#define PTR_B2      ( (volatile) mouseb2 )
-#define PTR_B3      ( (volatile) mouseb3 )
-#define PTR_TM1     ( (volatile) joy2b1 )
-#define PTR_TM2     ( (volatile) joy2b2 )
-#define PTR_PRESENT ( mousepresent + joypresent )
 
 extern BOOL mouse_b1_ack;
 extern BOOL mouse_b2_ack;

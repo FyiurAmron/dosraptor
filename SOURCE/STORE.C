@@ -337,7 +337,7 @@ mainloop:
 
             case STOR_VEXIT:
                 opt = dlg.sfield;
-                if ( PTR_B1 ) {
+                if ( mouseb1 ) {
                     goto store_exit;
                 }
                 if ( opt == oldopt ) {

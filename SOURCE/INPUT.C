@@ -480,8 +480,8 @@ PRIVATE void IPT_GetMouse( void ) {
     plx = playerx + ( PLAYERWIDTH / 2 );
     ply = playery + ( PLAYERHEIGHT / 2 );
 
-    ptrx = PTR_X;
-    ptry = PTR_Y;
+    ptrx = cur_mx;
+    ptry = cur_my;
 
     xm = ptrx - plx;
     ym = ptry - ply;
@@ -513,15 +513,15 @@ PRIVATE void IPT_GetMouse( void ) {
     g_addx = xm;
     g_addy = ym;
 
-    if ( PTR_B1 ) {
+    if ( mouseb1 ) {
         buttons[m_lookup[0]] = TRUE;
     }
 
-    if ( PTR_B2 ) {
+    if ( mouseb2 ) {
         buttons[m_lookup[1]] = TRUE;
     }
 
-    if ( PTR_B3 ) {
+    if ( mouseb3 ) {
         buttons[m_lookup[2]] = TRUE;
     }
 }

@@ -58,20 +58,12 @@ BOOL IMS_CheckAck( void ) {
 IMS_IsAck() - Returns TRUE if ptr button or key pressed
  ***************************************************************************/
 BOOL IMS_IsAck( void ) {
-    BOOL ret_val = FALSE;
-
     if ( KBD_LASTSCAN ) {
         KBD_LASTSCAN = FALSE;
-        ret_val = TRUE;
-    } else if ( PTR_B1 ) {
-        ret_val = TRUE;
-    } else if ( PTR_B2 ) {
-        ret_val = TRUE;
-    } else if ( PTR_B3 ) {
-        ret_val = TRUE;
+        return TRUE;
     }
 
-    return ret_val;
+    return ( mouseb1 || mouseb2 || mouseb3 ) ? TRUE : FALSE;
 }
 
 /***************************************************************************
@@ -80,10 +72,7 @@ IMS_WaitAck() - Waits for a pointer button or key press
 void IMS_WaitAck( void ) {
     IMS_StartAck();
 
-    for ( ;; ) {
-        if ( IMS_CheckAck() ) {
-            break;
-        }
+    while ( !IMS_CheckAck() ) {
     }
 
     IMS_StartAck();

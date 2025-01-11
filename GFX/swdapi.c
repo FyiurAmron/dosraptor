@@ -1209,7 +1209,7 @@ PRIVATE BOOL SWD_IsButtonDown( void ) {
         return TRUE;
     }
 
-    if ( PTR_B1 ) {
+    if ( mouseb1 ) {
         return TRUE;
     }
 
@@ -1673,8 +1673,8 @@ PRIVATE BOOL SWD_CheckMouse(
     INT i;
     SFIELD* curfld = firstfld;
     BOOL flag = TRUE;
-    INT px = PTR_X;
-    INT py = PTR_Y;
+    INT px = cur_mx;
+    INT py = cur_my;
     INT x1;
     INT y1;
     INT x2;
@@ -1737,7 +1737,7 @@ PRIVATE BOOL SWD_CheckMouse(
     }
 
     if ( mflag ) {
-        while ( PTR_B1 ) {
+        while ( mouseb1 ) {
         }
     }
 
@@ -1754,8 +1754,8 @@ PRIVATE BOOL SWD_CheckViewArea(
 ) {
     INT i;
     BOOL flag = FALSE;
-    INT px = PTR_X;
-    INT py = PTR_Y;
+    INT px = cur_mx;
+    INT py = cur_my;
     INT x1;
     INT y1;
     INT x2;
@@ -1889,7 +1889,7 @@ void SWD_Dialog(
         return;
     }
 
-    if ( PTR_B1 && cur_act == S_IDLE ) {
+    if ( mouseb1 && cur_act == S_IDLE ) {
         old_field = active_field;
         if ( SWD_CheckMouse( curwin, firstfld ) ) {
             if ( old_win != active_window ) {
@@ -2073,15 +2073,15 @@ void SWD_Dialog(
                         lastfld = 0;
                     }
                     GFX_DisplayUpdate();
-                    sx = PTR_X - curwin->x;
-                    sy = PTR_Y - curwin->y;
+                    sx = cur_mx - curwin->x;
+                    sy = cur_my - curwin->y;
 
                     KBD_Key( SC_ENTER ) = FALSE;
                     KBD_LASTSCAN = SC_NONE;
                     SWD_ShowAllWindows();
-                    while ( PTR_B1 ) {
-                        x = PTR_X - sx;
-                        y = PTR_Y - sy;
+                    while ( mouseb1 ) {
+                        x = cur_mx - sx;
+                        y = cur_my - sy;
                         curwin->x = x;
                         curwin->y = y;
                         GFX_MarkUpdate( 0, 0, 320, 200 );
