@@ -2,7 +2,7 @@
 
 #include "public.h"
 
-#include "file0001.inc"
+#include "inc/file0001.inc"
 
 #include "tile.h"
 

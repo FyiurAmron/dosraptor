@@ -6,10 +6,10 @@
 
 #include "public.h"
 
-#include "file0000.inc"
-#include "file0001.inc"
+#include "inc/file0000.inc"
+#include "inc/file0001.inc"
 
-#include "store.inc"
+#include "inc/store.inc"
 
 #include "bonus.h"
 #include "help.h"

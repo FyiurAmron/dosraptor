@@ -22,9 +22,9 @@
 #include "../gfx/tsmapi.h"
 #include "../gfx/vmemapi.h"
 
-#include "file0000.inc"
-#include "file0001.inc"
-#include "file0002.inc"
+#include "inc/file0000.inc"
+#include "inc/file0001.inc"
+#include "inc/file0002.inc"
 
 #include "ansi_esc.h"
 

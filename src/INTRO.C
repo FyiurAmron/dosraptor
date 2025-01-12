@@ -5,10 +5,10 @@
 
 #include "public.h"
 
-#include "file0000.inc"
-#include "file0001.inc"
-#include "file0002.inc"
-#include "file0003.inc"
+#include "inc/file0000.inc"
+#include "inc/file0001.inc"
+#include "inc/file0002.inc"
+#include "inc/file0003.inc"
 
 #include "fx.h"
 #include "movie.h"

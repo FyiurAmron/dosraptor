@@ -7,7 +7,7 @@
 
 #include "public.h"
 
-#include "file0000.inc"
+#include "inc/file0000.inc"
 
 #include "fx.h"
 
