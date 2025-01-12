@@ -17,7 +17,7 @@ PRIVATE int obj_cnt;
 PUBLIC OBJ_LIB obj_lib[S_LAST_OBJECT];
 PUBLIC OBJ* p_objs[S_LAST_OBJECT];
 
-PRIVATE BOOL objuse_flag;
+PRIVATE bool objuse_flag;
 PRIVATE int think_cnt;
 
 #define CHARGE_SHIELD ( 24 * 4 )
@@ -153,14 +153,14 @@ void OBJS_Init( void ) {
     lib->actf = SHOTS_PlayerShoot;
     lib->item = BONUS00_PIC;
     lib->numframes = 1;
-    lib->forever = TRUE;
-    lib->onlyflag = FALSE;
-    lib->loseit = FALSE;
-    lib->specialw = FALSE;
+    lib->forever = true;
+    lib->onlyflag = false;
+    lib->loseit = false;
+    lib->specialw = false;
     lib->fxtype = FX_GUN;
-    lib->moneyflag = FALSE;
-    lib->game1flag = TRUE;
-    lib->shieldflag = TRUE;
+    lib->moneyflag = false;
+    lib->game1flag = true;
+    lib->shieldflag = true;
 
     // == PLASMA GUNS ===  *
     lib = &obj_lib[S_PLASMA_GUNS];
@@ -170,14 +170,14 @@ void OBJS_Init( void ) {
     lib->actf = SHOTS_PlayerShoot;
     lib->item = BONUS01_PIC;
     lib->numframes = 2;
-    lib->forever = TRUE;
-    lib->onlyflag = FALSE;
-    lib->loseit = TRUE;
-    lib->specialw = FALSE;
+    lib->forever = true;
+    lib->onlyflag = false;
+    lib->loseit = true;
+    lib->specialw = false;
     lib->fxtype = FX_GUN;
-    lib->moneyflag = FALSE;
-    lib->game1flag = TRUE;
-    lib->shieldflag = TRUE;
+    lib->moneyflag = false;
+    lib->game1flag = true;
+    lib->shieldflag = true;
 
     // == MICRO MISSLES ===  *
     lib = &obj_lib[S_MICRO_MISSLE];
@@ -187,14 +187,14 @@ void OBJS_Init( void ) {
     lib->actf = SHOTS_PlayerShoot;
     lib->item = BONUS02_PIC;
     lib->numframes = 2;
-    lib->forever = TRUE;
-    lib->onlyflag = FALSE;
-    lib->loseit = TRUE;
-    lib->specialw = FALSE;
+    lib->forever = true;
+    lib->onlyflag = false;
+    lib->loseit = true;
+    lib->specialw = false;
     lib->fxtype = FX_GUN;
-    lib->moneyflag = FALSE;
-    lib->game1flag = TRUE;
-    lib->shieldflag = TRUE;
+    lib->moneyflag = false;
+    lib->game1flag = true;
+    lib->shieldflag = true;
 
     // == DUMB MISSLES === *
     lib = &obj_lib[S_DUMB_MISSLE];
@@ -204,14 +204,14 @@ void OBJS_Init( void ) {
     lib->actf = SHOTS_PlayerShoot;
     lib->item = BONUS03_PIC;
     lib->numframes = 1;
-    lib->forever = TRUE;
-    lib->onlyflag = FALSE;
-    lib->loseit = TRUE;
-    lib->specialw = TRUE;
+    lib->forever = true;
+    lib->onlyflag = false;
+    lib->loseit = true;
+    lib->specialw = true;
     lib->fxtype = FX_MISSLE;
-    lib->moneyflag = FALSE;
-    lib->game1flag = TRUE;
-    lib->shieldflag = TRUE;
+    lib->moneyflag = false;
+    lib->game1flag = true;
+    lib->shieldflag = true;
 
     // == MINI GUN ===
     lib = &obj_lib[S_MINI_GUN];
@@ -221,14 +221,14 @@ void OBJS_Init( void ) {
     lib->actf = SHOTS_PlayerShoot;
     lib->item = BONUS04_PIC;
     lib->numframes = 4;
-    lib->forever = TRUE;
-    lib->onlyflag = FALSE;
-    lib->loseit = TRUE;
-    lib->specialw = TRUE;
+    lib->forever = true;
+    lib->onlyflag = false;
+    lib->loseit = true;
+    lib->specialw = true;
     lib->fxtype = FX_GUN;
-    lib->moneyflag = FALSE;
-    lib->game1flag = TRUE;
-    lib->shieldflag = TRUE;
+    lib->moneyflag = false;
+    lib->game1flag = true;
+    lib->shieldflag = true;
 
     // == LASER TURRET ===
     lib = &obj_lib[S_TURRET];
@@ -238,14 +238,14 @@ void OBJS_Init( void ) {
     lib->actf = SHOTS_PlayerShoot;
     lib->item = BONUS05_PIC;
     lib->numframes = 4;
-    lib->forever = TRUE;
-    lib->onlyflag = FALSE;
-    lib->loseit = TRUE;
-    lib->specialw = TRUE;
+    lib->forever = true;
+    lib->onlyflag = false;
+    lib->loseit = true;
+    lib->specialw = true;
     lib->fxtype = FX_LASER;
-    lib->moneyflag = FALSE;
-    lib->game1flag = FALSE;
-    lib->shieldflag = TRUE;
+    lib->moneyflag = false;
+    lib->game1flag = false;
+    lib->shieldflag = true;
 
     // == MISSLE PODS ===
     lib = &obj_lib[S_MISSLE_PODS];
@@ -255,14 +255,14 @@ void OBJS_Init( void ) {
     lib->actf = SHOTS_PlayerShoot;
     lib->item = BONUS06_PIC;
     lib->numframes = 1;
-    lib->forever = TRUE;
-    lib->onlyflag = FALSE;
-    lib->loseit = TRUE;
-    lib->specialw = TRUE;
+    lib->forever = true;
+    lib->onlyflag = false;
+    lib->loseit = true;
+    lib->specialw = true;
     lib->fxtype = FX_GUN;
-    lib->moneyflag = FALSE;
-    lib->game1flag = TRUE;
-    lib->shieldflag = TRUE;
+    lib->moneyflag = false;
+    lib->game1flag = true;
+    lib->shieldflag = true;
 
     // == AIR TO AIR MISSLES === *
     lib = &obj_lib[S_AIR_MISSLE];
@@ -272,14 +272,14 @@ void OBJS_Init( void ) {
     lib->actf = SHOTS_PlayerShoot;
     lib->item = BONUS07_PIC;
     lib->numframes = 1;
-    lib->forever = TRUE;
-    lib->onlyflag = FALSE;
-    lib->loseit = TRUE;
-    lib->specialw = TRUE;
+    lib->forever = true;
+    lib->onlyflag = false;
+    lib->loseit = true;
+    lib->specialw = true;
     lib->fxtype = FX_MISSLE;
-    lib->moneyflag = FALSE;
-    lib->game1flag = TRUE;
-    lib->shieldflag = TRUE;
+    lib->moneyflag = false;
+    lib->game1flag = true;
+    lib->shieldflag = true;
 
     // == AIR TO GROUND MISSLES === *
     lib = &obj_lib[S_GRD_MISSLE];
@@ -289,14 +289,14 @@ void OBJS_Init( void ) {
     lib->actf = SHOTS_PlayerShoot;
     lib->item = BONUS08_PIC;
     lib->numframes = 1;
-    lib->forever = TRUE;
-    lib->onlyflag = FALSE;
-    lib->loseit = TRUE;
-    lib->specialw = TRUE;
+    lib->forever = true;
+    lib->onlyflag = false;
+    lib->loseit = true;
+    lib->specialw = true;
     lib->fxtype = FX_MISSLE;
-    lib->moneyflag = FALSE;
-    lib->game1flag = TRUE;
-    lib->shieldflag = TRUE;
+    lib->moneyflag = false;
+    lib->game1flag = true;
+    lib->shieldflag = true;
 
     // == GROUND BOMB ===
     lib = &obj_lib[S_BOMB];
@@ -306,14 +306,14 @@ void OBJS_Init( void ) {
     lib->actf = SHOTS_PlayerShoot;
     lib->item = BONUS21_PIC;
     lib->numframes = 1;
-    lib->forever = TRUE;
-    lib->onlyflag = FALSE;
-    lib->loseit = TRUE;
-    lib->specialw = TRUE;
+    lib->forever = true;
+    lib->onlyflag = false;
+    lib->loseit = true;
+    lib->specialw = true;
     lib->fxtype = FX_MISSLE;
-    lib->moneyflag = FALSE;
-    lib->game1flag = FALSE;
-    lib->shieldflag = TRUE;
+    lib->moneyflag = false;
+    lib->game1flag = false;
+    lib->shieldflag = true;
 
     // == ENERGY GRAB ===
     lib = &obj_lib[S_ENERGY_GRAB];
@@ -323,14 +323,14 @@ void OBJS_Init( void ) {
     lib->actf = SHOTS_PlayerShoot;
     lib->item = BONUS09_PIC;
     lib->numframes = 4;
-    lib->forever = TRUE;
-    lib->onlyflag = FALSE;
-    lib->loseit = TRUE;
-    lib->specialw = TRUE;
+    lib->forever = true;
+    lib->onlyflag = false;
+    lib->loseit = true;
+    lib->specialw = true;
     lib->fxtype = FX_GUN;
-    lib->moneyflag = FALSE;
-    lib->game1flag = FALSE;
-    lib->shieldflag = TRUE;
+    lib->moneyflag = false;
+    lib->game1flag = false;
+    lib->shieldflag = true;
 
     // == MEGA BOMB === *
     lib = &obj_lib[S_MEGA_BOMB];
@@ -340,14 +340,14 @@ void OBJS_Init( void ) {
     lib->actf = SHOTS_PlayerShoot;
     lib->item = BONUS10_PIC;
     lib->numframes = 1;
-    lib->forever = FALSE;
-    lib->onlyflag = TRUE;
-    lib->loseit = TRUE;
-    lib->specialw = FALSE;
+    lib->forever = false;
+    lib->onlyflag = true;
+    lib->loseit = true;
+    lib->specialw = false;
     lib->fxtype = FX_GUN;
-    lib->moneyflag = FALSE;
-    lib->game1flag = TRUE;
-    lib->shieldflag = TRUE;
+    lib->moneyflag = false;
+    lib->game1flag = true;
+    lib->shieldflag = true;
 
     // == PULSE CANNON ===
     lib = &obj_lib[S_PULSE_CANNON];
@@ -357,14 +357,14 @@ void OBJS_Init( void ) {
     lib->actf = SHOTS_PlayerShoot;
     lib->item = BONUS11_PIC;
     lib->numframes = 2;
-    lib->forever = TRUE;
-    lib->onlyflag = FALSE;
-    lib->loseit = TRUE;
-    lib->specialw = TRUE;
+    lib->forever = true;
+    lib->onlyflag = false;
+    lib->loseit = true;
+    lib->specialw = true;
     lib->fxtype = FX_GUN;
-    lib->moneyflag = FALSE;
-    lib->game1flag = TRUE;
-    lib->shieldflag = TRUE;
+    lib->moneyflag = false;
+    lib->game1flag = true;
+    lib->shieldflag = true;
 
     // == FORWARD LASER ===
     lib = &obj_lib[S_FORWARD_LASER];
@@ -374,14 +374,14 @@ void OBJS_Init( void ) {
     lib->actf = SHOTS_PlayerShoot;
     lib->item = BONUS12_PIC;
     lib->numframes = 4;
-    lib->forever = TRUE;
-    lib->onlyflag = FALSE;
-    lib->loseit = TRUE;
-    lib->specialw = TRUE;
+    lib->forever = true;
+    lib->onlyflag = false;
+    lib->loseit = true;
+    lib->specialw = true;
     lib->fxtype = FX_LASER;
-    lib->moneyflag = FALSE;
-    lib->game1flag = FALSE;
-    lib->shieldflag = TRUE;
+    lib->moneyflag = false;
+    lib->game1flag = false;
+    lib->shieldflag = true;
 
     // == DEATH RAY ===
     lib = &obj_lib[S_DEATH_RAY];
@@ -391,14 +391,14 @@ void OBJS_Init( void ) {
     lib->actf = SHOTS_PlayerShoot;
     lib->item = BONUS13_PIC;
     lib->numframes = 4;
-    lib->forever = TRUE;
-    lib->onlyflag = FALSE;
-    lib->loseit = TRUE;
-    lib->specialw = TRUE;
+    lib->forever = true;
+    lib->onlyflag = false;
+    lib->loseit = true;
+    lib->specialw = true;
     lib->fxtype = FX_LASER;
-    lib->moneyflag = FALSE;
-    lib->game1flag = FALSE;
-    lib->shieldflag = TRUE;
+    lib->moneyflag = false;
+    lib->game1flag = false;
+    lib->shieldflag = true;
 
     // == SUPER SHIELD ===
     lib = &obj_lib[S_SUPER_SHIELD];
@@ -407,14 +407,14 @@ void OBJS_Init( void ) {
     lib->max_cnt = MAX_SHIELD;
     lib->item = BONUS14_PIC;
     lib->numframes = 1;
-    lib->forever = FALSE;
-    lib->onlyflag = FALSE;
-    lib->loseit = FALSE;
-    lib->specialw = FALSE;
+    lib->forever = false;
+    lib->onlyflag = false;
+    lib->loseit = false;
+    lib->specialw = false;
     lib->fxtype = EMPTY;
-    lib->moneyflag = FALSE;
-    lib->game1flag = TRUE;
-    lib->shieldflag = TRUE;
+    lib->moneyflag = false;
+    lib->game1flag = true;
+    lib->shieldflag = true;
 
     // == SHIP NORM ENERGY ===
     lib = &obj_lib[S_ENERGY];
@@ -423,14 +423,14 @@ void OBJS_Init( void ) {
     lib->max_cnt = MAX_SHIELD;
     lib->item = BONUS15_PIC;
     lib->numframes = 4;
-    lib->forever = TRUE;
-    lib->onlyflag = TRUE;
-    lib->loseit = FALSE;
-    lib->specialw = FALSE;
+    lib->forever = true;
+    lib->onlyflag = true;
+    lib->loseit = false;
+    lib->specialw = false;
     lib->fxtype = EMPTY;
-    lib->moneyflag = FALSE;
-    lib->game1flag = TRUE;
-    lib->shieldflag = TRUE;
+    lib->moneyflag = false;
+    lib->game1flag = true;
+    lib->shieldflag = true;
 
     // == ENEMY DAMAGE DETECTOR ===
     lib = &obj_lib[S_DETECT];
@@ -439,14 +439,14 @@ void OBJS_Init( void ) {
     lib->max_cnt = 1;
     lib->item = BONUS16_PIC;
     lib->numframes = 1;
-    lib->forever = FALSE;
-    lib->onlyflag = TRUE;
-    lib->loseit = FALSE;
-    lib->specialw = FALSE;
+    lib->forever = false;
+    lib->onlyflag = true;
+    lib->loseit = false;
+    lib->specialw = false;
     lib->fxtype = EMPTY;
-    lib->moneyflag = FALSE;
-    lib->game1flag = TRUE;
-    lib->shieldflag = FALSE;
+    lib->moneyflag = false;
+    lib->game1flag = true;
+    lib->shieldflag = false;
 
     // == BUY ITEM 1 ===
     lib = &obj_lib[S_ITEMBUY1];
@@ -455,14 +455,14 @@ void OBJS_Init( void ) {
     lib->max_cnt = lib->cost;
     lib->item = BONUS16_PIC;
     lib->numframes = 1;
-    lib->forever = FALSE;
-    lib->onlyflag = FALSE;
-    lib->loseit = TRUE;
-    lib->specialw = FALSE;
+    lib->forever = false;
+    lib->onlyflag = false;
+    lib->loseit = true;
+    lib->specialw = false;
     lib->fxtype = EMPTY;
-    lib->moneyflag = TRUE;
-    lib->game1flag = TRUE;
-    lib->shieldflag = TRUE;
+    lib->moneyflag = true;
+    lib->game1flag = true;
+    lib->shieldflag = true;
 
     // == BUY ITEM 2 ===
     lib = &obj_lib[S_ITEMBUY2];
@@ -471,14 +471,14 @@ void OBJS_Init( void ) {
     lib->max_cnt = lib->cost;
     lib->item = BONUS17_PIC;
     lib->numframes = 1;
-    lib->forever = FALSE;
-    lib->onlyflag = FALSE;
-    lib->loseit = TRUE;
-    lib->specialw = FALSE;
+    lib->forever = false;
+    lib->onlyflag = false;
+    lib->loseit = true;
+    lib->specialw = false;
     lib->fxtype = EMPTY;
-    lib->moneyflag = TRUE;
-    lib->game1flag = TRUE;
-    lib->shieldflag = TRUE;
+    lib->moneyflag = true;
+    lib->game1flag = true;
+    lib->shieldflag = true;
 
     // == BUY ITEM 3 ===
     lib = &obj_lib[S_ITEMBUY3];
@@ -487,14 +487,14 @@ void OBJS_Init( void ) {
     lib->max_cnt = lib->cost;
     lib->item = BONUS18_PIC;
     lib->numframes = 1;
-    lib->forever = FALSE;
-    lib->onlyflag = FALSE;
-    lib->loseit = TRUE;
-    lib->specialw = FALSE;
+    lib->forever = false;
+    lib->onlyflag = false;
+    lib->loseit = true;
+    lib->specialw = false;
     lib->fxtype = EMPTY;
-    lib->moneyflag = TRUE;
-    lib->game1flag = TRUE;
-    lib->shieldflag = TRUE;
+    lib->moneyflag = true;
+    lib->game1flag = true;
+    lib->shieldflag = true;
 
     // == BUY ITEM 4 ===
     lib = &obj_lib[S_ITEMBUY4];
@@ -503,14 +503,14 @@ void OBJS_Init( void ) {
     lib->max_cnt = lib->cost;
     lib->item = BONUS19_PIC;
     lib->numframes = 1;
-    lib->forever = FALSE;
-    lib->onlyflag = FALSE;
-    lib->loseit = TRUE;
-    lib->specialw = FALSE;
+    lib->forever = false;
+    lib->onlyflag = false;
+    lib->loseit = true;
+    lib->specialw = false;
     lib->fxtype = EMPTY;
-    lib->moneyflag = TRUE;
-    lib->game1flag = TRUE;
-    lib->shieldflag = TRUE;
+    lib->moneyflag = true;
+    lib->game1flag = true;
+    lib->shieldflag = true;
 
     // == BUY ITEM 5 ===
     lib = &obj_lib[S_ITEMBUY5];
@@ -519,14 +519,14 @@ void OBJS_Init( void ) {
     lib->max_cnt = lib->cost;
     lib->item = BONUS20_PIC;
     lib->numframes = 1;
-    lib->forever = FALSE;
-    lib->onlyflag = FALSE;
-    lib->loseit = TRUE;
-    lib->specialw = FALSE;
+    lib->forever = false;
+    lib->onlyflag = false;
+    lib->loseit = true;
+    lib->specialw = false;
     lib->fxtype = EMPTY;
-    lib->moneyflag = TRUE;
-    lib->game1flag = TRUE;
-    lib->shieldflag = TRUE;
+    lib->moneyflag = true;
+    lib->game1flag = true;
+    lib->shieldflag = true;
 
     // == BUY ITEM 6 ===
     lib = &obj_lib[S_ITEMBUY6];
@@ -535,14 +535,14 @@ void OBJS_Init( void ) {
     lib->max_cnt = lib->cost;
     lib->item = BONUS22_PIC;
     lib->numframes = 4;
-    lib->forever = FALSE;
-    lib->onlyflag = FALSE;
-    lib->loseit = TRUE;
-    lib->specialw = FALSE;
+    lib->forever = false;
+    lib->onlyflag = false;
+    lib->loseit = true;
+    lib->specialw = false;
     lib->fxtype = EMPTY;
-    lib->moneyflag = TRUE;
-    lib->game1flag = TRUE;
-    lib->shieldflag = FALSE;
+    lib->moneyflag = true;
+    lib->game1flag = true;
+    lib->shieldflag = false;
 }
 
 /***************************************************************************
@@ -594,34 +594,33 @@ void OBJS_DisplayStats( void ) {
 /*-------------------------------------------------------------------------*
 OBJS_Equip () - Equips an OBJ to be used by Player
  *-------------------------------------------------------------------------*/
-BOOL // RETURN: TRUE/FALSE
-OBJS_Equip(
+bool OBJS_Equip(
     OBJ_TYPE type // INPUT: OBJ type
 ) {
     OBJ* cur;
 
     for ( cur = first_objs.next; cur != &last_objs; cur = cur->next ) {
         if ( cur->type == type && p_objs[type] == NULL ) {
-            cur->inuse = TRUE;
+            cur->inuse = true;
             p_objs[type] = cur;
-            return TRUE;
+            return true;
         }
     }
 
-    return FALSE;
+    return false;
 }
 
 /***************************************************************************
 OBJS_Load () - Adds new OBJ from OBJ
  ***************************************************************************/
-BOOL OBJS_Load(
+bool OBJS_Load(
     OBJ* inobj // INPUT : pointer to OBJ
 ) {
     OBJ* cur;
 
     cur = OBJS_Get();
     if ( !cur ) {
-        return FALSE;
+        return false;
     }
 
     cur->num = inobj->num;
@@ -633,7 +632,7 @@ BOOL OBJS_Load(
         p_objs[inobj->type] = cur;
     }
 
-    return TRUE;
+    return true;
 }
 
 /***************************************************************************
@@ -695,7 +694,7 @@ BUYSTUFF OBJS_Add(
 
     // == equip item if needed =====
     if ( p_objs[type] == NULL ) {
-        cur->inuse = TRUE;
+        cur->inuse = true;
         p_objs[type] = cur;
         if ( plr.sweapon == EMPTY && lib->specialw ) {
             plr.sweapon = type;
@@ -772,7 +771,7 @@ void OBJS_Use(
         return;
     }
 
-    objuse_flag = TRUE;
+    objuse_flag = true;
     think_cnt = 0;
 
     if ( lib->actf( type ) ) {
@@ -842,8 +841,7 @@ OBJS_Sell(
 /***************************************************************************
 OBJS_Buy () - Add Amount from TYPE that is equiped ( BUY )
  ***************************************************************************/
-BUYSTUFF // RETURN: see BUYSTUFF
-OBJS_Buy(
+BUYSTUFF OBJS_Buy(
     OBJ_TYPE type // INPUT : OBJ type
 ) {
     BUYSTUFF rval = OBJ_NOMONEY;
@@ -930,8 +928,7 @@ OBJS_GetTotal(
 /***************************************************************************
 OBJS_IsOnly () - Is Onlyflag set
  ***************************************************************************/
-BOOL // RETURN: TRUE/FALSE
-OBJS_IsOnly(
+bool OBJS_IsOnly(
     OBJ_TYPE type // INPUT : OBJ type
 ) {
     OBJ_LIB* lib = &obj_lib[type];
@@ -989,16 +986,16 @@ OBJS_GetResale(
 }
 
 /***************************************************************************
-OBJS_CanBuy() - Returns TRUE if player can buy object
+OBJS_CanBuy() - Returns true if player can buy object
  ***************************************************************************/
-BOOL OBJS_CanBuy(
+bool OBJS_CanBuy(
     OBJ_TYPE type // INPUT : OBJ type
 ) {
     OBJ_LIB* lib = &obj_lib[type];
     int cost;
 
     if ( type >= S_LAST_OBJECT ) {
-        return FALSE;
+        return false;
     }
 
 #if 0
@@ -1006,58 +1003,39 @@ BOOL OBJS_CanBuy(
    {
       cost = OBJS_GetTotal ( S_SUPER_SHIELD );
       if ( cost >= 5 )
-         return ( FALSE );
+         return false;
    }
 #endif
 
     if ( type == S_FORWARD_GUNS ) {
         if ( OBJS_IsEquip( type ) ) {
-            return FALSE;
+            return false;
         }
     }
 
     if ( !reg_flag ) {
         if ( !lib->game1flag ) {
-            return FALSE;
+            return false;
         }
     }
 
     cost = OBJS_GetCost( type );
 
-    if ( cost == 0 ) {
-        return FALSE;
-    }
-
-    return TRUE;
+    return cost != 0;
 }
 /***************************************************************************
-OBJS_CanSell() - Returns TRUE if player can Sell object
+OBJS_CanSell() - Returns true if player can Sell object
  ***************************************************************************/
-BOOL OBJS_CanSell(
+bool OBJS_CanSell(
     OBJ_TYPE type // INPUT : OBJ type
 ) {
     OBJ* cur = p_objs[type];
     OBJ_LIB* lib = &obj_lib[type];
 
-    if ( type >= S_LAST_OBJECT ) {
-        return FALSE;
-    }
-
-    if ( cur == NULL ) {
-        return FALSE;
-    }
-
-    if ( lib->onlyflag && type == S_ENERGY ) {
-        if ( cur->num <= lib->start_cnt ) {
-            return FALSE;
-        }
-    }
-
-    if ( cur->num < lib->start_cnt ) {
-        return FALSE;
-    }
-
-    return TRUE;
+    return type < S_LAST_OBJECT //
+        && cur != NULL //
+        && ( !lib->onlyflag || type != S_ENERGY || cur->num > lib->start_cnt ) //
+        && cur->num >= lib->start_cnt;
 }
 
 /***************************************************************************
@@ -1080,17 +1058,13 @@ OBJ_LIB* OBJS_GetLib(
 }
 
 /***************************************************************************
-OBJS_IsEquip() - Returns TRUE if item is Equiped
+OBJS_IsEquip() - Returns true if item is Equiped
  ***************************************************************************/
-BOOL // RETURN: return nums in OBJ
+bool // RETURN: return nums in OBJ
 OBJS_IsEquip(
     OBJ_TYPE type // INPUT : OBJ type
 ) {
-    if ( p_objs[type] ) {
-        return TRUE;
-    }
-
-    return FALSE;
+    return p_objs[type];
 }
 
 /***************************************************************************
@@ -1100,7 +1074,7 @@ int // RETURN: return nums in OBJ
 OBJS_SubEnergy(
     int amt // INPUT : amount to subtract
 ) {
-    extern BOOL godmode;
+    extern bool godmode;
     OBJ* cur;
 
     if ( godmode ) {
@@ -1194,23 +1168,23 @@ OBJS_AddEnergy(
 /***************************************************************************
 OBJS_LoseObj() - Lose random object
  ***************************************************************************/
-BOOL OBJS_LoseObj( void ) {
+bool OBJS_LoseObj( void ) {
     OBJ_LIB* lib;
     int type;
-    BOOL rval = TRUE;
+    bool rval = true;
 
     if ( plr.sweapon == EMPTY ) {
         for ( type = S_LAST_OBJECT - 1; type >= 0; type-- ) {
             lib = &obj_lib[type];
             if ( p_objs[type] && lib->loseit ) {
                 OBJS_Del( type );
-                rval = TRUE;
+                rval = true;
                 break;
             }
         }
     } else {
         OBJS_Del( plr.sweapon );
-        rval = TRUE;
+        rval = true;
     }
 
     return rval;
@@ -1225,7 +1199,7 @@ void OBJS_Think( void ) {
     }
 
     if ( objuse_flag ) {
-        objuse_flag = FALSE;
+        objuse_flag = false;
         return;
     }
 
@@ -1242,25 +1216,17 @@ void OBJS_Think( void ) {
 /***************************************************************************
 OBJS_MakeSpecial() - Makes the selected weapon the current special
  ***************************************************************************/
-BOOL OBJS_MakeSpecial(
+bool OBJS_MakeSpecial(
     OBJ_TYPE type // INPUT : OBJ type
 ) {
     OBJ* cur = p_objs[type];
     OBJ_LIB* lib = &obj_lib[type];
 
-    if ( type >= S_LAST_OBJECT ) {
-        return FALSE;
+    if ( type >= S_LAST_OBJECT ||  cur == NULL || !lib->specialw ) {
+        return false;
     }
 
-    if ( cur == NULL ) {
-        return FALSE;
-    }
+    plr.sweapon = type;
 
-    if ( lib->specialw == FALSE ) {
-        return FALSE;
-    }
-
-    plr.sweapon = (OBJ_TYPE) type;
-
-    return TRUE;
+    return true;
 }

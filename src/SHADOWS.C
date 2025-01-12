@@ -44,7 +44,7 @@ void SHADOW_Draw(
     int y2;
     int oldy;
     int oldsy;
-    BOOL drawflag;
+    bool drawflag;
 
     x -= 10;
     y += 20;
@@ -99,10 +99,10 @@ void SHADOW_Draw(
             break;
         }
 
-        drawflag = TRUE;
+        drawflag = true;
 
         if ( ah->y != oldy && oldsy == sy ) {
-            drawflag = FALSE;
+            drawflag = false;
         }
 
         if ( drawflag ) {

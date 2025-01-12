@@ -33,7 +33,7 @@
 
 #include "windows.h"
 
-extern BOOL godmode;
+extern bool godmode;
 
 #define HANGAR_MISSION  0
 #define HANGAR_SUPPLIES 1
@@ -51,7 +51,7 @@ PRIVATE char hangtext[4][18] = { "FLY MISSION", "SUPPLY ROOM", "EXIT HANGAR", "S
 
 PRIVATE char regtext[3][30] = { "ENTER NAME AND CALLSIGN", "   CHANGE ID PICTURE", "        EXIT" };
 
-PRIVATE BOOL ingameflag = FALSE;
+PRIVATE bool ingameflag = false;
 PUBLIC DWORD sid_pics[4] = { WMALEID_PIC, BMALEID_PIC, WFMALEID_PIC, BFMALEID_PIC };
 
 PUBLIC DWORD id_pics[4] = { WMALE_PIC, BMALE_PIC, WFEMALE_PIC, BFEMALE_PIC };
@@ -179,13 +179,13 @@ void WIN_Opts( void ) {
     SWD_DLG dlg;
     int new_vol;
     int cur_field;
-    BOOL curd;
+    bool curd;
     int x;
     int y;
     int lx;
     int ly;
-    BOOL kbactive = FALSE;
-    BOOL patchflag = FALSE;
+    bool kbactive = false;
+    bool patchflag = false;
 
     curd = opt_detail;
     cur_field = 0;
@@ -208,7 +208,7 @@ void WIN_Opts( void ) {
     GFX_DisplayUpdate();
 
 mainloop:
-    patchflag = FALSE;
+    patchflag = false;
 
     SWD_Dialog( &dlg );
 
@@ -222,7 +222,7 @@ mainloop:
         case SC_LEFT:
             if ( cur_field != 0 ) {
                 if ( cur_field == 2 ) {
-                    patchflag = TRUE;
+                    patchflag = true;
                 }
                 opt_vol[cur_field - 1] -= 8;
                 if ( opt_vol[cur_field - 1] < 0 ) {
@@ -236,7 +236,7 @@ mainloop:
         case SC_RIGHT:
             if ( cur_field != 0 ) {
                 if ( cur_field == 2 ) {
-                    patchflag = TRUE;
+                    patchflag = true;
                 }
                 opt_vol[cur_field - 1] += 8;
                 if ( opt_vol[cur_field - 1] > 127 ) {
@@ -253,7 +253,7 @@ mainloop:
                     cur_field--;
                 }
             }
-            kbactive = TRUE;
+            kbactive = true;
             SND_Patch( FX_SWEP, 127 );
             SWD_SetFieldItem( opt_window, OPTS_PIC1, EMPTY );
             SWD_SetFieldItem( opt_window, OPTS_PIC2, EMPTY );
@@ -269,7 +269,7 @@ mainloop:
                     cur_field++;
                 }
             }
-            kbactive = TRUE;
+            kbactive = true;
             SND_Patch( FX_SWEP, 127 );
             SWD_SetFieldItem( opt_window, OPTS_PIC1, EMPTY );
             SWD_SetFieldItem( opt_window, OPTS_PIC2, EMPTY );
@@ -363,7 +363,7 @@ mainloop:
 
                         case OPTS_DETAIL:
                             SND_Patch( FX_SWEP, 127 );
-                            curd ^= TRUE;
+                            curd ^= true;
                             SWD_SetFieldText( opt_window, OPTS_DETAIL, detail[curd] );
                             SWD_ShowAllWindows();
                             GFX_DisplayUpdate();
@@ -374,7 +374,7 @@ mainloop:
 
     if ( patchflag ) {
         SND_Patch( FX_SWEP, 127 );
-        patchflag = FALSE;
+        patchflag = false;
     }
 
     goto mainloop;
@@ -420,13 +420,13 @@ WIN_Order () - Display a Pause Message Wait until user does somthing
  ***************************************************************************/
 void WIN_Order( void ) {
     int window;
-    BOOL dchold = drawcursor;
+    bool dchold = drawcursor;
 
     if ( reg_flag ) {
         return;
     }
 
-    PTR_DrawCursor( FALSE );
+    PTR_DrawCursor( false );
     KBD_Clear();
     GFX_FadeOut( 0, 0, 0, 2 );
 
@@ -450,18 +450,18 @@ void WIN_Order( void ) {
 /***************************************************************************
 WIN_Credits () -
  ***************************************************************************/
-BOOL WIN_Credits( void ) {
+bool WIN_Credits( void ) {
     static int cnt = 1;
     DWORD csng[3] = { BOSS2_MUS, BOSS3_MUS, BOSS4_MUS };
     int window;
-    BOOL rval;
+    bool rval;
 
     cnt++;
     if ( cnt >= 3 ) {
         cnt = 0;
     }
 
-    SND_PlaySong( csng[cnt], TRUE, TRUE );
+    SND_PlaySong( csng[cnt], true, true );
 
     KBD_Clear();
     GFX_FadeOut( 0, 0, 0, 16 );
@@ -486,11 +486,10 @@ BOOL WIN_Credits( void ) {
 /***************************************************************************
    WIN_AskBool () - Askes USER a YES/NO Question????
  ***************************************************************************/
-BOOL // RETURN: TRUE/FALSE
-WIN_AskBool(
+bool WIN_AskBool(
     char* question // INPUT : pointer to message to ask
 ) {
-    BOOL rval = FALSE;
+    bool rval = false;
     SWD_DLG dlg;
     int ask_window;
     int xh;
@@ -499,7 +498,7 @@ WIN_AskBool(
     int py;
     int lx;
     int ly;
-    BOOL dchold = drawcursor;
+    bool dchold = drawcursor;
 
     xh = cur_mx;
     yh = cur_my;
@@ -515,7 +514,7 @@ WIN_AskBool(
 
     SND_Patch( FX_SWEP, 127 );
 
-    PTR_DrawCursor( TRUE );
+    PTR_DrawCursor( true );
 
     SWD_GetFieldXYL( ask_window, ASK_YES, &px, &py, &lx, &ly );
     PTR_SetPos( px + ( lx >> 1 ), py + ( ly >> 1 ) );
@@ -538,7 +537,7 @@ mainloop:
                 case F_SELECT:
                     switch ( dlg.field ) {
                         case ASK_YES:
-                            rval = TRUE;
+                            rval = true;
                         case ASK_NO:
                             SWD_DestroyWindow( ask_window );
                             GFX_DisplayUpdate();
@@ -567,7 +566,7 @@ void WIN_AskExit( void ) {
     } else if ( WIN_AskBool( "EXIT TO DOS" ) ) {
         SND_FadeOutSong();
 
-        GFX_SetRetraceFlag( TRUE );
+        GFX_SetRetraceFlag( true );
         GFX_FadeOut( 60, 15, 2, 32 );
         GFX_FadeOut( 0, 0, 0, 6 );
     } else {
@@ -682,21 +681,21 @@ askdiff_exit:
 /***************************************************************************
 WIN_Register () - Register Window
  ***************************************************************************/
-BOOL WIN_Register( void ) {
-    extern BOOL reg_flag;
+bool WIN_Register( void ) {
+    extern bool reg_flag;
     PLAYEROBJ tp;
     SWD_DLG dlg;
     int window;
     int cur_id = 0;
     int opt = EMPTY;
     int oldopt = -99;
-    BOOL rval = FALSE;
+    bool rval = false;
     int i;
     int diff;
 
-    PTR_DrawCursor( FALSE );
+    PTR_DrawCursor( false );
 
-    SND_PlaySong( HANGAR_MUS, TRUE, TRUE );
+    SND_PlaySong( HANGAR_MUS, true, true );
 
     KBD_Clear();
     GFX_FadeOut( 0, 0, 0, 2 );
@@ -718,14 +717,14 @@ BOOL WIN_Register( void ) {
     GFX_FadeIn( palette, 16 );
 
     SWD_SetFieldPtr( window, REG_VIEWID );
-    PTR_DrawCursor( TRUE );
+    PTR_DrawCursor( true );
 
 mainloop:
 
     SWD_Dialog( &dlg );
 
     if ( KBD_Key( SC_ESC ) ) {
-        rval = FALSE;
+        rval = false;
         goto reg_exit;
     }
 
@@ -762,7 +761,7 @@ mainloop:
                     if ( RAP_IsSaveFile( &tp ) ) {
                         WIN_Msg( "Pilot NAME and CALLSIGN Used !" );
                     } else {
-                        rval = TRUE;
+                        rval = true;
                         goto reg_exit;
                     }
                 }
@@ -845,7 +844,7 @@ mainloop:
                                 if ( RAP_IsSaveFile( &tp ) ) {
                                     WIN_Msg( "Pilot NAME and CALLSIGN Used !" );
                                 } else {
-                                    rval = TRUE;
+                                    rval = true;
                                     goto reg_exit;
                                 }
                             }
@@ -863,40 +862,40 @@ reg_exit:
 
     if ( !strlen( tp.name ) ) {
         SWD_SetActiveField( window, REG_NAME );
-        rval = FALSE;
+        rval = false;
     }
     if ( !strlen( tp.callsign ) ) {
         SWD_SetActiveField( window, REG_CALLSIGN );
-        rval = FALSE;
+        rval = false;
     }
 
     diff = 1;
     if ( rval ) {
         diff = WIN_AskDiff();
         if ( diff >= 0 ) {
-            ingameflag = FALSE;
+            ingameflag = false;
             if ( !RAP_FFSaveFile() ) {
                 WIN_Msg( "ERROR : YOU MUST DELETE A PILOT" );
-                rval = FALSE;
+                rval = false;
             }
         } else {
             WIN_Msg( "PLAYER ABORTED!" );
-            rval = FALSE;
+            rval = false;
         }
     }
 
     if ( rval ) {
-        ingameflag = FALSE;
+        ingameflag = false;
         tp.diff[0] = diff;
         tp.diff[1] = diff;
         tp.diff[2] = diff;
 
         if ( diff == DIFF_0 ) {
-            tp.trainflag = TRUE;
-            tp.fintrain = FALSE;
+            tp.trainflag = true;
+            tp.fintrain = false;
         } else {
-            tp.trainflag = FALSE;
-            tp.fintrain = TRUE;
+            tp.trainflag = false;
+            tp.fintrain = true;
         }
 
         plr = tp;
@@ -922,7 +921,7 @@ reg_exit:
         OBJS_GetNext();
     }
 
-    PTR_DrawCursor( FALSE );
+    PTR_DrawCursor( false );
     GFX_FadeOut( 0, 0, 0, 16 );
     SWD_DestroyWindow( window );
     memset( displaybuffer, 0, 64000 );
@@ -933,7 +932,7 @@ reg_exit:
     hangto = HANGTOSTORE;
 
     if ( rval ) {
-        ingameflag = FALSE;
+        ingameflag = false;
     }
 
     return rval;
@@ -950,7 +949,7 @@ int WIN_Hangar( void ) {
     int opt = HANG_SUPPLIES;
     int oldopt = -1;
     int pos = 0;
-    BOOL kflag = FALSE;
+    bool kflag = false;
     int x;
     int y;
     int ly;
@@ -959,12 +958,12 @@ int WIN_Hangar( void ) {
     int local_cnt = framecount;
     int pic_cnt = 0;
 
-    PTR_DrawCursor( FALSE );
+    PTR_DrawCursor( false );
 
     KBD_Clear();
 
     if ( plr.trainflag ) {
-        plr.trainflag = FALSE;
+        plr.trainflag = false;
         opt = HANG_SUPPLIES;
         goto train_exit;
     }
@@ -975,7 +974,7 @@ int WIN_Hangar( void ) {
 
     item = SWD_GetFieldItem( window, HANG_PIC );
 
-    SND_PlaySong( HANGAR_MUS, TRUE, TRUE );
+    SND_PlaySong( HANGAR_MUS, true, true );
 
     SWD_ShowAllWindows();
     GFX_DisplayUpdate();
@@ -983,7 +982,7 @@ int WIN_Hangar( void ) {
     GFX_FadeIn( palette, 16 );
 
     if ( control != I_MOUSE ) {
-        kflag = TRUE;
+        kflag = true;
     }
 
     switch ( hangto ) {
@@ -1002,7 +1001,7 @@ int WIN_Hangar( void ) {
     hangto = HANGTOMISSION;
 
     SWD_SetWindowPtr( window );
-    PTR_DrawCursor( TRUE );
+    PTR_DrawCursor( true );
 
 mainloop:
 
@@ -1053,7 +1052,7 @@ mainloop:
         case SC_TAB:
         case SC_UP:
         case SC_LEFT:
-            kflag = TRUE;
+            kflag = true;
             KBD_Wait( SC_UP );
             KBD_Wait( SC_LEFT );
             pos++;
@@ -1062,7 +1061,7 @@ mainloop:
 
         case SC_DOWN:
         case SC_RIGHT:
-            kflag = TRUE;
+            kflag = true;
             KBD_Wait( SC_DOWN );
             KBD_Wait( SC_RIGHT );
             pos--;
@@ -1080,7 +1079,7 @@ mainloop:
     }
 
     if ( kflag ) {
-        kflag = FALSE;
+        kflag = false;
         switch ( pos ) {
             case 0:
             case 1:
@@ -1095,7 +1094,7 @@ mainloop:
                 PTR_SetPos( x + ( lx >> 1 ), y + ( ly >> 1 ) );
                 oldopt = EMPTY;
                 dlg.sfield = opt;
-                dlg.viewactive = TRUE;
+                dlg.viewactive = true;
                 break;
 
             default:
@@ -1203,7 +1202,7 @@ mainloop:
 
 hangar_exit:
 
-    PTR_DrawCursor( FALSE );
+    PTR_DrawCursor( false );
 
     GFX_FadeOut( 0, 0, 0, 16 );
 
@@ -1258,14 +1257,14 @@ void WIN_LoadComp( void ) {
 /***************************************************************************
 WIN_ShipComp () - Does Game Selection 1, 2 or 3
  ***************************************************************************/
-BOOL WIN_ShipComp( void ) {
+bool WIN_ShipComp( void ) {
     SWD_DLG dlg;
     int window;
-    BOOL rval = TRUE;
-    BOOL secret1 = FALSE;
-    BOOL secret2 = FALSE;
-    BOOL secret3 = FALSE;
-    BOOL secret = FALSE;
+    bool rval = true;
+    bool secret1 = false;
+    bool secret2 = false;
+    bool secret3 = false;
+    bool secret = false;
     BYTE cz1 = ltable[0];
     BYTE cz2 = dtable[0];
     int px;
@@ -1275,12 +1274,12 @@ BOOL WIN_ShipComp( void ) {
 
     GLB_FreeAll();
 
-    PTR_DrawCursor( FALSE );
+    PTR_DrawCursor( false );
 
     ltable[0] = 0;
     dtable[0] = 0;
 
-    SND_PlaySong( HANGAR_MUS, TRUE, TRUE );
+    SND_PlaySong( HANGAR_MUS, true, true );
 
     KBD_Clear();
     GFX_FadeOut( 0, 0, 0, 2 );
@@ -1301,10 +1300,10 @@ BOOL WIN_ShipComp( void ) {
     SWD_SetFieldItem( window, COMP_LITE3, LIGHTOFF_PIC );
 
     if ( bday_num != EMPTY ) {
-        secret = TRUE;
-        secret1 = TRUE;
-        secret2 = TRUE;
-        secret3 = TRUE;
+        secret = true;
+        secret1 = true;
+        secret2 = true;
+        secret3 = true;
         SWD_SetFieldItem( window, COMP_LITE1, LIGHTON_PIC );
         SWD_SetFieldItem( window, COMP_LITE2, LIGHTOFF_PIC );
         SWD_SetFieldItem( window, COMP_LITE3, LIGHTON_PIC );
@@ -1317,7 +1316,7 @@ BOOL WIN_ShipComp( void ) {
     GFX_FadeIn( palette, 16 );
 
     SWD_SetWindowPtr( window );
-    PTR_DrawCursor( TRUE );
+    PTR_DrawCursor( true );
 
 mainloop:
 
@@ -1332,7 +1331,7 @@ mainloop:
             break;
 
         case SC_ESC:
-            rval = FALSE;
+            rval = false;
             goto abort_shipcomp;
 
         case SC_F1:
@@ -1421,7 +1420,7 @@ mainloop:
                             break;
 
                         case COMP_SECRET:
-                            secret = TRUE;
+                            secret = true;
                             break;
 
                         case COMP_AUTO:
@@ -1434,7 +1433,7 @@ mainloop:
                         case COMP_GAME2:
                             if ( !reg_flag ) {
                                 WIN_Order();
-                                rval = FALSE;
+                                rval = false;
                                 goto abort_shipcomp;
                             }
                             cur_game = 1;
@@ -1443,7 +1442,7 @@ mainloop:
                         case COMP_GAME3:
                             if ( !reg_flag ) {
                                 WIN_Order();
-                                rval = FALSE;
+                                rval = false;
                                 goto abort_shipcomp;
                             }
                             cur_game = 2;
@@ -1453,7 +1452,7 @@ mainloop:
                             if ( !secret ) {
                                 break;
                             }
-                            secret1 ^= TRUE;
+                            secret1 ^= true;
                             if ( secret1 ) {
                                 SWD_SetFieldItem( window, COMP_LITE1, LIGHTON_PIC );
                             } else {
@@ -1467,7 +1466,7 @@ mainloop:
                             if ( !secret ) {
                                 break;
                             }
-                            secret2 ^= TRUE;
+                            secret2 ^= true;
                             if ( secret2 ) {
                                 SWD_SetFieldItem( window, COMP_LITE2, LIGHTON_PIC );
                             } else {
@@ -1481,7 +1480,7 @@ mainloop:
                             if ( !secret ) {
                                 break;
                             }
-                            secret3 ^= TRUE;
+                            secret3 ^= true;
                             if ( secret3 ) {
                                 SWD_SetFieldItem( window, COMP_LITE3, LIGHTON_PIC );
                             } else {
@@ -1492,7 +1491,7 @@ mainloop:
                             break;
 
                         case COMP_CLOSE:
-                            rval = FALSE;
+                            rval = false;
                             goto abort_shipcomp;
                     }
             }
@@ -1512,7 +1511,7 @@ exit_shipcomp:
 
 abort_shipcomp:
 
-    PTR_DrawCursor( FALSE );
+    PTR_DrawCursor( false );
 
     GFX_FadeOut( 0, 0, 0, 8 );
 
@@ -1521,7 +1520,7 @@ abort_shipcomp:
     GFX_DisplayUpdate();
 
     if ( secret ) {
-        if ( secret1 == TRUE && secret2 == TRUE && secret3 == TRUE ) {
+        if ( secret1 && secret2 && secret3 ) {
             cur_diff |= EB_SECRET_1;
             cur_diff |= EB_SECRET_2;
             cur_diff |= EB_SECRET_3;
@@ -1575,13 +1574,13 @@ WIN_MainLoop() - Handles Locker/Register/Store/Hangar and starting game
 void WIN_MainLoop( void ) {
     extern int demo_flag;
     int rval = EMPTY;
-    BOOL abort_flag = FALSE;
+    bool abort_flag = false;
     int dwrap;
     int i;
 
-    ingameflag = TRUE;
+    ingameflag = true;
 
-    SND_PlaySong( HANGAR_MUS, TRUE, TRUE );
+    SND_PlaySong( HANGAR_MUS, true, true );
 
     for ( ;; ) {
         if ( demo_flag != DEMO_RECORD ) {
@@ -1616,29 +1615,29 @@ void WIN_MainLoop( void ) {
         switch ( cur_game ) {
             default:
             case 0:
-                SND_PlaySong( songsg1[game_wave[cur_game]], TRUE, TRUE );
+                SND_PlaySong( songsg1[game_wave[cur_game]], true, true );
                 break;
             case 1:
-                SND_PlaySong( songsg2[game_wave[cur_game]], TRUE, TRUE );
+                SND_PlaySong( songsg2[game_wave[cur_game]], true, true );
                 break;
             case 2:
-                SND_PlaySong( songsg3[game_wave[cur_game]], TRUE, TRUE );
+                SND_PlaySong( songsg3[game_wave[cur_game]], true, true );
                 break;
         }
 
         WIN_LoadComp();
         RAP_LoadMap();
-        GFX_SetRetraceFlag( FALSE );
+        GFX_SetRetraceFlag( false );
 
         abort_flag = Do_Game();
 
         hangto = HANGTOSTORE;
 
-        GFX_SetRetraceFlag( TRUE );
+        GFX_SetRetraceFlag( true );
 
         if ( OBJS_GetAmt( S_ENERGY ) <= 0 ) {
-            ingameflag = FALSE;
-            SND_PlaySong( RAP5_MUS, TRUE, TRUE );
+            ingameflag = false;
+            SND_PlaySong( RAP5_MUS, true, true );
             INTRO_Death();
             return;
         }
@@ -1654,7 +1653,7 @@ void WIN_MainLoop( void ) {
             if ( plr.diff[cur_game] == DIFF_0 && !plr.fintrain ) {
                 OBJS_Init();
                 plr.sweapon = EMPTY;
-                plr.fintrain = TRUE;
+                plr.fintrain = true;
                 plr.score = 0;
                 OBJS_Add( S_FORWARD_GUNS );
                 OBJS_Add( S_ENERGY );
@@ -1716,10 +1715,10 @@ void WIN_MainLoop( void ) {
  ***************************************************************************/
 void WIN_MainAuto( int cur_opt ) {
     int max_opt = 5;
-    BOOL end_flag = FALSE;
-    BOOL dchold = drawcursor;
+    bool end_flag = false;
+    bool dchold = drawcursor;
 
-    PTR_DrawCursor( FALSE );
+    PTR_DrawCursor( false );
 
     if ( reg_flag ) {
         max_opt += 6;
@@ -1729,7 +1728,7 @@ void WIN_MainAuto( int cur_opt ) {
         switch ( cur_opt ) {
             case DEM_INTRO:
                 SND_CacheFX();
-                SND_PlaySong( RINTRO_MUS, TRUE, TRUE );
+                SND_PlaySong( RINTRO_MUS, true, true );
                 end_flag = INTRO_PlayMain();
                 break;
 
@@ -1800,12 +1799,12 @@ void WIN_MainAuto( int cur_opt ) {
 /***************************************************************************
 WIN_DemoDelay (
  ***************************************************************************/
-PRIVATE BOOL WIN_DemoDelay( BOOL startflag ) {
+PRIVATE bool WIN_DemoDelay( bool startflag ) {
     int local_cnt;
 
     if ( startflag ) {
         d_count = 0;
-        return FALSE;
+        return false;
     }
 
     local_cnt = framecount;
@@ -1814,7 +1813,7 @@ PRIVATE BOOL WIN_DemoDelay( BOOL startflag ) {
 
     d_count++;
 
-    return d_count < DEMO_DELAY ? FALSE : TRUE;
+    return d_count >= DEMO_DELAY;
 }
 
 /***************************************************************************
@@ -1830,9 +1829,9 @@ void WIN_MainMenu( void ) {
 
     KBD_Clear();
 
-    PTR_DrawCursor( FALSE );
+    PTR_DrawCursor( false );
 
-    WIN_DemoDelay( TRUE );
+    WIN_DemoDelay( true );
 
     if ( demo_flag == DEMO_RECORD ) {
         return;
@@ -1841,11 +1840,11 @@ void WIN_MainMenu( void ) {
     window = SWD_InitMasterWindow( MAIN_SWD );
 
     if ( ingameflag ) {
-        SWD_SetFieldSelect( window, MAIN_RETURN, TRUE );
+        SWD_SetFieldSelect( window, MAIN_RETURN, true );
         SWD_SetFieldItem( window, MAIN_RETURN, MENU7_PIC );
         SWD_SetFieldText( window, MAIN_DEMO, NULL );
     } else {
-        SWD_SetFieldSelect( window, MAIN_RETURN, FALSE );
+        SWD_SetFieldSelect( window, MAIN_RETURN, false );
         SWD_SetFieldItem( window, MAIN_RETURN, EMPTY );
     }
 
@@ -1853,14 +1852,14 @@ void WIN_MainMenu( void ) {
         SWD_SetFieldItem( window, MAIN_0000, RAPLOG2_PIC );
     }
 
-    PTR_DrawCursor( FALSE );
+    PTR_DrawCursor( false );
     SWD_ShowAllWindows();
     GFX_DisplayUpdate();
 
     if ( ingameflag ) {
-        SND_PlaySong( RINTRO_MUS, TRUE, TRUE );
+        SND_PlaySong( RINTRO_MUS, true, true );
     } else {
-        SND_PlaySong( MAINMENU_MUS, TRUE, TRUE );
+        SND_PlaySong( MAINMENU_MUS, true, true );
     }
 
     GFX_FadeIn( palette, 10 );
@@ -1868,7 +1867,7 @@ void WIN_MainMenu( void ) {
     SND_CacheIFX();
 
     SWD_SetWindowPtr( window );
-    PTR_DrawCursor( TRUE );
+    PTR_DrawCursor( true );
     ltable[0] = 0;
 
 mainloop:
@@ -1879,7 +1878,7 @@ mainloop:
         d_count = DEMO_DELAY + 2;
     }
 
-    if ( WIN_DemoDelay( FALSE ) && !ingameflag ) {
+    if ( WIN_DemoDelay( false ) && !ingameflag ) {
         GFX_FadeOut( 0, 0, 0, 3 );
         SWD_DestroyWindow( window );
         memset( displaybuffer, 0, 64000 );
@@ -1892,16 +1891,16 @@ mainloop:
         } else {
             SWD_SetFieldItem( window, MAIN_RETURN, EMPTY );
         }
-        PTR_DrawCursor( FALSE );
-        SND_PlaySong( MAINMENU_MUS, TRUE, TRUE );
+        PTR_DrawCursor( false );
+        SND_PlaySong( MAINMENU_MUS, true, true );
         GFX_FadeOut( 0, 0, 0, 2 );
         SWD_ShowAllWindows();
         GFX_DisplayUpdate();
         GFX_FadeIn( palette, 16 );
-        WIN_DemoDelay( TRUE );
+        WIN_DemoDelay( true );
         GLB_FreeAll();
         SND_CacheIFX();
-        PTR_DrawCursor( TRUE );
+        PTR_DrawCursor( true );
     }
 
     if ( KBD_Key( SC_X ) && KBD_Key( SC_ALT ) ) {
@@ -1917,14 +1916,14 @@ mainloop:
     }
 
     if ( mouseb1 || mouseb2 || dlg.keypress != SC_NONE ) {
-        WIN_DemoDelay( TRUE );
+        WIN_DemoDelay( true );
     }
 
     switch ( dlg.cur_act ) {
         case S_FLD_COMMAND:
             switch ( dlg.cur_cmd ) {
                 case F_SELECT:
-                    WIN_DemoDelay( TRUE );
+                    WIN_DemoDelay( true );
                     switch ( dlg.field ) {
                         case MAIN_NEW:
                             if ( WIN_Register() ) {
@@ -1933,7 +1932,7 @@ mainloop:
                             SWD_ShowAllWindows();
                             GFX_DisplayUpdate();
                             GFX_FadeIn( palette, 16 );
-                            PTR_DrawCursor( TRUE );
+                            PTR_DrawCursor( true );
                             break;
 
                         case MAIN_LOAD:
@@ -1947,7 +1946,7 @@ mainloop:
                                     break;
 
                                 case 1:
-                                    ingameflag = FALSE;
+                                    ingameflag = false;
                                     goto menu_exit;
                             }
                             break;
@@ -1961,12 +1960,12 @@ mainloop:
                             break;
 
                         case MAIN_CREDITS:
-                            PTR_DrawCursor( FALSE );
+                            PTR_DrawCursor( false );
                             WIN_Credits();
                             SWD_ShowAllWindows();
                             GFX_DisplayUpdate();
-                            SND_PlaySong( MAINMENU_MUS, TRUE, TRUE );
-                            PTR_DrawCursor( TRUE );
+                            SND_PlaySong( MAINMENU_MUS, true, true );
+                            PTR_DrawCursor( true );
                             break;
 
                         case MAIN_RETURN:
@@ -1989,7 +1988,7 @@ mainloop:
 
 menu_exit:
 
-    PTR_DrawCursor( FALSE );
+    PTR_DrawCursor( false );
 
     GFX_FadeOut( 0, 0, 0, 16 );
     SWD_DestroyWindow( window );

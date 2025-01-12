@@ -59,9 +59,7 @@ void GFX_TimeFrameRate( void );
 /***************************************************************************
 GFX_SetDebug () - Sets Debug mode
  ***************************************************************************/
-void GFX_SetDebug(
-    BOOL flag // INPUT : TRUE/FALSE
-);
+void GFX_SetDebug( bool flag );
 
 /*************************************************************************
    GFX_ClipLines ()
@@ -363,7 +361,7 @@ void GFX_PutImage(
     BYTE* image, // INPUT : image data
     int x, // INPUT : x position
     int y, // INPUT : y position
-    BOOL see_thru // INPUT : true = masked, false = put block
+    bool see_thru // INPUT : true = masked, false = put block
 );
 
 /***************************************************************************
@@ -465,7 +463,7 @@ extern BYTE* ltable;
 extern BYTE* dtable;
 extern BYTE* gtable;
 extern int g_rseed;
-extern BOOL retraceflag;
+extern bool retraceflag;
 extern DWORD ylookup[];
 extern volatile int framecount;
 
@@ -478,7 +476,7 @@ extern int G3D_viewx; // user view x pos
 extern int G3D_viewy; // user view y pos
 extern int G3D_viewz; // user view z pos
 
-inline void GFX_SetRetraceFlag( BOOL flag ) {
+inline void GFX_SetRetraceFlag( bool flag ) {
     retraceflag = flag;
 }
 

@@ -2,8 +2,7 @@
 #define _TYPES_H
 
 #include "stdint.h"
-
-typedef enum { FALSE, TRUE } BOOL;
+#include "stdbool.h"
 
 #define PRIVATE static
 #define PUBLIC

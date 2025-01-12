@@ -76,9 +76,9 @@ SND_FreeFX () - Frees up Fx's
 void SND_FreeFX( void );
 
 /***************************************************************************
-SND_IsPatchPlaying() - Returns TRUE if patch is playing
+SND_IsPatchPlaying() - Returns true if patch is playing
  ***************************************************************************/
-BOOL SND_IsPatchPlaying(
+bool SND_IsPatchPlaying(
     DEFX type // INPUT : position in fxitems
 );
 
@@ -116,14 +116,14 @@ SND_PlaySong() - Plays song associated with song id
  ***************************************************************************/
 void SND_PlaySong(
     DWORD item, // INPUT : Song GLB item
-    BOOL chainflag, // INPUT : Chain Song to ItSelf
-    BOOL fadeflag // INPUT : Fade Song Out
+    bool chainflag, // INPUT : Chain Song to ItSelf
+    bool fadeflag // INPUT : Fade Song Out
 );
 
 /***************************************************************************
 SND_IsSongPlaying () - Is current song playing
  ***************************************************************************/
-BOOL SND_IsSongPlaying( void );
+bool SND_IsSongPlaying( void );
 
 /***************************************************************************
 SND_FadeOutSong () - Fades current song out and stops playing music
@@ -138,7 +138,7 @@ void SND_InitSound( void );
 extern CONTROL control;
 extern int music_volume;
 extern int fx_volume;
-extern BOOL fx_flag;
-extern BOOL dig_flag;
+extern bool fx_flag;
+extern bool dig_flag;
 
 #endif

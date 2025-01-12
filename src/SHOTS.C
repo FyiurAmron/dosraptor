@@ -125,20 +125,20 @@ void SHOTS_Init( void ) {
     // == FORWARD_GUNS =====================================
     slib = &shot_lib[S_FORWARD_GUNS];
     slib->lumpnum = NMSHOT_BLK;
-    slib->shadow = FALSE;
+    slib->shadow = false;
     slib->type = S_FORWARD_GUNS;
     slib->hits = 1;
     slib->speed = 8;
     slib->maxspeed = 16;
     slib->startframe = 0;
     slib->numframes = 4;
-    slib->delayflag = FALSE;
+    slib->delayflag = false;
     slib->shoot_rate = 2;
     slib->cur_shoot = 0;
-    slib->move_flag = TRUE;
-    slib->fplrx = FALSE;
-    slib->fplry = FALSE;
-    slib->meffect = FALSE;
+    slib->move_flag = true;
+    slib->fplrx = false;
+    slib->fplry = false;
+    slib->meffect = false;
     slib->beam = S_SHOOT;
     for ( i = 0; i < slib->numframes; i++ ) {
         item = slib->lumpnum + (DWORD) i;
@@ -152,20 +152,20 @@ void SHOTS_Init( void ) {
     // == PLASMA_GUNS =====================================
     slib = &shot_lib[S_PLASMA_GUNS];
     slib->lumpnum = PLASMA_BLK;
-    slib->shadow = FALSE;
+    slib->shadow = false;
     slib->type = S_PLASMA_GUNS;
     slib->hits = 2;
     slib->speed = 4;
     slib->maxspeed = 8;
     slib->startframe = 0;
     slib->numframes = 2;
-    slib->delayflag = FALSE;
+    slib->delayflag = false;
     slib->shoot_rate = 10;
     slib->cur_shoot = 0;
-    slib->move_flag = TRUE;
-    slib->fplrx = FALSE;
-    slib->fplry = FALSE;
-    slib->meffect = FALSE;
+    slib->move_flag = true;
+    slib->fplrx = false;
+    slib->fplry = false;
+    slib->meffect = false;
     slib->beam = S_SHOOT;
     for ( i = 0; i < slib->numframes; i++ ) {
         item = slib->lumpnum + (DWORD) i;
@@ -179,20 +179,20 @@ void SHOTS_Init( void ) {
     // == MICRO_MISSLE =====================================
     slib = &shot_lib[S_MICRO_MISSLE];
     slib->lumpnum = MICROM_BLK;
-    slib->shadow = FALSE;
+    slib->shadow = false;
     slib->type = S_MICRO_MISSLE;
     slib->hits = 2;
     slib->speed = 2;
     slib->maxspeed = 8;
     slib->startframe = 0;
     slib->numframes = 2;
-    slib->delayflag = FALSE;
+    slib->delayflag = false;
     slib->shoot_rate = 4;
     slib->cur_shoot = 0;
-    slib->move_flag = TRUE;
-    slib->fplrx = FALSE;
-    slib->fplry = FALSE;
-    slib->meffect = FALSE;
+    slib->move_flag = true;
+    slib->fplrx = false;
+    slib->fplry = false;
+    slib->meffect = false;
     slib->beam = S_SHOOT;
     for ( i = 0; i < slib->numframes; i++ ) {
         item = slib->lumpnum + (DWORD) i;
@@ -206,21 +206,21 @@ void SHOTS_Init( void ) {
     // == DUMB_MISSLE =====================================
     slib = &shot_lib[S_DUMB_MISSLE];
     slib->lumpnum = MISDUM_BLK;
-    slib->shadow = TRUE;
+    slib->shadow = true;
     slib->type = S_DUMB_MISSLE;
     slib->hits = 4;
     slib->speed = 2;
     slib->maxspeed = 12;
     slib->startframe = 1;
     slib->numframes = 3;
-    slib->delayflag = TRUE;
+    slib->delayflag = true;
     slib->shoot_rate = 10;
     slib->cur_shoot = 0;
-    slib->use_plot = TRUE;
-    slib->move_flag = TRUE;
-    slib->fplrx = FALSE;
-    slib->fplry = FALSE;
-    slib->meffect = FALSE;
+    slib->use_plot = true;
+    slib->move_flag = true;
+    slib->fplrx = false;
+    slib->fplry = false;
+    slib->meffect = false;
     slib->beam = S_SHOOT;
     for ( i = 0; i < slib->numframes; i++ ) {
         item = slib->lumpnum + (DWORD) i;
@@ -234,21 +234,21 @@ void SHOTS_Init( void ) {
     // == MINI_GUN =====================================
     slib = &shot_lib[S_MINI_GUN];
     slib->lumpnum = NMSHOT_BLK;
-    slib->shadow = TRUE;
+    slib->shadow = true;
     slib->type = S_MINI_GUN;
     slib->hits = 1;
     slib->speed = 8;
     slib->maxspeed = 10;
     slib->startframe = 1;
     slib->numframes = 4;
-    slib->delayflag = FALSE;
+    slib->delayflag = false;
     slib->shoot_rate = 1;
     slib->cur_shoot = 0;
-    slib->use_plot = TRUE;
-    slib->move_flag = TRUE;
-    slib->fplrx = FALSE;
-    slib->fplry = FALSE;
-    slib->meffect = FALSE;
+    slib->use_plot = true;
+    slib->move_flag = true;
+    slib->fplrx = false;
+    slib->fplry = false;
+    slib->meffect = false;
     slib->beam = S_SHOOT;
     for ( i = 0; i < slib->numframes; i++ ) {
         item = slib->lumpnum + (DWORD) i;
@@ -262,21 +262,21 @@ void SHOTS_Init( void ) {
     // == LASER TURRET =====================================
     slib = &shot_lib[S_TURRET];
     slib->lumpnum = EMPTY;
-    slib->shadow = FALSE;
+    slib->shadow = false;
     slib->type = S_TURRET;
     slib->hits = 5;
     slib->speed = 0;
     slib->maxspeed = 0;
     slib->startframe = 0;
     slib->numframes = 0;
-    slib->delayflag = FALSE;
+    slib->delayflag = false;
     slib->shoot_rate = 6;
     slib->cur_shoot = 0;
-    slib->use_plot = FALSE;
-    slib->move_flag = FALSE;
-    slib->fplrx = FALSE;
-    slib->fplry = FALSE;
-    slib->meffect = FALSE;
+    slib->use_plot = false;
+    slib->move_flag = false;
+    slib->fplrx = false;
+    slib->fplry = false;
+    slib->meffect = false;
     slib->beam = S_LINE;
     for ( i = 0; i < slib->numframes; i++ ) {
         item = slib->lumpnum + (DWORD) i;
@@ -290,21 +290,21 @@ void SHOTS_Init( void ) {
     // == MISSLE_PODS =====================================
     slib = &shot_lib[S_MISSLE_PODS];
     slib->lumpnum = MISRAT_BLK;
-    slib->shadow = FALSE;
+    slib->shadow = false;
     slib->type = S_MISSLE_PODS;
     slib->hits = 4;
     slib->speed = 1;
     slib->maxspeed = 16;
     slib->startframe = 0;
     slib->numframes = 2;
-    slib->delayflag = FALSE;
+    slib->delayflag = false;
     slib->shoot_rate = 5;
     slib->cur_shoot = 0;
-    slib->smoke = TRUE;
-    slib->move_flag = TRUE;
-    slib->fplrx = FALSE;
-    slib->fplry = FALSE;
-    slib->meffect = FALSE;
+    slib->smoke = true;
+    slib->move_flag = true;
+    slib->fplrx = false;
+    slib->fplry = false;
+    slib->meffect = false;
     slib->beam = S_SHOOT;
     for ( i = 0; i < slib->numframes; i++ ) {
         item = slib->lumpnum + (DWORD) i;
@@ -318,21 +318,21 @@ void SHOTS_Init( void ) {
     // == AIR TO AIR =====================================
     slib = &shot_lib[S_AIR_MISSLE];
     slib->lumpnum = MISRAT_BLK;
-    slib->shadow = FALSE;
+    slib->shadow = false;
     slib->type = S_MISSLE_PODS;
     slib->hits = 4;
     slib->speed = 1;
     slib->maxspeed = 12;
     slib->startframe = 0;
     slib->numframes = 2;
-    slib->delayflag = FALSE;
+    slib->delayflag = false;
     slib->shoot_rate = 10;
     slib->cur_shoot = 0;
-    slib->smoke = TRUE;
-    slib->move_flag = TRUE;
-    slib->fplrx = FALSE;
-    slib->fplry = FALSE;
-    slib->meffect = FALSE;
+    slib->smoke = true;
+    slib->move_flag = true;
+    slib->fplrx = false;
+    slib->fplry = false;
+    slib->meffect = false;
     slib->beam = S_SHOOT;
     for ( i = 0; i < slib->numframes; i++ ) {
         item = slib->lumpnum + (DWORD) i;
@@ -346,21 +346,21 @@ void SHOTS_Init( void ) {
     // == AIR TO GROUND =====================================
     slib = &shot_lib[S_GRD_MISSLE];
     slib->lumpnum = MISGRD_BLK;
-    slib->shadow = FALSE;
+    slib->shadow = false;
     slib->type = S_GRD_MISSLE;
     slib->hits = 20;
     slib->speed = 1;
     slib->maxspeed = 6;
     slib->startframe = 0;
     slib->numframes = 2;
-    slib->delayflag = FALSE;
+    slib->delayflag = false;
     slib->shoot_rate = 20;
     slib->cur_shoot = 0;
-    slib->smoke = TRUE;
-    slib->move_flag = TRUE;
-    slib->fplrx = FALSE;
-    slib->fplry = FALSE;
-    slib->meffect = FALSE;
+    slib->smoke = true;
+    slib->move_flag = true;
+    slib->fplrx = false;
+    slib->fplry = false;
+    slib->meffect = false;
     slib->beam = S_SHOOT;
     for ( i = 0; i < slib->numframes; i++ ) {
         item = slib->lumpnum + (DWORD) i;
@@ -374,21 +374,21 @@ void SHOTS_Init( void ) {
     // == GROUND BOMB =====================================
     slib = &shot_lib[S_BOMB];
     slib->lumpnum = BLDGBOMB_PIC;
-    slib->shadow = FALSE;
+    slib->shadow = false;
     slib->type = S_BOMB;
     slib->hits = 50;
     slib->speed = 1;
     slib->maxspeed = 4;
     slib->startframe = 0;
     slib->numframes = 1;
-    slib->delayflag = FALSE;
+    slib->delayflag = false;
     slib->shoot_rate = 30;
     slib->cur_shoot = 0;
-    slib->smoke = FALSE;
-    slib->move_flag = TRUE;
-    slib->fplrx = FALSE;
-    slib->fplry = FALSE;
-    slib->meffect = FALSE;
+    slib->smoke = false;
+    slib->move_flag = true;
+    slib->fplrx = false;
+    slib->fplry = false;
+    slib->meffect = false;
     slib->beam = S_SHOOT;
     for ( i = 0; i < slib->numframes; i++ ) {
         item = slib->lumpnum + (DWORD) i;
@@ -402,21 +402,21 @@ void SHOTS_Init( void ) {
     // == ENERGY GRAB =====================================
     slib = &shot_lib[S_ENERGY_GRAB];
     slib->lumpnum = POWDIS_BLK;
-    slib->shadow = FALSE;
+    slib->shadow = false;
     slib->type = S_ENERGY_GRAB;
     slib->hits = 3;
     slib->speed = 4;
     slib->maxspeed = 8;
     slib->startframe = 0;
     slib->numframes = 6;
-    slib->delayflag = FALSE;
+    slib->delayflag = false;
     slib->shoot_rate = 2;
     slib->cur_shoot = 0;
-    slib->smoke = FALSE;
-    slib->move_flag = TRUE;
-    slib->fplrx = FALSE;
-    slib->fplry = FALSE;
-    slib->meffect = FALSE;
+    slib->smoke = false;
+    slib->move_flag = true;
+    slib->fplrx = false;
+    slib->fplry = false;
+    slib->meffect = false;
     slib->beam = S_SHOOT;
     for ( i = 0; i < slib->numframes; i++ ) {
         item = slib->lumpnum + (DWORD) i;
@@ -430,22 +430,22 @@ void SHOTS_Init( void ) {
     // == MEGA BOMB =====================================
     slib = &shot_lib[S_MEGA_BOMB];
     slib->lumpnum = MEGABM_BLK;
-    slib->shadow = TRUE;
+    slib->shadow = true;
     slib->type = S_MEGA_BOMB;
     slib->hits = 50;
     slib->speed = 2;
     slib->maxspeed = 2;
     slib->startframe = 0;
     slib->numframes = 4;
-    slib->delayflag = FALSE;
+    slib->delayflag = false;
     slib->shoot_rate = 60;
     slib->cur_shoot = 0;
-    slib->smoke = FALSE;
-    slib->use_plot = TRUE;
-    slib->move_flag = TRUE;
-    slib->fplrx = FALSE;
-    slib->fplry = FALSE;
-    slib->meffect = TRUE;
+    slib->smoke = false;
+    slib->use_plot = true;
+    slib->move_flag = true;
+    slib->fplrx = false;
+    slib->fplry = false;
+    slib->meffect = true;
     slib->beam = S_SHOOT;
     for ( i = 0; i < slib->numframes; i++ ) {
         item = slib->lumpnum + (DWORD) i;
@@ -459,22 +459,22 @@ void SHOTS_Init( void ) {
     // == PULSE CANNON =====================================
     slib = &shot_lib[S_PULSE_CANNON];
     slib->lumpnum = SHOKWV_BLK;
-    slib->shadow = FALSE;
+    slib->shadow = false;
     slib->type = S_PULSE_CANNON;
     slib->hits = 5;
     slib->speed = 8;
     slib->maxspeed = 8;
     slib->startframe = 0;
     slib->numframes = 2;
-    slib->delayflag = FALSE;
+    slib->delayflag = false;
     slib->shoot_rate = 3;
     slib->cur_shoot = 0;
-    slib->smoke = FALSE;
-    slib->use_plot = FALSE;
-    slib->move_flag = TRUE;
-    slib->fplrx = FALSE;
-    slib->fplry = FALSE;
-    slib->meffect = FALSE;
+    slib->smoke = false;
+    slib->use_plot = false;
+    slib->move_flag = true;
+    slib->fplrx = false;
+    slib->fplry = false;
+    slib->meffect = false;
     slib->beam = S_SHOOT;
     for ( i = 0; i < slib->numframes; i++ ) {
         item = slib->lumpnum + (DWORD) i;
@@ -488,22 +488,22 @@ void SHOTS_Init( void ) {
     // == FORWARD LASER =====================================
     slib = &shot_lib[S_FORWARD_LASER];
     slib->lumpnum = FRNTLAS_BLK;
-    slib->shadow = FALSE;
+    slib->shadow = false;
     slib->type = S_FORWARD_LASER;
     slib->hits = 10;
     slib->speed = 0;
     slib->maxspeed = 0;
     slib->startframe = 0;
     slib->numframes = 4;
-    slib->delayflag = FALSE;
+    slib->delayflag = false;
     slib->shoot_rate = 7;
     slib->cur_shoot = 0;
-    slib->smoke = FALSE;
-    slib->use_plot = FALSE;
-    slib->move_flag = FALSE;
-    slib->fplrx = TRUE;
-    slib->fplry = TRUE;
-    slib->meffect = TRUE;
+    slib->smoke = false;
+    slib->use_plot = false;
+    slib->move_flag = false;
+    slib->fplrx = true;
+    slib->fplry = true;
+    slib->meffect = true;
     slib->beam = S_BEAM;
     for ( i = 0; i < slib->numframes; i++ ) {
         item = slib->lumpnum + (DWORD) i;
@@ -517,22 +517,22 @@ void SHOTS_Init( void ) {
     // == DEATH RAY =====================================
     slib = &shot_lib[S_DEATH_RAY];
     slib->lumpnum = DETHRY_BLK;
-    slib->shadow = FALSE;
+    slib->shadow = false;
     slib->type = S_DEATH_RAY;
     slib->hits = 6;
     slib->speed = 0;
     slib->maxspeed = 0;
     slib->startframe = 0;
     slib->numframes = 4;
-    slib->delayflag = FALSE;
+    slib->delayflag = false;
     slib->shoot_rate = 7;
     slib->cur_shoot = 0;
-    slib->smoke = FALSE;
-    slib->use_plot = FALSE;
-    slib->move_flag = FALSE;
-    slib->fplrx = TRUE;
-    slib->fplry = TRUE;
-    slib->meffect = TRUE;
+    slib->smoke = false;
+    slib->use_plot = false;
+    slib->move_flag = false;
+    slib->fplrx = true;
+    slib->fplry = true;
+    slib->meffect = true;
     slib->beam = S_BEAM;
     for ( i = 0; i < slib->numframes; i++ ) {
         item = slib->lumpnum + (DWORD) i;
@@ -547,10 +547,10 @@ void SHOTS_Init( void ) {
 /***************************************************************************
 SHOTS_PlayerShoot() - Shoots the specified weapon
  ***************************************************************************/
-BOOL SHOTS_PlayerShoot(
+bool SHOTS_PlayerShoot(
     OBJ_TYPE type // INPUT : OBJECT TYPE
 ) {
-    extern BOOL gus_flag;
+    extern bool gus_flag;
     extern int g_flash;
     extern SPRITE_SHIP first_enemy;
     extern SPRITE_SHIP last_enemy;
@@ -563,14 +563,14 @@ BOOL SHOTS_PlayerShoot(
     }
 
     if ( lib->cur_shoot ) {
-        return FALSE;
+        return false;
     }
 
     lib->cur_shoot = lib->shoot_rate;
 
     cur = SHOTS_Get();
     if ( cur == NULL ) {
-        return FALSE;
+        return false;
     }
 
     switch ( type ) {
@@ -599,7 +599,7 @@ BOOL SHOTS_PlayerShoot(
 
             cur = SHOTS_Get();
             if ( cur == NULL ) {
-                return FALSE;
+                return false;
             }
 
             cur->curframe = random( lib->numframes );
@@ -654,7 +654,7 @@ BOOL SHOTS_PlayerShoot(
 
             cur = SHOTS_Get();
             if ( cur == NULL ) {
-                return FALSE;
+                return false;
             }
 
             cur->lib = &shot_lib[type];
@@ -689,7 +689,7 @@ BOOL SHOTS_PlayerShoot(
 
             cur = SHOTS_Get();
             if ( cur == NULL ) {
-                return FALSE;
+                return false;
             }
 
             cur->lib = &shot_lib[type];
@@ -772,7 +772,7 @@ BOOL SHOTS_PlayerShoot(
 
             cur = SHOTS_Get();
             if ( cur == NULL ) {
-                return FALSE;
+                return false;
             }
 
             cur->lib = &shot_lib[type];
@@ -805,7 +805,7 @@ BOOL SHOTS_PlayerShoot(
 
             cur = SHOTS_Get();
             if ( cur == NULL ) {
-                return FALSE;
+                return false;
             }
 
             cur->lib = &shot_lib[type];
@@ -837,7 +837,7 @@ BOOL SHOTS_PlayerShoot(
 
             cur = SHOTS_Get();
             if ( cur == NULL ) {
-                return FALSE;
+                return false;
             }
 
             cur->lib = &shot_lib[type];
@@ -930,7 +930,7 @@ BOOL SHOTS_PlayerShoot(
 
             cur = SHOTS_Get();
             if ( cur == NULL ) {
-                return FALSE;
+                return false;
             }
 
             cur->lib = &shot_lib[type];
@@ -962,7 +962,7 @@ BOOL SHOTS_PlayerShoot(
             break;
     }
 
-    return TRUE;
+    return true;
 }
 
 /***************************************************************************
@@ -1036,7 +1036,7 @@ void SHOTS_Think( void ) {
 
         if ( shot->y + 16 < 0 || shot->x < 0 || shot->x > 320 || shot->y > 200 ) {
             if ( lib->move_flag ) {
-                shot->move.done = TRUE;
+                shot->move.done = true;
                 goto shot_done;
             }
         }
@@ -1052,14 +1052,14 @@ void SHOTS_Think( void ) {
                 if ( lib->move_flag ) {
                     shot->curframe = lib->startframe;
                 } else {
-                    shot->move.done = TRUE;
+                    shot->move.done = true;
                     goto shot_done;
                 }
             }
         }
 
         if ( shot->doneflag ) {
-            shot->move.done = TRUE;
+            shot->move.done = true;
             goto shot_done;
         }
 
@@ -1069,7 +1069,7 @@ void SHOTS_Think( void ) {
                 case S_SUCK:
                     enemy = ENEMY_DamageEnergy( shot->x, shot->y, lib->hits );
                     if ( enemy ) {
-                        shot->doneflag = TRUE;
+                        shot->doneflag = true;
 
                         ANIMS_StartAnim( A_BLUE_SPARK, shot->x, shot->y );
                         ANIMS_StartEAnim( enemy, A_ENERGY_GRAB, enemy->hlx, enemy->hly );
@@ -1078,7 +1078,7 @@ void SHOTS_Think( void ) {
 
                 case S_GRALL:
                     if ( ENEMY_DamageAll( shot->x, shot->y, lib->hits ) ) {
-                        shot->doneflag = TRUE;
+                        shot->doneflag = true;
 
                         if ( random( 2 ) ) {
                             ANIMS_StartAnim( A_BLUE_SPARK, shot->x, shot->y );
@@ -1090,7 +1090,7 @@ void SHOTS_Think( void ) {
 
                 case S_ALL:
                     if ( ENEMY_DamageAll( shot->x, shot->y, lib->hits ) ) {
-                        shot->doneflag = TRUE;
+                        shot->doneflag = true;
 
                         if ( random( 2 ) ) {
                             ANIMS_StartAnim( A_BLUE_SPARK, shot->x, shot->y );
@@ -1098,13 +1098,13 @@ void SHOTS_Think( void ) {
                             ANIMS_StartAnim( A_ORANGE_SPARK, shot->x, shot->y );
                         }
                     } else if ( TILE_IsHit( lib->hits, shot->x, shot->y ) ) {
-                        shot->move.done = TRUE;
+                        shot->move.done = true;
                     }
                     break;
 
                 case S_AIR:
                     if ( ENEMY_DamageAir( shot->x, shot->y, lib->hits ) ) {
-                        shot->doneflag = TRUE;
+                        shot->doneflag = true;
 
                         if ( random( 2 ) ) {
                             ANIMS_StartAnim( A_BLUE_SPARK, shot->x, shot->y );
@@ -1116,20 +1116,20 @@ void SHOTS_Think( void ) {
 
                 case S_GROUND:
                     if ( ENEMY_DamageGround( shot->x, shot->y, lib->hits ) ) {
-                        shot->doneflag = TRUE;
+                        shot->doneflag = true;
 
                         ANIMS_StartAnim( A_ORANGE_SPARK, shot->x, shot->y );
                     } else if ( TILE_IsHit( lib->hits, shot->x, shot->y ) ) {
-                        shot->move.done = TRUE;
+                        shot->move.done = true;
                     }
                     break;
 
                 case S_GTILE:
                     if ( TILE_Bomb( lib->hits, shot->x, shot->y ) ) {
-                        shot->move.done = TRUE;
+                        shot->move.done = true;
                     }
                     if ( ENEMY_DamageGround( shot->x, shot->y, 5 ) ) {
-                        shot->doneflag = TRUE;
+                        shot->doneflag = true;
 
                         ANIMS_StartAnim( A_SMALL_GROUND_EXPLO, shot->x, shot->y );
                     }
@@ -1141,7 +1141,7 @@ void SHOTS_Think( void ) {
 
         if ( shot->move.done ) {
             if ( shot->delayflag ) {
-                shot->delayflag = FALSE;
+                shot->delayflag = false;
                 shot->move.x2 = shot->move.x + ( random( 32 ) - 16 );
                 shot->move.y2 = 0;
                 ANIMS_StartAnim( A_SMALL_SMOKE_DOWN, shot->move.x, shot->move.y );
@@ -1154,7 +1154,7 @@ void SHOTS_Think( void ) {
                         for ( enemy = first_enemy.next; enemy != &last_enemy; enemy = enemy->next ) {
                             enemy->hits -= lib->hits;
                         }
-                        startfadeflag = TRUE;
+                        startfadeflag = true;
                         ANIMS_StartAnim( A_SUPER_SHIELD, 0, 0 );
                         shot = SHOTS_Remove( shot );
                         continue;
@@ -1178,8 +1178,8 @@ void SHOTS_Think( void ) {
         } else {
             shot->move.y -= shot->speed;
             if ( shot->move.y < 0 ) {
-                shot->move.done = TRUE;
-                shot->doneflag = TRUE;
+                shot->move.done = true;
+                shot->doneflag = true;
             }
         }
     }

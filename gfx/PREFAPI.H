@@ -5,8 +5,8 @@
  * INI_InitPreference - Specify the preference program file
  *----------------------------------------------------------------------------
  * Returns:
- *   TRUE:   File found
- *   FALSE:  File not found
+ *   true:   File found
+ *   false:  File not found
  *****************************************************************************/
 short INI_InitPreference(
     char* profile /* INPUT:  Name of program file             */
@@ -40,8 +40,8 @@ long INI_GetPreferenceHex(
  * INI_GetPreferenceBool - Retrieve a boolean value from the program file
  *----------------------------------------------------------------------------
  * Returns:
- *   1 for TRUE
- *   0 for FALSE
+ *   1 for true
+ *   0 for false
  *****************************************************************************/
 short INI_GetPreferenceBool(
     char* section, /* INPUT:   Name of section                 */
@@ -67,8 +67,8 @@ char* INI_GetPreference(
  * INI_PutPreferenceLong - Write a long integer value to the program file
  *----------------------------------------------------------------------------
  * Returns:
- *   SUCCESS:    TRUE
- *   FAIL:       FALSE
+ *   SUCCESS:    true
+ *   FAIL:       false
  *****************************************************************************/
 short INI_PutPreferenceLong(
     char* section, /* INPUT:   Name of section                 */
@@ -93,8 +93,8 @@ short INI_PutPreferenceHex(
  * INI_PutPreferenceBool - Write a Boolean value to the program file
  *----------------------------------------------------------------------------
  * Returns:
- *   SUCCESS:    TRUE
- *   FAIL:       FALSE
+ *   SUCCESS:    true
+ *   FAIL:       false
  *****************************************************************************/
 short INI_PutPreferenceBool(
     char* section, /* INPUT:   Name of section                 */
@@ -106,8 +106,8 @@ short INI_PutPreferenceBool(
  * INI_PutPreference - Write a string value to the program file
  *----------------------------------------------------------------------------
  * Returns:
- *   SUCCESS:    TRUE
- *   FAIL:       FALSE
+ *   SUCCESS:    true
+ *   FAIL:       false
  *****************************************************************************/
 short INI_PutPreference(
     char* section, /* INPUT:   Name of section                 */

@@ -35,7 +35,7 @@
 PRIVATE char exePath[_MAX_PATH];
 PRIVATE int num_glbs;
 PRIVATE char prefix[5] = "FILE";
-PRIVATE BOOL fVmem = FALSE;
+PRIVATE bool fVmem = false;
 
 /*
  * define file descriptor used to access file.
@@ -220,7 +220,7 @@ PRIVATE void GLB_LoadIDT(
    GLB_UseVM - Use virtual memory functions for heap managment.
  *************************************************************************/
 PUBLIC void GLB_UseVM( void ) {
-    fVmem = TRUE;
+    fVmem = true;
 }
 
 /*************************************************************************
@@ -354,7 +354,7 @@ PRIVATE void* GLB_FetchItem( DWORD handle, FI_MODE mode ) {
         } else {
             if ( fVmem ) {
                 obj = VM_Malloc(
-                    ii->size, ( ii->flags & ITF_LOCKED ) ? NULL : &ii->vm_mem, ( mode == FI_CACHE ) ? FALSE : TRUE );
+                    ii->size, ( ii->flags & ITF_LOCKED ) ? NULL : &ii->vm_mem, mode != FI_CACHE );
             } else {
                 obj = calloc( ii->size, sizeof( BYTE ) );
             }
@@ -439,15 +439,14 @@ void GLB_UnlockItem( DWORD handle ) {
 /***************************************************************************
  GLB_IsLabel () - tests to see if ID is a label or an Item
  ***************************************************************************/
-BOOL // RETURN: TRUE = Label
-GLB_IsLabel(
+bool GLB_IsLabel(
     DWORD handle // INPUT : handle of item
 ) {
     ITEM_H itm;
     ITEMINFO* ii;
 
     if ( handle == ~0 ) {
-        return FALSE;
+        return false;
     }
 
     itm.handle = handle;
@@ -458,7 +457,7 @@ GLB_IsLabel(
     ii = filedesc[itm.id.filenum].item;
     ii += itm.id.itemnum;
 
-    return ( ii->size == 0 ) ? TRUE : FALSE;
+    return ii->size == 0;
 }
 
 /***************************************************************************

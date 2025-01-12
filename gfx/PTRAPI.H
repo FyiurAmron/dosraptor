@@ -10,12 +10,12 @@
 
 typedef enum { P_AUTO, P_MOUSE, P_JOYSTICK } PTRTYPE;
 
-extern BOOL mouse_b1_ack;
-extern BOOL mouse_b2_ack;
-extern BOOL mouse_b3_ack;
-extern BOOL drawcursor;
-extern BOOL joypresent;
-extern BOOL mousepresent;
+extern bool mouse_b1_ack;
+extern bool mouse_b2_ack;
+extern bool mouse_b3_ack;
+extern bool drawcursor;
+extern bool joypresent;
+extern bool mousepresent;
 extern int joy2b1;
 extern int joy2b2;
 extern int mouseb1;
@@ -25,7 +25,7 @@ extern int cursorx;
 extern int cursory;
 extern int cur_mx;
 extern int cur_my;
-extern BOOL ptr_init_flag;
+extern bool ptr_init_flag;
 
 /*========================================================================
   PTR_UpdateCursor() - Updates Mouse Cursor - should be called by intterupt
@@ -75,11 +75,9 @@ void // RETURN: none
 void PTR_SetUpdateFlag( void );
 
 /***************************************************************************
-   PTR_DrawCursor () - Turns Cursor Drawing to ON/OFF ( TRUE/FALSE )
+   PTR_DrawCursor () - Turns cursor drawing ON/OFF
  ***************************************************************************/
-void PTR_DrawCursor(
-    BOOL flag // INPUT: TRUE/FALSE
-);
+void PTR_DrawCursor( bool flag );
 
 /***************************************************************************
  PTR_SetPos() - Sets Cursor Position
@@ -94,13 +92,13 @@ PTR_SetPos(
 PTR_Pause() - Pauses/ Starts PTR routines after already initing
  ***************************************************************************/
 void PTR_Pause(
-    BOOL flag // INPUT : TRUE / FALSE
+    bool flag // INPUT : true / false
 );
 
 /***************************************************************************
  PTR_Init() - Inits Mouse Driver and sets mouse handler function
  ***************************************************************************/
-BOOL // RETURN true = Installed, false  = No mouse
+bool // RETURN true = Installed, false  = No mouse
 PTR_Init(
     PTRTYPE type // INPUT : Pointer Type to Use
 );

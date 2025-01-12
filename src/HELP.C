@@ -46,7 +46,7 @@ void HELP_Win(
     char temp[20];
     SWD_DLG dlg;
     int window;
-    BOOL update = TRUE;
+    bool update = true;
     DWORD item;
 
     item = GLB_GetItemID( strpage );
@@ -65,7 +65,7 @@ void HELP_Win(
 mainloop:
 
     if ( update ) {
-        update = FALSE;
+        update = false;
 
         if ( curpage >= 0 ) {
             curpage = curpage % maxpages;
@@ -86,31 +86,31 @@ mainloop:
 
     switch ( dlg.keypress ) {
         case SC_HOME:
-            update = TRUE;
+            update = true;
             curpage = 0;
             break;
 
         case SC_F1:
-            update = TRUE;
+            update = true;
             curpage = 1;
             break;
 
         case SC_END:
-            update = TRUE;
+            update = true;
             curpage = maxpages - 1;
             break;
 
         case SC_DOWN:
         case SC_RIGHT:
         case SC_PAGEDN:
-            update = TRUE;
+            update = true;
             curpage++;
             break;
 
         case SC_UP:
         case SC_LEFT:
         case SC_PAGEUP:
-            update = TRUE;
+            update = true;
             curpage--;
             break;
     }
@@ -132,12 +132,12 @@ mainloop:
                             goto func_exit;
 
                         case HELP_DOWN:
-                            update = TRUE;
+                            update = true;
                             curpage++;
                             break;
 
                         case HELP_UP:
-                            update = TRUE;
+                            update = true;
                             curpage--;
                             break;
                     }

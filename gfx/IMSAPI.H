@@ -15,12 +15,12 @@ void IMS_StartAck( void );
 /***************************************************************************
 IMS_CheckAck () - Tells if somthing has happend since last IMS_StartAck
  ***************************************************************************/
-BOOL IMS_CheckAck( void );
+bool IMS_CheckAck( void );
 
 /***************************************************************************
-IMS_IsAck() - Returns TRUE if ptr button or key pressed
+IMS_IsAck() - Returns true if ptr button or key pressed
  ***************************************************************************/
-BOOL IMS_IsAck( void );
+bool IMS_IsAck( void );
 
 /***************************************************************************
 IMS_WaitAck() - Waits for a pointer button or key press

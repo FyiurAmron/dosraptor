@@ -49,16 +49,16 @@ extern int ud_ly; // update y length
 #define CB_OFF   0x20 // Center button released
 #define CB_PRESS 0x40 // Center button pressed
 
-PUBLIC BOOL mouse_b1_ack = FALSE;
-PUBLIC BOOL mouse_b2_ack = FALSE;
-PUBLIC BOOL mouse_b3_ack = FALSE;
+PUBLIC bool mouse_b1_ack = false;
+PUBLIC bool mouse_b2_ack = false;
+PUBLIC bool mouse_b3_ack = false;
 PUBLIC BYTE* cursorstart;
 PUBLIC BYTE* displaypic;
 PUBLIC BYTE* cursorpic;
 PUBLIC BYTE* cursorsave;
-PUBLIC BOOL mousepresent = FALSE;
-PUBLIC BOOL joypresent = FALSE;
-PUBLIC BOOL joyactive = FALSE;
+PUBLIC bool mousepresent = false;
+PUBLIC bool joypresent = false;
+PUBLIC bool joyactive = false;
 PUBLIC int joy2b1 = 0;
 PUBLIC int joy2b2 = 0;
 PUBLIC int mouseb1 = 0;
@@ -74,16 +74,16 @@ PRIVATE int dm_x = 0;
 PRIVATE int dm_y = 0;
 PRIVATE int hot_mx = 0;
 PRIVATE int hot_my = 0;
-PRIVATE BOOL mouseonhold = FALSE;
-PRIVATE BOOL mouseaction = TRUE;
-PRIVATE BOOL mouse_erase = FALSE;
-PRIVATE BOOL not_in_update = TRUE;
+PRIVATE bool mouseonhold = false;
+PRIVATE bool mouseaction = true;
+PRIVATE bool mouse_erase = false;
+PRIVATE bool not_in_update = true;
 PRIVATE void ( *cursorhook )( void ) = (void( * )) 0;
 PRIVATE void ( *checkbounds )( void ) = (void( * )) 0;
 
-PUBLIC BOOL drawcursor = FALSE;
-PRIVATE BOOL g_paused = FALSE;
-PRIVATE BOOL lastclip = FALSE;
+PUBLIC bool drawcursor = false;
+PRIVATE bool g_paused = false;
+PRIVATE bool lastclip = false;
 PRIVATE DWORD tsm_id = EMPTY;
 PUBLIC int joy_limit_xh = 10;
 PUBLIC int joy_limit_xl = -10;
@@ -91,20 +91,20 @@ PUBLIC int joy_limit_yh = 10;
 PUBLIC int joy_limit_yl = -10;
 PUBLIC int joy_sx = 0;
 PUBLIC int joy_sy = 0;
-PRIVATE BOOL joy_present = FALSE;
+PRIVATE bool joy_present = false;
 PUBLIC int joy_x = 0;
 PUBLIC int joy_y = 0;
 PUBLIC int joy_buttons = 0;
-PUBLIC BOOL ptr_init_flag = FALSE;
+PUBLIC bool ptr_init_flag = false;
 PRIVATE int g_addx = 0;
 PRIVATE int g_addy = 0;
 
 /*------------------------------------------------------------------------
 PTR_IsJoyPresent() - Checks to see if joystick is present
   ------------------------------------------------------------------------*/
-BOOL PTR_IsJoyPresent( void ) {
+bool PTR_IsJoyPresent( void ) {
     int i;
-    int rval = TRUE;
+    int rval = true;
 
     _disable();
     outp( 0x201, 1 );
@@ -117,7 +117,7 @@ BOOL PTR_IsJoyPresent( void ) {
     _enable();
 
     if ( i >= 10000 ) {
-        rval = FALSE;
+        rval = false;
     }
 
     return rval;
@@ -136,15 +136,15 @@ void _loadds far PTR_MouseHandler( int m_bx, int m_cx, int m_dx ) {
         mouseb1 = m_bx & 1;
         mouseb2 = m_bx & 2;
         mouseb3 = m_bx & 4;
-        mouseaction = TRUE;
+        mouseaction = true;
         if ( mouseb1 ) {
-            mouse_b1_ack = TRUE;
+            mouse_b1_ack = true;
         }
         if ( mouseb2 ) {
-            mouse_b2_ack = TRUE;
+            mouse_b2_ack = true;
         }
         if ( mouseb3 ) {
-            mouse_b3_ack = TRUE;
+            mouse_b3_ack = true;
         }
     }
 }
@@ -177,11 +177,11 @@ void PTR_JoyHandler( void ) {
     joy2b2 = joy_buttons & 8;
 
     if ( mouseb1 ) {
-        mouse_b1_ack = TRUE;
+        mouse_b1_ack = true;
     }
 
     if ( mouseb2 ) {
-        mouse_b2_ack = TRUE;
+        mouse_b2_ack = true;
     }
 
     xm = joy_x - joy_sx;
@@ -251,26 +251,26 @@ void PTR_JoyHandler( void ) {
         cur_my = 199;
     }
 
-    mouseaction = TRUE;
+    mouseaction = true;
 }
 
 /*------------------------------------------------------------------------
    PTR_ClipCursor () Clips cursor from screen
   ------------------------------------------------------------------------*/
 PRIVATE void PTR_ClipCursor( void ) {
-    lastclip = FALSE;
+    lastclip = false;
 
     displaypic = cursorpic;
 
     if ( dm_x + CURSORWIDTH > SCREENWIDTH ) {
         cursorloopx = SCREENWIDTH - dm_x;
-        lastclip = TRUE;
+        lastclip = true;
     } else {
         if ( dm_x < 0 ) {
             displaypic -= dm_x;
             cursorloopx = CURSORWIDTH + dm_x;
             dm_x = 0;
-            lastclip = TRUE;
+            lastclip = true;
         } else {
             cursorloopx = CURSORWIDTH;
         }
@@ -278,13 +278,13 @@ PRIVATE void PTR_ClipCursor( void ) {
 
     if ( dm_y + CURSORHEIGHT > SCREENHEIGHT ) {
         cursorloopy = SCREENHEIGHT - dm_y;
-        lastclip = TRUE;
+        lastclip = true;
     } else {
         if ( dm_y < 0 ) {
             displaypic += -dm_y * CURSORWIDTH;
             cursorloopy = CURSORHEIGHT + dm_y;
             dm_y = 0;
-            lastclip = TRUE;
+            lastclip = true;
         } else {
             cursorloopy = CURSORHEIGHT;
         }
@@ -304,8 +304,8 @@ void PTR_UpdateCursor( void ) {
     }
 
     if ( mouseaction ) {
-        not_in_update = FALSE;
-        mouseaction = FALSE;
+        not_in_update = false;
+        mouseaction = false;
 
         if ( mouse_erase ) {
             if ( lastclip ) {
@@ -314,7 +314,7 @@ void PTR_UpdateCursor( void ) {
                 PTR_Erase();
             }
 
-            mouse_erase = FALSE;
+            mouse_erase = false;
         }
 
         if ( checkbounds ) {
@@ -335,7 +335,7 @@ void PTR_UpdateCursor( void ) {
             PTR_Save( CURSORHEIGHT );
             PTR_Draw();
 
-            mouse_erase = TRUE;
+            mouse_erase = true;
         }
 
         if ( cursorhook ) {
@@ -344,7 +344,7 @@ void PTR_UpdateCursor( void ) {
 
         cursorx = dm_x;
         cursory = dm_y;
-        not_in_update = TRUE;
+        not_in_update = true;
     }
 }
 
@@ -366,8 +366,8 @@ void PTR_FrameHook(
 
     while ( !(volatile) not_in_update ) {
     }
-    not_in_update = FALSE;
-    mouseonhold = TRUE;
+    not_in_update = false;
+    mouseonhold = true;
 
     if ( joyactive ) {
         PTR_JoyHandler();
@@ -379,7 +379,7 @@ void PTR_FrameHook(
 
     dm_x = cur_mx - hot_mx;
     dm_y = cur_my - hot_my;
-    not_in_update = TRUE;
+    not_in_update = true;
 
     ck_x1 = ud_x - CURSORWIDTH;
     ck_y1 = ud_y - CURSORHEIGHT;
@@ -397,7 +397,7 @@ void PTR_FrameHook(
                     PTR_Erase();
                 }
 
-                mouse_erase = FALSE;
+                mouse_erase = false;
             }
         }
 
@@ -420,7 +420,7 @@ void PTR_FrameHook(
         }
 
         cursorstart = displayscreen + dm_x + ylookup[dm_y];
-        mouse_erase = TRUE;
+        mouse_erase = true;
     } else {
         if ( mouseaction ) {
             if ( mouse_erase ) {
@@ -430,7 +430,7 @@ void PTR_FrameHook(
                     PTR_Erase();
                 }
 
-                mouse_erase = FALSE;
+                mouse_erase = false;
             }
 
             PTR_ClipCursor();
@@ -440,7 +440,7 @@ void PTR_FrameHook(
             PTR_Save( CURSORHEIGHT );
             PTR_Draw();
 
-            mouse_erase = TRUE;
+            mouse_erase = true;
         }
         update();
     }
@@ -451,7 +451,7 @@ void PTR_FrameHook(
 
     cursorx = dm_x;
     cursory = dm_y;
-    mouseonhold = FALSE;
+    mouseonhold = false;
 }
 
 /***************************************************************************
@@ -467,28 +467,26 @@ void PTR_CalJoy( void ) {
 }
 
 /***************************************************************************
-   PTR_DrawCursor () - Turns Cursor Drawing to ON/OFF ( TRUE/FALSE )
+   PTR_DrawCursor () - Turns Cursor Drawing ON/OFF
  ***************************************************************************/
-void PTR_DrawCursor(
-    BOOL flag // INPUT: TRUE/FALSE
-) {
+void PTR_DrawCursor( bool flag ) {
     if ( ptr_init_flag ) {
-        if ( flag == FALSE && mouse_erase == TRUE ) {
+        if ( !flag && mouse_erase ) {
             if ( lastclip ) {
                 PTR_ClipErase();
             } else {
                 PTR_Erase();
             }
-            mouse_erase = FALSE;
+            mouse_erase = false;
         }
 
-        if ( flag == TRUE ) {
-            mouseaction = TRUE;
+        if ( flag ) {
+            mouseaction = true;
         }
 
         drawcursor = flag;
     } else {
-        drawcursor = FALSE;
+        drawcursor = false;
     }
 }
 
@@ -504,7 +502,7 @@ void PTR_SetPic(
     hot_mx = 0;
     hot_my = 0;
 
-    if ( ptr_init_flag == FALSE ) {
+    if ( !ptr_init_flag ) {
         return;
     }
 
@@ -529,7 +527,7 @@ void PTR_SetPic(
         hot_my = 0;
     }
 
-    mouseaction = TRUE;
+    mouseaction = true;
 }
 
 /***************************************************************************
@@ -540,7 +538,7 @@ PTR_SetBoundsHook(
     void ( *func )( void ) // INPUT : pointer to function
 ) {
     checkbounds = func;
-    mouseaction = TRUE;
+    mouseaction = true;
 }
 
 /***************************************************************************
@@ -551,14 +549,14 @@ PTR_SetCursorHook(
     void ( *hook )( void ) // INPUT : pointer to function
 ) {
     cursorhook = hook;
-    mouseaction = TRUE;
+    mouseaction = true;
 }
 
 /***************************************************************************
    PTR_SetUpdateFlag () - Sets cursor to be update next cycle
  ***************************************************************************/
 void PTR_SetUpdateFlag( void ) {
-    mouseaction = TRUE;
+    mouseaction = true;
 }
 
 /***************************************************************************
@@ -583,17 +581,15 @@ PTR_SetPos(
     cur_my = y;
 
     if ( ptr_init_flag ) {
-        mouseaction = TRUE;
+        mouseaction = true;
     }
 }
 
 /***************************************************************************
 PTR_Pause() - Pauses/ Starts PTR routines after already initing
  ***************************************************************************/
-void PTR_Pause(
-    BOOL flag // INPUT : TRUE / FALSE
-) {
-    if ( ptr_init_flag == FALSE ) {
+void PTR_Pause( bool flag ) {
+    if ( !ptr_init_flag ) {
         return;
     }
 
@@ -602,13 +598,13 @@ void PTR_Pause(
     }
 
     if ( flag ) {
-        PTR_DrawCursor( FALSE );
+        PTR_DrawCursor( false );
         TSM_PauseService( tsm_id );
     } else {
-        drawcursor = FALSE;
+        drawcursor = false;
         TSM_ResumeService( tsm_id );
         PTR_SetPos( 160, 100 );
-        PTR_DrawCursor( FALSE );
+        PTR_DrawCursor( false );
     }
 
     g_paused = flag;
@@ -617,7 +613,7 @@ void PTR_Pause(
 /***************************************************************************
  PTR_Init() - Inits Mouse Driver and sets mouse handler function
  ***************************************************************************/
-BOOL // RETURN true = Installed, false  = No mouse
+bool // RETURN true = Installed, false  = No mouse
 PTR_Init(
     PTRTYPE type // INPUT : Pointer Type to Use
 ) {
@@ -627,7 +623,7 @@ PTR_Init(
     void( far * function_ptr )();
     DWORD segment;
 
-    drawcursor = FALSE;
+    drawcursor = false;
 
     if ( _dpmi_dosalloc( 16, &segment ) ) {
         EXIT_Error( err );
@@ -639,13 +635,13 @@ PTR_Init(
     }
     cursorpic = (BYTE*) ( segment << 4 );
 
-    joyactive = FALSE;
-    mousepresent = FALSE;
+    joyactive = false;
+    mousepresent = false;
 
-    joy_present = FALSE;
+    joy_present = false;
 
     if ( type == P_JOYSTICK ) {
-        joy_present = TRUE;
+        joy_present = true;
     }
 
     segread( &sregs );
@@ -655,7 +651,7 @@ PTR_Init(
         regs.w.ax = 0;
 
         if ( int386( 0x33, &regs, &regs ) ) {
-            mousepresent = TRUE;
+            mousepresent = true;
 
             // Hide Mouse ========================
             regs.w.ax = 2;
@@ -673,12 +669,12 @@ PTR_Init(
 
     if ( type == P_JOYSTICK ) {
         if ( joy_present ) {
-            joyactive = TRUE;
+            joyactive = true;
         }
     }
 
     if ( mousepresent || joyactive ) {
-        ptr_init_flag = TRUE;
+        ptr_init_flag = true;
         tsm_id = TSM_NewService( PTR_UpdateCursor, 15, 254, 0 );
         GFX_SetFrameHook( PTR_FrameHook );
     } else {
@@ -691,7 +687,7 @@ PTR_Init(
 
     PTR_SetPos( 160, 100 );
 
-    return mousepresent || joyactive ? TRUE : FALSE;
+    return mousepresent || joyactive;
 }
 
 /***************************************************************************

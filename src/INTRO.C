@@ -21,7 +21,7 @@ FRAME frm[40];
 /***************************************************************************
 INTRO_City () - Shows City with planes flying into it
  ***************************************************************************/
-BOOL INTRO_City( void ) {
+bool INTRO_City( void ) {
     int i;
     int maxframes = 30;
     int framecnt = maxframes - 1;
@@ -64,18 +64,18 @@ BOOL INTRO_City( void ) {
     cur->startsteps = 128;
 
     if ( MOVIE_Play( frm, 1, palette ) == K_SKIPALL ) {
-        return TRUE;
+        return true;
     }
 
     SND_StopPatches();
 
-    return FALSE;
+    return false;
 }
 
 /***************************************************************************
 INTRO_Side1 () - Show Side OF Player ship going thru city
  ***************************************************************************/
-BOOL INTRO_Side1( void ) {
+bool INTRO_Side1( void ) {
     int i;
     int maxframes = 20;
     int framecnt = maxframes - 1;
@@ -104,17 +104,13 @@ BOOL INTRO_Side1( void ) {
         cur->soundfx = EMPTY;
     }
 
-    if ( MOVIE_Play( frm, 2, palette ) == K_SKIPALL ) {
-        return TRUE;
-    }
-
-    return FALSE;
+    return MOVIE_Play( frm, 2, palette ) == K_SKIPALL;
 }
 
 /***************************************************************************
 INTRO_Pilot () - Shows Pilots Face with lights moving thru
  ***************************************************************************/
-BOOL INTRO_Pilot( void ) {
+bool INTRO_Pilot( void ) {
     int i;
     int maxframes = 21;
     int framecnt = maxframes - 1;
@@ -143,17 +139,13 @@ BOOL INTRO_Pilot( void ) {
         cur->fx_xpos = 127;
     }
 
-    if ( MOVIE_Play( frm, 1, palette ) == K_SKIPALL ) {
-        return TRUE;
-    }
-
-    return FALSE;
+    return MOVIE_Play( frm, 1, palette ) == K_SKIPALL;
 }
 
 /***************************************************************************
 INTRO_Explosion () - Bad Guy Blowing UP
  ***************************************************************************/
-BOOL INTRO_Explosion( void ) {
+bool INTRO_Explosion( void ) {
     int i;
     int maxframes = 22;
     int framecnt = maxframes - 1;
@@ -200,19 +192,14 @@ BOOL INTRO_Explosion( void ) {
     cur->green = 28;
     cur->blue = 3;
     cur->endsteps = 60;
-    cur++;
 
-    if ( MOVIE_Play( frm, 1, palette ) == K_SKIPALL ) {
-        return TRUE;
-    }
-
-    return FALSE;
+    return MOVIE_Play( frm, 1, palette ) == K_SKIPALL;
 }
 
 /***************************************************************************
 INTRO_Side2 () - Plaer Side flying thru city Shooting
  ***************************************************************************/
-BOOL INTRO_Side2( void ) {
+bool INTRO_Side2( void ) {
     int i;
     int maxframes = 20;
     int framecnt = maxframes - 1;
@@ -246,11 +233,11 @@ BOOL INTRO_Side2( void ) {
     opt = MOVIE_Play( frm, 1, palette );
 
     if ( opt == K_SKIPALL ) {
-        return TRUE;
+        return true;
     }
 
     if ( opt == K_NEXTFRAME ) {
-        return FALSE;
+        return false;
     }
 
     framecnt = maxframes - 1;
@@ -280,25 +267,25 @@ BOOL INTRO_Side2( void ) {
     }
 
     if ( MOVIE_Play( frm, 1, palette ) == K_SKIPALL ) {
-        return TRUE;
+        return true;
     }
 
     SND_StopPatches();
 
-    return FALSE;
+    return false;
 }
 
 /***************************************************************************
 INTRO_Base() - Base Landing at sunset
  ***************************************************************************/
-BOOL INTRO_Base( void ) {
+bool INTRO_Base( void ) {
     int i;
     int maxframes = 30;
     int framecnt = maxframes - 1;
     FRAME* cur = frm;
 
     if ( !reg_flag ) {
-        return TRUE;
+        return true;
     }
 
     for ( i = 0; i < maxframes; i++ ) {
@@ -326,17 +313,13 @@ BOOL INTRO_Base( void ) {
     cur->startf = M_FADEIN;
     cur->startsteps = 128;
 
-    if ( MOVIE_Play( frm, 1, palette ) == K_SKIPALL ) {
-        return TRUE;
-    }
-
-    return FALSE;
+    return MOVIE_Play( frm, 1, palette ) == K_SKIPALL;
 }
 
 /***************************************************************************
 INTRO_Landing () - Ship Landing on Base
  ***************************************************************************/
-BOOL INTRO_Landing( void ) {
+bool INTRO_Landing( void ) {
     int i;
     int maxframes = 33;
     int framecnt = maxframes - 1;
@@ -368,17 +351,13 @@ BOOL INTRO_Landing( void ) {
     cur->endf = M_PALETTE;
     cur->endsteps = 64;
 
-    if ( MOVIE_Play( frm, 1, palette ) == K_SKIPALL ) {
-        return TRUE;
-    }
-
-    return FALSE;
+    return MOVIE_Play( frm, 1, palette ) == K_SKIPALL;
 }
 
 /***************************************************************************
 INTRO_Death2 () - Ground Death Scene
  ***************************************************************************/
-BOOL INTRO_Death2( void ) {
+bool INTRO_Death2( void ) {
     int i;
     int maxframes = 6;
     int framecnt = maxframes - 1;
@@ -404,7 +383,7 @@ BOOL INTRO_Death2( void ) {
     }
 
     if ( MOVIE_Play( frm, 8, palette ) == K_SKIPALL ) {
-        return TRUE;
+        return true;
     }
 
     GFX_FadeOut( 0, 0, 0, 100 );
@@ -413,13 +392,13 @@ BOOL INTRO_Death2( void ) {
     GFX_MarkUpdate( 0, 0, 320, 200 );
     GFX_DisplayUpdate();
 
-    return FALSE;
+    return false;
 }
 
 /***************************************************************************
 INTRO_Death1 () - Air Death Scene
  ***************************************************************************/
-BOOL INTRO_Death1( void ) {
+bool INTRO_Death1( void ) {
     int i;
     int maxframes = 30;
     int framecnt = maxframes - 1;
@@ -444,29 +423,25 @@ BOOL INTRO_Death1( void ) {
         cur->soundfx = EMPTY;
     }
 
-    if ( MOVIE_Play( frm, 1, palette ) == K_SKIPALL ) {
-        return TRUE;
-    }
-
-    return FALSE;
+    return MOVIE_Play( frm, 1, palette ) == K_SKIPALL;
 }
 
 /***************************************************************************
 INTRO_Death () - Death Scene
  ***************************************************************************/
-BOOL INTRO_Death( void ) {
+bool INTRO_Death( void ) {
 
     if ( INTRO_Death1() ) {
-        return TRUE;
+        return true;
     }
     INTRO_Death2();
-    return FALSE;
+    return false;
 }
 
 /***************************************************************************
 INTRO_Game1End () - Game 1 Victory
  ***************************************************************************/
-BOOL INTRO_Game1End( void ) {
+bool INTRO_Game1End( void ) {
     int i;
     int maxframes = 5;
     int framecnt = maxframes - 1;
@@ -492,7 +467,7 @@ BOOL INTRO_Game1End( void ) {
     }
 
     if ( MOVIE_Play( frm, 8, palette ) == K_SKIPALL ) {
-        return TRUE;
+        return true;
     }
 
     GFX_FadeOut( 0, 0, 0, 120 );
@@ -503,13 +478,13 @@ BOOL INTRO_Game1End( void ) {
 
     GFX_SetPalette( palette, 0 );
 
-    return FALSE;
+    return false;
 }
 
 /***************************************************************************
 INTRO_Game2End () - Game 1 Victory
  ***************************************************************************/
-BOOL INTRO_Game2End( void ) {
+bool INTRO_Game2End( void ) {
     int i;
     int maxframes = 25;
     int framecnt = maxframes - 1;
@@ -545,7 +520,7 @@ BOOL INTRO_Game2End( void ) {
     }
 
     if ( MOVIE_Play( frm, 1, palette ) == K_SKIPALL ) {
-        return TRUE;
+        return true;
     }
 
     GFX_FadeOut( 0, 0, 0, 120 );
@@ -556,13 +531,13 @@ BOOL INTRO_Game2End( void ) {
 
     GFX_SetPalette( palette, 0 );
 
-    return FALSE;
+    return false;
 }
 
 /***************************************************************************
 INTRO_Game3End () - Game 1 Victory
  ***************************************************************************/
-BOOL INTRO_Game3End( void ) {
+bool INTRO_Game3End( void ) {
     int i;
     int maxframes = 39;
     int framecnt = maxframes - 1;
@@ -600,7 +575,7 @@ BOOL INTRO_Game3End( void ) {
     }
 
     if ( MOVIE_Play( frm, 1, palette ) == K_SKIPALL ) {
-        return TRUE;
+        return true;
     }
 
     GFX_FadeOut( 0, 0, 0, 120 );
@@ -611,7 +586,7 @@ BOOL INTRO_Game3End( void ) {
 
     GFX_SetPalette( palette, 0 );
 
-    return FALSE;
+    return false;
 }
 
 /***************************************************************************
@@ -683,7 +658,7 @@ void INTRO_Taiwan( void ) {
 
     GFX_FadeOut( 0, 0, 0, 5 );
 
-    GFX_PutImage( pic1, 0, 0, FALSE );
+    GFX_PutImage( pic1, 0, 0, false );
     GFX_DisplayUpdate();
 
     GFX_FadeIn( pal1, 64 );
@@ -706,7 +681,7 @@ void INTRO_Taiwan( void ) {
 /***************************************************************************
 INTRO_Credits() - Credits Screen
  ***************************************************************************/
-BOOL INTRO_Credits( void ) {
+bool INTRO_Credits( void ) {
     int i;
     BYTE* pal1;
     BYTE* pal2;
@@ -721,7 +696,7 @@ BOOL INTRO_Credits( void ) {
 
     GFX_FadeOut( 0, 0, 0, 5 );
 
-    GFX_PutImage( pic1, 0, 0, FALSE );
+    GFX_PutImage( pic1, 0, 0, false );
     GFX_DisplayUpdate();
 
     GFX_FadeIn( pal1, 64 );
@@ -729,7 +704,7 @@ BOOL INTRO_Credits( void ) {
     if ( bday_num != EMPTY && dig_flag ) {
         SND_Patch( FX_THEME, 127 );
     } else {
-        SND_PlaySong( APOGEE_MUS, FALSE, FALSE );
+        SND_PlaySong( APOGEE_MUS, false, false );
     }
 
     for ( i = 0; i < 30; i++ ) {
@@ -757,7 +732,7 @@ BOOL INTRO_Credits( void ) {
     GLB_FreeItem( POGPAL_DAT );
     GLB_FreeItem( APOGEE_PIC );
 
-    SND_PlaySong( EMPTY, FALSE, TRUE );
+    SND_PlaySong( EMPTY, false, true );
 
     memset( displayscreen, 0, 64000 );
     memset( displaybuffer, 0, 64000 );
@@ -765,7 +740,7 @@ BOOL INTRO_Credits( void ) {
     pic2 = GLB_GetItem( CYGNUS_PIC );
     pal2 = GLB_GetItem( CYGPAL_DAT );
 
-    GFX_PutImage( pic2, 0, 0, FALSE );
+    GFX_PutImage( pic2, 0, 0, false );
     GFX_DisplayUpdate();
 
     GFX_FadeIn( pal1, 64 );
@@ -782,7 +757,7 @@ BOOL INTRO_Credits( void ) {
         }
 
         if ( i == 45 ) {
-            SND_PlaySong( RINTRO_MUS, TRUE, TRUE );
+            SND_PlaySong( RINTRO_MUS, true, true );
         }
 
         if ( KBD_Key( SC_ESC ) ) {
@@ -806,18 +781,14 @@ BOOL INTRO_Credits( void ) {
 
     IMS_StartAck();
 
-    return FALSE;
+    return false;
 }
 
 /***************************************************************************
 INTRO_BaseLanding() - BaseLanding PLays all needed MOVES
  ***************************************************************************/
 void INTRO_BaseLanding( void ) {
-    if ( !reg_flag ) {
-        return;
-    }
-
-    if ( INTRO_Base() ) {
+    if ( !reg_flag || INTRO_Base() ) {
         return;
     }
     INTRO_Landing();
@@ -826,22 +797,10 @@ void INTRO_BaseLanding( void ) {
 /***************************************************************************
 INTRO_PlayMain() - Plays Main Intro
  ***************************************************************************/
-BOOL INTRO_PlayMain( void ) {
-    if ( INTRO_City() ) {
-        return TRUE;
-    }
-    if ( INTRO_Side1() ) {
-        return TRUE;
-    }
-    if ( INTRO_Pilot() ) {
-        return TRUE;
-    }
-    if ( INTRO_Side2() ) {
-        return TRUE;
-    }
-    if ( INTRO_Explosion() ) {
-        return TRUE;
-    }
-
-    return FALSE;
+bool INTRO_PlayMain( void ) {
+    return INTRO_City() //
+        || INTRO_Side1() //
+        || INTRO_Pilot() //
+        || INTRO_Side2() //
+        || INTRO_Explosion();
 }

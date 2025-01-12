@@ -200,7 +200,7 @@ void BONUS_Think( void ) {
                 }
 
                 if ( cur->lib->moneyflag ) {
-                    cur->dflag = TRUE;
+                    cur->dflag = true;
                     cur->countdown = 50;
                 } else {
                     cur = BONUS_Remove( cur );

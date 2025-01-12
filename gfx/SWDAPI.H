@@ -66,17 +66,17 @@ typedef enum { I_NORM, I_TOUPPER, I_NUMERIC } INPUTOPT;
 #define MAX_FONTS    2
 
 extern int active_field;
-extern BOOL g_button_flag;
-extern BOOL usekb_flag;
+extern bool g_button_flag;
+extern bool usekb_flag;
 
-void SWD_SetButtonFlag( BOOL );
+void SWD_SetButtonFlag( bool );
 #define SWD_SetButtonFlag( c ) ( g_button_flag = c )
 
 typedef struct {
     int opt; // FIELD TYPE
     int id; // FIELD ID
     DWORD hotkey; // SCAN CODE OF HOT KEY
-    BOOL kbflag; // TRUE if field should be KBACTIVE
+    bool kbflag; // true if field should be KBACTIVE
     DWORD opt3; // not used
     DWORD opt4; // not used
     INPUTOPT input_opt; // OPTIONS used in INPUT FIELDS
@@ -88,13 +88,13 @@ typedef struct {
     DWORD fontid; // FONT NUMBER
     int fontbasecolor; // FONT BASE COLOR
     int maxchars; // MAXcharS IN FIELD TEXT
-    DSTYLE picflag; // PICTURE TRUE/FALSE
+    DSTYLE picflag; // PICTURE
     int color; // COLOR OF FIELD
     int lite; // HIGHLIGHT COLOR
-    BOOL mark; // FIELD MARK ( TRUE/FLASE )
-    BOOL saveflag; // MEM TO SAVE PIC UNDER FIELD ( Y/N )
-    BOOL shadow; // SHADOW ON/OFF
-    BOOL selectable; // SELECTABLE ON/OFF
+    bool mark; // FIELD MARK
+    bool saveflag; // MEM TO SAVE PIC UNDER FIELD ( Y/N )
+    bool shadow; // SHADOW ON/OFF
+    bool selectable; // SELECTABLE ON/OFF
     int x; // X POSITION ON SCREEN
     int y; // Y POSITION ON SCREEN
     int lx; // WIDTH IN PIXELS
@@ -106,8 +106,8 @@ typedef struct {
 typedef struct {
     int version; // VERSION NUMBER
     int swdsize; // SIZE OF WIN/FIELD AND TEXT
-    BOOL arrowflag; // Use Arrow Keys ( TRUE/FALSE )
-    BOOL display; // DISPLAY FLAG
+    bool arrowflag; // Use Arrow Keys
+    bool display; // DISPLAY FLAG
     DWORD opt3; // OPTION 3 ( not used )
     DWORD opt4; // OPTION 4 ( not used )
     int id; // WINDOW ID NUMBER
@@ -116,7 +116,7 @@ typedef struct {
     char item_name[16]; // TEXT NAME OF ITEM
     DWORD item; // ITEM ID NUMBER
     DSTYLE picflag; // FILL/TEXTURE/PICTURE
-    BOOL lock; // TRUE = cannot goto other windows
+    bool lock; // true = cannot goto other windows
     int fldofs; // OFFSET IN BYTES TO FIRST FIELD
     int txtofs; // OFFSET IN BYTES TO TEXT AREA
     int firstfld; // FIELD TO GOTO FIRST
@@ -127,13 +127,13 @@ typedef struct {
     int y; // Y POSITION ON SCREEN
     int lx; // WIDTH IN PIXELS
     int ly; // HEIGHT IN PIXELS
-    BOOL shadow; // SHADOW TRUE/FALSE
+    bool shadow; // SHADOW
 } SWIN;
 
 typedef struct {
     DWORD gitem; // GLB ITEM ID
-    BOOL flag; // TRUE = in use ,FALSE = not in use
-    BOOL viewflag; // TRUE = has viewarea(s) FALSE = none
+    bool flag; // true = in use, false = not in use
+    bool viewflag; // true = has viewarea(s), false = none
     SWIN* win; // POINTER TO WINDOW
 } SWD_WIN;
 
@@ -149,8 +149,8 @@ typedef struct {
     int y;
     int height;
     int width;
-    BOOL objactive;
-    BOOL viewactive;
+    bool objactive;
+    bool viewactive;
     int sfield;
     int sx;
     int sy;
@@ -162,7 +162,7 @@ typedef struct {
  SWD_Install() - Initializes Window system
  ***************************************************************************/
 void SWD_Install(
-    BOOL moveflag // INPUT : Use Move Window feature ( 64k )
+    bool moveflag // INPUT : Use Move Window feature ( 64k )
 );
 
 /***************************************************************************
@@ -209,12 +209,12 @@ void SWD_SetWinDrawFunc(
 /***************************************************************************
 SWD_SetClearFlag() - Turns ON/OFF memsetting of display buffer in showallwins
  ***************************************************************************/
-void SWD_SetClearFlag( BOOL inflag );
+void SWD_SetClearFlag( bool inflag );
 
 /***************************************************************************
  SWD_ShowAllWindows()- Displays all windows & puts active window on top
  ***************************************************************************/
-BOOL // RETURN : TRUE = OK, FALSE = Error
+bool // RETURN : true = OK, false = Error
 SWD_ShowAllWindows( void );
 
 /***************************************************************************
@@ -273,7 +273,7 @@ void SWD_Dialog(
  ***************************************************************************/
 void SWD_SetWindowLock(
     int handle, // INPUT : handle to window
-    BOOL lock // INPUT : TRUE/FALSE
+    bool lock
 );
 
 /***************************************************************************
@@ -341,13 +341,13 @@ SWD_SetFieldSelect() - Sets field selectable status
 void SWD_SetFieldSelect(
     int handle, // INPUT : window handle
     int field_id, // INPUT : field handle
-    BOOL opt // INPUT : TRUE, FALSE
+    bool opt
 );
 
 /***************************************************************************
- SWD_GetFieldMark() - Gets the field mark status ( TRUE or FALSE )
+ SWD_GetFieldMark() - Gets the field mark status ( true or false )
  ***************************************************************************/
-BOOL // RETURN: mark status ( TRUE, FALSE )
+bool // RETURN: mark status
 SWD_GetFieldMark(
     int handle, // INPUT : window handle
     int field_id // INPUT : field handle
@@ -414,7 +414,7 @@ void SWD_GetFieldItemName(
 void SWD_SetFieldMark(
     int handle, // INPUT : window handle
     int field_id, // INPUT : field handle
-    BOOL opt // INPUT : TRUE, FALSE
+    bool opt
 );
 
 /***************************************************************************
@@ -438,7 +438,7 @@ SWD_SetWindowFlag () - Sets A window to be turned on/off
  ***************************************************************************/
 int SWD_SetWindowFlag(
     int handle, // INPUT : window handle
-    BOOL flag // INPUT : TRUE/FALSE
+    bool flag
 );
 
 /***************************************************************************

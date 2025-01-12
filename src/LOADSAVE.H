@@ -17,34 +17,34 @@ RAP_ClearPlayer () - Clear Player stuff
 void RAP_ClearPlayer( void );
 
 /***************************************************************************
-RAP_IsPlayer () - Returns TRUE if a player is defined
+RAP_IsPlayer () - Returns true if a player is defined
  ***************************************************************************/
-BOOL RAP_IsPlayer( void );
+bool RAP_IsPlayer( void );
 
 /***************************************************************************
-RAP_AreSavedFiles() - Returns TRUE if there are previously saved game files
+RAP_AreSavedFiles() - Returns true if there are previously saved game files
  ***************************************************************************/
-BOOL RAP_AreSavedFiles( void );
+bool RAP_AreSavedFiles( void );
 
 /***************************************************************************
 RAP_FFSaveFile() - Finds a filename to use
  ***************************************************************************/
-BOOL RAP_FFSaveFile( void );
+bool RAP_FFSaveFile( void );
 
 /***************************************************************************
 RAP_IsSaveFile() - Returns True if thier is a sopt to save a character
  ***************************************************************************/
-BOOL RAP_IsSaveFile( PLAYEROBJ* in_plr );
+bool RAP_IsSaveFile( PLAYEROBJ* in_plr );
 
 /***************************************************************************
 RAP_LoadPlayer () - Loads player from disk
  ***************************************************************************/
-BOOL RAP_LoadPlayer( void );
+bool RAP_LoadPlayer( void );
 
 /***************************************************************************
 RAP_SavePlayer() - Saves player data to filename
  ***************************************************************************/
-BOOL RAP_SavePlayer( void );
+bool RAP_SavePlayer( void );
 
 /***************************************************************************
  RAP_LoadMap () - Loads A level Map

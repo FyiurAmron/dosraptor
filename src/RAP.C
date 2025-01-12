@@ -58,7 +58,7 @@ PUBLIC int o_gun2[8] = { 1, 3, 6, 9, 6, 3, 2 };
 PUBLIC int o_gun3[8] = { 2, 6, 8, 11, 8, 6, 2 };
 
 PUBLIC int gl_cnt = 0;
-PUBLIC BOOL end_wave = FALSE;
+PUBLIC bool end_wave = false;
 PUBLIC PLAYEROBJ plr;
 PUBLIC int player_cx = PLAYERINITX;
 PUBLIC int player_cy = PLAYERINITY;
@@ -70,27 +70,28 @@ PUBLIC int cur_game = 0;
 PUBLIC int game_wave[4] = { 0, 0, 0, 0 };
 PUBLIC MAZELEVEL* ml;
 PUBLIC int fadecnt = 0;
-PUBLIC BOOL startfadeflag = FALSE;
-PUBLIC BOOL fadeflag = FALSE;
-PUBLIC BOOL start_end_fade = FALSE;
-PUBLIC BOOL end_fadeflag = FALSE;
+PUBLIC bool startfadeflag = false;
+PUBLIC bool fadeflag = false;
+PUBLIC bool start_end_fade = false;
+PUBLIC bool end_fadeflag = false;
 PUBLIC FLATS* flatlib[4] = { NULL, NULL, NULL, NULL };
-PUBLIC BOOL debugflag = FALSE;
-PUBLIC BOOL testflag = FALSE;
+PUBLIC bool debugflag = false;
+PUBLIC bool testflag = false;
 PUBLIC int g_oldshield = EMPTY;
 PUBLIC int g_oldsuper = EMPTY;
 PUBLIC BYTE* numbers[11];
 PUBLIC int curplr_diff = DIFF_2;
 
 PUBLIC int startendwave = EMPTY;
-PUBLIC BOOL draw_player;
+PUBLIC bool draw_player;
 
-PUBLIC BOOL lowmem_flag = FALSE;
-PUBLIC BOOL reg_flag = FALSE;
-PUBLIC BOOL tai_flag = FALSE;
-PUBLIC BOOL quick_mode = FALSE;
-PUBLIC BOOL godmode = FALSE;
-PUBLIC int bday_num;
+PUBLIC bool lowmem_flag = false;
+PUBLIC bool reg_flag = false;
+
+bool tai_flag = false;
+bool quick_mode = false;
+bool godmode = false;
+int bday_num;
 int seed;
 
 #define ROTPAL_START 240
@@ -156,16 +157,16 @@ RAP_GetShipPic () - Loads Correct Ship Pics for Light/Dark Waves
  ***************************************************************************/
 void RAP_GetShipPic( void ) {
     int i;
-    BOOL lightflag = TRUE;
+    bool lightflag = true;
 
     // GAME 2 wave 8
     if ( cur_game == 1 && game_wave[cur_game] == 7 ) {
-        lightflag = FALSE;
+        lightflag = false;
     }
 
     // GAME 3 wave 3
     if ( cur_game == 2 && game_wave[cur_game] == 2 ) {
-        lightflag = FALSE;
+        lightflag = false;
     }
 
     for ( i = 0; i < 7; i++ ) {
@@ -204,7 +205,7 @@ void Rot_Color( BYTE* gpal, int snum, int len ) {
 void InitMobj(
     MOVEOBJ* cur // INPUT : pointer to MOVEOBJ
 ) {
-    cur->done = FALSE;
+    cur->done = false;
     cur->addx = 1;
     cur->addy = 1;
 
@@ -236,7 +237,7 @@ void MoveMobj(
     MOVEOBJ* cur // INPUT : pointer to MOVEOBJ
 ) {
     if ( cur->maxloop == 0 ) {
-        cur->done = TRUE;
+        cur->done = true;
         return;
     }
 
@@ -299,7 +300,7 @@ int MoveSobj(
     }
 
     if ( cur->maxloop < 1 ) {
-        cur->done = TRUE;
+        cur->done = true;
     }
 
     return speed;
@@ -362,7 +363,7 @@ RAP_DisplayStats()
  ***************************************************************************/
 void RAP_DisplayStats( void ) {
     static int damage = EMPTY;
-    static BOOL blinkflag = TRUE;
+    static bool blinkflag = true;
     char temp[21];
     int shield;
     int super;
@@ -404,7 +405,7 @@ void RAP_DisplayStats( void ) {
         }
 
         if ( startendwave == END_EXPLODE ) {
-            draw_player = FALSE;
+            draw_player = false;
             SND_Patch( FX_AIREXPLO, 127 );
             SND_Patch( FX_AIREXPLO2, 127 );
             ANIMS_StartAnim( A_LARGE_AIR_EXPLO, player_cx, player_cy );
@@ -425,7 +426,7 @@ void RAP_DisplayStats( void ) {
 
     if ( startendwave != EMPTY && shield > 0 ) {
         if ( startendwave == END_FLYOFF ) {
-            IPT_PauseControl( TRUE );
+            IPT_PauseControl( true );
             SND_Patch( FX_FLYBY, 127 );
         }
 
@@ -443,7 +444,7 @@ void RAP_DisplayStats( void ) {
 
     if ( shield <= SHIELD_LOW && !godmode ) {
         if ( gl_cnt % 8 == 0 ) {
-            blinkflag ^= TRUE;
+            blinkflag ^= true;
             if ( blinkflag ) {
                 if ( damage ) {
                     damage--;
@@ -633,25 +634,25 @@ void RAP_PaletteStuff( void ) {
 /***************************************************************************
 Do_Game () - The main game thing this is it dude
  ***************************************************************************/
-BOOL // TRUE=Aborted, FALSE = timeout
+bool // true=Aborted, false = timeout
 Do_Game( void ) {
     int local_cnt;
-    BOOL b2_flag = FALSE;
-    BOOL b3_flag = FALSE;
-    BOOL init_flag = TRUE;
-    BOOL rval = FALSE;
+    bool b2_flag = false;
+    bool b3_flag = false;
+    bool init_flag = true;
+    bool rval = false;
     int start_score = 0;
 
-    draw_player = TRUE;
+    draw_player = true;
 
-    fadeflag = FALSE;
-    end_fadeflag = FALSE;
+    fadeflag = false;
+    end_fadeflag = false;
     KBD_Clear();
     IMS_StartAck();
-    BUT_1 = FALSE;
-    BUT_2 = FALSE;
-    BUT_3 = FALSE;
-    BUT_4 = FALSE;
+    BUT_1 = false;
+    BUT_2 = false;
+    BUT_3 = false;
+    BUT_4 = false;
 
     playerx = PLAYERINITX;
     playery = PLAYERINITY;
@@ -693,7 +694,7 @@ Do_Game( void ) {
         IPT_MovePlayer();
 
         if ( KBD_IsKey( SC_F1 ) ) {
-            SWD_SetClearFlag( FALSE );
+            SWD_SetClearFlag( false );
             IPT_End();
             HELP_Win( "OVERVW06_TXT" );
             memset( displayscreen, 0, 64000 );
@@ -702,40 +703,40 @@ Do_Game( void ) {
             g_oldshield = EMPTY;
             RAP_ClearSides();
             RAP_DisplayStats();
-            SWD_SetClearFlag( TRUE );
+            SWD_SetClearFlag( true );
             IMS_StartAck();
-            BUT_1 = FALSE;
-            BUT_2 = FALSE;
-            BUT_3 = FALSE;
-            BUT_4 = FALSE;
-            b2_flag = FALSE;
-            b3_flag = FALSE;
+            BUT_1 = false;
+            BUT_2 = false;
+            BUT_3 = false;
+            BUT_4 = false;
+            b2_flag = false;
+            b3_flag = false;
         }
 
         if ( KBD_IsKey( SC_P ) ) {
             while ( IMS_IsAck() )
                 ;
-            SWD_SetClearFlag( FALSE );
+            SWD_SetClearFlag( false );
             RAP_ClearSides();
             WIN_Pause();
             g_oldsuper = EMPTY;
             g_oldshield = EMPTY;
             RAP_ClearSides();
             RAP_DisplayStats();
-            SWD_SetClearFlag( TRUE );
+            SWD_SetClearFlag( true );
             IMS_StartAck();
-            BUT_1 = FALSE;
-            BUT_2 = FALSE;
-            BUT_3 = FALSE;
-            BUT_4 = FALSE;
-            b2_flag = FALSE;
-            b3_flag = FALSE;
+            BUT_1 = false;
+            BUT_2 = false;
+            BUT_3 = false;
+            BUT_4 = false;
+            b2_flag = false;
+            b3_flag = false;
         }
 
         if ( KBD_IsKey( SC_F8 ) && godmode ) {
             while ( IMS_IsAck() )
                 ;
-            debugflag ^= TRUE;
+            debugflag ^= true;
         }
 
         if ( DEMO_Think() ) {
@@ -744,7 +745,7 @@ Do_Game( void ) {
 
         if ( demo_mode == DEMO_PLAYBACK ) {
             if ( IMS_IsAck() && !BUT_2 && !BUT_3 && !BUT_4 ) {
-                rval = TRUE;
+                rval = true;
                 break;
             }
         }
@@ -805,36 +806,36 @@ Do_Game( void ) {
             OBJS_Use( S_FORWARD_GUNS );
             OBJS_Use( S_PLASMA_GUNS );
             OBJS_Use( S_MICRO_MISSLE );
-            BUT_1 = FALSE;
+            BUT_1 = false;
             if ( plr.sweapon != EMPTY ) {
                 OBJS_Use( plr.sweapon );
             }
         }
 
         if ( BUT_2 ) {
-            BUT_2 = FALSE;
-            if ( b2_flag == FALSE ) {
+            BUT_2 = false;
+            if ( !b2_flag ) {
                 SND_Patch( FX_SWEP, 127 );
-                b2_flag = TRUE;
+                b2_flag = true;
                 OBJS_GetNext();
             }
-        } else if ( b2_flag == TRUE ) {
-            b2_flag = FALSE;
+        } else if ( b2_flag ) {
+            b2_flag = false;
         }
 
         if ( BUT_3 ) {
-            BUT_3 = FALSE;
-            if ( b3_flag == FALSE ) {
-                b3_flag = TRUE;
+            BUT_3 = false;
+            if ( !b3_flag ) {
+                b3_flag = true;
                 OBJS_Use( S_MEGA_BOMB );
             }
-        } else if ( b3_flag == TRUE ) {
-            b3_flag = FALSE;
+        } else if ( b3_flag ) {
+            b3_flag = false;
         }
 
         if ( startendwave != EMPTY ) {
             if ( startendwave == 0 ) {
-                end_wave = TRUE;
+                end_wave = true;
             }
 
             startendwave--;
@@ -880,14 +881,14 @@ Do_Game( void ) {
                 RAP_ClearSides();
                 g_mapleft = MAP_LEFT;
                 GFX_SetPalette( gpal, 0 );
-                fadeflag = FALSE;
+                fadeflag = false;
                 g_oldsuper = EMPTY;
                 g_oldshield = EMPTY;
             } else {
                 RAP_ClearSides();
-                GFX_SetRetraceFlag( TRUE );
+                GFX_SetRetraceFlag( true );
                 GFX_FadeFrame( gpal, fadecnt, FADE_FRAMES );
-                GFX_SetRetraceFlag( FALSE );
+                GFX_SetRetraceFlag( false );
                 g_mapleft = MAP_LEFT + shakes[fadecnt];
                 fadecnt++;
             }
@@ -912,13 +913,13 @@ Do_Game( void ) {
         if ( startfadeflag ) {
             SND_Patch( FX_GEXPLO, 127 );
             SND_Patch( FX_AIREXPLO, 127 );
-            GFX_SetRetraceFlag( TRUE );
+            GFX_SetRetraceFlag( true );
             GFX_FadeOut( 63, 60, 60, 1 );
             GFX_FadeStart();
-            startfadeflag = FALSE;
-            fadeflag = TRUE;
+            startfadeflag = false;
+            fadeflag = true;
             fadecnt = 0;
-            GFX_SetRetraceFlag( FALSE );
+            GFX_SetRetraceFlag( false );
         }
 
         if ( reg_flag && KBD_Key( SC_BACKSPACE ) ) {
@@ -930,13 +931,13 @@ Do_Game( void ) {
         }
 
         if ( init_flag ) {
-            init_flag = FALSE;
+            init_flag = false;
             GFX_FadeIn( gpal, 64 );
         }
 
         if ( KBD_Key( SC_X ) && KBD_Key( SC_ALT ) ) {
             RAP_ClearSides();
-            SWD_SetClearFlag( FALSE );
+            SWD_SetClearFlag( false );
             IPT_End();
             WIN_AskExit();
             IPT_Start();
@@ -944,28 +945,28 @@ Do_Game( void ) {
             g_oldshield = EMPTY;
             RAP_ClearSides();
             RAP_DisplayStats();
-            SWD_SetClearFlag( TRUE );
+            SWD_SetClearFlag( true );
             IMS_StartAck();
-            BUT_1 = FALSE;
-            BUT_2 = FALSE;
-            BUT_3 = FALSE;
-            BUT_4 = FALSE;
-            b2_flag = FALSE;
-            b3_flag = FALSE;
+            BUT_1 = false;
+            BUT_2 = false;
+            BUT_3 = false;
+            BUT_4 = false;
+            b2_flag = false;
+            b3_flag = false;
         }
 
         if ( KBD_IsKey( SC_ESC ) ) {
             if ( godmode ) {
-                end_wave = TRUE;
+                end_wave = true;
             }
 
             if ( demo_mode == DEMO_OFF ) {
-                SWD_SetClearFlag( FALSE );
+                SWD_SetClearFlag( false );
                 IPT_End();
                 RAP_ClearSides();
                 if ( WIN_AskBool( "Abort Mission?" ) ) {
                     plr.score = start_score;
-                    rval = TRUE;
+                    rval = true;
                     break;
                 }
                 IPT_Start();
@@ -973,16 +974,16 @@ Do_Game( void ) {
                 g_oldshield = EMPTY;
                 RAP_ClearSides();
                 RAP_DisplayStats();
-                SWD_SetClearFlag( TRUE );
+                SWD_SetClearFlag( true );
                 IMS_StartAck();
-                BUT_1 = FALSE;
-                BUT_2 = FALSE;
-                BUT_3 = FALSE;
-                BUT_4 = FALSE;
-                b2_flag = FALSE;
-                b3_flag = FALSE;
+                BUT_1 = false;
+                BUT_2 = false;
+                BUT_3 = false;
+                BUT_4 = false;
+                b2_flag = false;
+                b3_flag = false;
             } else if ( demo_mode == DEMO_PLAYBACK ) {
-                rval = TRUE;
+                rval = true;
                 break;
             } else if ( demo_mode == DEMO_RECORD ) {
                 break;
@@ -997,12 +998,12 @@ Do_Game( void ) {
     GFX_FadeOut( 0, 0, 0, 32 );
 
     RAP_FreeMap();
-    end_wave = FALSE;
+    end_wave = false;
 
     memset( displaybuffer, 0, 64000 );
     GFX_MarkUpdate( 0, 0, 320, 200 );
 
-    IPT_PauseControl( FALSE );
+    IPT_PauseControl( false );
 
     GFX_DisplayUpdate();
     GFX_SetPalette( palette, 0 );
@@ -1075,7 +1076,7 @@ void RAP_InitMem( void ) {
         printf( "Highmem = %d\n", memsize );
 
         if ( memsize < 128 * 1024 ) {
-            lowmem_flag = TRUE;
+            lowmem_flag = true;
         }
     } else {
         printf( "Highmem = NULL\n", memsize );
@@ -1110,7 +1111,7 @@ void JoyHack( void ) {
 void main( int argc, char* argv[] ) {
     int i;
     DWORD item;
-    BOOL ptrflag = FALSE;
+    bool ptrflag = false;
     void* tptr;
     int lib_max = 1;
 
@@ -1169,7 +1170,7 @@ void main( int argc, char* argv[] ) {
     if ( access( "FILE0002.GLB", 0 ) == 0 //
          && access( "FILE0003.GLB", 0 ) == 0 //
          && access( "FILE0004.GLB", 0 ) == 0 ) {
-        reg_flag = TRUE;
+        reg_flag = true;
         lib_max = 4;
     }
 
@@ -1180,25 +1181,25 @@ void main( int argc, char* argv[] ) {
     TSM_Install();
     KBD_Install();
     GFX_InitSystem();
-    SWD_Install( FALSE );
+    SWD_Install( false );
 
     switch ( control ) {
         default:
             log_to_file_and_screen( "PTR_Init() - Auto" );
             ptrflag = PTR_Init( P_MOUSE );
-            usekb_flag = TRUE;
+            usekb_flag = true;
             break;
 
         case I_JOYSTICK:
             log_to_file_and_screen( "PTR_Init() - Joystick" );
             ptrflag = PTR_Init( P_JOYSTICK );
-            usekb_flag = FALSE;
+            usekb_flag = false;
             break;
 
         case I_MOUSE:
             log_to_file_and_screen( "PTR_Init() - Mouse" );
             ptrflag = PTR_Init( P_MOUSE );
-            usekb_flag = FALSE;
+            usekb_flag = false;
             break;
     }
 
@@ -1221,7 +1222,7 @@ void main( int argc, char* argv[] ) {
         cursor_pic = GLB_LockItem( CURSOR_PIC );
         PTR_SetPic( cursor_pic );
         PTR_SetPos( 160, 100 );
-        PTR_DrawCursor( FALSE );
+        PTR_DrawCursor( false );
     }
 
     // = SET UP SHIP PICTURES =========================
@@ -1266,10 +1267,10 @@ void main( int argc, char* argv[] ) {
                 INTRO_Taiwan();
             }
             INTRO_Credits();
-            SND_PlaySong( RINTRO_MUS, TRUE, TRUE );
+            SND_PlaySong( RINTRO_MUS, true, true );
             INTRO_PlayMain();
         }
-        SND_PlaySong( MAINMENU_MUS, TRUE, TRUE );
+        SND_PlaySong( MAINMENU_MUS, true, true );
     } else if ( demo_flag == DEMO_PLAYBACK ) {
         DEMO_LoadFile();
         DEMO_Play();

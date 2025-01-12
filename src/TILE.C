@@ -27,8 +27,8 @@ PUBLIC int tileloopy;
 
 PRIVATE char game_start[4][17] = { "STARTG1TILES", "STARTG2TILES", "STARTG3TILES", "STARTG4TILES" };
 
-PUBLIC BOOL scroll_flag;
-PUBLIC BOOL last_tile;
+PUBLIC bool scroll_flag;
+PUBLIC bool last_tile;
 
 PRIVATE TILESPOT tspots[MAX_STILES];
 PRIVATE TILESPOT* lastspot;
@@ -152,7 +152,7 @@ void TILE_Put(
     int x, // INPUT : x position
     int y // INPUT : y position
 ) {
-    BOOL flag = FALSE;
+    bool flag = false;
 
     if ( y + 32 <= 0 ) {
         return;
@@ -168,12 +168,12 @@ void TILE_Put(
         tilepic -= y * 32;
         tileloopy += y;
         y = 0;
-        flag = TRUE;
+        flag = true;
     }
 
     if ( y + tileloopy > SCREENHEIGHT ) {
         tileloopy = SCREENHEIGHT - y;
-        flag = TRUE;
+        flag = true;
     }
 
     tilestart = displaybuffer + x + ylookup[y];
@@ -189,8 +189,8 @@ void TILE_Init( void ) {
     TClear();
     g_mapleft = MAP_LEFT;
 
-    scroll_flag = TRUE;
-    last_tile = FALSE;
+    scroll_flag = true;
+    last_tile = false;
 
     // FIND START OF GAME TILES ========
     startflat[0] = GLB_GetItemID( game_start[0] );
@@ -223,8 +223,8 @@ void TILE_CacheLevel( void ) {
     tileyoff = 200 - MAP_ONSCREEN * MAP_BLOCKSIZE;
     lastspot = tspots + ( MAX_STILES - 1 );
 
-    scroll_flag = TRUE;
-    last_tile = FALSE;
+    scroll_flag = true;
+    last_tile = false;
 
     memset( titems, 0, sizeof( titems ) );
     memset( eitems, 0, sizeof( eitems ) );
@@ -394,7 +394,7 @@ void TILE_Display( void ) {
     if ( tileyoff > 0 ) {
         if ( last_tile && tileyoff >= 0 ) {
             tileyoff = 0;
-            scroll_flag = FALSE;
+            scroll_flag = false;
         } else {
             tileyoff -= MAP_BLOCKSIZE;
             tilepos -= MAP_COLS;
@@ -402,7 +402,7 @@ void TILE_Display( void ) {
 
         if ( tilepos <= 0 ) {
             tilepos = 0;
-            last_tile = TRUE;
+            last_tile = true;
         }
     }
 }
@@ -410,8 +410,7 @@ void TILE_Display( void ) {
 /***************************************************************************
 TILE_IsHit () - Checks to see if a shot hits an explodable tile
  ***************************************************************************/
-BOOL // RETURNS : TRUE = Tile Hit
-TILE_IsHit(
+bool TILE_IsHit(
     int damage, // INPUT : damage to tile
     int x, // INOUT : x screen pos, out tile x
     int y // INOUT : y screen pos, out tile y
@@ -432,20 +431,20 @@ TILE_IsHit(
                         break;
                 }
 
-                return TRUE;
+                return true;
             }
         }
 
         ts++;
     }
 
-    return FALSE;
+    return false;
 }
 
 /***************************************************************************
 TILE_Bomb () - Checks to see if a BOMB hits an explodable tile
  ***************************************************************************/
-BOOL // RETURNS : TRUE = Tile Hit
+bool // RETURNS : true = Tile Hit
 TILE_Bomb(
     int damage, // INPUT : damage to tile
     int x, // INOUT : x screen pos, out tile x
@@ -464,14 +463,14 @@ TILE_Bomb(
                     TILE_DoDamage( ts->mapspot - MAP_COLS, damage >> 1 );
                 }
 
-                return TRUE;
+                return true;
             }
         }
 
         ts++;
     }
 
-    return FALSE;
+    return false;
 }
 
 /***************************************************************************

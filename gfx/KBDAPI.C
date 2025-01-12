@@ -23,10 +23,10 @@
 
 #define KEYBOARDINT 0x9
 
-PUBLIC BOOL kbd_ack = FALSE;
+PUBLIC bool kbd_ack = false;
 
-BOOL keyboard[256];
-BOOL paused, capslock;
+bool keyboard[256];
+bool paused, capslock;
 int lastscan;
 int lastascii;
 
@@ -70,10 +70,10 @@ void _interrupt KBD_ReadScan( void ) {
 
     if ( key & 0x80 ) {
         key &= 0x7f;
-        keyboard[key] = FALSE;
+        keyboard[key] = false;
 
         if ( key == SC_CAPS_LOCK ) {
-            capslock = FALSE;
+            capslock = false;
         }
     } else {
         switch ( key ) {
@@ -81,23 +81,23 @@ void _interrupt KBD_ReadScan( void ) {
                 break;
 
             case 0xE1: // pause key
-                paused ^= TRUE;
+                paused ^= true;
                 break;
 
             case 0x80:
                 break;
 
             default:
-                kbd_ack = TRUE;
+                kbd_ack = true;
                 lastscan = key;
-                keyboard[key] = TRUE;
+                keyboard[key] = true;
                 if ( lastscan && KBD_ISCAPS ) {
                     lastascii = ShiftNames[key];
                 } else {
                     lastascii = ASCIINames[key];
                 }
                 if ( key == SC_CAPS_LOCK ) {
-                    capslock = TRUE;
+                    capslock = true;
                 }
 
                 *(short*) 0x41c = *(short*) 0x41a; // clear bios key buffer
@@ -151,7 +151,7 @@ KBD_Wait() - Waits for Key to be released
 void KBD_Wait(
     int scancode // SCANCODE see keys.h
 ) {
-    volatile BOOL* ky;
+    volatile bool* ky;
 
     ky = &keyboard[scancode];
 
@@ -168,15 +168,15 @@ void KBD_Wait(
 /***************************************************************************
 KBD_IsKey() - Tests to see if key is down if so waits for release
  ***************************************************************************/
-BOOL KBD_IsKey(
+bool KBD_IsKey(
     int scancode // SCANCODE see keys.h
 ) {
     if ( KBD_Key( scancode ) ) {
         KBD_Wait( scancode );
-        return TRUE;
+        return true;
     }
 
-    return FALSE;
+    return false;
 }
 
 /***************************************************************************

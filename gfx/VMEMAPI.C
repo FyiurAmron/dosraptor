@@ -103,7 +103,7 @@ PUBLIC MCB* vm_DiscardMem( DWORD size ) {
     MCB* free_mcb;
     VM_OWNER* owner;
     DWORD mcb_size;
-    BOOL mem_freed;
+    bool mem_freed;
     DWORD lowcnt;
     DWORD lowsize;
     DWORD oldage;
@@ -113,7 +113,7 @@ PUBLIC MCB* vm_DiscardMem( DWORD size ) {
         oldage = lowsize = lowcnt = (DWORD) ~0;
         low_mcb = NULL;
         mcb = (MCB*) ( pool.blk[0] );
-        mem_freed = FALSE;
+        mem_freed = false;
         pool.age--;
 
         for ( ;; ) {
@@ -182,7 +182,7 @@ PUBLIC MCB* vm_DiscardMem( DWORD size ) {
                     mcb->size |= BLK_FREE;
                     mcb->owner->obj = NULL;
                     mcb->owner = NULL;
-                    mem_freed = TRUE;
+                    mem_freed = true;
                     if ( free_mcb ) {
                         mcb = free_mcb;
                         continue;
@@ -205,7 +205,7 @@ PUBLIC MCB* vm_DiscardMem( DWORD size ) {
                 }
             }
         }
-    } while ( mem_freed == TRUE );
+    } while ( mem_freed );
     return NULL;
 }
 
@@ -216,12 +216,12 @@ PUBLIC MCB* vm_DiscardMem( DWORD size ) {
 PUBLIC void* VM_Malloc(
     DWORD size, // INPUT : Size of object
     VM_OWNER* owner, // INPUT : Owner Structure, NULL=Locked
-    BOOL discard // INPUT : Discard memory to satisfy request.
+    bool discard // INPUT : Discard memory to satisfy request.
 ) {
     MCB* mcb;
     MCB* next_mcb;
     DWORD mcb_size;
-    BOOL all_locked;
+    bool all_locked;
 
     ASSERT( pool.blocks > 0 );
     /*
@@ -232,14 +232,14 @@ PUBLIC void* VM_Malloc(
     /*
      * Search for free memory block across all pools...
      */
-    all_locked = TRUE;
+    all_locked = true;
 
     mcb = pool.rover;
     do {
         while ( !( mcb->size & BLK_FREE ) ) {
             mcb_size = (DWORD) ( mcb->size & BLK_SIZE );
-            if ( all_locked == TRUE && mcb->owner != NULL && discard ) {
-                all_locked = FALSE;
+            if ( all_locked && mcb->owner != NULL && discard ) {
+                all_locked = false;
             }
 
             if ( mcb_size > 0 ) {
@@ -253,7 +253,7 @@ PUBLIC void* VM_Malloc(
             }
 
             if ( mcb == pool.rover ) {
-                if ( all_locked == TRUE ) {
+                if ( all_locked ) {
                     return NULL;
                 }
                 /*
@@ -569,7 +569,7 @@ void main( void )
 	for ( j = 0; j < 8; j++ )
 	{
 	  	obj_size = 64 << ( j & 3 );
-		VM_Malloc( obj_size, &obj_owner[ j ], TRUE );
+		VM_Malloc( obj_size, &obj_owner[ j ], true );
 		obj_owner[ j ].id = j;
 		if ( obj_owner[ j ].obj != NULL )
 		{
@@ -588,7 +588,7 @@ void main( void )
 	{
 		obj_size = 64 << ( j & 3 );
 		printf( "Caching obj %d for %d bytes...", j, obj_size );
-		if ( ( obj = VM_Malloc( obj_size, &obj_owner[ j ], FALSE ) ) != NULL )
+		if ( ( obj = VM_Malloc( obj_size, &obj_owner[ j ], false ) ) != NULL )
 		{
 			obj_owner[ j ].id = j;
 //			obj_owner[ j ].age = ( ( j * 1527 * obj_size >> 1 ) ) & 0x00000FFF;
@@ -631,7 +631,7 @@ void main( void )
 	{
 		obj_size = 64 << ( j & 3 );
 		printf( "Allocating obj %d for %d bytes...", j, obj_size );
-		if ( ( obj = VM_Malloc( obj_size, &obj_owner[ j ], TRUE ) ) != NULL )
+		if ( ( obj = VM_Malloc( obj_size, &obj_owner[ j ], true ) ) != NULL )
 		{
 			obj_owner[ j ].id = j;
 			memset( obj, j, obj_size );
@@ -689,7 +689,7 @@ void main( void )
 	{
 		obj_size = 128 << ( j & 3 );
 		printf( "Allocating obj %d for %d bytes...", j, obj_size );
-		if ( ( obj = VM_Malloc( obj_size, &obj_owner[ j ], TRUE ) ) != NULL )
+		if ( ( obj = VM_Malloc( obj_size, &obj_owner[ j ], true ) ) != NULL )
 		{
 			memset( obj, j, obj_size );
 			printf( "done.\n" );
@@ -741,7 +741,7 @@ void main( void )
 	{
 		obj_size = 128 << ( j & 3 );
 		printf( "Allocating obj %d for %d bytes...", j, obj_size );
-		if ( ( obj = VM_Malloc( obj_size, &obj_owner[ j ], TRUE ) ) != NULL )
+		if ( ( obj = VM_Malloc( obj_size, &obj_owner[ j ], true ) ) != NULL )
 		{
 			memset( obj, j, obj_size );
 			printf( "done.\n" );

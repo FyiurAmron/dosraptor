@@ -30,11 +30,11 @@ PUBLIC int numboss;
 PUBLIC CSPRITE* csprite;
 PRIVATE int numslib[4];
 PRIVATE SPRITE* slib[4];
-PRIVATE BOOL spriteflag[4];
+PRIVATE bool spriteflag[4];
 PRIVATE SPRITE_SHIP* onscreen[MAX_ONSCREEN];
 PRIVATE SPRITE_SHIP* rscreen[MAX_ONSCREEN];
 PRIVATE int cur_visable;
-PRIVATE BOOL boss_sound;
+PRIVATE bool boss_sound;
 
 PUBLIC DWORD cur_diff = EB_EASY_LEVEL;
 PUBLIC SPRITE_SHIP first_enemy;
@@ -42,7 +42,7 @@ PUBLIC SPRITE_SHIP last_enemy;
 PRIVATE SPRITE_SHIP* free_enemy;
 PRIVATE CSPRITE* end_enemy = NULL;
 PRIVATE CSPRITE* cur_enemy = NULL;
-PUBLIC BOOL end_waveflag = FALSE;
+PUBLIC bool end_waveflag = false;
 PRIVATE DWORD spriteitm[4] = { SPRITE1_ITM, SPRITE2_ITM, SPRITE3_ITM, SPRITE4_ITM };
 PUBLIC int g_numslibs;
 
@@ -63,7 +63,7 @@ int MoveEobj(
             cur->maxloop--;
 
             if ( cur->maxloop == 0 ) {
-                cur->done = TRUE;
+                cur->done = true;
                 return speed;
             }
 
@@ -81,7 +81,7 @@ int MoveEobj(
             cur->maxloop--;
 
             if ( cur->maxloop == 0 ) {
-                cur->done = TRUE;
+                cur->done = true;
                 return speed;
             }
 
@@ -96,7 +96,7 @@ int MoveEobj(
     }
 
     if ( cur->maxloop < 1 ) {
-        cur->done = TRUE;
+        cur->done = true;
     }
 
     return speed;
@@ -139,7 +139,7 @@ void ENEMY_LoadSprites( void ) {
 
     ENEMY_Clear();
     cur_visable = 0;
-    boss_sound = FALSE;
+    boss_sound = false;
 
     for ( j = 0; j < ml->numsprites; j++ ) {
         curfld = &csprite[j];
@@ -201,7 +201,7 @@ void ENEMY_LoadLib( void ) {
     memset( spriteflag, 0, sizeof( spriteflag ) );
 
     for ( i = 0; i < ml->numsprites; i++ ) {
-        spriteflag[csprite[i].game] = TRUE;
+        spriteflag[csprite[i].game] = true;
     }
 
     g_numslibs = 0;
@@ -244,7 +244,7 @@ void ENEMY_Clear( void ) {
 
     numboss = 0;
     numships = 0;
-    end_waveflag = FALSE;
+    end_waveflag = false;
 
     first_enemy.prev = NULL;
     first_enemy.next = &last_enemy;
@@ -363,8 +363,8 @@ PRIVATE void ENEMY_Add( CSPRITE* sprite ) {
     pNew->speed = curlib->movespeed;
 
     pNew->countdown = curlib->countdown + -pNew->move.y;
-    pNew->shoot_disable = FALSE;
-    pNew->shoot_on = FALSE;
+    pNew->shoot_disable = false;
+    pNew->shoot_on = false;
     pNew->shootagain = NORM_SHOOT;
     pNew->shootcount = curlib->shootcnt;
     pNew->shootflag = curlib->shootstart;
@@ -380,17 +380,17 @@ PRIVATE void ENEMY_Add( CSPRITE* sprite ) {
         default:
             EXIT_Error( "ENEMY_Add() - Invalid ANIMTYPE" );
         case GANIM_NORM:
-            pNew->anim_on = TRUE;
+            pNew->anim_on = true;
             pNew->num_frames = curlib->num_frames;
             break;
 
         case GANIM_SHOOT:
-            pNew->anim_on = FALSE;
+            pNew->anim_on = false;
             pNew->num_frames = curlib->num_frames;
             break;
 
         case GANIM_MULTI:
-            pNew->anim_on = TRUE;
+            pNew->anim_on = true;
             pNew->num_frames = curlib->rewind;
             break;
     }
@@ -399,7 +399,7 @@ PRIVATE void ENEMY_Add( CSPRITE* sprite ) {
         case F_REPEAT:
         case F_LINEAR:
         case F_KAMI:
-            pNew->groundflag = FALSE;
+            pNew->groundflag = false;
             pNew->sy = 100 - pNew->hly;
             pNew->move.x2 = pNew->sx + curlib->flightx[0];
             pNew->move.y2 = pNew->sy + curlib->flighty[0];
@@ -409,7 +409,7 @@ PRIVATE void ENEMY_Add( CSPRITE* sprite ) {
             break;
 
         case F_GROUND:
-            pNew->groundflag = TRUE;
+            pNew->groundflag = true;
             pNew->move.x2 = pNew->x;
             pNew->move.y2 = 211;
             break;
@@ -417,7 +417,7 @@ PRIVATE void ENEMY_Add( CSPRITE* sprite ) {
         case F_GROUNDRIGHT:
             pNew->x -= pNew->width;
             pNew->move.x = pNew->sx = pNew->x;
-            pNew->groundflag = TRUE;
+            pNew->groundflag = true;
             pNew->move.x2 = 335;
             pNew->move.y2 = 211;
             break;
@@ -425,7 +425,7 @@ PRIVATE void ENEMY_Add( CSPRITE* sprite ) {
         case F_GROUNDLEFT:
             pNew->x += pNew->width;
             pNew->move.x = pNew->sx = pNew->x;
-            pNew->groundflag = TRUE;
+            pNew->groundflag = true;
             pNew->move.x2 = -pNew->hlx;
             pNew->move.y2 = 211;
             break;
@@ -434,7 +434,7 @@ PRIVATE void ENEMY_Add( CSPRITE* sprite ) {
     pNew->suckagain = curlib->hits >> 4;
 
     if ( curlib->song != -1 ) {
-        boss_sound = TRUE;
+        boss_sound = true;
     }
 }
 
@@ -484,7 +484,7 @@ SPRITE_SHIP* ENEMY_GetRandomAir( void ) {
 /***************************************************************************
 ENEMY_DamageAll () - Tests to see if hit occured at x/y and applys damage
  ***************************************************************************/
-BOOL ENEMY_DamageAll(
+bool ENEMY_DamageAll(
     int x, // INPUT : x position
     int y, // INPUT : y position
     int damage // INPUT : damage
@@ -497,17 +497,17 @@ BOOL ENEMY_DamageAll(
 
         if ( x > cur->x && x < cur->x2 && y > cur->y && y < cur->y2 ) {
             cur->hits -= damage;
-            return TRUE;
+            return true;
         }
     }
 
-    return FALSE;
+    return false;
 }
 
 /***************************************************************************
 ENEMY_DamageGround () - Tests to see if hit occured at x/y and applys damage
  ***************************************************************************/
-BOOL ENEMY_DamageGround(
+bool ENEMY_DamageGround(
     int x, // INPUT : x position
     int y, // INPUT : y position
     int damage // INPUT : damage
@@ -527,17 +527,17 @@ BOOL ENEMY_DamageGround(
             if ( curplr_diff == DIFF_0 ) {
                 cur->hits -= damage;
             }
-            return TRUE;
+            return true;
         }
     }
 
-    return FALSE;
+    return false;
 }
 
 /***************************************************************************
 ENEMY_DamageAir () - Tests to see if hit occured at x/y and applys damage
  ***************************************************************************/
-BOOL ENEMY_DamageAir(
+bool ENEMY_DamageAir(
     int x, // INPUT : x position
     int y, // INPUT : y position
     int damage // INPUT : damage
@@ -557,11 +557,11 @@ BOOL ENEMY_DamageAir(
             if ( curplr_diff == DIFF_0 ) {
                 cur->hits -= damage;
             }
-            return TRUE;
+            return true;
         }
     }
 
-    return FALSE;
+    return false;
 }
 /***************************************************************************
 ENEMY_DamageEnergy () - Tests to see if hit occured at x/y and applys damage
@@ -588,8 +588,8 @@ SPRITE_SHIP* ENEMY_DamageEnergy(
                 if ( cur->suckagain > 0 ) {
                     cur->suckagain -= damage;
                 } else {
-                    cur->shoot_on = FALSE;
-                    cur->shoot_disable = TRUE;
+                    cur->shoot_on = false;
+                    cur->shoot_disable = true;
                     cur->shootagain = NORM_SHOOT;
                     SND_3DPatch( FX_EGRAB, cur->x + cur->hlx, cur->x + cur->hlx );
                 }
@@ -633,7 +633,7 @@ void ENEMY_Think( void ) {
                 }
 
                 if ( cur_enemy == end_enemy ) {
-                    end_waveflag = TRUE;
+                    end_waveflag = true;
                     break;
                 }
 
@@ -675,8 +675,8 @@ void ENEMY_Think( void ) {
                                 break;
 
                             case GANIM_SHOOT:
-                                sprite->anim_on = FALSE;
-                                sprite->shoot_on = TRUE;
+                                sprite->anim_on = false;
+                                sprite->shoot_on = true;
                                 break;
 
                             case GANIM_MULTI:
@@ -687,7 +687,7 @@ void ENEMY_Think( void ) {
                                         break;
 
                                     case MULTI_END:
-                                        sprite->shoot_on = TRUE;
+                                        sprite->shoot_on = true;
                                         break;
 
                                     default:
@@ -706,11 +706,11 @@ void ENEMY_Think( void ) {
                     default:
                         EXIT_Error( "ENEMY_Think() - Invalid ANIMTYPE2" );
                     case GANIM_NORM:
-                        sprite->shoot_on = TRUE;
+                        sprite->shoot_on = true;
                         break;
 
                     case GANIM_SHOOT:
-                        sprite->anim_on = TRUE;
+                        sprite->anim_on = true;
                         break;
 
                     case GANIM_MULTI:
@@ -725,7 +725,7 @@ void ENEMY_Think( void ) {
         } else {
             if ( sprite->countdown < 1 ) {
                 sprite->countdown = -1;
-                sprite->shoot_on = TRUE;
+                sprite->shoot_on = true;
             } else {
                 sprite->countdown -= curlib->movespeed;
             }
@@ -780,20 +780,12 @@ void ENEMY_Think( void ) {
                 speed = MoveEobj( &sprite->move, speed );
 
                 if ( sprite->kami == KAMI_END ) {
-                    if ( sprite->move.y > 201 ) {
-                        sprite->doneflag = TRUE;
-                    }
-
-                    if ( sprite->move.x > 320 + sprite->hlx ) {
-                        sprite->doneflag = TRUE;
-                    }
-
-                    if ( sprite->move.y + sprite->width < 0 ) {
-                        sprite->doneflag = TRUE;
-                    }
-
-                    if ( sprite->move.x + sprite->width < 0 ) {
-                        sprite->doneflag = TRUE;
+                    if ( sprite->move.y > 201 //
+                         || ( sprite->move.x > 320 + sprite->hlx ) //
+                         || ( sprite->move.y + sprite->height < 0 ) //
+                         || ( sprite->move.x + sprite->width < 0 ) //
+                    ) {
+                        sprite->doneflag = true;
                     }
                 }
 
@@ -847,7 +839,7 @@ void ENEMY_Think( void ) {
                     sprite->movepos++;
 
                     if ( sprite->movepos > curlib->numflight ) {
-                        sprite->doneflag = TRUE;
+                        sprite->doneflag = true;
                     }
                 }
                 break;
@@ -857,7 +849,7 @@ void ENEMY_Think( void ) {
                     sprite->y++;
                 }
                 if ( sprite->y > sprite->move.y2 ) {
-                    sprite->doneflag = TRUE;
+                    sprite->doneflag = true;
                 }
                 sprite->x2 = sprite->x + sprite->width - 1;
                 sprite->y2 = sprite->y + sprite->height - 1;
@@ -870,9 +862,9 @@ void ENEMY_Think( void ) {
                 if ( sprite->y >= 0 ) {
                     sprite->x += curlib->movespeed;
                     if ( sprite->x > sprite->move.x2 ) {
-                        sprite->doneflag = TRUE;
+                        sprite->doneflag = true;
                     } else if ( sprite->y > sprite->move.y2 ) {
-                        sprite->doneflag = TRUE;
+                        sprite->doneflag = true;
                     }
                 }
                 sprite->x2 = sprite->x + sprite->width - 1;
@@ -886,9 +878,9 @@ void ENEMY_Think( void ) {
                 if ( sprite->y >= 0 ) {
                     sprite->x -= curlib->movespeed;
                     if ( sprite->x < sprite->move.x2 ) {
-                        sprite->doneflag = TRUE;
+                        sprite->doneflag = true;
                     } else if ( sprite->y > sprite->move.y2 ) {
-                        sprite->doneflag = TRUE;
+                        sprite->doneflag = true;
                     }
                 }
                 sprite->x2 = sprite->x + sprite->width - 1;

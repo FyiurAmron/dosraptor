@@ -32,7 +32,7 @@ typedef struct {
     int addy;
     int maxloop;
     int err;
-    BOOL done;
+    bool done;
 } MOVEOBJ;
 
 // ENEMY SHIPS
@@ -92,14 +92,14 @@ typedef struct {
     int bonus; // BONUS # ( -1 == NONE )
     EXP_TYPE exptype; // EXPLOSION TYPE
     int shotspace; // SLOWDOWN SPEED
-    BOOL ground; // IS ON GROUND
-    BOOL suck; // CAN SUCK WEAPON AFFECT
+    bool ground; // IS ON GROUND
+    bool suck; // CAN SUCK WEAPON AFFECT
     int frame_rate; // FRAME RATE
     int num_frames; // NUM FRAMES
     int countdown; // COUNT DOWN TO START ANIM
     int rewind; // FRAMES TO REWIND
     ANIMTYPE animtype; // FREE SPACE FOR LATER USE
-    BOOL shadow; // USE SHADOW ( TRUE/FALSE )
+    bool shadow; // USE SHADOW
     int bossflag; // SHOULD THIS BE CONSIDERED A BOSS
     int hits; // HIT POINTS
     int money; // $$ AMOUNT WHEN KILLED

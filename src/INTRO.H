@@ -7,7 +7,7 @@
 /***************************************************************************
 INTRO_Landing () - Ship Landing on Base
  ***************************************************************************/
-BOOL INTRO_Landing( void );
+bool INTRO_Landing( void );
 
 /***************************************************************************
 INTRO_BaseLanding() - BaseLanding PLays all needed MOVES
@@ -17,12 +17,12 @@ void INTRO_BaseLanding( void );
 /***************************************************************************
 INTRO_Takeoff() - Ships taking Off
  ***************************************************************************/
-BOOL INTRO_Takeoff( void );
+bool INTRO_Takeoff( void );
 
 /***************************************************************************
 INTRO_PlayMain() - Plays Main Intro
  ***************************************************************************/
-BOOL INTRO_PlayMain( void );
+bool INTRO_PlayMain( void );
 
 /***************************************************************************
 INTRO_Taiwan (
@@ -32,7 +32,7 @@ void INTRO_Taiwan( void );
 /***************************************************************************
 INTRO_Credits() - Credits Screen
  ***************************************************************************/
-BOOL INTRO_Credits( void );
+bool INTRO_Credits( void );
 
 /***************************************************************************
 INTRO_EndGame() - Ends the current game anims
@@ -42,6 +42,6 @@ void INTRO_EndGame( int game );
 /***************************************************************************
 INTRO_Death () - Death Scene
  ***************************************************************************/
-BOOL INTRO_Death( void );
+bool INTRO_Death( void );
 
 #endif
