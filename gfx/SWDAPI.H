@@ -65,7 +65,7 @@ typedef enum { I_NORM, I_TOUPPER, I_NUMERIC } INPUTOPT;
 #define MAX_WINDOWS  12
 #define MAX_FONTS    2
 
-extern INT active_field;
+extern int active_field;
 extern BOOL g_button_flag;
 extern BOOL usekb_flag;
 
@@ -73,60 +73,60 @@ void SWD_SetButtonFlag( BOOL );
 #define SWD_SetButtonFlag( c ) ( g_button_flag = c )
 
 typedef struct {
-    INT opt; // FIELD TYPE
-    INT id; // FIELD ID
+    int opt; // FIELD TYPE
+    int id; // FIELD ID
     DWORD hotkey; // SCAN CODE OF HOT KEY
     BOOL kbflag; // TRUE if field should be KBACTIVE
     DWORD opt3; // not used
     DWORD opt4; // not used
     INPUTOPT input_opt; // OPTIONS used in INPUT FIELDS
     BUTTON bstatus; // BUTTON STATUS NORMAL/UP/DOWN
-    CHAR name[16]; // TEXT NAME OF FIELD ( NOT DISPLAYED )
-    CHAR item_name[16]; // TEXT NAME OF ITEM #
+    char name[16]; // TEXT NAME OF FIELD ( NOT DISPLAYED )
+    char item_name[16]; // TEXT NAME OF ITEM #
     DWORD item; // ITEM ID NUMBER
-    CHAR font_name[16]; // FONT .GLB NAME
+    char font_name[16]; // FONT .GLB NAME
     DWORD fontid; // FONT NUMBER
-    INT fontbasecolor; // FONT BASE COLOR
-    INT maxchars; // MAXCHARS IN FIELD TEXT
+    int fontbasecolor; // FONT BASE COLOR
+    int maxchars; // MAXcharS IN FIELD TEXT
     DSTYLE picflag; // PICTURE TRUE/FALSE
-    INT color; // COLOR OF FIELD
-    INT lite; // HIGHLIGHT COLOR
+    int color; // COLOR OF FIELD
+    int lite; // HIGHLIGHT COLOR
     BOOL mark; // FIELD MARK ( TRUE/FLASE )
     BOOL saveflag; // MEM TO SAVE PIC UNDER FIELD ( Y/N )
     BOOL shadow; // SHADOW ON/OFF
     BOOL selectable; // SELECTABLE ON/OFF
-    INT x; // X POSITION ON SCREEN
-    INT y; // Y POSITION ON SCREEN
-    INT lx; // WIDTH IN PIXELS
-    INT ly; // HEIGHT IN PIXELS
+    int x; // X POSITION ON SCREEN
+    int y; // Y POSITION ON SCREEN
+    int lx; // WIDTH IN PIXELS
+    int ly; // HEIGHT IN PIXELS
     DWORD txtoff; // OFFSET TO TEXT DATA ( BYTES )
     BYTE* sptr; // SEG POINTER TO SAVE INFO
 } SFIELD;
 
 typedef struct {
-    INT version; // VERSION NUMBER
-    INT swdsize; // SIZE OF WIN/FIELD AND TEXT
+    int version; // VERSION NUMBER
+    int swdsize; // SIZE OF WIN/FIELD AND TEXT
     BOOL arrowflag; // Use Arrow Keys ( TRUE/FALSE )
     BOOL display; // DISPLAY FLAG
     DWORD opt3; // OPTION 3 ( not used )
     DWORD opt4; // OPTION 4 ( not used )
-    INT id; // WINDOW ID NUMBER
-    INT type; // WINDOW TYPE NUMBER
-    CHAR name[16]; // TEXT NAME OF WINDOW ( NOT DISPLAYED )
-    CHAR item_name[16]; // TEXT NAME OF ITEM
+    int id; // WINDOW ID NUMBER
+    int type; // WINDOW TYPE NUMBER
+    char name[16]; // TEXT NAME OF WINDOW ( NOT DISPLAYED )
+    char item_name[16]; // TEXT NAME OF ITEM
     DWORD item; // ITEM ID NUMBER
     DSTYLE picflag; // FILL/TEXTURE/PICTURE
     BOOL lock; // TRUE = cannot goto other windows
-    INT fldofs; // OFFSET IN BYTES TO FIRST FIELD
-    INT txtofs; // OFFSET IN BYTES TO TEXT AREA
-    INT firstfld; // FIELD TO GOTO FIRST
-    INT opt; // WINDOW TYPE
-    INT color; // COLOR OF WINDOW
-    INT numflds; // NUMBER OF FIELDS
-    INT x; // X POSITON ON SCREEN
-    INT y; // Y POSITION ON SCREEN
-    INT lx; // WIDTH IN PIXELS
-    INT ly; // HEIGHT IN PIXELS
+    int fldofs; // OFFSET IN BYTES TO FIRST FIELD
+    int txtofs; // OFFSET IN BYTES TO TEXT AREA
+    int firstfld; // FIELD TO GOTO FIRST
+    int opt; // WINDOW TYPE
+    int color; // COLOR OF WINDOW
+    int numflds; // NUMBER OF FIELDS
+    int x; // X POSITON ON SCREEN
+    int y; // Y POSITION ON SCREEN
+    int lx; // WIDTH IN PIXELS
+    int ly; // HEIGHT IN PIXELS
     BOOL shadow; // SHADOW TRUE/FALSE
 } SWIN;
 
@@ -138,24 +138,24 @@ typedef struct {
 } SWD_WIN;
 
 typedef struct {
-    INT window;
-    INT field;
+    int window;
+    int field;
     ACT cur_act;
     CMD cur_cmd;
-    INT keypress;
-    INT id;
-    INT type;
-    INT x;
-    INT y;
-    INT height;
-    INT width;
+    int keypress;
+    int id;
+    int type;
+    int x;
+    int y;
+    int height;
+    int width;
     BOOL objactive;
     BOOL viewactive;
-    INT sfield;
-    INT sx;
-    INT sy;
-    INT sheight;
-    INT swidth;
+    int sfield;
+    int sx;
+    int sy;
+    int sheight;
+    int swidth;
 } SWD_DLG;
 
 /***************************************************************************
@@ -176,17 +176,17 @@ SWD_FillText () - Fills text from GLB intro an AREA
 void SWD_FillText(
     FONT* font, // INPUT : pointer to FONT
     DWORD item, // INPUT : GLB text Item
-    INT color, // INPUT : field color
-    INT x, // INPUT : x position
-    INT y, // INPUT : y position
-    INT lx, // INPUT : width of field
-    INT ly // INPUT : height of field
+    int color, // INPUT : field color
+    int x, // INPUT : x position
+    int y, // INPUT : y position
+    int lx, // INPUT : width of field
+    int ly // INPUT : height of field
 );
 
 /***************************************************************************
  SWD_InitWindow() - Adds window to list and initializes
  ***************************************************************************/
-INT // RETURN: handle to window
+int // RETURN: handle to window
 SWD_InitWindow(
     DWORD handle // INPUT : GLB Item Number
 );
@@ -194,7 +194,7 @@ SWD_InitWindow(
 /***************************************************************************
    SWD_InitMasterWindow () - Inits the master window (must be full screen)
  ***************************************************************************/
-INT SWD_InitMasterWindow(
+int SWD_InitMasterWindow(
     DWORD handle // INPUT : GLB Item Number
 );
 
@@ -202,7 +202,7 @@ INT SWD_InitMasterWindow(
    SWD_SetWinDrawFunc () - Function called after window is drawn
  ***************************************************************************/
 void SWD_SetWinDrawFunc(
-    INT handle, // INPUT :handle of window
+    int handle, // INPUT :handle of window
     void ( *infunc )( SWD_DLG* ) // INPUT :pointer to function
 );
 
@@ -228,37 +228,37 @@ void SWD_SetViewDrawHook(
 SWD_SetWindowPtr() - Sets pointer to center of active field
  ***************************************************************************/
 void SWD_SetWindowPtr(
-    INT handle // INPUT : number/handle of window
+    int handle // INPUT : number/handle of window
 );
 
 /***************************************************************************
 SWD_SetFieldPtr () - Sets pointer on a field
  ***************************************************************************/
 void SWD_SetFieldPtr(
-    INT handle, // INPUT : number/handle of window
-    INT field // INPUT : field
+    int handle, // INPUT : number/handle of window
+    int field // INPUT : field
 );
 
 /***************************************************************************
  SWD_SetActiveWindow() - Sets the current working window
  ***************************************************************************/
 void SWD_SetActiveWindow(
-    INT handle // INPUT : number/handle of window
+    int handle // INPUT : number/handle of window
 );
 
 /***************************************************************************
  SWD_SetActiveField() - Sets the current working field
  ***************************************************************************/
 void SWD_SetActiveField(
-    INT handle, // INPUT : handle of window
-    INT field_id // INPUT : number/handle of field
+    int handle, // INPUT : handle of window
+    int field_id // INPUT : number/handle of field
 );
 
 /***************************************************************************
  SWD_DestroyWindow() - removes a window from SWD system
  ***************************************************************************/
 void SWD_DestroyWindow(
-    INT handle // INPUT : handle of window
+    int handle // INPUT : handle of window
 );
 
 /***************************************************************************
@@ -272,75 +272,75 @@ void SWD_Dialog(
    SWD_SetWindowLock() - Locks window so no others can be selected
  ***************************************************************************/
 void SWD_SetWindowLock(
-    INT handle, // INPUT : handle to window
+    int handle, // INPUT : handle to window
     BOOL lock // INPUT : TRUE/FALSE
 );
 
 /***************************************************************************
  SWD_SetWindowXY() - Sets the window x,y position
  ***************************************************************************/
-INT // RETURN: window opt flag
+int // RETURN: window opt flag
 SWD_SetWindowXY(
-    INT handle, // INPUT : handle to window
-    INT xpos, // INPUT : x position
-    INT ypos // INPUT : y position
+    int handle, // INPUT : handle to window
+    int xpos, // INPUT : x position
+    int ypos // INPUT : y position
 );
 
 /***************************************************************************
  SWD_GetWindowXYL () - gets the window x,y, x length, y length
  ***************************************************************************/
-INT // RETURN: window opt flag
+int // RETURN: window opt flag
 SWD_GetWindowXYL(
-    INT handle, // INPUT : handle to window
-    INT* xpos, // OUTPUT: x position
-    INT* ypos, // OUTPUT: y position
-    INT* lx, // OUTPUT: x length
-    INT* ly // OUTPUT: y length
+    int handle, // INPUT : handle to window
+    int* xpos, // OUTPUT: x position
+    int* ypos, // OUTPUT: y position
+    int* lx, // OUTPUT: x length
+    int* ly // OUTPUT: y length
 );
 
 /***************************************************************************
  SWD_GetFieldText() - Gets the field text
  ***************************************************************************/
-INT // RETURN: text max length
+int // RETURN: text max length
 SWD_GetFieldText(
-    INT handle, // INPUT : window handle
-    INT field_id, // INPUT : field handle
-    CHAR* out_text // OUTPUT: text
+    int handle, // INPUT : window handle
+    int field_id, // INPUT : field handle
+    char* out_text // OUTPUT: text
 );
 
 /***************************************************************************
  SWD_SetFieldText() - Sets the default field text
  ***************************************************************************/
-INT // RETURN: text max length
+int // RETURN: text max length
 SWD_SetFieldText(
-    INT handle, // INPUT : window handle
-    INT field_id, // INPUT : field handle
-    CHAR* in_text // OUTPUT: pointer to string
+    int handle, // INPUT : window handle
+    int field_id, // INPUT : field handle
+    char* in_text // OUTPUT: pointer to string
 );
 
 /***************************************************************************
-   SWD_GetFieldValue () Returns INT value of field text string
+   SWD_GetFieldValue () Returns int value of field text string
  ***************************************************************************/
-INT SWD_GetFieldValue(
-    INT handle, // INPUT : window handle
-    INT field_id // INPUT : field handle
+int SWD_GetFieldValue(
+    int handle, // INPUT : window handle
+    int field_id // INPUT : field handle
 );
 
 /***************************************************************************
-   SWD_SetFieldValue () Sets numeric (INT) value into field text
+   SWD_SetFieldValue () Sets int value into field text
  ***************************************************************************/
-INT SWD_SetFieldValue(
-    INT handle, // INPUT : window handle
-    INT field_id, // INPUT : field handle
-    INT num // INPUT : number to set in fld text
+int SWD_SetFieldValue(
+    int handle, // INPUT : window handle
+    int field_id, // INPUT : field handle
+    int num // INPUT : number to set in fld text
 );
 
 /***************************************************************************
 SWD_SetFieldSelect() - Sets field selectable status
  ***************************************************************************/
 void SWD_SetFieldSelect(
-    INT handle, // INPUT : window handle
-    INT field_id, // INPUT : field handle
+    int handle, // INPUT : window handle
+    int field_id, // INPUT : field handle
     BOOL opt // INPUT : TRUE, FALSE
 );
 
@@ -349,8 +349,8 @@ void SWD_SetFieldSelect(
  ***************************************************************************/
 BOOL // RETURN: mark status ( TRUE, FALSE )
 SWD_GetFieldMark(
-    INT handle, // INPUT : window handle
-    INT field_id // INPUT : field handle
+    int handle, // INPUT : window handle
+    int field_id // INPUT : field handle
 );
 
 /***************************************************************************
@@ -358,8 +358,8 @@ SWD_GetFieldMark(
  ***************************************************************************/
 INPUTOPT // RETURN: InputOpt status
 SWD_GetFieldInputOpt(
-    INT handle, // INPUT : window handle
-    INT field_id // INPUT : field handle
+    int handle, // INPUT : window handle
+    int field_id // INPUT : field handle
 );
 
 /***************************************************************************
@@ -367,8 +367,8 @@ SWD_GetFieldInputOpt(
  ***************************************************************************/
 INPUTOPT // RETURN: InputOpt status
 SWD_SetFieldInputOpt(
-    INT handle, // INPUT : window handle
-    INT field_id, // INPUT : field handle
+    int handle, // INPUT : window handle
+    int field_id, // INPUT : field handle
     INPUTOPT opt // INPUT : input option
 );
 
@@ -376,8 +376,8 @@ SWD_SetFieldInputOpt(
    SWD_SetFieldItem () - Sets field Item ID ( picture )
  ***************************************************************************/
 void SWD_SetFieldItem(
-    INT handle, // INPUT : window handle
-    INT field_id, // INPUT : field handle
+    int handle, // INPUT : window handle
+    int field_id, // INPUT : field handle
     DWORD item // INPUT : GLB item id
 );
 
@@ -386,88 +386,88 @@ void SWD_SetFieldItem(
  ***************************************************************************/
 DWORD // RETURN: Item GLB ID
 SWD_GetFieldItem(
-    INT handle, // INPUT : window handle
-    INT field_id // INPUT : field handle
+    int handle, // INPUT : window handle
+    int field_id // INPUT : field handle
 );
 
 /***************************************************************************
    SWD_SetFieldItemName () - Sets Field Item Name and Loads it in
  ***************************************************************************/
 void SWD_SetFieldItemName(
-    INT handle, // INPUT : window handle
-    INT field_id, // INPUT : field handle
-    CHAR* item_name // INPUT : pointer to Item Name
+    int handle, // INPUT : window handle
+    int field_id, // INPUT : field handle
+    char* item_name // INPUT : pointer to Item Name
 );
 
 /***************************************************************************
    SWD_GetFieldItemName () - Gets Field Item Name
  ***************************************************************************/
 void SWD_GetFieldItemName(
-    INT handle, // INPUT : window handle
-    INT field_id, // INPUT : field handle
-    CHAR* item_name // OUTPUT: pointer to Item Name
+    int handle, // INPUT : window handle
+    int field_id, // INPUT : field handle
+    char* item_name // OUTPUT: pointer to Item Name
 );
 
 /***************************************************************************
  SWD_SetFieldMark() - Sets the Field Mark ( button )
  ***************************************************************************/
 void SWD_SetFieldMark(
-    INT handle, // INPUT : window handle
-    INT field_id, // INPUT : field handle
+    int handle, // INPUT : window handle
+    int field_id, // INPUT : field handle
     BOOL opt // INPUT : TRUE, FALSE
 );
 
 /***************************************************************************
    SWD_SetWindowID () - Sets Window ID number
  ***************************************************************************/
-INT // RETURN: old Window ID
+int // RETURN: old Window ID
 SWD_SetWindowID(
-    INT handle, // INPUT : window handle
-    INT id // INPUT : NEW window ID
+    int handle, // INPUT : window handle
+    int id // INPUT : NEW window ID
 );
 
 /***************************************************************************
    SWD_GetWindowID () - Returns Window ID number
  ***************************************************************************/
-INT SWD_GetWindowID(
-    INT handle // INPUT : window handle
+int SWD_GetWindowID(
+    int handle // INPUT : window handle
 );
 
 /***************************************************************************
 SWD_SetWindowFlag () - Sets A window to be turned on/off
  ***************************************************************************/
-INT SWD_SetWindowFlag(
-    INT handle, // INPUT : window handle
+int SWD_SetWindowFlag(
+    int handle, // INPUT : window handle
     BOOL flag // INPUT : TRUE/FALSE
 );
 
 /***************************************************************************
    SWD_SetWindowType () Sets Window TYPE number
  ***************************************************************************/
-INT // RETURN: old Window TYPE
+int // RETURN: old Window TYPE
 SWD_SetWindowType(
-    INT handle, // INPUT : window handle
-    INT type // INPUT : NEW window TYPE
+    int handle, // INPUT : window handle
+    int type // INPUT : NEW window TYPE
 );
 
 /***************************************************************************
    SWD_GetWindowType () - Returns Window TYPE number
  ***************************************************************************/
-INT // RETURN: window TYPE
+int // RETURN: window TYPE
 SWD_GetWindowType(
-    INT handle // INPUT : window handle
+    int handle // INPUT : window handle
 );
 
 /***************************************************************************
    SWD_GetFieldXYL () Gets Field X,Y, WIDTH, HEIGHT
  ***************************************************************************/
-INT SWD_GetFieldXYL(
-    INT handle, // INPUT : window handle
-    INT field_id, // INPUT : field handle
-    INT* x, // OUTPUT: x
-    INT* y, // OUTPUT: y
-    INT* lx, // OUTPUT: width
-    INT* ly // OUTPUT: height
+int SWD_GetFieldXYL(
+    int handle, // INPUT : window handle
+    int field_id, // INPUT : field handle
+    int* x, // OUTPUT: x
+    int* y, // OUTPUT: y
+    int* lx, // OUTPUT: width
+    int* ly // OUTPUT: height
 );
 
 #endif

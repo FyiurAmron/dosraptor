@@ -3,16 +3,16 @@
 
 #include "../gfx/types.h"
 
-extern INT num_shadows;
-extern INT num_gshadows;
+extern int num_shadows;
+extern int num_gshadows;
 
 /***************************************************************************
 SHADOW_Draw () - Draws AIR shadows in 3D perspective
  ***************************************************************************/
 void SHADOW_Draw(
     BYTE* pic, // INPUT : pointer to sprite data
-    INT x, // INPUT : x position of sprite
-    INT y // INPUT : y position of sprite
+    int x, // INPUT : x position of sprite
+    int y // INPUT : y position of sprite
 );
 
 /***************************************************************************
@@ -30,8 +30,8 @@ SHADOW_Add() - Add a Air ship shadow
  ***************************************************************************/
 void SHADOW_Add(
     DWORD item, // INPUT : GLB item
-    INT x, // INPUT : x position
-    INT y // INPUT : y position
+    int x, // INPUT : x position
+    int y // INPUT : y position
 );
 
 /***************************************************************************
@@ -39,8 +39,8 @@ SHADOW_GAdd() - Adds Ground shadow
  ***************************************************************************/
 void SHADOW_GAdd(
     DWORD item, // INPUT : GLB item
-    INT x, // INPUT : x position
-    INT y // INPUT : y position
+    int x, // INPUT : x position
+    int y // INPUT : y position
 );
 
 /***************************************************************************

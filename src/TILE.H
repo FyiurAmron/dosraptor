@@ -22,16 +22,16 @@ typedef enum { TILE_NONE, TILE_HIT, TILE_DESTROY, TILE_BONUS } T_HIT;
 
 typedef struct {
     DWORD item;
-    INT x;
-    INT y;
-    INT mapspot;
+    int x;
+    int y;
+    int mapspot;
 } TILESPOT;
 
 typedef struct TDELAY_S {
     struct TDELAY_S* prev;
     struct TDELAY_S* next;
-    INT frames;
-    INT mapspot;
+    int frames;
+    int mapspot;
     DWORD item;
     TILESPOT* ts;
 } TILEDELAY;
@@ -41,8 +41,8 @@ TILE_Draw () - Draws 32 by 32 TILE Clips on y only
  ***************************************************************************/
 void TILE_Put(
     BYTE* inpic, // INPUT : pointer to GFX_PIC ( norm )
-    INT x, // INPUT : x position
-    INT y // INPUT : y position
+    int x, // INPUT : x position
+    int y // INPUT : y position
 );
 
 /***************************************************************************
@@ -80,9 +80,9 @@ TILE_IsHit () - Checks to see if a shot hits an explodable tile
  ***************************************************************************/
 T_HIT // RETURNS : see T_HIT in tile.h
 TILE_IsHit(
-    INT damage, // INPUT : damage to tile
-    INT x, // INOUT : x screen pos, out tile x
-    INT y // INOUT : y screen pos, out tile y
+    int damage, // INPUT : damage to tile
+    int x, // INOUT : x screen pos, out tile x
+    int y // INOUT : y screen pos, out tile y
 );
 
 /***************************************************************************
@@ -90,9 +90,9 @@ TILE_Bomb () - Checks to see if a BOMB hits an explodable tile
  ***************************************************************************/
 BOOL // RETURNS : TRUE = Tile Hit
 TILE_Bomb(
-    INT damage, // INPUT : damage to tile
-    INT x, // INOUT : x screen pos, out tile x
-    INT y // INOUT : y screen pos, out tile y
+    int damage, // INPUT : damage to tile
+    int x, // INOUT : x screen pos, out tile x
+    int y // INOUT : y screen pos, out tile y
 );
 
 /***************************************************************************
@@ -100,13 +100,13 @@ TILE_Explode () - Sets the Tile to show explosion tile
  ***************************************************************************/
 void TILE_Explode(
     TILESPOT* ts, // INPUT : tilespot of explosion
-    INT delay // INPUT : frames to delay
+    int delay // INPUT : frames to delay
 );
 
 extern DWORD startflat[4];
-extern INT tilepos;
-extern INT tileyoff;
+extern int tilepos;
+extern int tileyoff;
 extern BOOL scroll_flag;
-extern INT g_mapleft;
+extern int g_mapleft;
 
 #endif

@@ -13,26 +13,26 @@
 
 #define MAX_SFXS ( ( END_SFX - START_SFX - 1 ) / 5 )
 
-PUBLIC INT music_volume;
-PUBLIC INT fx_volume;
+PUBLIC int music_volume;
+PUBLIC int fx_volume;
 PUBLIC BOOL fx_flag = FALSE;
 PUBLIC BOOL dig_flag = FALSE;
 PUBLIC BOOL gus_flag = FALSE;
 
-PRIVATE INT num_dig = 0;
+PRIVATE int num_dig = 0;
 PRIVATE DWORD cur_song_item = EMPTY;
-PRIVATE INT cur_song_id = EMPTY;
+PRIVATE int cur_song_id = EMPTY;
 PRIVATE SND_TYPE snd_type = SND_NONE;
 
 PRIVATE BOOL init_flag = FALSE;
 
 typedef struct {
     DWORD item; // GLB ITEM
-    INT pri; // PRIORITY 0 = LOW
-    INT pitch; // PITCH TO PLAY PATCH
+    int pri; // PRIORITY 0 = LOW
+    int pitch; // PITCH TO PLAY PATCH
     BOOL rpflag; // TRUE = RANDOM PITCHES
     SFX_HANDLE sid; // DMX EFFECT ID
-    INT vol; // VOLUME
+    int vol; // VOLUME
     BOOL gcache; // CACHE FOR IN-GAME USE?
     BOOL odig; // TRUE = ONLY PLAY DIGITAL
 } DFX;
@@ -62,7 +62,7 @@ SND_Setup() - Inits SND System  called after SND_InitSound() and GLB_Init
  ***************************************************************************/
 void SND_Setup( void ) {
     DFX* lib;
-    INT i;
+    int i;
 
     memset( fxitems, 0, sizeof( fxitems ) );
 
@@ -487,7 +487,7 @@ SND_CacheFX() - Caches all FXs
  ***************************************************************************/
 void SND_CacheFX( void ) {
     DFX* lib;
-    INT i;
+    int i;
 
     for ( i = 0; i < FX_LAST_SND; i++ ) {
         lib = &fxitems[i];
@@ -503,7 +503,7 @@ SND_CacheGFX() - Caches in game FXs
  ***************************************************************************/
 void SND_CacheGFX( void ) {
     DFX* lib;
-    INT i;
+    int i;
 
     SND_StopPatches();
 
@@ -521,7 +521,7 @@ SND_CacheIFX() - Caches intro and menu FX
  ***************************************************************************/
 void SND_CacheIFX( void ) {
     DFX* lib;
-    INT i;
+    int i;
 
     for ( i = 0; i < FX_LAST_SND; i++ ) {
         lib = &fxitems[i];
@@ -548,7 +548,7 @@ SND_StopPatches() - Stops all currently playing patches
  ***************************************************************************/
 void SND_StopPatches( void ) {
     DFX* curfld;
-    INT i;
+    int i;
 
     for ( curfld = fxitems, i = 0; i < FX_LAST_SND; i++, curfld++ ) {
         if ( curfld->sid != EMPTY ) {
@@ -584,7 +584,7 @@ SND_FreeFX () - Frees up FXs
  ***************************************************************************/
 void SND_FreeFX( void ) {
     DFX* lib;
-    INT i;
+    int i;
 
     SND_StopPatches();
 
@@ -602,14 +602,14 @@ SND_Patch () - Test patch to see if it will be played by SND_Play
  ***************************************************************************/
 void SND_Patch(
     DEFX type, // INPUT : DFX type patch to play
-    INT xpos // INPUT : 127=center
+    int xpos // INPUT : 127=center
 ) {
     DFX* curfld;
     BYTE* patch;
-    INT i;
-    INT numsnds;
-    INT rnd;
-    INT volume;
+    int i;
+    int numsnds;
+    int rnd;
+    int volume;
 
     if ( fx_volume < 1 ) {
         return;
@@ -659,20 +659,20 @@ SND_3DPatch () - plays a patch in 3d for player during game play
  ***************************************************************************/
 void SND_3DPatch(
     DEFX type, // INPUT : DFX type patch to play
-    INT x, // INPUT : x sprite center
-    INT y // INPUT : y sprite center
+    int x, // INPUT : x sprite center
+    int y // INPUT : y sprite center
 ) {
     DFX* curfld;
     BYTE* patch;
-    INT i;
-    INT numsnds;
-    INT rnd;
-    INT xpos;
-    INT vol;
-    INT dx;
-    INT dy;
-    INT dist;
-    INT volume;
+    int i;
+    int numsnds;
+    int rnd;
+    int xpos;
+    int vol;
+    int dx;
+    int dy;
+    int dist;
+    int volume;
 
     if ( fx_volume < 1 ) {
         return;
@@ -826,17 +826,17 @@ void SND_FadeOutSong( void ) {
 SND_InitSound () - Handles music/FX initializing
  ***************************************************************************/
 void SND_InitSound( void ) {
-    INT initmcard;
-    INT initdcard;
-    INT cardtype;
-    INT midiport;
-    INT port;
-    INT irq;
-    INT dma;
-    INT channels;
+    int initmcard;
+    int initdcard;
+    int cardtype;
+    int midiport;
+    int port;
+    int irq;
+    int dma;
+    int channels;
     BYTE* amem;
     BYTE* gmem;
-    INT rval;
+    int rval;
 
     dig_flag = FALSE;
     amem = NULL;

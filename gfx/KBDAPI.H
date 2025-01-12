@@ -23,23 +23,23 @@ void // RETURN: none
 /***************************************************************************
    KBD_Ascii2Scan () - converts most ASCII chars to keyboard scan code
  ***************************************************************************/
-INT // RETURN: scan code
+int // RETURN: scan code
 KBD_Ascii2Scan(
-    INT ascii // INPUT : ASCII character
+    int ascii // INPUT : ASCII character
 );
 
 /***************************************************************************
 KBD_Wait() - Waits for Key to be released
  ***************************************************************************/
 void KBD_Wait(
-    INT scancode // SCANCODE see keys.h
+    int scancode // SCANCODE see keys.h
 );
 
 /***************************************************************************
 KBD_IsKey() - Tests to see if key is down if so waits for release
  ***************************************************************************/
 BOOL KBD_IsKey(
-    INT scancode // SCANCODE see keys.h
+    int scancode // SCANCODE see keys.h
 );
 
 /***************************************************************************
@@ -58,14 +58,14 @@ void KBD_End( void );
 // implemented as a macro
 /*
 void KBD_Key(
-    INT scancode // INPUT : scan code to read
+    int scancode // INPUT : scan code to read
 );
 */
 
 extern BOOL paused, capslock, kbd_ack;
 extern BOOL keyboard[256];
-extern INT lastscan;
-extern INT lastascii;
+extern int lastscan;
+extern int lastascii;
 
 #define KBD_Key( c )  keyboard[c]
 #define KBD_ISPAUSED  paused

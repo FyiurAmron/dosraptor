@@ -30,7 +30,7 @@ ESHOT_Shoot() - Shoots ENEMY GUNS
  ***************************************************************************/
 void ESHOT_Shoot(
     SPRITE_SHIP* enemy, // INPUT : pointer to Enemy stuff
-    INT gun_num // INPUT : gun number to shoot
+    int gun_num // INPUT : gun number to shoot
 );
 
 /***************************************************************************

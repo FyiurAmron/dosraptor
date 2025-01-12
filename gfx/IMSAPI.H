@@ -30,9 +30,9 @@ void IMS_WaitAck( void );
 /***************************************************************************
 IMS_WaitTimed() - Wait for aprox secs
  ***************************************************************************/
-INT // RETURN: keypress (lastscan)
+int // RETURN: keypress (lastscan)
 IMS_WaitTimed(
-    INT secs // INPUT : seconds to wait
+    int secs // INPUT : seconds to wait
 );
 
 #endif

@@ -12,7 +12,7 @@ void HELP_Init( void );
 HELP_Win() - Displays the help window at the specified page
  ***************************************************************************/
 void HELP_Win(
-    CHAR* strpage // INPUT : GLB string item
+    char* strpage // INPUT : GLB string item
 );
 
 #endif

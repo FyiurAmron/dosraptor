@@ -17,14 +17,14 @@ typedef enum { I_KEYBOARD, I_MOUSE, I_JOYSTICK, I_FORCE } ITYPE;
 
 extern BOOL buttons[4];
 extern ITYPE control;
-extern INT demo_mode;
-extern INT f_addx;
-extern INT f_addy;
+extern int demo_mode;
+extern int f_addx;
+extern int f_addy;
 
 /***************************************************************************
 DEMO_MakePlayer() -
  ***************************************************************************/
-void DEMO_MakePlayer( INT game );
+void DEMO_MakePlayer( int game );
 
 /***************************************************************************
 DEMO_DisplayStats (
@@ -44,7 +44,7 @@ void DEMO_StartPlayback( void );
 /***************************************************************************
 DEMO_SetFileName()
  ***************************************************************************/
-void DEMO_SetFileName( CHAR* in_name );
+void DEMO_SetFileName( char* in_name );
 
 /***************************************************************************
 DEMO_GLBFile (
@@ -91,8 +91,8 @@ void IPT_PauseControl( BOOL flag );
 IPT_FMovePlayer() - Forces player to move addx/addy
  ***************************************************************************/
 void IPT_FMovePlayer(
-    INT addx, // INPUT : add to x pos
-    INT addy // INPUT : add to y pos
+    int addx, // INPUT : add to x pos
+    int addy // INPUT : add to y pos
 );
 
 /***************************************************************************

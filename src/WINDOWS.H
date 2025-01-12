@@ -7,14 +7,14 @@
 WIN_WinGame () - WIndow text for winners of a game
  ***************************************************************************/
 void WIN_WinGame(
-    INT game // INPUT : game number 0,1,2
+    int game // INPUT : game number 0,1,2
 );
 
 /***************************************************************************
 WIN_Msg () - Display a Message for ten secs or until user Acks somting
  ***************************************************************************/
 void WIN_Msg(
-    CHAR* msg // INPUT : pointer to message to ask
+    char* msg // INPUT : pointer to message to ask
 );
 
 /***************************************************************************
@@ -32,7 +32,7 @@ void WIN_Order( void );
  ***************************************************************************/
 BOOL // RETURN: TRUE/FALSE
 WIN_AskBool(
-    CHAR* question // INPUT : pointer to message to ask
+    char* question // INPUT : pointer to message to ask
 );
 
 /***************************************************************************
@@ -53,12 +53,12 @@ BOOL RAP_Register( void );
 /***************************************************************************
 WIN_Locker () - Locker Room Window
  ***************************************************************************/
-INT RAP_Locker( void );
+int RAP_Locker( void );
 
 /***************************************************************************
 WIN_Hangar() - Does the hanger dude
  ***************************************************************************/
-INT WIN_Hangar( void );
+int WIN_Hangar( void );
 
 /***************************************************************************
 WIN_ShipComp () - Does Game Selection 1, 2 or 3
@@ -73,7 +73,7 @@ void WIN_LoadComp( void );
 /***************************************************************************
 WIN_SetLoadLevel()
  ***************************************************************************/
-void WIN_SetLoadLevel( INT level );
+void WIN_SetLoadLevel( int level );
 
 /***************************************************************************
 WIN_EndLoad () - Shows Ship computer while loading level
@@ -101,6 +101,6 @@ typedef enum {
     DEM_DEMO3G3
 } DEMOTYPE;
 
-extern INT opt_detail;
+extern int opt_detail;
 
 #endif

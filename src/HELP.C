@@ -14,14 +14,14 @@
 #include "help.h"
 
 PRIVATE DWORD startitem;
-PRIVATE INT curpage;
-PRIVATE INT maxpages;
+PRIVATE int curpage;
+PRIVATE int maxpages;
 
 /***************************************************************************
 HELP_Init() - inits the help stuff
  ***************************************************************************/
 void HELP_Init( void ) {
-    INT enditem;
+    int enditem;
 
     startitem = GLB_GetItemID( "STARTHELP" );
     enditem = GLB_GetItemID( "ENDHELP" );
@@ -41,11 +41,11 @@ void HELP_Init( void ) {
 HELP_Win() - Displays the help window at the specified page
  ***************************************************************************/
 void HELP_Win(
-    CHAR* strpage // INPUT : GLB string item
+    char* strpage // INPUT : GLB string item
 ) {
-    CHAR temp[20];
+    char temp[20];
     SWD_DLG dlg;
-    INT window;
+    int window;
     BOOL update = TRUE;
     DWORD item;
 

@@ -22,9 +22,9 @@ FRAME frm[40];
 INTRO_City () - Shows City with planes flying into it
  ***************************************************************************/
 BOOL INTRO_City( void ) {
-    INT i;
-    INT maxframes = 30;
-    INT framecnt = maxframes - 1;
+    int i;
+    int maxframes = 30;
+    int framecnt = maxframes - 1;
     FRAME* cur = frm;
 
     for ( i = 0; i < maxframes; i++, cur++ ) {
@@ -76,9 +76,9 @@ BOOL INTRO_City( void ) {
 INTRO_Side1 () - Show Side OF Player ship going thru city
  ***************************************************************************/
 BOOL INTRO_Side1( void ) {
-    INT i;
-    INT maxframes = 20;
-    INT framecnt = maxframes - 1;
+    int i;
+    int maxframes = 20;
+    int framecnt = maxframes - 1;
     FRAME* cur = frm;
 
     MOVIE_BPatch( FX_JETSND );
@@ -115,9 +115,9 @@ BOOL INTRO_Side1( void ) {
 INTRO_Pilot () - Shows Pilots Face with lights moving thru
  ***************************************************************************/
 BOOL INTRO_Pilot( void ) {
-    INT i;
-    INT maxframes = 21;
-    INT framecnt = maxframes - 1;
+    int i;
+    int maxframes = 21;
+    int framecnt = maxframes - 1;
     FRAME* cur = frm;
 
     MOVIE_BPatch( FX_IJETSND );
@@ -154,9 +154,9 @@ BOOL INTRO_Pilot( void ) {
 INTRO_Explosion () - Bad Guy Blowing UP
  ***************************************************************************/
 BOOL INTRO_Explosion( void ) {
-    INT i;
-    INT maxframes = 22;
-    INT framecnt = maxframes - 1;
+    int i;
+    int maxframes = 22;
+    int framecnt = maxframes - 1;
     FRAME* cur = frm;
 
     MOVIE_BPatch( FX_EJETSND );
@@ -213,11 +213,11 @@ BOOL INTRO_Explosion( void ) {
 INTRO_Side2 () - Plaer Side flying thru city Shooting
  ***************************************************************************/
 BOOL INTRO_Side2( void ) {
-    INT i;
-    INT maxframes = 20;
-    INT framecnt = maxframes - 1;
+    int i;
+    int maxframes = 20;
+    int framecnt = maxframes - 1;
     FRAME* cur = frm;
-    INT opt;
+    int opt;
 
     MOVIE_BPatch( FX_JETSND );
 
@@ -292,9 +292,9 @@ BOOL INTRO_Side2( void ) {
 INTRO_Base() - Base Landing at sunset
  ***************************************************************************/
 BOOL INTRO_Base( void ) {
-    INT i;
-    INT maxframes = 30;
-    INT framecnt = maxframes - 1;
+    int i;
+    int maxframes = 30;
+    int framecnt = maxframes - 1;
     FRAME* cur = frm;
 
     if ( !reg_flag ) {
@@ -337,9 +337,9 @@ BOOL INTRO_Base( void ) {
 INTRO_Landing () - Ship Landing on Base
  ***************************************************************************/
 BOOL INTRO_Landing( void ) {
-    INT i;
-    INT maxframes = 33;
-    INT framecnt = maxframes - 1;
+    int i;
+    int maxframes = 33;
+    int framecnt = maxframes - 1;
     FRAME* cur = frm;
 
     for ( i = 0; i < maxframes; i++ ) {
@@ -379,9 +379,9 @@ BOOL INTRO_Landing( void ) {
 INTRO_Death2 () - Ground Death Scene
  ***************************************************************************/
 BOOL INTRO_Death2( void ) {
-    INT i;
-    INT maxframes = 6;
-    INT framecnt = maxframes - 1;
+    int i;
+    int maxframes = 6;
+    int framecnt = maxframes - 1;
     FRAME* cur = frm;
 
     for ( i = 0; i < maxframes; i++, cur++ ) {
@@ -420,9 +420,9 @@ BOOL INTRO_Death2( void ) {
 INTRO_Death1 () - Air Death Scene
  ***************************************************************************/
 BOOL INTRO_Death1( void ) {
-    INT i;
-    INT maxframes = 30;
-    INT framecnt = maxframes - 1;
+    int i;
+    int maxframes = 30;
+    int framecnt = maxframes - 1;
     FRAME* cur = frm;
 
     for ( i = 0; i < maxframes; i++, cur++ ) {
@@ -467,9 +467,9 @@ BOOL INTRO_Death( void ) {
 INTRO_Game1End () - Game 1 Victory
  ***************************************************************************/
 BOOL INTRO_Game1End( void ) {
-    INT i;
-    INT maxframes = 5;
-    INT framecnt = maxframes - 1;
+    int i;
+    int maxframes = 5;
+    int framecnt = maxframes - 1;
     FRAME* cur = frm;
 
     for ( i = 0; i < maxframes; i++, cur++ ) {
@@ -510,9 +510,9 @@ BOOL INTRO_Game1End( void ) {
 INTRO_Game2End () - Game 1 Victory
  ***************************************************************************/
 BOOL INTRO_Game2End( void ) {
-    INT i;
-    INT maxframes = 25;
-    INT framecnt = maxframes - 1;
+    int i;
+    int maxframes = 25;
+    int framecnt = maxframes - 1;
     FRAME* cur = frm;
 
     for ( i = 0; i < maxframes; i++, cur++ ) {
@@ -563,9 +563,9 @@ BOOL INTRO_Game2End( void ) {
 INTRO_Game3End () - Game 1 Victory
  ***************************************************************************/
 BOOL INTRO_Game3End( void ) {
-    INT i;
-    INT maxframes = 39;
-    INT framecnt = maxframes - 1;
+    int i;
+    int maxframes = 39;
+    int framecnt = maxframes - 1;
     FRAME* cur = frm;
 
     MOVIE_BPatch( FX_JETSND );
@@ -617,7 +617,7 @@ BOOL INTRO_Game3End( void ) {
 /***************************************************************************
 INTRO_EndGame() - Ends the current game anims
  ***************************************************************************/
-void INTRO_EndGame( INT game ) {
+void INTRO_EndGame( int game ) {
     IMS_StartAck();
 
     if ( !reg_flag && game > 0 ) {
@@ -671,10 +671,10 @@ void INTRO_EndGame( INT game ) {
 INTRO_Taiwan (
  ***************************************************************************/
 void INTRO_Taiwan( void ) {
-    INT i;
+    int i;
     BYTE* pal1;
     BYTE* pic1;
-    INT local_cnt = framecount;
+    int local_cnt = framecount;
 
     framecount = 0;
 
@@ -707,12 +707,12 @@ void INTRO_Taiwan( void ) {
 INTRO_Credits() - Credits Screen
  ***************************************************************************/
 BOOL INTRO_Credits( void ) {
-    INT i;
+    int i;
     BYTE* pal1;
     BYTE* pal2;
     BYTE* pic1;
     BYTE* pic2;
-    INT local_cnt = framecount;
+    int local_cnt = framecount;
 
     framecount = 0;
 

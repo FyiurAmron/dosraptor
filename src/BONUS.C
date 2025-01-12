@@ -11,17 +11,17 @@ PRIVATE BONUS first_bonus;
 PRIVATE BONUS last_bonus;
 PRIVATE BONUS* free_bonus;
 PRIVATE DWORD glow[4];
-PRIVATE INT glow_lx;
-PRIVATE INT glow_ly;
-PRIVATE INT xpos[16] = { -1, 0, 1, 2, 3, 3, 3, 2, 1, 0, -1, -2, -3, -3, -3, -2 };
-PRIVATE INT ypos[16] = { -3, -3, -3, -2, -1, 0, 1, 2, 3, 3, 3, 2, 1, 0, -1, -2 };
-PRIVATE INT energy_count;
+PRIVATE int glow_lx;
+PRIVATE int glow_ly;
+PRIVATE int xpos[16] = { -1, 0, 1, 2, 3, 3, 3, 2, 1, 0, -1, -2, -3, -3, -3, -2 };
+PRIVATE int ypos[16] = { -3, -3, -3, -2, -1, 0, 1, 2, 3, 3, 3, 2, 1, 0, -1, -2 };
+PRIVATE int energy_count;
 
 /***************************************************************************
 BONUS_Clear () - Clears out All bonuses
  ***************************************************************************/
 void BONUS_Clear( void ) {
-    INT i;
+    int i;
 
     energy_count = 0;
 
@@ -91,7 +91,7 @@ BONUS* BONUS_Remove( BONUS* sh ) {
 BONUS_Init () - Sets up Bonus stuff
  ***************************************************************************/
 void BONUS_Init( void ) {
-    INT i;
+    int i;
     GFX_PIC* h;
 
     for ( i = 0; i < 4; i++ ) {
@@ -115,8 +115,8 @@ BONUS_Add () - Adds A BONUS to Game so player can Try to pick it up
  ***************************************************************************/
 void BONUS_Add(
     OBJ_TYPE type, // INPUT : OBJECT TYPE
-    INT x, // INPUT : X POSITION
-    INT y // INPUT : Y POSITION
+    int x, // INPUT : X POSITION
+    int y // INPUT : Y POSITION
 ) {
     BONUS* cur;
 
@@ -151,12 +151,12 @@ void BONUS_Add(
 BONUS_Think () - Does all BONUS Thinking
  ***************************************************************************/
 void BONUS_Think( void ) {
-    PRIVATE INT gcnt = 0;
+    PRIVATE int gcnt = 0;
     BONUS* cur;
-    INT x = playerx;
-    INT y = playery;
-    INT x2 = playerx + PLAYERWIDTH;
-    INT y2 = playery + PLAYERHEIGHT;
+    int x = playerx;
+    int y = playery;
+    int x2 = playerx + PLAYERWIDTH;
+    int y2 = playery + PLAYERHEIGHT;
 
     for ( cur = first_bonus.next; cur != &last_bonus; cur = cur->next ) {
         cur->item = cur->lib->item + cur->curframe;

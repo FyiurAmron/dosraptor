@@ -47,29 +47,29 @@ BYTE* palette;
 BYTE* cursor_pic;
 BYTE gpal[768];
 
-PUBLIC INT g_flash;
+PUBLIC int g_flash;
 PUBLIC DWORD curship[16];
 PUBLIC DWORD lship[8];
 PUBLIC DWORD dship[8];
 PUBLIC DWORD fship[8];
-PUBLIC INT o_engine[8] = { 0, 1, 2, 3, 2, 1, 0 };
-PUBLIC INT o_gun1[8] = { 1, 3, 5, 6, 5, 3, 1 };
-PUBLIC INT o_gun2[8] = { 1, 3, 6, 9, 6, 3, 2 };
-PUBLIC INT o_gun3[8] = { 2, 6, 8, 11, 8, 6, 2 };
+PUBLIC int o_engine[8] = { 0, 1, 2, 3, 2, 1, 0 };
+PUBLIC int o_gun1[8] = { 1, 3, 5, 6, 5, 3, 1 };
+PUBLIC int o_gun2[8] = { 1, 3, 6, 9, 6, 3, 2 };
+PUBLIC int o_gun3[8] = { 2, 6, 8, 11, 8, 6, 2 };
 
-PUBLIC INT gl_cnt = 0;
+PUBLIC int gl_cnt = 0;
 PUBLIC BOOL end_wave = FALSE;
 PUBLIC PLAYEROBJ plr;
-PUBLIC INT player_cx = PLAYERINITX;
-PUBLIC INT player_cy = PLAYERINITY;
-PUBLIC INT playerx = PLAYERINITX;
-PUBLIC INT playery = PLAYERINITY;
-PUBLIC INT playerbasepic = 3;
-PUBLIC INT playerpic = 4;
-PUBLIC INT cur_game = 0;
-PUBLIC INT game_wave[4] = { 0, 0, 0, 0 };
+PUBLIC int player_cx = PLAYERINITX;
+PUBLIC int player_cy = PLAYERINITY;
+PUBLIC int playerx = PLAYERINITX;
+PUBLIC int playery = PLAYERINITY;
+PUBLIC int playerbasepic = 3;
+PUBLIC int playerpic = 4;
+PUBLIC int cur_game = 0;
+PUBLIC int game_wave[4] = { 0, 0, 0, 0 };
 PUBLIC MAZELEVEL* ml;
-PUBLIC INT fadecnt = 0;
+PUBLIC int fadecnt = 0;
 PUBLIC BOOL startfadeflag = FALSE;
 PUBLIC BOOL fadeflag = FALSE;
 PUBLIC BOOL start_end_fade = FALSE;
@@ -77,12 +77,12 @@ PUBLIC BOOL end_fadeflag = FALSE;
 PUBLIC FLATS* flatlib[4] = { NULL, NULL, NULL, NULL };
 PUBLIC BOOL debugflag = FALSE;
 PUBLIC BOOL testflag = FALSE;
-PUBLIC INT g_oldshield = EMPTY;
-PUBLIC INT g_oldsuper = EMPTY;
+PUBLIC int g_oldshield = EMPTY;
+PUBLIC int g_oldsuper = EMPTY;
 PUBLIC BYTE* numbers[11];
-PUBLIC INT curplr_diff = DIFF_2;
+PUBLIC int curplr_diff = DIFF_2;
 
-PUBLIC INT startendwave = EMPTY;
+PUBLIC int startendwave = EMPTY;
 PUBLIC BOOL draw_player;
 
 PUBLIC BOOL lowmem_flag = FALSE;
@@ -90,22 +90,22 @@ PUBLIC BOOL reg_flag = FALSE;
 PUBLIC BOOL tai_flag = FALSE;
 PUBLIC BOOL quick_mode = FALSE;
 PUBLIC BOOL godmode = FALSE;
-PUBLIC INT bday_num;
+PUBLIC int bday_num;
 int seed;
 
 #define ROTPAL_START 240
 #define FADE_FRAMES  20
-INT shakes[FADE_FRAMES] = { -4, 4, -3, 3, -2, 2, -1, 1, -1, 1, -1, 1, -1, 1, -1, 1, -1, 1, 0, 0 };
+int shakes[FADE_FRAMES] = { -4, 4, -3, 3, -2, 2, -1, 1, -1, 1, -1, 1, -1, 1, -1, 1, -1, 1, 0, 0 };
 #define MAX_GLOW 20
-INT glowtable[20] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 };
+int glowtable[20] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 };
 
-CHAR flatnames[4][14] = { "FLATSG1_ITM", "FLATSG2_ITM", "FLATSG3_ITM", "FLATSG4_ITM" };
+char flatnames[4][14] = { "FLATSG1_ITM", "FLATSG2_ITM", "FLATSG3_ITM", "FLATSG4_ITM" };
 
 PRIVATE BYTE* g_lowmem;
 PRIVATE BYTE* g_highmem;
-PUBLIC INT demo_flag = DEMO_OFF;
+PUBLIC int demo_flag = DEMO_OFF;
 
-void RAP_PrintVmem( CHAR* desc ) {
+void RAP_PrintVmem( char* desc ) {
     DWORD largest;
     DWORD totalfree;
     DWORD totallocked;
@@ -127,7 +127,7 @@ void RAP_PrintVmem( CHAR* desc ) {
 /*==========================================================================
    ShutDown () Shut Down function called by EXIT_xxx funtions
  ==========================================================================*/
-void ShutDown( INT errcode ) {
+void ShutDown( int errcode ) {
     GLB_FreeAll();
 
     IPT_DeInit();
@@ -155,7 +155,7 @@ void RAP_ClearSides( void ) {
 RAP_GetShipPic () - Loads Correct Ship Pics for Light/Dark Waves
  ***************************************************************************/
 void RAP_GetShipPic( void ) {
-    INT i;
+    int i;
     BOOL lightflag = TRUE;
 
     // GAME 2 wave 8
@@ -186,7 +186,7 @@ void RAP_GetShipPic( void ) {
 /***************************************************************************
    Rot_Color () - Rotates color in palette
  ***************************************************************************/
-void Rot_Color( BYTE* gpal, INT snum, INT len ) {
+void Rot_Color( BYTE* gpal, int snum, int len ) {
     short pos, maxloop;
     char h1[3];
 
@@ -264,9 +264,9 @@ void MoveMobj(
 /***************************************************************************
    MoveSobj() - gets next postion for an Object at speed
  ***************************************************************************/
-INT MoveSobj(
+int MoveSobj(
     MOVEOBJ* cur, // INPUT : pointer to MOVEOBJ
-    INT speed // INPUT : speed to plot at
+    int speed // INPUT : speed to plot at
 ) {
     if ( speed == 0 ) {
         return 0;
@@ -308,9 +308,9 @@ INT MoveSobj(
 /***************************************************************************
 RAP_PrintNum()
  ***************************************************************************/
-void RAP_PrintNum( INT x, INT y, CHAR* str ) {
-    INT maxloop;
-    INT num;
+void RAP_PrintNum( int x, int y, char* str ) {
+    int maxloop;
+    int num;
 
     maxloop = strlen( str );
 
@@ -332,8 +332,8 @@ void RAP_PrintNum( INT x, INT y, CHAR* str ) {
 /***************************************************************************
 RAP_DisplayShieldLevel (
  ***************************************************************************/
-void RAP_DisplayShieldLevel( INT xpos, INT level ) {
-    INT i;
+void RAP_DisplayShieldLevel( int xpos, int level ) {
+    int i;
     BYTE* outbuf;
     DWORD addx;
     DWORD curs;
@@ -361,14 +361,14 @@ void RAP_DisplayShieldLevel( INT xpos, INT level ) {
 RAP_DisplayStats()
  ***************************************************************************/
 void RAP_DisplayStats( void ) {
-    static INT damage = EMPTY;
+    static int damage = EMPTY;
     static BOOL blinkflag = TRUE;
-    CHAR temp[21];
-    INT shield;
-    INT super;
-    INT i;
-    INT x;
-    INT y;
+    char temp[21];
+    int shield;
+    int super;
+    int i;
+    int x;
+    int y;
     BYTE* pic;
     GFX_PIC* h;
 
@@ -498,14 +498,14 @@ void RAP_DisplayStats( void ) {
 }
 
 void RAP_PaletteStuff( void ) {
-    static INT wblink = 0;
-    static INT glow1 = 0;
-    static INT glow2 = 8;
-    static INT cnt = 0;
-    static INT palcnt = 0;
-    static INT blink = 0;
-    INT offset;
-    INT num;
+    static int wblink = 0;
+    static int glow1 = 0;
+    static int glow2 = 8;
+    static int cnt = 0;
+    static int palcnt = 0;
+    static int blink = 0;
+    int offset;
+    int num;
     BYTE* pal1;
     BYTE* pal2;
 
@@ -635,12 +635,12 @@ Do_Game () - The main game thing this is it dude
  ***************************************************************************/
 BOOL // TRUE=Aborted, FALSE = timeout
 Do_Game( void ) {
-    INT local_cnt;
+    int local_cnt;
     BOOL b2_flag = FALSE;
     BOOL b3_flag = FALSE;
     BOOL init_flag = TRUE;
     BOOL rval = FALSE;
-    INT start_score = 0;
+    int start_score = 0;
 
     draw_player = TRUE;
 
@@ -1036,7 +1036,7 @@ void RAP_InitMem( void ) {
         memsize -= MEM_KEEP;
     }
 
-    if ( (INT) memsize < 1 ) {
+    if ( (int) memsize < 1 ) {
         memsize = 0;
     }
 
@@ -1089,7 +1089,7 @@ void RAP_InitMem( void ) {
 }
 
 void JoyHack( void ) {
-    extern INT joy_x, joy_y, joy_buttons;
+    extern int joy_x, joy_y, joy_buttons;
 
     printf( "Calibrate joystick...\n" );
 
@@ -1107,8 +1107,8 @@ void JoyHack( void ) {
     }
 }
 
-void main( INT argc, CHAR* argv[] ) {
-    INT i;
+void main( int argc, char* argv[] ) {
+    int i;
     DWORD item;
     BOOL ptrflag = FALSE;
     void* tptr;

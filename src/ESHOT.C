@@ -14,30 +14,30 @@
 typedef struct {
     DWORD item; // BASE ITEM NUMBER
     BYTE* pic[10]; // POINTER TO PICS
-    INT num_frames; // NUMBER OF FRAMES
+    int num_frames; // NUMBER OF FRAMES
     BOOL smokeflag; // TRUE = SMOKETRAIL
-    INT speed; // SPEED OF SHOT
-    INT xoff; // X CENTER OFFSET
-    INT yoff; // Y CENTER OFFSET
-    INT hits; // HIT POINT DAMAGE TO PLAYER
+    int speed; // SPEED OF SHOT
+    int xoff; // X CENTER OFFSET
+    int yoff; // Y CENTER OFFSET
+    int hits; // HIT POINT DAMAGE TO PLAYER
 } ESHOT_LIB;
 
 typedef struct ESHOT_S {
     struct ESHOT_S* prev; // LINK LIST PREV
     struct ESHOT_S* next; // LINK LIST NEXT
     BYTE* pic; // POINTER TO CUR FRAME PIC
-    INT curframe; // CURRENT ANIM FRAME
-    INT x; // CUR SHOT CENTER X
-    INT y; // CUR SHOT CENTER Y
+    int curframe; // CURRENT ANIM FRAME
+    int x; // CUR SHOT CENTER X
+    int y; // CUR SHOT CENTER Y
     MOVEOBJ move; // MOVE STUFF
     BOOL doneflag; // SHOT DONE = TRUE
     ESHOT_LIB* lib; // POINTER TO LIB
-    INT cnt;
-    INT speed;
-    INT pos;
-    INT type;
+    int cnt;
+    int speed;
+    int pos;
+    int type;
     SPRITE_SHIP* en;
-    INT gun_num;
+    int gun_num;
 } ESHOT;
 
 typedef enum { LIB_NORMAL, LIB_ATPLAY, LIB_MISSLE, LIB_LASER, LIB_MINES, LIB_PLASMA, LIB_COCO, LIB_LASTPIC } LIB_PIC;
@@ -49,14 +49,14 @@ PRIVATE ESHOT eshots[MAX_ESHOT];
 PRIVATE ESHOT first_eshot;
 PRIVATE ESHOT last_eshot;
 PRIVATE ESHOT* free_eshot;
-PRIVATE INT xpos[16] = { -1, 0, 1, 2, 3, 3, 3, 2, 1, 0, -1, -2, -3, -3, -3, -2 };
-PRIVATE INT ypos[16] = { -3, -3, -3, -2, -1, 0, 1, 2, 3, 3, 3, 2, 1, 0, -1, -2 };
+PRIVATE int xpos[16] = { -1, 0, 1, 2, 3, 3, 3, 2, 1, 0, -1, -2, -3, -3, -3, -2 };
+PRIVATE int ypos[16] = { -3, -3, -3, -2, -1, 0, 1, 2, 3, 3, 3, 2, 1, 0, -1, -2 };
 PRIVATE BYTE* elaspow[4];
 
 extern BYTE* lashit[];
 
-PUBLIC INT eshotnum = 0;
-PUBLIC INT eshothigh = 0;
+PUBLIC int eshotnum = 0;
+PUBLIC int eshothigh = 0;
 
 PRIVATE DEFX monkeys[6] = { FX_MON1, FX_MON2, FX_MON3, FX_MON4, FX_MON5, FX_MON6 };
 
@@ -64,7 +64,7 @@ PRIVATE DEFX monkeys[6] = { FX_MON1, FX_MON2, FX_MON3, FX_MON4, FX_MON5, FX_MON6
 ESHOT_Clear () - Clears out ESHOT Linklist
  ***************************************************************************/
 void ESHOT_Clear( void ) {
-    INT i;
+    int i;
 
     eshotnum = 0;
 
@@ -138,7 +138,7 @@ ESHOT_Init () - Inits ESHOT system and clears link list
  ***************************************************************************/
 void ESHOT_Init( void ) {
     ESHOT_LIB* cur;
-    INT i;
+    int i;
     GFX_PIC* h;
     DWORD item;
 
@@ -255,11 +255,11 @@ ESHOT_Shoot() - Shoots ENEMY GUNS
  ***************************************************************************/
 void ESHOT_Shoot(
     SPRITE_SHIP* enemy, // INPUT : pointer to Enemy stuff
-    INT gun_num // INPUT : gun number to shoot
+    int gun_num // INPUT : gun number to shoot
 ) {
     ESHOT* cur;
-    INT x;
-    INT y;
+    int x;
+    int y;
 
     x = enemy->x + enemy->lib->shootx[gun_num];
     y = enemy->y + enemy->lib->shooty[gun_num];
@@ -407,8 +407,8 @@ ESHOT_Think () - Does All Thinking for shot system
 void ESHOT_Think( void ) {
     ESHOT* shot;
     ESHOT_LIB* lib;
-    INT dx;
-    INT dy;
+    int dx;
+    int dy;
 
     for ( shot = first_eshot.next; shot != &last_eshot; shot = shot->next ) {
         lib = shot->lib;
@@ -507,9 +507,9 @@ ESHOT_Display () - Displays All active Shots
  ***************************************************************************/
 void ESHOT_Display( void ) {
     ESHOT* shot;
-    INT i;
+    int i;
     GFX_PIC* h;
-    INT y;
+    int y;
 
     for ( shot = first_eshot.next; shot != &last_eshot; shot = shot->next ) {
         if ( shot->type == ES_LASER ) {

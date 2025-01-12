@@ -12,24 +12,24 @@ typedef enum { GROUND, MID_AIR, HIGH_AIR } GFLAG;
 
 typedef struct ANIMLIB_S {
     DWORD item;
-    INT numframes;
+    int numframes;
     BOOL groundflag;
     BOOL playerflag;
     BOOL transparent;
     ANIM_DIR adir;
-    INT xoff;
-    INT yoff;
+    int xoff;
+    int yoff;
 } ANIMLIB;
 
 typedef struct ANIMS_S {
     struct ANIMS_S* prev;
     struct ANIMS_S* next;
     DWORD item;
-    INT dx;
-    INT dy;
-    INT x;
-    INT y;
-    INT curframe;
+    int dx;
+    int dy;
+    int x;
+    int y;
+    int curframe;
     ANIMLIB* lib;
     GFLAG groundflag;
     SPRITE_SHIP* en;
@@ -46,14 +46,14 @@ PUBLIC ANIMS first_anims;
 PUBLIC ANIMS last_anims;
 PUBLIC ANIMS* free_anims;
 
-PRIVATE INT curlib = 0;
-PRIVATE INT adir[3] = { 0, -1, 1 };
+PRIVATE int curlib = 0;
+PRIVATE int adir[3] = { 0, -1, 1 };
 
 /***************************************************************************
 ANIMS_Clear () - Clears out All ANIM Objects
  ***************************************************************************/
 void ANIMS_Clear( void ) {
-    INT i;
+    int i;
 
     first_anims.prev = NULL;
     first_anims.next = &last_anims;
@@ -116,15 +116,15 @@ PRIVATE ANIMS* ANIMS_Remove( ANIMS* anim ) {
 /***************************************************************************
 ANIMS_Register () - Register a ANIM for USE with this stuff
  ***************************************************************************/
-INT ANIMS_Register(
+int ANIMS_Register(
     DWORD item, // INPUT : lumpnum of first frame
-    INT numframes, // INPUT : number of frames
+    int numframes, // INPUT : number of frames
     GFLAG groundflag, // INPUT : on the ground = TRUE
     BOOL playerflag, // INPUT : follow player movements
     BOOL transparent, // INPUT : Transparent ( LIGHT )
     ANIM_DIR adir // INPUT : Anim Direction
 ) {
-    INT handle = curlib;
+    int handle = curlib;
     ANIMLIB* cur;
     GFX_PIC* h;
 
@@ -199,7 +199,7 @@ void ANIMS_Init( void ) {
 ANIMS_CachePics() - Cache registered anim pics
  ***************************************************************************/
 void ANIMS_CachePics( void ) {
-    INT i;
+    int i;
     ANIMLIB* cur;
     DWORD frames;
 
@@ -216,7 +216,7 @@ void ANIMS_CachePics( void ) {
 ANIMS_FreePics() - Free Up Anims Used
  ***************************************************************************/
 void ANIMS_FreePics( void ) {
-    INT i;
+    int i;
     ANIMLIB* cur;
     DWORD frames;
 
@@ -233,9 +233,9 @@ void ANIMS_FreePics( void ) {
 ANIMS_StartAnim () - Start An ANIM Playing
  ***************************************************************************/
 void ANIMS_StartAnim(
-    INT handle, // INPUT : ANIM handle
-    INT x, // INPUT : x position
-    INT y // INPUT : y position
+    int handle, // INPUT : ANIM handle
+    int x, // INPUT : x position
+    int y // INPUT : y position
 ) {
     ANIMS* cur;
     ANIMLIB* lib = &animlib[handle];
@@ -255,9 +255,9 @@ void ANIMS_StartAnim(
 ANIMS_StartGAnim () - Start An ANIM Playing with groundflag == GROUND
  ***************************************************************************/
 void ANIMS_StartGAnim(
-    INT handle, // INPUT : ANIM handle
-    INT x, // INPUT : x position
-    INT y // INPUT : y position
+    int handle, // INPUT : ANIM handle
+    int x, // INPUT : x position
+    int y // INPUT : y position
 ) {
     ANIMS* cur;
 
@@ -277,9 +277,9 @@ ANIMS_StartEAnim () - Start An ANIM Playing locked onto ENEMY
  ***************************************************************************/
 void ANIMS_StartEAnim(
     SPRITE_SHIP* en, // INPUT : pointer to ENEMY
-    INT handle, // INPUT : ANIM handle
-    INT x, // INPUT : x position
-    INT y // INPUT : y position
+    int handle, // INPUT : ANIM handle
+    int x, // INPUT : x position
+    int y // INPUT : y position
 ) {
     ANIMS* cur;
     ANIMLIB* lib = &animlib[handle];
@@ -300,9 +300,9 @@ void ANIMS_StartEAnim(
 ANIMS_StartAAnim () - Start An ANIM Playing with groundflag == HIGH_AIR
  ***************************************************************************/
 void ANIMS_StartAAnim(
-    INT handle, // INPUT : ANIM handle
-    INT x, // INPUT : x position
-    INT y // INPUT : y position
+    int handle, // INPUT : ANIM handle
+    int x, // INPUT : x position
+    int y // INPUT : y position
 ) {
     ANIMS* cur;
     ANIMLIB* lib = &animlib[handle];

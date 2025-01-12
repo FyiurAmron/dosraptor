@@ -13,12 +13,12 @@ PRIVATE OBJ objs[MAX_OBJS];
 OBJ first_objs;
 OBJ last_objs;
 OBJ* free_objs;
-PRIVATE INT obj_cnt;
+PRIVATE int obj_cnt;
 PUBLIC OBJ_LIB obj_lib[S_LAST_OBJECT];
 PUBLIC OBJ* p_objs[S_LAST_OBJECT];
 
 PRIVATE BOOL objuse_flag;
-PRIVATE INT think_cnt;
+PRIVATE int think_cnt;
 
 #define CHARGE_SHIELD ( 24 * 4 )
 
@@ -26,7 +26,7 @@ PRIVATE INT think_cnt;
 OBJS_Clear () - Clears out All Objects
  ***************************************************************************/
 void OBJS_Clear( void ) {
-    INT i;
+    int i;
 
     obj_cnt = 0;
 
@@ -97,7 +97,7 @@ OBJS_CachePics () - PreLoad bonus/object pictures
  ***************************************************************************/
 void OBJS_CachePics( void ) {
     OBJ_LIB* lib;
-    INT j, i;
+    int j, i;
 
     for ( j = 0; j < S_LAST_OBJECT; j++ ) {
         lib = &obj_lib[j];
@@ -118,7 +118,7 @@ OBJS_FreePics () - Free bonus/object picstures
  ***************************************************************************/
 void OBJS_FreePics( void ) {
     OBJ_LIB* lib;
-    INT j, i;
+    int j, i;
 
     for ( j = 0; j < S_LAST_OBJECT; j++ ) {
         lib = &obj_lib[j];
@@ -551,9 +551,9 @@ OBJS_DisplayStats() - Display game screen object stuff
 void OBJS_DisplayStats( void ) {
     static int dpos = 0;
     DWORD item;
-    INT i;
-    INT x;
-    INT maxloop;
+    int i;
+    int x;
+    int maxloop;
 
     if ( p_objs[S_DETECT] ) {
         i = ENEMY_GetBaseDamage();
@@ -642,8 +642,8 @@ OBJS_Add () - Adds OBJ ( type ) to players possesions
 BUYSTUFF OBJS_Add(
     OBJ_TYPE type // INPUT : OBJ type
 ) {
-    extern INT g_oldsuper;
-    extern INT g_oldshield;
+    extern int g_oldsuper;
+    extern int g_oldshield;
     OBJ* cur;
     OBJ_LIB* lib;
 
@@ -730,9 +730,9 @@ void OBJS_Del(
 OBJS_GetNext () - Sets plr.sweapon to next avalable weapon
  ***************************************************************************/
 void OBJS_GetNext( void ) {
-    INT i;
-    INT pos;
-    INT setval = EMPTY;
+    int i;
+    int pos;
+    int setval = EMPTY;
     OBJ* cur;
 
     if ( plr.sweapon < S_DUMB_MISSLE ) {
@@ -794,13 +794,13 @@ void OBJS_Use(
 /***************************************************************************
 OBJS_Sell () - Sell Object from player posesion
  ***************************************************************************/
-INT // RETRUN: amount left
+int // RETRUN: amount left
 OBJS_Sell(
     OBJ_TYPE type // INPUT : OBJ type
 ) {
     OBJ* cur = p_objs[type];
     OBJ_LIB* lib = &obj_lib[type];
-    INT rval = 0;
+    int rval = 0;
 
     if ( !cur ) {
         return 0;
@@ -847,7 +847,7 @@ OBJS_Buy(
     OBJ_TYPE type // INPUT : OBJ type
 ) {
     BUYSTUFF rval = OBJ_NOMONEY;
-    INT num;
+    int num;
 
     if ( type == S_SUPER_SHIELD ) {
         num = OBJS_GetTotal( S_SUPER_SHIELD );
@@ -870,10 +870,10 @@ OBJS_Buy(
 /***************************************************************************
 OBJS_SubAmt () - Subtract Amount From Equiped Item
  ***************************************************************************/
-INT // RETURN: return nums in OBJ
+int // RETURN: return nums in OBJ
 OBJS_SubAmt(
     OBJ_TYPE type, // INPUT : OBJ type
-    INT amt // INPUT : amount to subtract
+    int amt // INPUT : amount to subtract
 ) {
     OBJ* cur = p_objs[type];
 
@@ -893,7 +893,7 @@ OBJS_SubAmt(
 /***************************************************************************
 OBJS_GetAmt() - Returns number of items within TYPE in Equiped Items
  ***************************************************************************/
-INT // RETURN: return nums in OBJ
+int // RETURN: return nums in OBJ
 OBJS_GetAmt(
     OBJ_TYPE type // INPUT : OBJ type
 ) {
@@ -909,12 +909,12 @@ OBJS_GetAmt(
 /***************************************************************************
 OBJS_GetTotal() - Returns number of items within TYPE in all OBJS
  ***************************************************************************/
-INT // RETURN: return nums in OBJ
+int // RETURN: return nums in OBJ
 OBJS_GetTotal(
     OBJ_TYPE type // INPUT : OBJ type
 ) {
     OBJ* cur;
-    INT total;
+    int total;
 
     total = 0;
 
@@ -942,12 +942,12 @@ OBJS_IsOnly(
 /***************************************************************************
 OBJS_GetCost () - Returns The game COST of an object
  ***************************************************************************/
-INT // RETURN: cost of object
+int // RETURN: cost of object
 OBJS_GetCost(
     OBJ_TYPE type // INPUT : OBJ type
 ) {
     OBJ_LIB* lib = &obj_lib[type];
-    INT cost;
+    int cost;
 
     if ( !lib ) {
         return 99999999;
@@ -965,13 +965,13 @@ OBJS_GetCost(
 /***************************************************************************
 OBJS_GetResale () - Returns The game Resale Value of an object
  ***************************************************************************/
-INT // RETURN: cost of object
+int // RETURN: cost of object
 OBJS_GetResale(
     OBJ_TYPE type // INPUT : OBJ type
 ) {
     OBJ* cur = p_objs[type];
     OBJ_LIB* lib = &obj_lib[type];
-    INT cost;
+    int cost;
 
     if ( !cur ) {
         return 0;
@@ -995,7 +995,7 @@ BOOL OBJS_CanBuy(
     OBJ_TYPE type // INPUT : OBJ type
 ) {
     OBJ_LIB* lib = &obj_lib[type];
-    INT cost;
+    int cost;
 
     if ( type >= S_LAST_OBJECT ) {
         return FALSE;
@@ -1063,7 +1063,7 @@ BOOL OBJS_CanSell(
 /***************************************************************************
 OBJS_GetNum () - Returns number of Objects that player has
  ***************************************************************************/
-INT // RETURN: number of objects
+int // RETURN: number of objects
 OBJS_GetNum( void ) {
     return obj_cnt;
 }
@@ -1096,9 +1096,9 @@ OBJS_IsEquip(
 /***************************************************************************
 OBJS_SubEnergy()
  ***************************************************************************/
-INT // RETURN: return nums in OBJ
+int // RETURN: return nums in OBJ
 OBJS_SubEnergy(
-    INT amt // INPUT : amount to subtract
+    int amt // INPUT : amount to subtract
 ) {
     extern BOOL godmode;
     OBJ* cur;
@@ -1148,9 +1148,9 @@ OBJS_SubEnergy(
 /***************************************************************************
 OBJS_AddEnergy()
  ***************************************************************************/
-INT // RETURN: return nums in OBJ
+int // RETURN: return nums in OBJ
 OBJS_AddEnergy(
-    INT amt // INPUT : amount to add
+    int amt // INPUT : amount to add
 ) {
     OBJ* cur;
 
@@ -1196,7 +1196,7 @@ OBJS_LoseObj() - Lose random object
  ***************************************************************************/
 BOOL OBJS_LoseObj( void ) {
     OBJ_LIB* lib;
-    INT type;
+    int type;
     BOOL rval = TRUE;
 
     if ( plr.sweapon == EMPTY ) {

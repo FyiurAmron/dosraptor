@@ -19,15 +19,15 @@
 
 #define MAX_SAVE 10
 
-PRIVATE CHAR* fmt = "CHAR%04u.FIL";
-PRIVATE CHAR* cdfmt = "%s\\CHAR%04u.FIL";
-PRIVATE CHAR* pogpath = "APOGEECD";
-PRIVATE INT filepos = EMPTY;
+PRIVATE char* fmt = "char%04u.FIL";
+PRIVATE char* cdfmt = "%s\\char%04u.FIL";
+PRIVATE char* pogpath = "APOGEECD";
+PRIVATE int filepos = EMPTY;
 PRIVATE DWORD map_item = EMPTY;
 PRIVATE BYTE* mapmem;
 PRIVATE BYTE cdflag = FALSE;
-PRIVATE CHAR cdpath[33];
-PRIVATE CHAR g_setup_ini[66];
+PRIVATE char cdpath[33];
+PRIVATE char g_setup_ini[66];
 
 /***************************************************************************
 RAP_SetPlayerDiff () - Set Player Difficulty
@@ -85,8 +85,8 @@ BOOL RAP_IsPlayer( void ) {
 RAP_AreSavedFiles() - Returns TRUE if thier are previously saved game files
  ***************************************************************************/
 BOOL RAP_AreSavedFiles( void ) {
-    CHAR temp[41];
-    INT i;
+    char temp[41];
+    int i;
 
     for ( i = 0; i < MAX_SAVE; i++ ) {
         if ( cdflag ) {
@@ -106,13 +106,13 @@ BOOL RAP_AreSavedFiles( void ) {
 /***************************************************************************
 RAP_ReadFile() - Reads file into buffer for sizerec and DECRYTES
  ***************************************************************************/
-PRIVATE INT // RETURN: size of record
+PRIVATE int // RETURN: size of record
 RAP_ReadFile(
-    CHAR* name, // INPUT : filename
+    char* name, // INPUT : filename
     void* buffer, // OUTPUT: pointer to buffer
-    INT sizerec // INPUT : number of bytes to read
+    int sizerec // INPUT : number of bytes to read
 ) {
-    INT handle;
+    int handle;
 
     if ( ( handle = open( name, O_RDONLY | O_BINARY ) ) == -1 ) {
         WIN_Msg( "File open Error" );
@@ -130,8 +130,8 @@ RAP_ReadFile(
 RAP_FFSaveFile() - Finds a filename to use
  ***************************************************************************/
 BOOL RAP_FFSaveFile( void ) {
-    CHAR temp[41];
-    INT i;
+    char temp[41];
+    int i;
     BOOL rval = FALSE;
 
     filepos = EMPTY;
@@ -159,10 +159,10 @@ RAP_IsSaveFile() - Returns True if thier is a sopt to save a character
  ***************************************************************************/
 BOOL RAP_IsSaveFile( PLAYEROBJ* in_plr ) {
     PLAYEROBJ tp;
-    CHAR temp[41];
-    INT i;
+    char temp[41];
+    int i;
     BOOL rval = FALSE;
-    INT handle;
+    int handle;
 
     for ( i = 0; i < MAX_SAVE; i++ ) {
         if ( cdflag ) {
@@ -189,10 +189,10 @@ BOOL RAP_IsSaveFile( PLAYEROBJ* in_plr ) {
 RAP_LoadPlayer () - Loads player from disk
  ***************************************************************************/
 BOOL RAP_LoadPlayer( void ) {
-    CHAR filename[41];
-    INT handle;
-    INT i;
-    INT rval = FALSE;
+    char filename[41];
+    int handle;
+    int i;
+    int rval = FALSE;
     OBJ inobj;
 
     if ( filepos == EMPTY ) {
@@ -251,9 +251,9 @@ RAP_SavePlayer() - Saves player data to filename
 BOOL RAP_SavePlayer( void ) {
     extern OBJ first_objs;
     extern OBJ last_objs;
-    CHAR filename[41];
-    INT handle;
-    INT rval = FALSE;
+    char filename[41];
+    int handle;
+    int rval = FALSE;
     OBJ* cur;
 
     if ( filepos == EMPTY ) {
@@ -302,7 +302,7 @@ BOOL RAP_SavePlayer( void ) {
  RAP_LoadMap () - Loads A level Map
  ***************************************************************************/
 void RAP_LoadMap( void ) {
-    CHAR temp[42];
+    char temp[42];
 
     if ( !reg_flag && cur_game > 0 ) {
         EXIT_Error( "!reg_flag && cur_game %d > 0", cur_game );
@@ -362,18 +362,18 @@ void RAP_FreeMap( void ) {
 /***************************************************************************
 RAP_LoadWin() -
  ***************************************************************************/
-INT // RETURN : -1 = no FIles, 0=cancel, 1=loaded
+int // RETURN : -1 = no FIles, 0=cancel, 1=loaded
 RAP_LoadWin( void ) {
-    CHAR temp[41];
-    CHAR filenames[MAX_SAVE][33];
+    char temp[41];
+    char filenames[MAX_SAVE][33];
     PLAYEROBJ tplr;
     SWD_DLG dlg;
-    INT window;
+    int window;
     BOOL update = TRUE;
-    INT i;
-    INT pos = EMPTY;
-    INT oldpos = -2;
-    INT addnum;
+    int i;
+    int pos = EMPTY;
+    int oldpos = -2;
+    int addnum;
     BOOL fndflag = FALSE;
     BOOL rval = 0;
 
@@ -552,9 +552,9 @@ load_exit:
 /***************************************************************************
 RAP_InitLoadSave() - Inits the load and save path stuff
  ***************************************************************************/
-CHAR* RAP_InitLoadSave( void ) {
+char* RAP_InitLoadSave( void ) {
     BYTE* var1;
-    CHAR* n1 = "setup.ini";
+    char* n1 = "setup.ini";
 
     var1 = getenv( pogpath );
 
@@ -582,6 +582,6 @@ CHAR* RAP_InitLoadSave( void ) {
 /***************************************************************************
 RAP_SetupFilename() - Gets current setup.ini path and name
  ***************************************************************************/
-CHAR* RAP_SetupFilename( void ) {
+char* RAP_SetupFilename( void ) {
     return g_setup_ini;
 }

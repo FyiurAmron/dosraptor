@@ -36,10 +36,10 @@
 #define CURSORSIZE   ( CURSORHEIGHT * CURSORWIDTH )
 #define HOTSPOTCOLOR 255
 
-extern INT ud_x; // update x pos
-extern INT ud_y; // update y pos
-extern INT ud_lx; // update x length
-extern INT ud_ly; // update y length
+extern int ud_x; // update x pos
+extern int ud_y; // update y pos
+extern int ud_lx; // update x length
+extern int ud_ly; // update y length
 
 #define MOUSE_MV 0x01 // Mouse movement occurred
 #define LB_PRESS 0x02 // Left button pressed
@@ -59,21 +59,21 @@ PUBLIC BYTE* cursorsave;
 PUBLIC BOOL mousepresent = FALSE;
 PUBLIC BOOL joypresent = FALSE;
 PUBLIC BOOL joyactive = FALSE;
-PUBLIC INT joy2b1 = 0;
-PUBLIC INT joy2b2 = 0;
-PUBLIC INT mouseb1 = 0;
-PUBLIC INT mouseb2 = 0;
-PUBLIC INT mouseb3 = 0;
-PUBLIC INT cursorx = 0;
-PUBLIC INT cursory = 0;
-PUBLIC INT cursorloopx = 0;
-PUBLIC INT cursorloopy = 0;
-PUBLIC INT cur_mx = 0;
-PUBLIC INT cur_my = 0;
-PRIVATE INT dm_x = 0;
-PRIVATE INT dm_y = 0;
-PRIVATE INT hot_mx = 0;
-PRIVATE INT hot_my = 0;
+PUBLIC int joy2b1 = 0;
+PUBLIC int joy2b2 = 0;
+PUBLIC int mouseb1 = 0;
+PUBLIC int mouseb2 = 0;
+PUBLIC int mouseb3 = 0;
+PUBLIC int cursorx = 0;
+PUBLIC int cursory = 0;
+PUBLIC int cursorloopx = 0;
+PUBLIC int cursorloopy = 0;
+PUBLIC int cur_mx = 0;
+PUBLIC int cur_my = 0;
+PRIVATE int dm_x = 0;
+PRIVATE int dm_y = 0;
+PRIVATE int hot_mx = 0;
+PRIVATE int hot_my = 0;
 PRIVATE BOOL mouseonhold = FALSE;
 PRIVATE BOOL mouseaction = TRUE;
 PRIVATE BOOL mouse_erase = FALSE;
@@ -85,26 +85,26 @@ PUBLIC BOOL drawcursor = FALSE;
 PRIVATE BOOL g_paused = FALSE;
 PRIVATE BOOL lastclip = FALSE;
 PRIVATE DWORD tsm_id = EMPTY;
-PUBLIC INT joy_limit_xh = 10;
-PUBLIC INT joy_limit_xl = -10;
-PUBLIC INT joy_limit_yh = 10;
-PUBLIC INT joy_limit_yl = -10;
-PUBLIC INT joy_sx = 0;
-PUBLIC INT joy_sy = 0;
+PUBLIC int joy_limit_xh = 10;
+PUBLIC int joy_limit_xl = -10;
+PUBLIC int joy_limit_yh = 10;
+PUBLIC int joy_limit_yl = -10;
+PUBLIC int joy_sx = 0;
+PUBLIC int joy_sy = 0;
 PRIVATE BOOL joy_present = FALSE;
-PUBLIC INT joy_x = 0;
-PUBLIC INT joy_y = 0;
-PUBLIC INT joy_buttons = 0;
+PUBLIC int joy_x = 0;
+PUBLIC int joy_y = 0;
+PUBLIC int joy_buttons = 0;
 PUBLIC BOOL ptr_init_flag = FALSE;
-PRIVATE INT g_addx = 0;
-PRIVATE INT g_addy = 0;
+PRIVATE int g_addx = 0;
+PRIVATE int g_addy = 0;
 
 /*------------------------------------------------------------------------
 PTR_IsJoyPresent() - Checks to see if joystick is present
   ------------------------------------------------------------------------*/
 BOOL PTR_IsJoyPresent( void ) {
-    INT i;
-    INT rval = TRUE;
+    int i;
+    int rval = TRUE;
 
     _disable();
     outp( 0x201, 1 );
@@ -126,7 +126,7 @@ BOOL PTR_IsJoyPresent( void ) {
 /*------------------------------------------------------------------------
    PTR_MouseHandler() - Mouse Handler Function
   ------------------------------------------------------------------------*/
-void _loadds far PTR_MouseHandler( INT m_bx, INT m_cx, INT m_dx ) {
+void _loadds far PTR_MouseHandler( int m_bx, int m_cx, int m_dx ) {
 #pragma aux PTR_MouseHandler parm[EBX][ECX][EDX]
 
     if ( not_in_update ) {
@@ -160,8 +160,8 @@ void PTR_JoyReset( void ) {
   PTR_JoyHandler () - Handles Joystick Input
   ------------------------------------------------------------------------*/
 void PTR_JoyHandler( void ) {
-    INT xm;
-    INT ym;
+    int xm;
+    int ym;
 
     if ( !joyactive ) {
         return;
@@ -354,10 +354,10 @@ void PTR_UpdateCursor( void ) {
 void PTR_FrameHook(
     void ( *update )( void ) // INPUT : pointer to function
 ) {
-    INT ck_x1;
-    INT ck_y1;
-    INT ck_x2;
-    INT ck_y2;
+    int ck_x1;
+    int ck_y1;
+    int ck_x2;
+    int ck_y2;
 
     if ( !drawcursor ) {
         update();
@@ -499,7 +499,7 @@ void PTR_SetPic(
     BYTE* newp // INPUT : pointer to new Cursor picture
 ) {
     BYTE* pic;
-    INT i;
+    int i;
 
     hot_mx = 0;
     hot_my = 0;
@@ -566,8 +566,8 @@ void PTR_SetUpdateFlag( void ) {
  ***************************************************************************/
 void // RETURN: none
 PTR_SetPos(
-    INT x, // INPUT : x position
-    INT y // INPUT : y position
+    int x, // INPUT : x position
+    int y // INPUT : y position
 ) {
     union REGS regs;
 
@@ -621,7 +621,7 @@ BOOL // RETURN true = Installed, false  = No mouse
 PTR_Init(
     PTRTYPE type // INPUT : Pointer Type to Use
 ) {
-    CHAR* err = "PTR_Init() - DosMemAlloc";
+    char* err = "PTR_Init() - DosMemAlloc";
     struct SREGS sregs;
     union REGS regs;
     void( far * function_ptr )();

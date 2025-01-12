@@ -25,17 +25,17 @@ typedef enum { GSPRITE, GPIC } GFX_TYPE;
 
 typedef struct {
     GFX_TYPE type; // type of picture
-    INT opt1; // option 1
-    INT opt2; // option 2
-    INT width; // width of pic
-    INT height; // heigth of pic
+    int opt1; // option 1
+    int opt2; // option 2
+    int width; // width of pic
+    int height; // heigth of pic
 } GFX_PIC;
 
 typedef struct {
-    INT x; // X POS OF SEG
-    INT y; // Y POS OF SEG
-    INT offset; // OFFSET FROM X, Y
-    INT length; // LENGTH OF LINE
+    int x; // X POS OF SEG
+    int y; // Y POS OF SEG
+    int offset; // OFFSET FROM X, Y
+    int length; // LENGTH OF LINE
 } GFX_SPRITE;
 
 typedef struct {
@@ -46,9 +46,9 @@ typedef struct {
 } ANIMLINE;
 
 typedef struct {
-    INT height;
-    SHORT charofs[256];
-    CHAR width[256];
+    int height;
+    short charofs[256];
+    char width[256];
 } FONT;
 
 /*==========================================================================
@@ -66,13 +66,13 @@ void GFX_SetDebug(
 /*************************************************************************
    GFX_ClipLines ()
  *************************************************************************/
-INT // RETURN: 0 = Off, 1 == No Clip , 2 == Cliped
+int // RETURN: 0 = Off, 1 == No Clip , 2 == Cliped
 GFX_ClipLines(
     BYTE** image, // INOUT : pointer to image or NULL
-    INT* x, // INOUT : pointer to x pos
-    INT* y, // INOUT : pointer to y pos
-    INT* lx, // INOUT : pointer to width
-    INT* ly // INOUT : pointer to length
+    int* x, // INOUT : pointer to x pos
+    int* y, // INOUT : pointer to y pos
+    int* lx, // INOUT : pointer to width
+    int* ly // INOUT : pointer to length
 );
 
 /**************************************************************************
@@ -111,10 +111,10 @@ void GFX_GetPalette(
 GFX_FadeOut () - Fade Palette out to ( Red, Green , and Blue Value
  **************************************************************************/
 void GFX_FadeOut(
-    INT red, // INPUT : red ( 0 - 63 )
-    INT green, // INPUT : green ( 0 - 63 )
-    INT blue, // INPUT : blue ( 0 - 63 )
-    INT speed // INPUT : speed of fade
+    int red, // INPUT : red ( 0 - 63 )
+    int green, // INPUT : green ( 0 - 63 )
+    int blue, // INPUT : blue ( 0 - 63 )
+    int speed // INPUT : speed of fade
 );
 
 /**************************************************************************
@@ -122,7 +122,7 @@ GFX_FadeIn () - Fades From current palette to new palette
  **************************************************************************/
 void GFX_FadeIn(
     BYTE* palette, // INPUT : palette to fade into
-    INT steps // INPUT : steps of fade ( 0 - 255 )
+    int steps // INPUT : steps of fade ( 0 - 255 )
 );
 
 /**************************************************************************
@@ -135,35 +135,35 @@ GFX_FadeFrame () - Fades Individual Frames
  **************************************************************************/
 void GFX_FadeFrame(
     BYTE* palette, // INPUT : palette to fade into
-    INT cur_step, // INPUT : cur step position
-    INT steps // INPUT : total steps of fade ( 0 - 255 )
+    int cur_step, // INPUT : cur step position
+    int steps // INPUT : total steps of fade ( 0 - 255 )
 );
 
 /**************************************************************************
 GFX_SetPalRange() - Sets start and end range for remaping stuff
  **************************************************************************/
-void GFX_SetPalRange( INT start, INT end );
+void GFX_SetPalRange( int start, int end );
 
 /**************************************************************************
   GFX_GetRGB() - gets R,G and B values from pallete data
  **************************************************************************/
 void GFX_GetRGB(
     BYTE* pal, // INPUT : pointer to palette data
-    INT num, // INPUT : palette entry
-    INT* red, // OUTPUT: red value
-    INT* green, // OUTPUT: green value
-    INT* blue // OUTPUT: blue value
+    int num, // INPUT : palette entry
+    int* red, // OUTPUT: red value
+    int* green, // OUTPUT: green value
+    int* blue // OUTPUT: blue value
 );
 
 /**************************************************************************
   GFX_Remap() - Finds the closest color avalable
  **************************************************************************/
-INT // RETURN: new color number
+int // RETURN: new color number
 GFX_Remap(
     BYTE* pal, // INPUT : pointer to palette data
-    INT red, // INPUT : red  ( 0 - 63 )
-    INT green, // INPUT : green( 0 - 63 )
-    INT blue // INPUT : blue ( 0 - 63 )
+    int red, // INPUT : red  ( 0 - 63 )
+    int green, // INPUT : green( 0 - 63 )
+    int blue // INPUT : blue ( 0 - 63 )
 );
 
 /**************************************************************************
@@ -172,7 +172,7 @@ GFX_Remap(
 void GFX_MakeLightTable(
     BYTE* palette, // INPUT : pointer to palette data
     BYTE* ltable, // OUTPUT: pointer to lookup table
-    INT level // INPUT : - 63 to + 63
+    int level // INPUT : - 63 to + 63
 );
 
 /**************************************************************************
@@ -188,10 +188,10 @@ void GFX_MakeGreyTable(
  *************************************************************************/
 void GFX_GetScreen(
     BYTE* outmem, // OUTPUT: pointer to CPU mem
-    INT x, // INPUT : x pos
-    INT y, // INPUT : y pos
-    INT lx, // INPUT : x length
-    INT ly // INPUT : y length
+    int x, // INPUT : x pos
+    int y, // INPUT : y pos
+    int lx, // INPUT : x length
+    int ly // INPUT : y length
 );
 
 /*************************************************************************
@@ -199,10 +199,10 @@ void GFX_GetScreen(
  *************************************************************************/
 void GFX_PutTexture(
     BYTE* intxt, // INPUT : color texture
-    INT x, // INPUT : x pos
-    INT y, // INPUT : y pos
-    INT lx, // INPUT : x length
-    INT ly // INPUT : y length
+    int x, // INPUT : x pos
+    int y, // INPUT : y pos
+    int lx, // INPUT : x length
+    int ly // INPUT : y length
 );
 
 /*************************************************************************
@@ -210,10 +210,10 @@ void GFX_PutTexture(
  *************************************************************************/
 void GFX_ShadeArea(
     SHADE opt, // INPUT : GFX_Dark or GFX_Lite
-    INT x, // INPUT : x position
-    INT y, // INPUT : y position
-    INT lx, // INPUT : x length
-    INT ly // INPUT : y length
+    int x, // INPUT : x position
+    int y, // INPUT : y position
+    int lx, // INPUT : x length
+    int ly // INPUT : y length
 );
 
 /*************************************************************************
@@ -222,8 +222,8 @@ void GFX_ShadeArea(
 void GFX_ShadeShape(
     SHADE opt, // INPUT : DARK/LIGHT or GREY
     BYTE* mask, // INPUT : mask 0 = no shade ( GFX format pic )
-    INT x, // INPUT : x position
-    INT y // INPUT : y position
+    int x, // INPUT : x position
+    int y // INPUT : y position
 );
 
 /*************************************************************************
@@ -231,9 +231,9 @@ void GFX_ShadeShape(
  *************************************************************************/
 void GFX_VShadeLine(
     SHADE opt, // INPUT : DARK or LIGHT
-    INT x, // INPUT : x position
-    INT y, // INPUT : y position
-    INT ly // INPUT : length of line
+    int x, // INPUT : x position
+    int y, // INPUT : y position
+    int ly // INPUT : length of line
 );
 
 /*************************************************************************
@@ -241,9 +241,9 @@ void GFX_VShadeLine(
  *************************************************************************/
 void GFX_HShadeLine(
     SHADE opt, // INPUT : DARK or LIGHT
-    INT x, // INPUT : x position
-    INT y, // INPUT : y position
-    INT lx // INPUT : length of line
+    int x, // INPUT : x position
+    int y, // INPUT : y position
+    int lx // INPUT : length of line
 );
 
 /*************************************************************************
@@ -251,83 +251,83 @@ void GFX_HShadeLine(
  *************************************************************************/
 void GFX_LightBox(
     CORNER opt, // INPUT : light source
-    INT x, // INPUT : x position
-    INT y, // INPUT : y position
-    INT lx, // INPUT : x length
-    INT ly // INPUT : y length
+    int x, // INPUT : x position
+    int y, // INPUT : y position
+    int lx, // INPUT : x length
+    int ly // INPUT : y length
 );
 
 /*************************************************************************
    GFX_ColorBox () - sets a rectangular area to color
  *************************************************************************/
 void GFX_ColorBox(
-    INT x, // INPUT : x position
-    INT y, // INPUT : y position
-    INT lx, // INPUT : width
-    INT ly, // INPUT : length
-    INT color // INPUT : fill color ( 0 - 255 )
+    int x, // INPUT : x position
+    int y, // INPUT : y position
+    int lx, // INPUT : width
+    int ly, // INPUT : length
+    int color // INPUT : fill color ( 0 - 255 )
 );
 
 /*************************************************************************
    GFX_HLine () - plots a horizontal line in color
  *************************************************************************/
 void GFX_HLine(
-    INT x, // INPUT : x position
-    INT y, // INPUT : y position
-    INT lx, // INPUT : width
-    INT color // INPUT : fill color ( 0 - 255 )
+    int x, // INPUT : x position
+    int y, // INPUT : y position
+    int lx, // INPUT : width
+    int color // INPUT : fill color ( 0 - 255 )
 );
 
 /*************************************************************************
    GFX_VLine () plots a vertical line in color
  *************************************************************************/
 void GFX_VLine(
-    INT x, // INPUT : x position
-    INT y, // INPUT : y position
-    INT ly, // INPUT : length
-    INT color // INPUT : fill color ( 0 - 255 )
+    int x, // INPUT : x position
+    int y, // INPUT : y position
+    int ly, // INPUT : length
+    int color // INPUT : fill color ( 0 - 255 )
 );
 
 /*************************************************************************
    GFX_Rectangle () - sets a rectangular border to color
  *************************************************************************/
 void GFX_Rectangle(
-    INT x, // INPUT : x position
-    INT y, // INPUT : y position
-    INT lx, // INPUT : width
-    INT ly, // INPUT : length
-    INT color // INPUT : fill color ( 0 - 255 )
+    int x, // INPUT : x position
+    int y, // INPUT : y position
+    int lx, // INPUT : width
+    int ly, // INPUT : length
+    int color // INPUT : fill color ( 0 - 255 )
 );
 
 /*************************************************************************
    GFX_Line () plots a line in color
  *************************************************************************/
 void GFX_Line(
-    INT x, // INPUT : x start point
-    INT y, // INPUT : y start point
-    INT x2, // INPUT : x2 end point
-    INT y2, // INPUT : y2 end point
-    INT color // INPUT : color ( 0 - 255 )
+    int x, // INPUT : x start point
+    int y, // INPUT : y start point
+    int x2, // INPUT : x2 end point
+    int y2, // INPUT : y2 end point
+    int color // INPUT : color ( 0 - 255 )
 );
 
 /*************************************************************************
    GFX_MarkUpdate () Marks an area to be draw with GFX_DrawScreen()
  *************************************************************************/
 void GFX_MarkUpdate(
-    INT x, // INPUT : x position
-    INT y, // INPUT : y position
-    INT lx, // INPUT : x length
-    INT ly // INPUT : y length
+    int x, // INPUT : x position
+    int y, // INPUT : y position
+    int lx, // INPUT : x length
+    int ly // INPUT : y length
 );
 
 /*************************************************************************
    GFX_ForceUpdate () Marks an area to be draw with GFX_DrawScreen()
  *************************************************************************/
 void GFX_ForceUpdate(
-    INT x, // INPUT : x position
-    INT y, // INPUT : y position
-    INT lx, // INPUT : x length
-    INT ly // INPUT : y length
+    int x, // INPUT : x position
+    int y, // INPUT : y position
+    int lx, // INPUT : x length
+    int ly // INPUT : y length
 );
 
 /***************************************************************************
@@ -341,14 +341,14 @@ void GFX_SetFrameHook(
  GFX_Delay () - Delay for ( count ) of screen frames ( sec/70 )
  ***************************************************************************/
 void GFX_Delay(
-    INT count // INPUT : wait # of frame ticks
+    int count // INPUT : wait # of frame ticks
 );
 
 /***************************************************************************
    GFX_WaitUpdate () - Updates screen at specified frame rate
  ***************************************************************************/
 void GFX_WaitUpdate(
-    INT count // INPUT : frame rate ( MAX = 70 )
+    int count // INPUT : frame rate ( MAX = 70 )
 );
 
 /***************************************************************************
@@ -361,21 +361,21 @@ void GFX_DisplayUpdate( void );
  ***************************************************************************/
 void GFX_PutImage(
     BYTE* image, // INPUT : image data
-    INT x, // INPUT : x position
-    INT y, // INPUT : y position
+    int x, // INPUT : x position
+    int y, // INPUT : y position
     BOOL see_thru // INPUT : true = masked, false = put block
 );
 
 /***************************************************************************
    GFX_Print () - prints a string using specified font with basecolor
  ***************************************************************************/
-INT // RETURN: length of print
+int // RETURN: length of print
 GFX_Print(
-    INT printx, // INPUT : x position
-    INT printy, // INPUT : y position
-    CHAR* str, // INPUT : string to print
+    int printx, // INPUT : x position
+    int printy, // INPUT : y position
+    char* str, // INPUT : string to print
     void* infont, // INPUT : pointer to font
-    INT basecolor // INPUT : basecolor of font
+    int basecolor // INPUT : basecolor of font
 );
 
 /***************************************************************************
@@ -383,8 +383,8 @@ GFX_Print(
  ***************************************************************************/
 void GFX_PutSprite(
     BYTE* inmem, // INPUT : inmem
-    INT x, // INPUT : x pos
-    INT y // INPUT : y pos
+    int x, // INPUT : x pos
+    int y // INPUT : y pos
 );
 
 /***************************************************************************
@@ -393,17 +393,17 @@ void GFX_PutSprite(
 void GFX_OverlayImage(
     BYTE* baseimage, // INPUT : base image data
     BYTE* overimage, // INPUT : overlay image data
-    INT x, // INPUT : x position
-    INT y // INPUT : y position
+    int x, // INPUT : x position
+    int y // INPUT : y position
 );
 
 /***************************************************************************
    GFX_StrPixelLen() - Calculates the length of a GFX string
  ***************************************************************************/
-INT // RETURNS : pixel length
+int // RETURNS : pixel length
 GFX_StrPixelLen(
     void* infont, // INPUT : pointer to current font
-    CHAR* instr, // INPUT : pointer to string
+    char* instr, // INPUT : pointer to string
     size_t maxloop // INPUT : length of string
 );
 
@@ -411,20 +411,20 @@ GFX_StrPixelLen(
    GFX_3D_SetView() Sets user view in 3d space
  ***************************************************************************/
 void GFX_3D_SetView(
-    INT x, // INPUT : x position
-    INT y, // INPUT : y position
-    INT z // INPUT : z position
+    int x, // INPUT : x position
+    int y, // INPUT : y position
+    int z // INPUT : z position
 );
 
 /***************************************************************************
    GFX_Print () - prints a string using specified font with basecolor
  ***************************************************************************/
-INT GFX_Print(
-    INT printx, // INPUT : x position
-    INT printy, // INPUT : y position
-    CHAR* str, // INPUT : string to print
+int GFX_Print(
+    int printx, // INPUT : x position
+    int printy, // INPUT : y position
+    char* str, // INPUT : string to print
     void* infont, // INPUT : pointer to font
-    INT basecolor // INPUT : basecolor of font
+    int basecolor // INPUT : basecolor of font
 );
 
 /**************************************************************************
@@ -432,16 +432,16 @@ INT GFX_Print(
  **************************************************************************/
 void GFX_SetPalette(
     BYTE* curpal, // INPUT : pointer to palette data
-    INT startpal // INPUT : palette start number 0 -256
+    int startpal // INPUT : palette start number 0 -256
 );
 
 /***************************************************************************
    GFX_3D_SetView() Sets user view in 3d space
  ***************************************************************************/
 void GFX_3D_SetView(
-    INT x, // INPUT : x position
-    INT y, // INPUT : y position
-    INT z // INPUT : z position
+    int x, // INPUT : x position
+    int y, // INPUT : y position
+    int z // INPUT : z position
 );
 
 /***************************************************************************
@@ -464,19 +464,19 @@ extern BYTE* displayscreen;
 extern BYTE* ltable;
 extern BYTE* dtable;
 extern BYTE* gtable;
-extern INT g_rseed;
+extern int g_rseed;
 extern BOOL retraceflag;
 extern DWORD ylookup[];
-extern volatile INT framecount;
+extern volatile int framecount;
 
-extern INT G3D_x; // input: x position
-extern INT G3D_y; // input: y position
-extern INT G3D_z; // input: z position
-extern INT G3D_screenx; // output: screen x pos
-extern INT G3D_screeny; // output: screen y pos
-extern INT G3D_viewx; // user view x pos
-extern INT G3D_viewy; // user view y pos
-extern INT G3D_viewz; // user view z pos
+extern int G3D_x; // input: x position
+extern int G3D_y; // input: y position
+extern int G3D_z; // input: z position
+extern int G3D_screenx; // output: screen x pos
+extern int G3D_screeny; // output: screen y pos
+extern int G3D_viewx; // user view x pos
+extern int G3D_viewy; // user view y pos
+extern int G3D_viewz; // user view z pos
 
 inline void GFX_SetRetraceFlag( BOOL flag ) {
     retraceflag = flag;

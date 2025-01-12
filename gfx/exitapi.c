@@ -21,13 +21,13 @@
 
 #include "exitapi.h"
 
-PRIVATE void ( *ShutDown )( INT ) = (void( * )) 0;
-PRIVATE CHAR* clean_exit_msg = "Clean Exit";
+PRIVATE void ( *ShutDown )( int ) = (void( * )) 0;
+PRIVATE char* clean_exit_msg = "Clean Exit";
 
 /***************************************************************************
    EXIT_Install() Sets User routine to shut down systems
  ***************************************************************************/
-void EXIT_Install( void ( *SD )( INT ) // INPUT : pointer to function
+void EXIT_Install( void ( *SD )( int ) // INPUT : pointer to function
 ) {
     ShutDown = SD;
 }

@@ -9,12 +9,12 @@
 
 #include "movie.h"
 
-PRIVATE INT back_patch = EMPTY;
+PRIVATE int back_patch = EMPTY;
 
 /*************************************************************************
 MOVIE_BPatch() Plays Sound FX in background for one anim
  *************************************************************************/
-void MOVIE_BPatch( INT soundfx ) {
+void MOVIE_BPatch( int soundfx ) {
     back_patch = soundfx;
     SND_Patch( back_patch, 127 );
 }
@@ -52,18 +52,18 @@ void MOVIE_ShowFrame(
 /*************************************************************************
  MOVIE_Play () - Playes an Animation
  *************************************************************************/
-INT MOVIE_Play(
+int MOVIE_Play(
     FRAME* frame, // INPUT : pointer to array of frame defs
-    INT numplay, // INPUT : number of times to play
+    int numplay, // INPUT : number of times to play
     BYTE* palette // INPUT : pointer to palette
 ) {
     BOOL flag = TRUE;
     FRAME* curfld;
     BYTE* pic;
-    INT opt = K_OK;
+    int opt = K_OK;
     BYTE fill;
-    INT hold;
-    INT i;
+    int hold;
+    int i;
 
     memset( displaybuffer, 0, 64000 );
 
