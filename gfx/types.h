@@ -8,8 +8,8 @@ typedef enum { FALSE, TRUE } BOOL;
 #define PRIVATE static
 #define PUBLIC
 
-typedef unsigned char BYTE;
-typedef unsigned short WORD;
-typedef unsigned int DWORD;
+typedef uint8_t  BYTE;
+typedef uint16_t WORD;
+typedef uint32_t DWORD;
 
 #endif
