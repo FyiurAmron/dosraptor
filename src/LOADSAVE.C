@@ -8,8 +8,9 @@
 
 #include "public.h"
 
-#include "file0001.inc"
-#include "load.inc"
+#include "inc/file0001.inc"
+
+#include "inc/load.inc"
 
 #include "anims.h"
 #include "bonus.h"

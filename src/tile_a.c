@@ -1,7 +1,7 @@
 
 #include <string.h>
 
-#include "..\gfx\types.h"
+#include "../gfx/types.h"
 
 #include "tile_a.h"
 
