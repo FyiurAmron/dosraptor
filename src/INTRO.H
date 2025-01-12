@@ -37,7 +37,7 @@ BOOL INTRO_Credits( void );
 /***************************************************************************
 INTRO_EndGame() - Ends the current game anims
  ***************************************************************************/
-void INTRO_EndGame( INT game );
+void INTRO_EndGame( int game );
 
 /***************************************************************************
 INTRO_Death () - Death Scene

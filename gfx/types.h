@@ -11,8 +11,5 @@ typedef enum { FALSE, TRUE } BOOL;
 typedef unsigned char BYTE;
 typedef unsigned short WORD;
 typedef unsigned int DWORD;
-typedef char CHAR;
-typedef short SHORT;
-typedef int INT;
 
 #endif

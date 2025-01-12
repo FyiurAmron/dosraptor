@@ -17,20 +17,20 @@ void FLAME_InitShades( void );
 FLAME_Up () - Shows Flame shooting upward
  ***************************************************************************/
 void FLAME_Up(
-    INT ix, // INPUT : x position
-    INT iy, // INPUT : y position
-    INT width, // INPUT : width of shade
-    INT frame // INPUT : frame
+    int ix, // INPUT : x position
+    int iy, // INPUT : y position
+    int width, // INPUT : width of shade
+    int frame // INPUT : frame
 );
 
 /***************************************************************************
 FLAME_Down () - Shows Flame shooting downward
  ***************************************************************************/
 void FLAME_Down(
-    INT ix, // INPUT : x position
-    INT iy, // INPUT : y position
-    INT width, // INPUT : width of shade
-    INT frame // INPUT : frame
+    int ix, // INPUT : x position
+    int iy, // INPUT : y position
+    int width, // INPUT : width of shade
+    int frame // INPUT : frame
 );
 
 #endif

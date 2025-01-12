@@ -28,7 +28,7 @@ void EXIT_Assert( char*, char*, unsigned );
 /***************************************************************************
    EXIT_Install() Sets User routine to shut down systems
  ***************************************************************************/
-void EXIT_Install( void ( *SD )( INT ) // INPUT : pointer to function
+void EXIT_Install( void ( *SD )( int ) // INPUT : pointer to function
 );
 
 /***************************************************************************

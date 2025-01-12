@@ -13,7 +13,7 @@ typedef struct {
     DWORD opt; // option (encode on/off)
     DWORD offset; // offset into file
     DWORD filesize; // filesize
-    CHAR name[16]; // text name ( end with null )
+    char name[16]; // text name ( end with null )
 } KEYFILE;
 
 typedef struct {
@@ -29,10 +29,10 @@ typedef struct {
 /*************************************************************************
    GLB_InitSystem() - Starts up .GLB file system
  *************************************************************************/
-INT GLB_InitSystem(
+int GLB_InitSystem(
     char*,
-    INT innum, // INPUT: MAX .GLB FILES TO LOOK FOR
-    CHAR* iprefix // INPUT: FILENAME PREFIX ( NULL for "FILE" )
+    int innum, // INPUT: MAX .GLB FILES TO LOOK FOR
+    char* iprefix // INPUT: FILENAME PREFIX ( NULL for "FILE" )
 );
 
 /*************************************************************************
@@ -41,8 +41,8 @@ INT GLB_InitSystem(
 DWORD // RETURN : size of item read
 GLB_Load(
     BYTE* inmem, // INPUT: memory pointer or NULL
-    INT filenum, // INPUT: file number
-    INT itemnum // INPUT: item in file number
+    int filenum, // INPUT: file number
+    int itemnum // INPUT: item in file number
 );
 
 /***************************************************************************
@@ -70,7 +70,7 @@ BYTE* GLB_GetItem(
 /***************************************************************************
  GLB_ItemSize() - Returns Size of Item
  ***************************************************************************/
-INT // RETURN: sizeof ITEM
+int // RETURN: sizeof ITEM
 GLB_ItemSize(
     DWORD handle // INPUT : handle of item
 );
@@ -96,7 +96,7 @@ void GLB_ReadItem(
  ***************************************************************************/
 DWORD // RETURN:
 GLB_GetItemID(
-    CHAR* in_name // INPUT : pointer to text name
+    char* in_name // INPUT : pointer to text name
 );
 
 /***************************************************************************
@@ -104,7 +104,7 @@ GLB_GetItemID(
  ***************************************************************************/
 BYTE* // RETURN: pointer to item
 GLB_GetPtr(
-    INT handle // INPUT : handle of item
+    int handle // INPUT : handle of item
 );
 
 /***************************************************************************
@@ -122,7 +122,7 @@ void GLB_FreeAll( void );
 /***************************************************************************
  GLB_ItemSize() - Returns Size of Item
  ***************************************************************************/
-INT // RETURN: sizeof ITEM
+int // RETURN: sizeof ITEM
 GLB_ItemSize(
     DWORD handle // INPUT : handle of item
 );
@@ -130,9 +130,9 @@ GLB_ItemSize(
 /***************************************************************************
    GLB_ReadFile () reads in a normal file
  ***************************************************************************/
-INT // RETURN: size of record
+int // RETURN: size of record
 GLB_ReadFile(
-    CHAR* name, // INPUT : filename
+    char* name, // INPUT : filename
     void* buffer // OUTPUT: pointer to buffer or NULL
 );
 
@@ -140,7 +140,7 @@ GLB_ReadFile(
    GLB_SaveFile () saves buffer to a normal file ( filename )
  ***************************************************************************/
 void GLB_SaveFile(
-    CHAR* name, // INPUT : filename
+    char* name, // INPUT : filename
     void* buffer, // INPUT : pointer to buffer
     DWORD length // INPUT : length of buffer
 );

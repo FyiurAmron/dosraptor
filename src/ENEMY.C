@@ -23,17 +23,17 @@ SPRITE_SHIP ships[MAX_ONSCREEN];
 
 ESHOT_TYPE ashot[2] = { ES_ANGLELEFT, ES_ANGLERIGHT };
 
-INT tiley = 0;
+int tiley = 0;
 
-PUBLIC INT numships;
-PUBLIC INT numboss;
+PUBLIC int numships;
+PUBLIC int numboss;
 PUBLIC CSPRITE* csprite;
-PRIVATE INT numslib[4];
+PRIVATE int numslib[4];
 PRIVATE SPRITE* slib[4];
 PRIVATE BOOL spriteflag[4];
 PRIVATE SPRITE_SHIP* onscreen[MAX_ONSCREEN];
 PRIVATE SPRITE_SHIP* rscreen[MAX_ONSCREEN];
-PRIVATE INT cur_visable;
+PRIVATE int cur_visable;
 PRIVATE BOOL boss_sound;
 
 PUBLIC DWORD cur_diff = EB_EASY_LEVEL;
@@ -44,14 +44,14 @@ PRIVATE CSPRITE* end_enemy = NULL;
 PRIVATE CSPRITE* cur_enemy = NULL;
 PUBLIC BOOL end_waveflag = FALSE;
 PRIVATE DWORD spriteitm[4] = { SPRITE1_ITM, SPRITE2_ITM, SPRITE3_ITM, SPRITE4_ITM };
-PUBLIC INT g_numslibs;
+PUBLIC int g_numslibs;
 
 /***************************************************************************
    MoveEobj() - gets next postion for an Object at speed
  ***************************************************************************/
-INT MoveEobj(
+int MoveEobj(
     MOVEOBJ* cur, // INPUT : pointer to MOVEOBJ
-    INT speed // INPUT : speed to plot at
+    int speed // INPUT : speed to plot at
 ) {
     if ( speed == 0 ) {
         return 0;
@@ -106,7 +106,7 @@ INT MoveEobj(
 ENEMY_FreeSprites () - Free Memory Used by Sprites use in last level
  ***************************************************************************/
 void ENEMY_FreeSprites( void ) {
-    INT j, i;
+    int j, i;
     SPRITE* curlib;
     CSPRITE* curfld;
 
@@ -132,7 +132,7 @@ void ENEMY_FreeSprites( void ) {
 ENEMY_LoadSprites() -
  ***************************************************************************/
 void ENEMY_LoadSprites( void ) {
-    INT j, i;
+    int j, i;
     SPRITE* curlib;
     CSPRITE* curfld;
     DWORD item;
@@ -196,7 +196,7 @@ void ENEMY_LoadSprites( void ) {
 ENEMY_LoadLib () - Loads and Locks spritelib's MUST becalled b4 LoadSprites
  ***************************************************************************/
 void ENEMY_LoadLib( void ) {
-    INT i;
+    int i;
 
     memset( spriteflag, 0, sizeof( spriteflag ) );
 
@@ -240,7 +240,7 @@ void ENEMY_LoadLib( void ) {
 ENEMY_Clear()
  ***************************************************************************/
 void ENEMY_Clear( void ) {
-    INT i;
+    int i;
 
     numboss = 0;
     numships = 0;
@@ -442,7 +442,7 @@ PRIVATE void ENEMY_Add( CSPRITE* sprite ) {
 ENEMY_GetRandom () - Returns a random ship thats visable
  ***************************************************************************/
 SPRITE_SHIP* ENEMY_GetRandom( void ) {
-    INT pos;
+    int pos;
 
     if ( !cur_visable ) {
         return NULL;
@@ -457,8 +457,8 @@ SPRITE_SHIP* ENEMY_GetRandom( void ) {
 ENEMY_GetRandomAir () - Returns a random ship thats visable
  ***************************************************************************/
 SPRITE_SHIP* ENEMY_GetRandomAir( void ) {
-    INT pos;
-    INT i;
+    int pos;
+    int i;
 
     if ( !cur_visable ) {
         return NULL;
@@ -485,11 +485,11 @@ SPRITE_SHIP* ENEMY_GetRandomAir( void ) {
 ENEMY_DamageAll () - Tests to see if hit occured at x/y and applys damage
  ***************************************************************************/
 BOOL ENEMY_DamageAll(
-    INT x, // INPUT : x position
-    INT y, // INPUT : y position
-    INT damage // INPUT : damage
+    int x, // INPUT : x position
+    int y, // INPUT : y position
+    int damage // INPUT : damage
 ) {
-    INT i;
+    int i;
     SPRITE_SHIP* cur;
 
     for ( i = 0; i < cur_visable; i++ ) {
@@ -508,11 +508,11 @@ BOOL ENEMY_DamageAll(
 ENEMY_DamageGround () - Tests to see if hit occured at x/y and applys damage
  ***************************************************************************/
 BOOL ENEMY_DamageGround(
-    INT x, // INPUT : x position
-    INT y, // INPUT : y position
-    INT damage // INPUT : damage
+    int x, // INPUT : x position
+    int y, // INPUT : y position
+    int damage // INPUT : damage
 ) {
-    INT i;
+    int i;
     SPRITE_SHIP* cur;
 
     for ( i = 0; i < cur_visable; i++ ) {
@@ -538,11 +538,11 @@ BOOL ENEMY_DamageGround(
 ENEMY_DamageAir () - Tests to see if hit occured at x/y and applys damage
  ***************************************************************************/
 BOOL ENEMY_DamageAir(
-    INT x, // INPUT : x position
-    INT y, // INPUT : y position
-    INT damage // INPUT : damage
+    int x, // INPUT : x position
+    int y, // INPUT : y position
+    int damage // INPUT : damage
 ) {
-    INT i;
+    int i;
     SPRITE_SHIP* cur;
 
     for ( i = 0; i < cur_visable; i++ ) {
@@ -567,11 +567,11 @@ BOOL ENEMY_DamageAir(
 ENEMY_DamageEnergy () - Tests to see if hit occured at x/y and applys damage
  ***************************************************************************/
 SPRITE_SHIP* ENEMY_DamageEnergy(
-    INT x, // INPUT : x position
-    INT y, // INPUT : y position
-    INT damage // INPUT : damage
+    int x, // INPUT : x position
+    int y, // INPUT : y position
+    int damage // INPUT : damage
 ) {
-    INT i;
+    int i;
     SPRITE_SHIP* cur;
 
     for ( i = 0; i < cur_visable; i++ ) {
@@ -608,12 +608,12 @@ void ENEMY_Think( void ) {
     SPRITE_SHIP* sprite;
     SPRITE* curlib;
     CSPRITE* old_enemy;
-    INT speed;
-    INT i;
-    INT x;
-    INT y;
-    INT area;
-    INT suben;
+    int speed;
+    int i;
+    int x;
+    int y;
+    int area;
+    int suben;
 
     if ( boss_sound ) {
         if ( !SND_IsPatchPlaying( FX_BOSS1 ) ) {
@@ -1106,7 +1106,7 @@ ENEMY_DisplaySky () - Displays AIR ENEMY SHIPS
  ***************************************************************************/
 void ENEMY_DisplaySky( void ) {
     SPRITE_SHIP* spt;
-    INT i;
+    int i;
 
     for ( spt = first_enemy.next; spt != &last_enemy; spt = spt->next ) {
         if ( spt->groundflag ) {
@@ -1126,11 +1126,11 @@ void ENEMY_DisplaySky( void ) {
 /***************************************************************************
 ENEMY_GetBaseDamage() - Gets Base Ship damage
  ***************************************************************************/
-INT ENEMY_GetBaseDamage( void ) {
-    PRIVATE INT nums = 0;
-    INT total = 0;
+int ENEMY_GetBaseDamage( void ) {
+    PRIVATE int nums = 0;
+    int total = 0;
     SPRITE_SHIP* spt;
-    INT damage;
+    int damage;
 
     //   if ( scroll_flag )
     nums = 0;

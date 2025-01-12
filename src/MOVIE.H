@@ -11,29 +11,29 @@ typedef enum { S_PLAY, S_FADEIN, S_FADEOUT, S_STOP } SONGOPTS;
 
 typedef struct {
     FRAMETYPE opt; // TYPE OF DRAWING REQUIRED
-    INT framerate; // FRAME RATE OF UPDATE
-    INT numframes; // NUMBER OF FRAMES LEFT
+    int framerate; // FRAME RATE OF UPDATE
+    int numframes; // NUMBER OF FRAMES LEFT
     DWORD item; // ITEM # OF PICTURE
     FRAMEOPT startf; // START FRAME OPTS
-    INT startsteps; // # OF STEPS IF FADEIN
+    int startsteps; // # OF STEPS IF FADEIN
     FRAMEOPT endf; // END FRAME OPTS
-    INT endsteps; // # OF STEPS IN FADEOUT
-    INT red; // RED VAL FOR FADEOUT
-    INT green; // GREEN VAL FOR FADEOUT
-    INT blue; // BLUE VAL FOR FADEOUT
-    INT holdframe; // NUMBER OF TICS TO HOLD FRAME
-    INT songid; // SONG ID TO PLAY
+    int endsteps; // # OF STEPS IN FADEOUT
+    int red; // RED VAL FOR FADEOUT
+    int green; // GREEN VAL FOR FADEOUT
+    int blue; // BLUE VAL FOR FADEOUT
+    int holdframe; // NUMBER OF TICS TO HOLD FRAME
+    int songid; // SONG ID TO PLAY
     SONGOPTS songopt; // SONG OPTS
-    INT songstep; // SONG STEPS FOR FADES
-    INT soundfx; // SOUND FX START
-    INT fx_vol; // SOUND FX VOLUME
-    INT fx_xpos; // SOUND FX XPOS
+    int songstep; // SONG STEPS FOR FADES
+    int soundfx; // SOUND FX START
+    int fx_vol; // SOUND FX VOLUME
+    int fx_xpos; // SOUND FX XPOS
 } FRAME;
 
 /*************************************************************************
 MOVIE_BPatch() Plays Sound FX in background for one anim
  *************************************************************************/
-void MOVIE_BPatch( INT soundfx );
+void MOVIE_BPatch( int soundfx );
 
 /*************************************************************************
    MOVIE_ShowFrame () - Shows an animation frame
@@ -45,9 +45,9 @@ void MOVIE_ShowFrame(
 /*************************************************************************
 MOVIE_Play () - Playes an Animation
  *************************************************************************/
-INT MOVIE_Play(
+int MOVIE_Play(
     FRAME* frame, // INPUT : pointer to array of frame defs
-    INT numplay, // INPUT : number of times to play
+    int numplay, // INPUT : number of times to play
     BYTE* palette // INPUT : pointer to palette
 );
 

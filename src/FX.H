@@ -99,7 +99,7 @@ SND_Patch () - Test patch to see if it will be played by SND_Play
  ***************************************************************************/
 void SND_Patch(
     DEFX type, // INPUT : DFX type patch to play
-    INT xpos // INPUT : 127=center
+    int xpos // INPUT : 127=center
 );
 
 /***************************************************************************
@@ -107,8 +107,8 @@ SND_3DPatch () - playes a patch in 3d for player during game play
  ***************************************************************************/
 void SND_3DPatch(
     DEFX type, // INPUT : DFX type patch to play
-    INT x, // INPUT : x sprite center
-    INT y // INPUT : y sprite center
+    int x, // INPUT : x sprite center
+    int y // INPUT : y sprite center
 );
 
 /***************************************************************************
@@ -136,8 +136,8 @@ SND_InitSound () - Does bout all i can think of for Music/FX initing
 void SND_InitSound( void );
 
 extern CONTROL control;
-extern INT music_volume;
-extern INT fx_volume;
+extern int music_volume;
+extern int fx_volume;
 extern BOOL fx_flag;
 extern BOOL dig_flag;
 

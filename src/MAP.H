@@ -22,16 +22,16 @@
 #define SHOT_COLOR    255
 
 typedef struct {
-    INT x;
-    INT y;
-    INT x2;
-    INT y2;
-    INT delx;
-    INT dely;
-    INT addx;
-    INT addy;
-    INT maxloop;
-    INT err;
+    int x;
+    int y;
+    int x2;
+    int y2;
+    int delx;
+    int dely;
+    int addx;
+    int addy;
+    int maxloop;
+    int err;
     BOOL done;
 } MOVEOBJ;
 
@@ -53,20 +53,20 @@ typedef enum {
 } FLIGHT_TYPE;
 
 typedef struct {
-    INT linkflat;
-    SHORT bonus;
-    SHORT bounty;
+    int linkflat;
+    short bonus;
+    short bounty;
 } FLATS;
 
 typedef struct {
-    SHORT flats;
-    SHORT fgame;
+    short flats;
+    short fgame;
 } MAZEDATA;
 
 typedef struct {
     DWORD sizerec;
     DWORD spriteoff;
-    INT numsprites;
+    int numsprites;
     MAZEDATA map[MAP_SIZE];
 } MAZELEVEL;
 
@@ -87,49 +87,49 @@ typedef enum {
 } EXP_TYPE;
 
 typedef struct {
-    CHAR iname[16]; // ITEM NAME
+    char iname[16]; // ITEM NAME
     DWORD item; // * GLB ITEM #
-    INT bonus; // BONUS # ( -1 == NONE )
+    int bonus; // BONUS # ( -1 == NONE )
     EXP_TYPE exptype; // EXPLOSION TYPE
-    INT shotspace; // SLOWDOWN SPEED
+    int shotspace; // SLOWDOWN SPEED
     BOOL ground; // IS ON GROUND
     BOOL suck; // CAN SUCK WEAPON AFFECT
-    INT frame_rate; // FRAME RATE
-    INT num_frames; // NUM FRAMES
-    INT countdown; // COUNT DOWN TO START ANIM
-    INT rewind; // FRAMES TO REWIND
+    int frame_rate; // FRAME RATE
+    int num_frames; // NUM FRAMES
+    int countdown; // COUNT DOWN TO START ANIM
+    int rewind; // FRAMES TO REWIND
     ANIMTYPE animtype; // FREE SPACE FOR LATER USE
     BOOL shadow; // USE SHADOW ( TRUE/FALSE )
-    INT bossflag; // SHOULD THIS BE CONSIDERED A BOSS
-    INT hits; // HIT POINTS
-    INT money; // $$ AMOUNT WHEN KILLED
-    INT shootstart; // SHOOT START OFFSET
-    INT shootcnt; // HOW MANY TO SHOOT
-    INT shootframe; // FRAME RATE TO SHOOT
-    INT movespeed; // MOVEMENT SPEED
-    INT numflight; // NUMBER OF FLIGHT POSITIONS
-    INT repos; // REPEAT TO POSITION
+    int bossflag; // SHOULD THIS BE CONSIDERED A BOSS
+    int hits; // HIT POINTS
+    int money; // $$ AMOUNT WHEN KILLED
+    int shootstart; // SHOOT START OFFSET
+    int shootcnt; // HOW MANY TO SHOOT
+    int shootframe; // FRAME RATE TO SHOOT
+    int movespeed; // MOVEMENT SPEED
+    int numflight; // NUMBER OF FLIGHT POSITIONS
+    int repos; // REPEAT TO POSITION
     FLIGHT_TYPE flighttype; // FLIGHT TYPE
-    INT numguns; // NUMBER OF GUNS
-    INT numengs; // NUMBER OF ENGINES
-    INT sfx; // SFX # TO PLAY
-    INT song; // SONG # TO PLAY
-    SHORT shoot_type[MAX_GUNS]; // ENEMY SHOOT TYPE
-    SHORT engx[MAX_GUNS]; // X POS ENGINE FLAME
-    SHORT engy[MAX_GUNS]; // Y POS ENGINE FLAME
-    SHORT englx[MAX_GUNS]; // WIDTH OF ENGINE FLAME
-    SHORT shootx[MAX_GUNS]; // X POS SHOOT FROM
-    SHORT shooty[MAX_GUNS]; // Y POS SHOOT FROM
-    SHORT flightx[MAX_FLIGHT]; // FLIGHT X POS
-    SHORT flighty[MAX_FLIGHT]; // FLIGHT Y POS
+    int numguns; // NUMBER OF GUNS
+    int numengs; // NUMBER OF ENGINES
+    int sfx; // SFX # TO PLAY
+    int song; // SONG # TO PLAY
+    short shoot_type[MAX_GUNS]; // ENEMY SHOOT TYPE
+    short engx[MAX_GUNS]; // X POS ENGINE FLAME
+    short engy[MAX_GUNS]; // Y POS ENGINE FLAME
+    short englx[MAX_GUNS]; // WIDTH OF ENGINE FLAME
+    short shootx[MAX_GUNS]; // X POS SHOOT FROM
+    short shooty[MAX_GUNS]; // Y POS SHOOT FROM
+    short flightx[MAX_FLIGHT]; // FLIGHT X POS
+    short flighty[MAX_FLIGHT]; // FLIGHT Y POS
 } SPRITE;
 
 typedef struct {
-    INT link;
-    INT slib;
-    INT x;
-    INT y;
-    INT game;
+    int link;
+    int slib;
+    int x;
+    int y;
+    int game;
     DWORD level;
 } CSPRITE;
 

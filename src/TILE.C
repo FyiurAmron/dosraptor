@@ -13,19 +13,19 @@
 
 PUBLIC DWORD titems[MAP_SIZE];
 PUBLIC DWORD eitems[MAP_SIZE];
-PUBLIC SHORT hits[MAP_SIZE];
-PUBLIC SHORT money[MAP_SIZE];
-PUBLIC SHORT tdead[MAP_SIZE];
+PUBLIC short hits[MAP_SIZE];
+PUBLIC short money[MAP_SIZE];
+PUBLIC short tdead[MAP_SIZE];
 PUBLIC DWORD startflat[4];
-PUBLIC INT tilepos;
-PUBLIC INT tileyoff;
+PUBLIC int tilepos;
+PUBLIC int tileyoff;
 
-PUBLIC INT g_mapleft;
+PUBLIC int g_mapleft;
 PUBLIC BYTE* tilepic;
 PUBLIC BYTE* tilestart;
-PUBLIC INT tileloopy;
+PUBLIC int tileloopy;
 
-PRIVATE CHAR game_start[4][17] = { "STARTG1TILES", "STARTG2TILES", "STARTG3TILES", "STARTG4TILES" };
+PRIVATE char game_start[4][17] = { "STARTG1TILES", "STARTG2TILES", "STARTG3TILES", "STARTG4TILES" };
 
 PUBLIC BOOL scroll_flag;
 PUBLIC BOOL last_tile;
@@ -40,14 +40,14 @@ PUBLIC TILEDELAY* free_delay;
 #define MAX_TILEDELAY ( ( MAP_ONSCREEN + 1 ) * MAP_COLS )
 PRIVATE TILEDELAY tdel[MAX_TILEDELAY];
 
-PRIVATE INT spark_delay = 0;
-PRIVATE INT flare_delay = 0;
+PRIVATE int spark_delay = 0;
+PRIVATE int flare_delay = 0;
 
 /*-------------------------------------------------------------------------*
 TClear () - Clears TILE Delay Link List
  *-------------------------------------------------------------------------*/
 PRIVATE void TClear( void ) {
-    INT i;
+    int i;
 
     first_delay.prev = NULL;
     first_delay.next = &last_delay;
@@ -110,13 +110,13 @@ PRIVATE TILEDELAY* TRemove( TILEDELAY* sh ) {
 /*--------------------------------------------------------------------------
 TILE_DoDamage
  --------------------------------------------------------------------------*/
-PRIVATE void TILE_DoDamage( INT mapspot, INT damage ) {
-    static INT mlookup[3] = { -1, -MAP_COLS, 1 };
-    static INT xlookup[3] = { -1, 0, 1 };
-    INT ix = mapspot % MAP_COLS;
-    INT i;
-    INT spot;
-    INT x;
+PRIVATE void TILE_DoDamage( int mapspot, int damage ) {
+    static int mlookup[3] = { -1, -MAP_COLS, 1 };
+    static int xlookup[3] = { -1, 0, 1 };
+    int ix = mapspot % MAP_COLS;
+    int i;
+    int spot;
+    int x;
 
     for ( i = 0; i < 3; i++ ) {
         spot = mapspot + mlookup[i];
@@ -149,8 +149,8 @@ TILE_Draw () - Draws 32 by 32 TILE Clips on y only
  ***************************************************************************/
 void TILE_Put(
     BYTE* inpic, // INPUT : pointer to GFX_PIC ( norm )
-    INT x, // INPUT : x position
-    INT y // INPUT : y position
+    int x, // INPUT : x position
+    int y // INPUT : y position
 ) {
     BOOL flag = FALSE;
 
@@ -210,10 +210,10 @@ void TILE_Init( void ) {
 TILE_CacheLevel () - Cache tiles in current level
  ***************************************************************************/
 void TILE_CacheLevel( void ) {
-    INT game;
+    int game;
     FLATS* lib;
     DWORD item;
-    INT i;
+    int i;
 
     TClear();
     g_mapleft = MAP_LEFT;
@@ -262,7 +262,7 @@ void TILE_CacheLevel( void ) {
 TILE_FreeLevel () - Free tile level
  ***************************************************************************/
 void TILE_FreeLevel( void ) {
-    INT i;
+    int i;
 
     for ( i = 0; i < MAP_SIZE; i++ ) {
         GLB_FreeItem( titems[i] );
@@ -298,13 +298,13 @@ TILE_Think () - Does Position Calculations for tiles
 void TILE_Think( void ) {
     TILESPOT* ts;
     TILEDELAY* td;
-    INT ix;
-    INT iy;
-    INT mapspot;
-    INT x;
-    INT y;
-    INT tx;
-    INT ty;
+    int ix;
+    int iy;
+    int mapspot;
+    int x;
+    int y;
+    int tx;
+    int ty;
 
     y = tileyoff;
     mapspot = tilepos;
@@ -324,12 +324,12 @@ void TILE_Think( void ) {
 
                 TILE_DoDamage( ts->mapspot, 5 );
 
-                plr.score += (INT) money[mapspot];
+                plr.score += money[mapspot];
 
                 TILE_Explode( ts, 10 );
                 ANIMS_StartAnim( A_LARGE_GROUND_EXPLO1, x + 16, y + 16 );
 
-                tdead[mapspot] = (SHORT) 1;
+                tdead[mapspot] = 1;
             }
         }
     }
@@ -412,9 +412,9 @@ TILE_IsHit () - Checks to see if a shot hits an explodable tile
  ***************************************************************************/
 BOOL // RETURNS : TRUE = Tile Hit
 TILE_IsHit(
-    INT damage, // INPUT : damage to tile
-    INT x, // INOUT : x screen pos, out tile x
-    INT y // INOUT : y screen pos, out tile y
+    int damage, // INPUT : damage to tile
+    int x, // INOUT : x screen pos, out tile x
+    int y // INOUT : y screen pos, out tile y
 ) {
     TILESPOT* ts = tspots;
 
@@ -447,9 +447,9 @@ TILE_Bomb () - Checks to see if a BOMB hits an explodable tile
  ***************************************************************************/
 BOOL // RETURNS : TRUE = Tile Hit
 TILE_Bomb(
-    INT damage, // INPUT : damage to tile
-    INT x, // INOUT : x screen pos, out tile x
-    INT y // INOUT : y screen pos, out tile y
+    int damage, // INPUT : damage to tile
+    int x, // INOUT : x screen pos, out tile x
+    int y // INOUT : y screen pos, out tile y
 ) {
     TILESPOT* ts = tspots;
 
@@ -479,7 +479,7 @@ TILE_Explode () - Sets the Tile to show explosion tile
  ***************************************************************************/
 void TILE_Explode(
     TILESPOT* ts, // INPUT : tilespot of explosion
-    INT delay // INPUT : frames to delay
+    int delay // INPUT : frames to delay
 ) {
     TILEDELAY* td;
 

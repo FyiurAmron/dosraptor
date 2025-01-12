@@ -43,9 +43,9 @@ void ANIMS_Init( void );
 /***************************************************************************
 ANIMS_Register () - Register a ANIM for USE with this stuff
  ***************************************************************************/
-INT ANIMS_Register(
+int ANIMS_Register(
     DWORD item, // INPUT : lumpnum of first frame
-    INT numframes, // INPUT : number of frames
+    int numframes, // INPUT : number of frames
     BOOL groundflag, // INPUT : on the ground = TRUE
     BOOL playerflag, // INPUT : follow player movements
     BOOL transparent, // INPUT : Transparent ( LIGHT )
@@ -66,18 +66,18 @@ void ANIMS_FreePics( void );
 ANIMS_StartAnim () - Start An ANIM Playing
  ***************************************************************************/
 void ANIMS_StartAnim(
-    INT handle, // INPUT : ANIM handle
-    INT x, // INPUT : x position
-    INT y // INPUT : y position
+    int handle, // INPUT : ANIM handle
+    int x, // INPUT : x position
+    int y // INPUT : y position
 );
 
 /***************************************************************************
 ANIMS_StartGAnim () - Start An ANIM Playing with groundflag == TRUE
  ***************************************************************************/
 void ANIMS_StartGAnim(
-    INT handle, // INPUT : ANIM handle
-    INT x, // INPUT : x position
-    INT y // INPUT : y position
+    int handle, // INPUT : ANIM handle
+    int x, // INPUT : x position
+    int y // INPUT : y position
 );
 
 /***************************************************************************
@@ -104,9 +104,9 @@ void ANIMS_DisplayHigh( void );
 ANIMS_StartAAnim () - Start An ANIM Playing with groundflag == GROUND
  ***************************************************************************/
 void ANIMS_StartAAnim(
-    INT handle, // INPUT : ANIM handle
-    INT x, // INPUT : x position
-    INT y // INPUT : y position
+    int handle, // INPUT : ANIM handle
+    int x, // INPUT : x position
+    int y // INPUT : y position
 );
 
 /***************************************************************************
@@ -114,9 +114,9 @@ ANIMS_StartEAnim () - Start An ANIM Playing locked onto ENEMY
  ***************************************************************************/
 void ANIMS_StartEAnim(
     SPRITE_SHIP* en, // INPUT : pointer to ENEMY
-    INT handle, // INPUT : ANIM handle
-    INT x, // INPUT : x position
-    INT y // INPUT : y position
+    int handle, // INPUT : ANIM handle
+    int x, // INPUT : x position
+    int y // INPUT : y position
 );
 
 #endif

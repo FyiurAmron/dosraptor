@@ -15,13 +15,13 @@ typedef struct {
     BYTE* pic[10]; // POINTER TO PIC
     BOOL shadow; // SHADOW ON/OFF
     OBJ_TYPE type; // SHOT TYPE
-    INT hits; // DAMAGE SHOT WILL DO
-    INT speed; // START SPEED
-    INT maxspeed; // MAXIMUM SPEED
-    INT startframe; // START ANIM ON FRAME
-    INT numframes; // NUMBER OF FRAMES OF ANIM
-    INT shoot_rate; // SHOOT EVERY (N) FRAMES
-    INT cur_shoot; // HOLDS FRAME COUNT DOWN
+    int hits; // DAMAGE SHOT WILL DO
+    int speed; // START SPEED
+    int maxspeed; // MAXIMUM SPEED
+    int startframe; // START ANIM ON FRAME
+    int numframes; // NUMBER OF FRAMES OF ANIM
+    int shoot_rate; // SHOOT EVERY (N) FRAMES
+    int cur_shoot; // HOLDS FRAME COUNT DOWN
     BOOL delayflag; // DEALAYED ANIM START
     BOOL smoke; // SMOKE TRAIL
     BOOL use_plot; // TRUE = PLOT X,Y ( SLOWER )
@@ -32,25 +32,25 @@ typedef struct {
     BOOL meffect; // TRACK MOVE TO FIND HIT ?
     BEAM_TYPE beam; // BEAM WEAPON TYPE
     GFX_PIC* h;
-    INT hlx;
-    INT hly;
+    int hlx;
+    int hly;
 } SHOT_LIB;
 
 typedef struct SHOTS_S {
     struct SHOTS_S* prev; // Link List Prev
     struct SHOTS_S* next; // Link List Next
     BYTE* pic; // pointer to cur frame pic
-    INT x; // cur shot center x
-    INT y; // cur shot center y
+    int x; // cur shot center x
+    int y; // cur shot center y
     MOVEOBJ move; // MOVE stuff
-    INT speed; // cur speed
-    INT curframe; // current anim frame
+    int speed; // cur speed
+    int curframe; // current anim frame
     BOOL doneflag; // shot done = TRUE
     BOOL delayflag; // DEALAYED ANIM START
-    INT startx; // PLAYER X OFFSET;
-    INT starty; // PLAYER Y OFFSET;
+    int startx; // PLAYER X OFFSET;
+    int starty; // PLAYER Y OFFSET;
     SHOT_LIB* lib;
-    INT cnt;
+    int cnt;
 } SHOTS;
 
 /***************************************************************************

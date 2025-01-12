@@ -14,17 +14,17 @@ typedef struct BONUS_S {
     struct BONUS_S* prev; // LINK LIST PREV
     struct BONUS_S* next; // LINK LIST NEXT
     DWORD item; // GLB item
-    INT curframe; // CURRENT ANIM FRAME
-    INT curglow; // CURRENT GLOW FRAME
-    INT x; // X POSITION
-    INT y; // Y POSITION
-    INT bx; // BONUS X POSITION
-    INT by; // BONUS Y POSITION
-    INT gx; // GLOW X POSITION
-    INT gy; // GLOW Y POSITION
-    INT pos; // POS IN CIRCLE
+    int curframe; // CURRENT ANIM FRAME
+    int curglow; // CURRENT GLOW FRAME
+    int x; // X POSITION
+    int y; // Y POSITION
+    int bx; // BONUS X POSITION
+    int by; // BONUS Y POSITION
+    int gx; // GLOW X POSITION
+    int gy; // GLOW Y POSITION
+    int pos; // POS IN CIRCLE
     BOOL dflag; // DONEFLAG
-    INT countdown; // COUNTDOWN TO REMOVE
+    int countdown; // COUNTDOWN TO REMOVE
     OBJ_TYPE type; // OBJECT TYPE
     OBJ_LIB* lib; // POINTER TO OBJECT LIBRARY
 } BONUS;
@@ -44,8 +44,8 @@ BONUS_Add () - Adds A BONUS to Game so player can Try to pick it up
  ***************************************************************************/
 void BONUS_Add(
     OBJ_TYPE type, // INPUT : OBJECT TYPE
-    INT x, // INPUT : X POSITION
-    INT y // INPUT : Y POSITION
+    int x, // INPUT : X POSITION
+    int y // INPUT : Y POSITION
 );
 
 /***************************************************************************

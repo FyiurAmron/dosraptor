@@ -22,14 +22,14 @@ PRIVATE BYTE* detpow[4];
 
 PUBLIC BYTE* lashit[4];
 
-PUBLIC INT shotnum = 0;
-PUBLIC INT shothigh = 0;
+PUBLIC int shotnum = 0;
+PUBLIC int shothigh = 0;
 
 /***************************************************************************
 SHOTS_Clear () * Clears out SHOTS Linklist
  ***************************************************************************/
 void SHOTS_Clear( void ) {
-    INT i;
+    int i;
 
     shotnum = 0;
 
@@ -103,7 +103,7 @@ SHOTS_Init () - Inits SHOTS system and clears link list
  ***************************************************************************/
 void SHOTS_Init( void ) {
     SHOT_LIB* slib;
-    INT i;
+    int i;
     DWORD item;
 
     SHOTS_Clear();
@@ -551,7 +551,7 @@ BOOL SHOTS_PlayerShoot(
     OBJ_TYPE type // INPUT : OBJECT TYPE
 ) {
     extern BOOL gus_flag;
-    extern INT g_flash;
+    extern int g_flash;
     extern SPRITE_SHIP first_enemy;
     extern SPRITE_SHIP last_enemy;
     SHOTS* cur;
@@ -974,7 +974,7 @@ void SHOTS_Think( void ) {
     SHOT_LIB* lib;
     SHOTS* shot;
     SPRITE_SHIP* enemy;
-    INT i;
+    int i;
 
     lib = shot_lib;
     for ( i = 0; i <= LAST_WEAPON; i++, lib++ ) {
@@ -1190,8 +1190,8 @@ SHOTS_Display () - Displays All active Shots
  ***************************************************************************/
 void SHOTS_Display( void ) {
     SHOTS* shot;
-    INT i;
-    INT x, y;
+    int i;
+    int x, y;
     GFX_PIC* h;
 
     for ( shot = first_shots.next; shot != &last_shots; shot = shot->next ) {

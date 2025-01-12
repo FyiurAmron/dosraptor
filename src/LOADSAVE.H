@@ -59,16 +59,16 @@ void RAP_FreeMap( void );
 /***************************************************************************
 RAP_LoadWin() -
  ***************************************************************************/
-INT RAP_LoadWin( void );
+int RAP_LoadWin( void );
 
 /***************************************************************************
 RAP_InitLoadSave() - Inits the load and save path stuff
  ***************************************************************************/
-CHAR* RAP_InitLoadSave( void );
+char* RAP_InitLoadSave( void );
 
 /***************************************************************************
 RAP_SetupFilename() - Gets current setup.ini path and name
  ***************************************************************************/
-CHAR* RAP_SetupFilename( void );
+char* RAP_SetupFilename( void );
 
 #endif

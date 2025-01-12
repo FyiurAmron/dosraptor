@@ -7,8 +7,8 @@
 
 typedef struct {
     DWORD item;
-    INT x;
-    INT y;
+    int x;
+    int y;
 } SHADOW;
 
 #define MAX_SHADOWS  50
@@ -16,8 +16,8 @@ typedef struct {
 
 SHADOW gshads[MAX_GSHADOWS];
 SHADOW shads[MAX_SHADOWS];
-INT num_shadows = 0;
-INT num_gshadows = 0;
+int num_shadows = 0;
+int num_gshadows = 0;
 PRIVATE BYTE* sdtable;
 PRIVATE BYTE sdtablemem[516];
 
@@ -28,22 +28,22 @@ SHADOW_Draw () - Draws AIR shadows in 3D perspective
  ***************************************************************************/
 void SHADOW_Draw(
     BYTE* pic, // INPUT : pointer to sprite data
-    INT x, // INPUT : x position of sprite
-    INT y // INPUT : y position of sprite
+    int x, // INPUT : x position of sprite
+    int y // INPUT : y position of sprite
 ) {
 
     GFX_PIC* h = (GFX_PIC*) pic;
-    INT lx;
-    INT ly;
+    int lx;
+    int ly;
     GFX_SPRITE* ah;
-    INT sx;
-    INT sy;
-    INT ox;
-    INT oy;
-    INT x2;
-    INT y2;
-    INT oldy;
-    INT oldsy;
+    int sx;
+    int sy;
+    int ox;
+    int oy;
+    int x2;
+    int y2;
+    int oldy;
+    int oldsy;
     BOOL drawflag;
 
     x -= 10;
@@ -128,7 +128,7 @@ SHADOW_Init() - Allocate memory and set 3D view
  ***************************************************************************/
 void SHADOW_Init( void ) {
     sdtable = sdtablemem;
-    sdtable = (BYTE*) ( (INT) sdtable + 255 & ~0xff );
+    sdtable = (BYTE*) ( (int) sdtable + 255 & ~0xff );
 
     GFX_3D_SetView( 160, 100, 1000 );
 }
@@ -145,8 +145,8 @@ SHADOW_Add() - Add a Air ship shadow
  ***************************************************************************/
 void SHADOW_Add(
     DWORD item, // INPUT : GLB item
-    INT x, // INPUT : x position
-    INT y // INPUT : y position
+    int x, // INPUT : x position
+    int y // INPUT : y position
 ) {
     SHADOW* cur = &shads[num_shadows];
 
@@ -166,8 +166,8 @@ SHADOW_GAdd() - Adds Ground shadow
  ***************************************************************************/
 void SHADOW_GAdd(
     DWORD item, // INPUT : GLB item
-    INT x, // INPUT : x position
-    INT y // INPUT : y position
+    int x, // INPUT : x position
+    int y // INPUT : y position
 ) {
     SHADOW* cur = &gshads[num_gshadows];
 

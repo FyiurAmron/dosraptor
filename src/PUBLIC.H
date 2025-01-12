@@ -25,22 +25,22 @@ typedef struct {
     BYTE b2;
     BYTE b3;
     BYTE b4;
-    SHORT px;
-    SHORT py;
-    SHORT playerpic;
-    SHORT fil;
+    short px;
+    short py;
+    short playerpic;
+    short fil;
 } RECORD;
 
 typedef struct {
-    CHAR name[20];
-    CHAR callsign[12];
-    INT id_pic;
+    char name[20];
+    char callsign[12];
+    int id_pic;
     DWORD score; // MONEY/POINTS
-    INT sweapon; // CURENT SPECIAL WEAPON
-    INT cur_game; // CURRENT GAME
-    INT game_wave[3]; // CURRENT WAVE
-    INT numobjs; // NUMBER OF OBJECTS TO FOLLOW
-    INT diff[4]; // DIFFICULTY LEVEL
+    int sweapon; // CURENT SPECIAL WEAPON
+    int cur_game; // CURRENT GAME
+    int game_wave[3]; // CURRENT WAVE
+    int numobjs; // NUMBER OF OBJECTS TO FOLLOW
+    int diff[4]; // DIFFICULTY LEVEL
     BOOL trainflag;
     BOOL fintrain;
 } PLAYEROBJ;
@@ -96,9 +96,9 @@ void MoveMobj(
 /***************************************************************************
    MoveSobj() - gets next postion for an Object at speed
  ***************************************************************************/
-INT MoveSobj(
+int MoveSobj(
     MOVEOBJ* cur, // INPUT : pointer to MOVEOBJ
-    INT speed // INPUT : speed to plot at
+    int speed // INPUT : speed to plot at
 );
 
 /***************************************************************************
@@ -117,36 +117,36 @@ inline int random( int max_excl ) {
 }
 
 extern PLAYEROBJ plr;
-extern INT choose_special[];
-extern INT cur_special;
-extern INT player_cx;
-extern INT player_cy;
-extern INT playerx;
-extern INT playery;
-extern INT playerbasepic;
-extern INT playerpic;
-extern INT numbadguys;
-extern INT cur_game;
-extern INT game_wave[4];
+extern int choose_special[];
+extern int cur_special;
+extern int player_cx;
+extern int player_cy;
+extern int playerx;
+extern int playery;
+extern int playerbasepic;
+extern int playerpic;
+extern int numbadguys;
+extern int cur_game;
+extern int game_wave[4];
 extern MAZELEVEL* ml;
 
 extern BYTE* palette;
-extern INT o_engine[];
-extern INT o_gun1[];
-extern INT o_gun2[];
-extern INT o_gun3[];
+extern int o_engine[];
+extern int o_gun1[];
+extern int o_gun2[];
+extern int o_gun3[];
 extern FLATS* flatlib[];
 extern BOOL startfadeflag;
 extern BYTE* patch1;
 extern BYTE* patch2;
 extern BOOL end_wave;
-extern INT gl_cnt;
+extern int gl_cnt;
 extern BOOL testflag;
-extern INT startendwave;
+extern int startendwave;
 extern BOOL reg_flag;
 extern BOOL lowmem_flag;
-extern INT curplr_diff;
-extern INT bday_num;
-extern INT demo_flag;
+extern int curplr_diff;
+extern int bday_num;
+extern int demo_flag;
 
 #endif

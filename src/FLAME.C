@@ -14,12 +14,12 @@ PRIVATE BYTE stmem[MAX_SHADES][512];
 FLAME_Init () - Inits Flame Tables and stuff
  ***************************************************************************/
 void FLAME_Init( void ) {
-    INT i;
+    int i;
 
     for ( i = 0; i < MAX_SHADES; i++ ) {
         stable[i] = stmem[i];
 
-        stable[i] = (BYTE*) ( (INT) stable[i] + 255 & ~0xff );
+        stable[i] = (BYTE*) ( (int) stable[i] + 255 & ~0xff );
 
         GFX_MakeLightTable( palette, stable[i], ( MAX_SHADES - i ) * 2 );
     }
@@ -29,7 +29,7 @@ void FLAME_Init( void ) {
 FLAME_InitShades () - Inits shading stuff
  ***************************************************************************/
 void FLAME_InitShades( void ) {
-    INT i;
+    int i;
 
     for ( i = 0; i < MAX_SHADES; i++ ) {
         GFX_MakeLightTable( palette, stable[i], ( MAX_SHADES - i ) * 2 );
@@ -40,18 +40,18 @@ void FLAME_InitShades( void ) {
 FLAME_Up () - Shows Flame shooting upward
  ***************************************************************************/
 void FLAME_Up(
-    INT ix, // INPUT : x position
-    INT iy, // INPUT : y position
-    INT width, // INPUT : width of shade
-    INT frame // INPUT : frame
+    int ix, // INPUT : x position
+    int iy, // INPUT : y position
+    int width, // INPUT : width of shade
+    int frame // INPUT : frame
 ) {
-    INT height[2] = { 5, 10 };
+    int height[2] = { 5, 10 };
     BYTE* outbuf;
-    INT y;
-    INT i;
+    int y;
+    int i;
     DWORD curs;
     DWORD addx;
-    INT num;
+    int num;
 
     if ( opt_detail < 1 ) {
         return;
@@ -93,15 +93,15 @@ void FLAME_Up(
 FLAME_Down () - Shows Flame shooting downward
  ***************************************************************************/
 void FLAME_Down(
-    INT ix, // INPUT : x position
-    INT iy, // INPUT : y position
-    INT width, // INPUT : width of shade
-    INT frame // INPUT : frame
+    int ix, // INPUT : x position
+    int iy, // INPUT : y position
+    int width, // INPUT : width of shade
+    int frame // INPUT : frame
 ) {
-    INT height[2] = { 8, 12 };
+    int height[2] = { 8, 12 };
     BYTE* outbuf;
-    INT y;
-    INT i;
+    int y;
+    int i;
     DWORD curs;
     DWORD addx;
 

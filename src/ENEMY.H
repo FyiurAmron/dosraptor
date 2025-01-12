@@ -18,39 +18,39 @@ typedef struct SPRITE_SHIP_S {
     struct SPRITE_SHIP_S* next;
     DWORD item; // GLB item of current frame
     SPRITE* lib; // SPRITE LIB POS
-    INT sx; // START X
-    INT sy; // START Y
-    INT x; // CENTER X POS;
-    INT y; // Y POS
-    INT x2; // WIDTH
-    INT y2; // HEIGHT
-    INT width; // WIDTH
-    INT height; // HEIGHT
-    INT hlx; // WIDTH/2
-    INT hly; // HEIGHT/2
-    INT movepos; // CUR POSITION IN FLIGHT (X/Y)
-    INT shootagain; // * COUNT DOWN TO SHOOT
-    INT shootcount; // * COUNT TO SHOOT
-    INT shootflag; // * COUNTER TO SPACE SHOTS
-    INT angleflag;
-    INT dirflag; // * FLIGHT DIRECTION FLAG
-    INT hits; // *
+    int sx; // START X
+    int sy; // START Y
+    int x; // CENTER X POS;
+    int y; // Y POS
+    int x2; // WIDTH
+    int y2; // HEIGHT
+    int width; // WIDTH
+    int height; // HEIGHT
+    int hlx; // WIDTH/2
+    int hly; // HEIGHT/2
+    int movepos; // CUR POSITION IN FLIGHT (X/Y)
+    int shootagain; // * COUNT DOWN TO SHOOT
+    int shootcount; // * COUNT TO SHOOT
+    int shootflag; // * COUNTER TO SPACE SHOTS
+    int angleflag;
+    int dirflag; // * FLIGHT DIRECTION FLAG
+    int hits; // *
     BOOL groundflag; // *
     BOOL doneflag;
     MOVEOBJ move;
-    INT countdown;
+    int countdown;
     DWORD curframe;
-    INT eframe;
-    INT num_frames;
+    int eframe;
+    int num_frames;
     BOOL anim_on;
     EDIR edir;
-    INT kami;
-    INT frame_rate;
+    int kami;
+    int frame_rate;
     BOOL shoot_on;
     BOOL shoot_disable;
     MULTI multi;
-    INT speed;
-    INT suckagain;
+    int speed;
+    int suckagain;
 } SPRITE_SHIP;
 
 #define E_NUM_DIFF    4
@@ -110,36 +110,36 @@ SPRITE_SHIP* ENEMY_GetRandomAir( void );
 ENEMY_DamageAll () - Tests to see if hit occured at x/y and applys damage
  ***************************************************************************/
 BOOL ENEMY_DamageAll(
-    INT x, // INPUT : x position
-    INT y, // INPUT : y position
-    INT damage // INPUT : damage
+    int x, // INPUT : x position
+    int y, // INPUT : y position
+    int damage // INPUT : damage
 );
 
 /***************************************************************************
 ENEMY_DamageGround () - Tests to see if hit occured at x/y and applys damage
  ***************************************************************************/
 BOOL ENEMY_DamageGround(
-    INT x, // INPUT : x position
-    INT y, // INPUT : y position
-    INT damage // INPUT : damage
+    int x, // INPUT : x position
+    int y, // INPUT : y position
+    int damage // INPUT : damage
 );
 
 /***************************************************************************
 ENEMY_DamageAir () - Tests to see if hit occured at x/y and applys damage
  ***************************************************************************/
 BOOL ENEMY_DamageAir(
-    INT x, // INPUT : x position
-    INT y, // INPUT : y position
-    INT damage // INPUT : damage
+    int x, // INPUT : x position
+    int y, // INPUT : y position
+    int damage // INPUT : damage
 );
 
 /***************************************************************************
 ENEMY_DamageEnergy () - Tests to see if hit occured at x/y and applys damage
  ***************************************************************************/
 SPRITE_SHIP* ENEMY_DamageEnergy(
-    INT x, // INPUT : x position
-    INT y, // INPUT : y position
-    INT damage // INPUT : damage
+    int x, // INPUT : x position
+    int y, // INPUT : y position
+    int damage // INPUT : damage
 );
 
 /***************************************************************************
@@ -160,10 +160,10 @@ void ENEMY_DisplaySky( void );
 /***************************************************************************
 ENEMY_GetBaseDamage() - Gets Base Ship damage
  ***************************************************************************/
-INT ENEMY_GetBaseDamage( void );
+int ENEMY_GetBaseDamage( void );
 
 extern CSPRITE* csprite;
-extern INT numships;
+extern int numships;
 extern DWORD cur_diff;
 
 #endif

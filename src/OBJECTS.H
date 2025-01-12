@@ -41,10 +41,10 @@ typedef enum {
 
 typedef struct {
     DWORD item; // LUMPNUM OF PIC
-    INT numframes; // NUMBER OF FRAMES
-    INT cost; // COST OF OBJECT
-    INT start_cnt; // START AMOUNT OF ITEMS
-    INT max_cnt; // MAX COUNT OF UNITS/ITEMS
+    int numframes; // NUMBER OF FRAMES
+    int cost; // COST OF OBJECT
+    int start_cnt; // START AMOUNT OF ITEMS
+    int max_cnt; // MAX COUNT OF UNITS/ITEMS
     BOOL ( *actf )( OBJ_TYPE ); // FUNCTION PTR FOR ACTION
     DEFX fxtype; // SOUND FX TYPE
     BOOL forever; // LAST FOREVER
@@ -59,8 +59,8 @@ typedef struct {
 typedef struct OBJ_S {
     struct OBJ_S* prev; // LINK LIST PREV
     struct OBJ_S* next; // LINK LIST NEXT
-    INT num; // NUMBER OF ITEM(S)
-    INT type; // OBJECT TYPE
+    int num; // NUMBER OF ITEM(S)
+    int type; // OBJECT TYPE
     OBJ_LIB* lib; // POINTER TO LIB
     BOOL inuse; // CURRENTLY EQUIPED
 } OBJ;
@@ -126,7 +126,7 @@ void OBJS_Use(
 /***************************************************************************
 OBJS_Sell () - Sell Object from player posesion
  ***************************************************************************/
-INT // RETRUN: amount left
+int // RETRUN: amount left
 OBJS_Sell(
     OBJ_TYPE type // INPUT : OBJ type
 );
@@ -142,16 +142,16 @@ OBJS_Buy(
 /***************************************************************************
 OBJS_SubAmt () - Subtract Amount From Equiped Item
  ***************************************************************************/
-INT // RETURN: return nums in OBJ
+int // RETURN: return nums in OBJ
 OBJS_SubAmt(
     OBJ_TYPE type, // INPUT : OBJ type
-    INT amt // INPUT : amount to subtract
+    int amt // INPUT : amount to subtract
 );
 
 /***************************************************************************
 OBJS_GetAmt() - Returns number of items within TYPE in Equiped Items
  ***************************************************************************/
-INT // RETURN: return nums in OBJ
+int // RETURN: return nums in OBJ
 OBJS_GetAmt(
     OBJ_TYPE type // INPUT : OBJ type
 );
@@ -159,7 +159,7 @@ OBJS_GetAmt(
 /***************************************************************************
 OBJS_GetTotal() - Returns number of items within TYPE in all OBJS
  ***************************************************************************/
-INT // RETURN: return nums in OBJ
+int // RETURN: return nums in OBJ
 OBJS_GetTotal(
     OBJ_TYPE type // INPUT : OBJ type
 );
@@ -175,7 +175,7 @@ OBJS_IsOnly(
 /***************************************************************************
 OBJS_GetCost () - Returns The game COST of an object
  ***************************************************************************/
-INT // RETURN: cost of object
+int // RETURN: cost of object
 OBJS_GetCost(
     OBJ_TYPE type // INPUT : OBJ type
 );
@@ -183,7 +183,7 @@ OBJS_GetCost(
 /***************************************************************************
 OBJS_GetResale () - Returns The game Resale Value of an object
  ***************************************************************************/
-INT // RETURN: cost of object
+int // RETURN: cost of object
 OBJS_GetResale(
     OBJ_TYPE type // INPUT : OBJ type
 );
@@ -205,7 +205,7 @@ BOOL OBJS_CanSell(
 /***************************************************************************
 OBJS_GetNum () - Returns number of Objects that player has
  ***************************************************************************/
-INT // RETURN: number of objects
+int // RETURN: number of objects
     OBJS_GetNum( void );
 
 /***************************************************************************
@@ -226,17 +226,17 @@ OBJS_IsEquip(
 /***************************************************************************
 OBJS_AddEnergy()
  ***************************************************************************/
-INT // RETURN: return nums in OBJ
+int // RETURN: return nums in OBJ
 OBJS_AddEnergy(
-    INT amt // INPUT : amount to add
+    int amt // INPUT : amount to add
 );
 
 /***************************************************************************
 OBJS_SubEnergy()
  ***************************************************************************/
-INT // RETURN: return nums in OBJ
+int // RETURN: return nums in OBJ
 OBJS_SubEnergy(
-    INT amt // INPUT : amount to subtract
+    int amt // INPUT : amount to subtract
 );
 
 /***************************************************************************

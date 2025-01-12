@@ -24,7 +24,7 @@ PRIVATE DWORD items[S_LAST_OBJECT] = {
     EMPTY,      EMPTY,      EMPTY,      EMPTY,      EMPTY //
 };
 
-PRIVATE CHAR storetext[8][20] = {
+PRIVATE char storetext[8][20] = {
     //
     "      EXIT", // 0
     "ACTIVATE SELL MODE", // 1
@@ -39,19 +39,19 @@ PRIVATE CHAR storetext[8][20] = {
 #define BUY_MODE  0
 #define SELL_MODE 1
 
-PRIVATE INT mode = BUY_MODE;
-PRIVATE INT cur_item = 0;
-PRIVATE INT window;
-PRIVATE INT b_items[S_LAST_OBJECT];
-PRIVATE INT s_items[S_LAST_OBJECT];
-PRIVATE INT buy_count;
-PRIVATE INT sell_count;
+PRIVATE int mode = BUY_MODE;
+PRIVATE int cur_item = 0;
+PRIVATE int window;
+PRIVATE int b_items[S_LAST_OBJECT];
+PRIVATE int s_items[S_LAST_OBJECT];
+PRIVATE int buy_count;
+PRIVATE int sell_count;
 
 PRIVATE DWORD buybut[2] = { BUYLGT_PIC, BUYDRK_PIC };
 PRIVATE DWORD sellbut[2] = { SELLGT_PIC, SELLDRK_PIC };
 PRIVATE DWORD mainbut[2] = { BUYITEM_PIC, SELLITEM_PIC };
-PRIVATE CHAR saying[2][9] = { "COST", "RESALE" };
-PRIVATE CHAR yh_hold[16];
+PRIVATE char saying[2][9] = { "COST", "RESALE" };
+PRIVATE char yh_hold[16];
 
 extern OBJ_LIB obj_lib[];
 extern OBJ p_objs[];
@@ -59,12 +59,12 @@ extern OBJ p_objs[];
 /*-------------------------------------------------------------------------*
 MakeBuyItems () - Makes items you can Buy
  *-------------------------------------------------------------------------*/
-PRIVATE INT MakeBuyItems( void ) {
-    INT i;
-    INT num;
+PRIVATE int MakeBuyItems( void ) {
+    int i;
+    int num;
     BOOL flag;
-    INT cost1;
-    INT cost2;
+    int cost1;
+    int cost2;
 
     buy_count = 0;
     memset( b_items, 0, sizeof( b_items ) );
@@ -105,12 +105,12 @@ PRIVATE INT MakeBuyItems( void ) {
 /*-------------------------------------------------------------------------*
 MakeSellItems() - Makes the items that you can sell
  *-------------------------------------------------------------------------*/
-PRIVATE INT MakeSellItems( void ) {
-    INT i;
-    INT num;
+PRIVATE int MakeSellItems( void ) {
+    int i;
+    int num;
     BOOL flag;
-    INT cost1;
-    INT cost2;
+    int cost1;
+    int cost2;
 
     memset( s_items, 0, sizeof( s_items ) );
 
@@ -200,18 +200,18 @@ PRIVATE void Harrold(
 STORE_Enter () - Lets User go in store and buy and sell things
  ***************************************************************************/
 void STORE_Enter( void ) {
-    CHAR youhave[52];
-    CHAR coststr[52];
+    char youhave[52];
+    char coststr[52];
     BOOL update = FALSE;
-    INT opt = -1;
-    INT oldopt = -1;
-    INT max_items = 0;
+    int opt = -1;
+    int oldopt = -1;
+    int max_items = 0;
     SWD_DLG dlg;
-    INT obj_cnt;
-    INT pos;
-    INT num;
-    INT cost;
-    INT i;
+    int obj_cnt;
+    int pos;
+    int num;
+    int cost;
+    int i;
 
     PTR_DrawCursor( FALSE );
     KBD_Clear();

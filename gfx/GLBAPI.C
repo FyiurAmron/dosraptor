@@ -32,9 +32,9 @@
 
 #include "decrypt.c"
 
-PRIVATE CHAR exePath[_MAX_PATH];
-PRIVATE INT num_glbs;
-PRIVATE CHAR prefix[5] = "FILE";
+PRIVATE char exePath[_MAX_PATH];
+PRIVATE int num_glbs;
+PRIVATE char prefix[5] = "FILE";
 PRIVATE BOOL fVmem = FALSE;
 
 /*
@@ -75,10 +75,10 @@ PRIVATE FILEDESC filedesc[MAX_GLB_FILES];
 /*------------------------------------------------------------------------
    GLB_FindFile() - Finds a file, opens it, and stores it's path
  ------------------------------------------------------------------------*/
-PRIVATE INT GLB_FindFile(
-    INT return_on_failure, // INPUT : Don't bomb if file not open
-    INT filenum, // INPUT : file number
-    INT permissions // INPUT : file access permissions
+PRIVATE int GLB_FindFile(
+    int return_on_failure, // INPUT : Don't bomb if file not open
+    int filenum, // INPUT : file number
+    int permissions // INPUT : file access permissions
 ) {
     char filename[_MAX_PATH];
     int handle;
@@ -124,10 +124,10 @@ PRIVATE INT GLB_FindFile(
 /*------------------------------------------------------------------------
    GLB_OpenFile() - Opens & Caches file handle
  ------------------------------------------------------------------------*/
-PRIVATE INT GLB_OpenFile(
-    INT return_on_failure, // INPUT : Don't bomb if file not open
-    INT filenum, // INPUT : file number
-    INT permissions // INPUT : file access permissions
+PRIVATE int GLB_OpenFile(
+    int return_on_failure, // INPUT : Don't bomb if file not open
+    int filenum, // INPUT : file number
+    int permissions // INPUT : file access permissions
 ) {
     FILEDESC* fd;
 
@@ -155,9 +155,9 @@ PRIVATE INT GLB_OpenFile(
 /*------------------------------------------------------------------------
    GLB_NumItems() - Returns number of items in a .GLB file
  ------------------------------------------------------------------------*/
-PRIVATE INT GLB_NumItems( INT filenum ) {
+PRIVATE int GLB_NumItems( int filenum ) {
     KEYFILE key;
-    INT handle;
+    int handle;
 
     ASSERT( filenum >= 0 && filenum < num_glbs );
 
@@ -226,11 +226,11 @@ PUBLIC void GLB_UseVM( void ) {
 /*************************************************************************
    GLB_InitSystem() - Starts up .GLB file system
  *************************************************************************/
-INT // Returns number of GLB resources opened.
+int // Returns number of GLB resources opened.
 GLB_InitSystem(
-    CHAR* exepath, // INPUT: Where program was run from
-    INT innum, // INPUT: MAX .GLB FILES TO LOOK FOR
-    CHAR* iprefix // INPUT: FILENAME PREFIX ( NULL for "FILE" )
+    char* exepath, // INPUT: Where program was run from
+    int innum, // INPUT: MAX .GLB FILES TO LOOK FOR
+    char* iprefix // INPUT: FILENAME PREFIX ( NULL for "FILE" )
 ) {
     int opened;
     int filenum;
@@ -287,8 +287,8 @@ GLB_InitSystem(
 DWORD // RETURN : size of item read
 GLB_Load(
     BYTE* inmem, // INPUT: memory pointer or NULL
-    INT filenum, // INPUT: file number
-    INT itemnum // INPUT: item in file number
+    int filenum, // INPUT: file number
+    int itemnum // INPUT: item in file number
 ) {
     int handle;
     ITEMINFO* ii;
@@ -494,13 +494,13 @@ void GLB_ReadItem(
  ***************************************************************************/
 DWORD // RETURN: Handle
 GLB_GetItemID(
-    CHAR* in_name // INPUT : pointer to text name
+    char* in_name // INPUT : pointer to text name
 ) {
     ITEMINFO* ii;
     ITEM_H itm;
-    INT filenum;
-    INT itemnum;
-    INT items;
+    int filenum;
+    int itemnum;
+    int items;
 
     ASSERT( in_name != NULL );
 
@@ -528,7 +528,7 @@ GLB_GetItemID(
  ***************************************************************************/
 BYTE *                        // RETURN: pointer to item
 GLB_GetPtr (
-INT handle                 // INPUT : handle of item
+int handle                 // INPUT : handle of item
 )
 {
    ITEM_H   itm;
@@ -611,7 +611,7 @@ void GLB_FreeAll( void ) {
 /***************************************************************************
  GLB_ItemSize() - Returns Size of Item
  ***************************************************************************/
-INT // RETURN: sizeof ITEM
+int // RETURN: sizeof ITEM
 GLB_ItemSize(
     DWORD handle // INPUT : handle of item
 ) {
@@ -635,13 +635,13 @@ GLB_ItemSize(
 /***************************************************************************
    GLB_ReadFile () reads in a normal file
  ***************************************************************************/
-INT // RETURN: size of record
+int // RETURN: size of record
 GLB_ReadFile(
-    CHAR* name, // INPUT : filename
+    char* name, // INPUT : filename
     void* buffer // OUTPUT: pointer to buffer or NULL
 ) {
-    CHAR fqp[_MAX_PATH];
-    INT handle;
+    char fqp[_MAX_PATH];
+    int handle;
     DWORD sizerec;
 
     if ( access( name, 0 ) == -1 ) {
@@ -671,11 +671,11 @@ GLB_ReadFile(
    GLB_SaveFile () saves buffer to a normal file ( filename )
  ***************************************************************************/
 void GLB_SaveFile(
-    CHAR* name, // INPUT : filename
+    char* name, // INPUT : filename
     void* buffer, // INPUT : pointer to buffer
     DWORD length // INPUT : length of buffer
 ) {
-    INT handle;
+    int handle;
 
     if ( ( handle = open( name, O_BINARY | O_WRONLY | O_CREAT | O_TRUNC, S_IREAD | S_IWRITE ) ) == -1 ) {
         EXIT_Error( "SaveFile: Open failed!" );

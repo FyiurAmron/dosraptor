@@ -17,51 +17,51 @@
 #include "loadsave.h"
 #include "windows.h"
 
-PUBLIC INT buttons[4] = { FALSE, FALSE, FALSE, FALSE };
+PUBLIC int buttons[4] = { FALSE, FALSE, FALSE, FALSE };
 
 PUBLIC ITYPE control = I_MOUSE;
 
 #define MAX_ADDX 10
 #define MAX_ADDY 8
 
-PRIVATE INT k_Up;
-PRIVATE INT k_Down;
-PRIVATE INT k_Left;
-PRIVATE INT k_Right;
+PRIVATE int k_Up;
+PRIVATE int k_Down;
+PRIVATE int k_Left;
+PRIVATE int k_Right;
 
-PRIVATE INT k_Fire;
-PRIVATE INT k_FireSp;
-PRIVATE INT k_ChangeSp;
-PRIVATE INT k_Mega;
+PRIVATE int k_Fire;
+PRIVATE int k_FireSp;
+PRIVATE int k_ChangeSp;
+PRIVATE int k_Mega;
 
-PRIVATE INT m_lookup[3] = { 0, 1, 2 };
-PRIVATE INT j_lookup[4] = { 0, 1, 2, 3 };
+PRIVATE int m_lookup[3] = { 0, 1, 2 };
+PRIVATE int j_lookup[4] = { 0, 1, 2, 3 };
 
-PUBLIC INT f_addx = 0;
-PUBLIC INT f_addy = 0;
+PUBLIC int f_addx = 0;
+PUBLIC int f_addy = 0;
 
-PRIVATE INT g_addx = 0;
-PRIVATE INT g_addy = 0;
-PRIVATE INT xm;
-PRIVATE INT ym;
-PRIVATE INT tsm_id;
+PRIVATE int g_addx = 0;
+PRIVATE int g_addy = 0;
+PRIVATE int xm;
+PRIVATE int ym;
+PRIVATE int tsm_id;
 
-extern INT joy_x;
-extern INT joy_y;
+extern int joy_x;
+extern int joy_y;
 
-PUBLIC INT demo_mode = DEMO_OFF;
+PUBLIC int demo_mode = DEMO_OFF;
 PRIVATE RECORD playback[MAX_DEMO + 1];
-PRIVATE INT cur_play = 0;
-PRIVATE CHAR demo_name[32];
-PRIVATE INT demo_wave;
-PRIVATE INT demo_game;
-PRIVATE INT max_play;
+PRIVATE int cur_play = 0;
+PRIVATE char demo_name[32];
+PRIVATE int demo_wave;
+PRIVATE int demo_game;
+PRIVATE int max_play;
 PRIVATE BOOL control_pause = FALSE;
 
 /***************************************************************************
 DEMO_MakePlayer() -
  ***************************************************************************/
-void DEMO_MakePlayer( INT game ) {
+void DEMO_MakePlayer( int game ) {
     memset( &plr, 0, sizeof( PLAYEROBJ ) );
 
     plr.sweapon = EMPTY;
@@ -124,7 +124,7 @@ void DEMO_MakePlayer( INT game ) {
 DEMO_DisplayStats (
  ***************************************************************************/
 void DEMO_DisplayStats( void ) {
-    CHAR temp[81];
+    char temp[81];
 
     if ( demo_mode != DEMO_RECORD ) {
         return;
@@ -155,7 +155,7 @@ void DEMO_StartPlayback( void ) {
 /***************************************************************************
 DEMO_SetFileName ()
  ***************************************************************************/
-void DEMO_SetFileName( CHAR* in_name ) {
+void DEMO_SetFileName( char* in_name ) {
     strcpy( demo_name, in_name );
 }
 
@@ -185,7 +185,7 @@ void DEMO_GLBFile( DWORD item ) {
 DEMO_LoadFile()
  ***************************************************************************/
 void DEMO_LoadFile( void ) {
-    INT filesize;
+    int filesize;
 
     filesize = GLB_ReadFile( demo_name, NULL );
     GLB_ReadFile( demo_name, playback );
@@ -299,9 +299,9 @@ BOOL DEMO_Think( void ) {
             playback[cur_play].b2 = (BYTE) BUT_2;
             playback[cur_play].b3 = (BYTE) BUT_3;
             playback[cur_play].b4 = (BYTE) BUT_4;
-            playback[cur_play].px = (SHORT) playerx;
-            playback[cur_play].py = (SHORT) playery;
-            playback[cur_play].playerpic = (SHORT) playerpic;
+            playback[cur_play].px = (short) playerx;
+            playback[cur_play].py = (short) playery;
+            playback[cur_play].playerpic = (short) playerpic;
             cur_play++;
             if ( cur_play == MAX_DEMO ) {
                 SND_Patch( FX_BONUS, 127 );
@@ -318,7 +318,7 @@ BOOL DEMO_Think( void ) {
    IPT_GetButtons () - Reads in Joystick and Keyboard game buttons
   ------------------------------------------------------------------------*/
 void IPT_GetButtons( void ) {
-    INT num;
+    int num;
 
     if ( control == I_JOYSTICK ) {
         num = inp( 0x201 );
@@ -360,9 +360,9 @@ void IPT_GetButtons( void ) {
 IPT_GetJoyStick()
   ------------------------------------------------------------------------*/
 PRIVATE void IPT_GetJoyStick( void ) {
-    extern INT joy_sx, joy_sy;
-    extern INT joy_limit_xh, joy_limit_xl;
-    extern INT joy_limit_yh, joy_limit_yl;
+    extern int joy_sx, joy_sy;
+    extern int joy_limit_xh, joy_limit_xl;
+    extern int joy_limit_yh, joy_limit_yl;
 
     _disable();
     PTR_ReadJoyStick();
@@ -479,10 +479,10 @@ PRIVATE void IPT_GetKeyBoard( void ) {
 IPT_GetMouse (
   ------------------------------------------------------------------------*/
 PRIVATE void IPT_GetMouse( void ) {
-    INT plx;
-    INT ply;
-    INT ptrx;
-    INT ptry;
+    int plx;
+    int ply;
+    int ptrx;
+    int ptry;
 
     plx = playerx + ( PLAYERWIDTH / 2 );
     ply = playery + ( PLAYERHEIGHT / 2 );
@@ -534,7 +534,7 @@ PRIVATE void IPT_GetMouse( void ) {
 }
 
 PRIVATE void WaitJoyButton( void ) {
-    INT num = 0;
+    int num = 0;
 
     for ( ;; ) {
         num = inp( 0x201 );
@@ -572,11 +572,11 @@ IPT_CalJoy() - Calibrates Joystick ( joystick must be centered )
  ***************************************************************************/
 void IPT_CalJoy( void ) {
     extern BOOL godmode;
-    extern INT joy_sx, joy_sy;
-    extern INT joy_limit_xh, joy_limit_xl;
-    extern INT joy_limit_yh, joy_limit_yl;
-    INT xh, yh;
-    INT xl, yl;
+    extern int joy_sx, joy_sy;
+    extern int joy_limit_xh, joy_limit_xl;
+    extern int joy_limit_yh, joy_limit_yl;
+    int xh, yh;
+    int xl, yl;
 
     if ( control != I_JOYSTICK ) {
         return;
@@ -675,8 +675,8 @@ void IPT_End( void ) {
 IPT_MovePlayer() - Perform player movement for current input device
  ***************************************************************************/
 void IPT_MovePlayer( void ) {
-    PRIVATE INT oldx = PLAYERINITX;
-    INT delta;
+    PRIVATE int oldx = PLAYERINITX;
+    int delta;
 
     if ( demo_mode == DEMO_PLAYBACK ) {
         return;
@@ -760,8 +760,8 @@ void IPT_PauseControl( BOOL flag ) {
 IPT_FMovePlayer() - Forces player to move addx/addy
  ***************************************************************************/
 void IPT_FMovePlayer(
-    INT addx, // INPUT : add to x pos
-    INT addy // INPUT : add to y pos
+    int addx, // INPUT : add to x pos
+    int addy // INPUT : add to y pos
 ) {
     g_addx = addx;
     g_addy = addy;
@@ -773,7 +773,7 @@ void IPT_FMovePlayer(
 IPT_LoadPrefs() - Load Input Prefs from setup.ini
  ***************************************************************************/
 void IPT_LoadPrefs( void ) {
-    extern INT tai_flag, quick_mode, bday_num, godmode, seed;
+    extern int tai_flag, quick_mode, bday_num, godmode, seed;
 
     opt_detail = INI_GetPreferenceLong( "Setup", "Detail", 1 );
     control = INI_GetPreferenceLong( "Setup", "Control", 0 );

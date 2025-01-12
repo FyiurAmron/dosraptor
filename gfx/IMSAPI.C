@@ -37,7 +37,7 @@ void IMS_StartAck( void ) {
 IMS_CheckAck () - Tells if somthing has happend since last IMS_StartAck
  ***************************************************************************/
 BOOL IMS_CheckAck( void ) {
-    INT rval = FALSE;
+    int rval = FALSE;
 
     if ( mouse_b1_ack ) {
         rval = TRUE;
@@ -81,13 +81,13 @@ void IMS_WaitAck( void ) {
 /***************************************************************************
 IMS_WaitTimed() - Wait for aprox secs
  ***************************************************************************/
-INT // RETURN: keypress (lastscan)
+int // RETURN: keypress (lastscan)
 IMS_WaitTimed(
-    INT secs // INPUT : seconds to wait
+    int secs // INPUT : seconds to wait
 ) {
-    volatile INT hold;
-    INT i;
-    INT rval;
+    volatile int hold;
+    int i;
+    int rval;
 
     KBD_LASTSCAN = SC_NONE;
     rval = KBD_LASTSCAN;

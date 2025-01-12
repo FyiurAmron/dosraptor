@@ -16,15 +16,15 @@ extern BOOL mouse_b3_ack;
 extern BOOL drawcursor;
 extern BOOL joypresent;
 extern BOOL mousepresent;
-extern INT joy2b1;
-extern INT joy2b2;
-extern INT mouseb1;
-extern INT mouseb2;
-extern INT mouseb3;
-extern INT cursorx;
-extern INT cursory;
-extern INT cur_mx;
-extern INT cur_my;
+extern int joy2b1;
+extern int joy2b2;
+extern int mouseb1;
+extern int mouseb2;
+extern int mouseb3;
+extern int cursorx;
+extern int cursory;
+extern int cur_mx;
+extern int cur_my;
 extern BOOL ptr_init_flag;
 
 /*========================================================================
@@ -86,8 +86,8 @@ void PTR_DrawCursor(
  ***************************************************************************/
 void // RETURN: none
 PTR_SetPos(
-    INT x, // INPUT : x position
-    INT y // INPUT : y position
+    int x, // INPUT : x position
+    int y // INPUT : y position
 );
 
 /***************************************************************************

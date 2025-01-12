@@ -27,13 +27,13 @@ PUBLIC BOOL kbd_ack = FALSE;
 
 BOOL keyboard[256];
 BOOL paused, capslock;
-INT lastscan;
-INT lastascii;
+int lastscan;
+int lastascii;
 
 PRIVATE void( _interrupt _far* oldkeyboardisr )() = 0L;
 PRIVATE void ( *keyboardhook )( void ) = (void( * )) 0;
 
-PUBLIC INT ASCIINames[] = // Unshifted ASCII for scan codes
+PUBLIC int ASCIINames[] = // Unshifted ASCII for scan codes
     {
         //       0   1   2   3   4   5   6   7   8   9   A   B   C   D   E   F
         0,   27,  '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 8,   9, // 0
@@ -46,7 +46,7 @@ PUBLIC INT ASCIINames[] = // Unshifted ASCII for scan codes
         0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 // 7
 };
 
-PRIVATE INT ShiftNames[] = // Shifted ASCII for scan codes
+PRIVATE int ShiftNames[] = // Shifted ASCII for scan codes
     {
         //       0   1   2   3   4   5   6   7   8   9   A   B   C   D   E   F
         0,   27,  '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', 8,   9, // 0
@@ -128,11 +128,11 @@ KBD_SetKeyboardHook( void ( *hook )( void ) // INPUT : pointer to function
 /***************************************************************************
    KBD_Ascii2Scan () - converts most ASCII chars to keyboard scan code
  ***************************************************************************/
-INT // RETURN: scan code
+int // RETURN: scan code
 KBD_Ascii2Scan(
-    INT ascii // INPUT : ASCII character
+    int ascii // INPUT : ASCII character
 ) {
-    INT i;
+    int i;
 
     ascii = tolower( ascii );
 
@@ -149,7 +149,7 @@ KBD_Ascii2Scan(
 KBD_Wait() - Waits for Key to be released
  ***************************************************************************/
 void KBD_Wait(
-    INT scancode // SCANCODE see keys.h
+    int scancode // SCANCODE see keys.h
 ) {
     volatile BOOL* ky;
 
@@ -169,7 +169,7 @@ void KBD_Wait(
 KBD_IsKey() - Tests to see if key is down if so waits for release
  ***************************************************************************/
 BOOL KBD_IsKey(
-    INT scancode // SCANCODE see keys.h
+    int scancode // SCANCODE see keys.h
 ) {
     if ( KBD_Key( scancode ) ) {
         KBD_Wait( scancode );
