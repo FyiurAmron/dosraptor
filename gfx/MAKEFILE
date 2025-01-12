@@ -19,16 +19,18 @@ CFLAGS = -m$(MODEL) -za99 -zq -od -d2 -zp4 -ei -W4 # debug
 
 # explicit rules
 
-all :   gfx.lib .symbolic
+all : gfx.lib .symbolic
 	@%null
 
 gfx.lib : $(objs)
 	 %make temp.lnk
 	 wlib $^@ /n /b @temp.lnk
 
-clean : .SYMBOLIC
+cleanobj : .SYMBOLIC
 	del *.obj
-	del *.lib
+
+clean : .SYMBOLIC cleanobj
+	del *.exe
 
 # implicit rules
 

@@ -19,15 +19,17 @@ CFLAGS = -m$(MODEL) -za99 -zq -od -d2 -zp4 -ei -W4 # debug
 
 # explicit rules
 
-all :   rap.exe .symbolic
+all : rap.exe .symbolic
 	@%null
 
 rap.exe : $(objs)
 	 %make temp.lnk    
 	 wlink @temp.lnk
 
-clean : .SYMBOLIC
+cleanobj : .SYMBOLIC
 	del *.obj
+
+clean : .SYMBOLIC cleanobj
 	del *.exe
 
 # implicit rules
@@ -36,7 +38,7 @@ temp.lnk : objdef.mif makefile
 	%create $^@
 	%append $^@ NAME rap
 	%append $^@ DEBUG all
-	%append $^@ OPT MAP=test.map
+	%append $^@ OPT MAP=temp.map
 	%append $^@ OPT STACK=8192
 	%append $^@ OPT CASEEXACT
 	%append $^@ LIBRARY APODMX.lib
