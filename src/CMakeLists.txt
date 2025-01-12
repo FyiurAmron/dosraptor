@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.30)
-project(SOURCE)
+project(src)
 
 set(CMAKE_C_STANDARD 99)
 
 include_directories(.)
 
-add_executable(SOURCE
+add_executable(src
         ANIMS.C
         ANIMS.H
         ASK.INC

@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.30)
-project(GFX)
+project(gfx)
 
 set(CMAKE_C_STANDARD 99)
 
 include_directories(.)
 
-add_executable(GFX
+add_executable(gfx
         DPMIAPI.C
         DPMIAPI.H
         exitapi.c
