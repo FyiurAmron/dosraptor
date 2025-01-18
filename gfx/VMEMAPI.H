@@ -29,7 +29,7 @@ PUBLIC void VM_InitMemory(
 PUBLIC void* VM_Malloc(
     DWORD size, // INPUT : Size of object
     VM_OWNER* owner, // INPUT : Owner Structure, NULL=Locked
-    BOOL discard // INPUT : Discard memory to satisfy request.
+    bool discard // INPUT : Discard memory to satisfy request.
 );
 
 /*************************************************************************

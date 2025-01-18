@@ -38,7 +38,7 @@ void KBD_Wait(
 /***************************************************************************
 KBD_IsKey() - Tests to see if key is down if so waits for release
  ***************************************************************************/
-BOOL KBD_IsKey(
+bool KBD_IsKey(
     int scancode // SCANCODE see keys.h
 );
 
@@ -62,8 +62,8 @@ void KBD_Key(
 );
 */
 
-extern BOOL paused, capslock, kbd_ack;
-extern BOOL keyboard[256];
+extern bool paused, capslock, kbd_ack;
+extern bool keyboard[256];
 extern int lastscan;
 extern int lastascii;
 

@@ -40,7 +40,7 @@ PUBLIC int g_rseed = 1;
 PUBLIC DWORD ylookup[SCREENHEIGHT];
 PUBLIC BYTE* displaybuffer = (BYTE*) 0x0000;
 PUBLIC BYTE* displayscreen = (BYTE*) 0xa0000;
-PUBLIC BOOL update_start = FALSE;
+PUBLIC bool update_start = false;
 PUBLIC int ud_x = 0;
 PUBLIC int ud_y = 0;
 PUBLIC int ud_lx = 0;
@@ -56,7 +56,7 @@ PUBLIC BYTE* ltable;
 PUBLIC BYTE* dtable;
 PUBLIC BYTE* gtable;
 PUBLIC void ( *framehook )( void ( * )( void ) ) = (void( * )) 0;
-PUBLIC BOOL retraceflag = TRUE;
+PUBLIC bool retraceflag = true;
 
 PUBLIC int G3D_x = 0; // input: x position
 PUBLIC int G3D_y = 0; // input: y position
@@ -67,7 +67,7 @@ PUBLIC int G3D_viewx = 159; // user view x pos
 PUBLIC int G3D_viewy = 99; // user view y pos
 PUBLIC int G3D_viewz = G3D_DIST; // user view z pos
 
-PRIVATE BOOL gfxdebug = FALSE;
+PRIVATE bool gfxdebug = false;
 PRIVATE BYTE tpal1[768];
 PRIVATE BYTE tpal2[768];
 
@@ -93,9 +93,7 @@ void GFX_TimeFrameRate( void ) {
 /***************************************************************************
 GFX_SetDebug () - Sets Debug mode
  ***************************************************************************/
-void GFX_SetDebug(
-    BOOL flag // INPUT : TRUE/FALSE
-) {
+void GFX_SetDebug( bool flag ) {
     gfxdebug = flag;
 }
 
@@ -1096,7 +1094,7 @@ void GFX_MarkUpdate(
         ud_x2 = x + lx - 1;
         ud_y2 = y + ly - 1;
         if ( ( lx + ly ) > 0 ) {
-            update_start = TRUE;
+            update_start = true;
         }
     }
 
@@ -1161,7 +1159,7 @@ void GFX_Delay(
 
     for ( i = 0; i < count; i++ ) {
         hold = framecount;
-        while ( framecount == hold && gfxdebug == FALSE )
+        while ( framecount == hold && !gfxdebug )
             ;
     }
 }
@@ -1186,7 +1184,7 @@ void GFX_WaitUpdate(
     GFX_MarkUpdate( o_ud_x, o_ud_y, o_ud_lx, o_ud_ly );
 
     for ( i = 0; i < count; i++ ) {
-        while ( framecount == hold && gfxdebug == FALSE )
+        while ( framecount == hold && !gfxdebug )
             ;
         hold = framecount;
     }
@@ -1211,7 +1209,7 @@ void GFX_WaitUpdate(
 void GFX_DisplayUpdate( void ) {
     static int hold = 0;
 
-    while ( framecount == hold && gfxdebug == FALSE )
+    while ( framecount == hold && !gfxdebug )
         ;
 
     GFX_MarkUpdate( o_ud_x, o_ud_y, o_ud_lx, o_ud_ly );
@@ -1239,7 +1237,7 @@ void GFX_PutImage(
     BYTE* image, // INPUT : image data
     int x, // INPUT : x position
     int y, // INPUT : y position
-    BOOL see_thru // INPUT : true = masked, false = put block
+    bool see_thru // INPUT : true = masked, false = put block
 ) {
     GFX_PIC* h = (GFX_PIC*) image;
 
@@ -1584,5 +1582,5 @@ void GFX_DisplayScreen( void ) {
         }
     }
 
-    update_start = FALSE;
+    update_start = false;
 }

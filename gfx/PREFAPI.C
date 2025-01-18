@@ -328,19 +328,15 @@ short INI_GetPreferenceBool(
 ) {
     char buffer[10];
 
-    if ( def ) {
-        INI_GetPreference( section, option, buffer, sizeof( buffer ), "TRUE" );
-    } else {
-        INI_GetPreference( section, option, buffer, sizeof( buffer ), "FALSE" );
-    }
-    if ( buffer[0] == '1' || stricmp( buffer, "TRUE" ) == 0 ) {
+    INI_GetPreference( section, option, buffer, sizeof( buffer ), def ? "true" : "false" );
+
+    if ( buffer[0] == '1' || stricmp( buffer, "true" ) == 0 ) {
         return 1;
     }
-    if ( buffer[0] == '0' || stricmp( buffer, "FALSE" ) == 0
-
-    ) {
+    if ( buffer[0] == '0' || stricmp( buffer, "false" ) == 0 ) {
         return 0;
     }
+
     return atoi( buffer );
 }
 
@@ -426,7 +422,7 @@ short INI_PutPreferenceBool(
     char* option, /* INPUT:   Name of preference option       */
     short val /* INPUT:   Value to write                  */
 ) {
-    return INI_PutPreference( section, option, val ? "TRUE" : "FALSE" );
+    return INI_PutPreference( section, option, val ? "true" : "false" );
 }
 
 /****************************************************************************

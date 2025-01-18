@@ -78,7 +78,7 @@ GLB_ItemSize(
 /***************************************************************************
  GLB_IsLabel () - tests to see if ID is a label or an Item
  ***************************************************************************/
-BOOL // RETURN: TRUE = Label
+bool // RETURN: true = Label
 GLB_IsLabel(
     DWORD handle // INPUT : handle of item
 );

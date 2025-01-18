@@ -13,15 +13,15 @@
 #include "ptrapi.h"
 #include "swdapi.h"
 
-PUBLIC BOOL usekb_flag = FALSE;
+PUBLIC bool usekb_flag = false;
 
-PRIVATE BOOL kbactive = FALSE;
+PRIVATE bool kbactive = false;
 PRIVATE int prev_window = EMPTY;
 PRIVATE int master_window = EMPTY;
 PRIVATE int active_window = EMPTY;
 int active_field = EMPTY;
 PRIVATE SFIELD* lastfld = NULL;
-PRIVATE BOOL highlight_flag = FALSE;
+PRIVATE bool highlight_flag = false;
 PRIVATE SWD_WIN g_wins[MAX_WINDOWS];
 PRIVATE void ( *winfuncs[MAX_WINDOWS] )( SWD_DLG* );
 PRIVATE void ( *fldfuncs[15] )( SWIN*, SFIELD* );
@@ -33,8 +33,8 @@ PRIVATE int obj_x;
 PRIVATE int obj_y;
 PRIVATE int obj_width;
 PRIVATE int obj_height;
-PRIVATE BOOL clearscreenflag = TRUE;
-PUBLIC BOOL g_button_flag = TRUE;
+PRIVATE bool clearscreenflag = true;
+PUBLIC bool g_button_flag = true;
 PRIVATE int old_field = -99;
 PRIVATE int old_win = -99;
 PRIVATE int g_key;
@@ -57,7 +57,7 @@ PRIVATE BYTE tcmds[T_LASTCMD - 1][14] = {
 
 PRIVATE BYTE textfill[MAX_TEXT_LEN];
 PRIVATE int textcolor;
-PRIVATE BOOL textcmd_flag;
+PRIVATE bool textcmd_flag;
 PRIVATE int textdraw_x;
 PRIVATE int textdraw_y;
 PRIVATE int textcmd_x;
@@ -112,7 +112,7 @@ int SWD_GetLine( BYTE* inmem ) {
         text = inmem;
     }
 
-    textcmd_flag = FALSE;
+    textcmd_flag = false;
     curpos = 0;
 
     memcpy( temp, text, MAX_TEXT_LEN );
@@ -121,7 +121,7 @@ int SWD_GetLine( BYTE* inmem ) {
 
     for ( i = 0; i < T_LASTCMD - 1; i++ ) {
         if ( strcmp( cmd, tcmds[i] ) == 0 ) {
-            textcmd_flag = TRUE;
+            textcmd_flag = true;
 
             while ( *( text + curpos ) > 31 ) {
                 curpos++;
@@ -171,7 +171,7 @@ int SWD_GetLine( BYTE* inmem ) {
                     textdraw_x += h->width + 1;
                     textdraw_y = y;
 
-                    GFX_PutImage( pic, x, y, FALSE );
+                    GFX_PutImage( pic, x, y, false );
                     GLB_FreeItem( item );
                     break;
 
@@ -310,8 +310,8 @@ PRIVATE void SWD_PutField(
     int text_x;
     int text_y;
     GFX_PIC* h;
-    BOOL draw_style = FALSE;
-    BOOL draw_text = FALSE;
+    bool draw_style = false;
+    bool draw_text = false;
 
     rval = GFX_StrPixelLen( fld_font, fld_text, strlen( fld_text ) );
     text_x = ( ( curfld->lx - rval ) >> 1 ) + fld_x;
@@ -325,7 +325,7 @@ PRIVATE void SWD_PutField(
     }
 
     if ( curfld->saveflag && curfld->sptr ) {
-        GFX_PutImage( curfld->sptr, fld_x, fld_y, FALSE );
+        GFX_PutImage( curfld->sptr, fld_x, fld_y, false );
     }
 
     if ( curfld->picflag != FILL && curfld->picflag != INVISABLE ) {
@@ -334,7 +334,7 @@ PRIVATE void SWD_PutField(
         }
 
         if ( curfld->picflag == SEE_THRU ) {
-            draw_style = TRUE;
+            draw_style = true;
         }
 
         switch ( curfld->opt ) {
@@ -348,7 +348,7 @@ PRIVATE void SWD_PutField(
                     GFX_PutImage( pic, fld_x, fld_y, draw_style );
                 }
 
-                draw_text = TRUE;
+                draw_text = true;
                 break;
 
             case FLD_DRAGBAR:
@@ -364,7 +364,7 @@ PRIVATE void SWD_PutField(
                     GFX_ShadeArea( GREY, fld_x, fld_y, curfld->lx, curfld->ly );
                 }
 
-                draw_text = TRUE;
+                draw_text = true;
                 break;
 
             case FLD_ICON:
@@ -427,7 +427,7 @@ PRIVATE void SWD_PutField(
             if ( curfld->picflag != INVISABLE ) {
                 GFX_ColorBox( fld_x, fld_y, curfld->lx, curfld->ly, curfld->color );
                 SWD_ShadeButton( curfld->bstatus, fld_x, fld_y, curfld->lx, curfld->ly );
-                draw_text = TRUE;
+                draw_text = true;
             } else {
                 GFX_Print( text_x, text_y, fld_text, fld_font, curfld->fontbasecolor );
             }
@@ -642,7 +642,7 @@ PRIVATE void SWD_FieldInput(
 ) {
     PRIVATE int curpos = 0;
     void* fld_font = GLB_GetItem( curfld->fontid );
-    BOOL flag = FALSE;
+    bool flag = false;
     char* wrkbuf = ( (char*) curfld ) + curfld->txtoff;
     int fontheight;
     int len;
@@ -707,7 +707,7 @@ PRIVATE void SWD_FieldInput(
             break;
 
         case SC_BACKSPACE:
-            flag = TRUE;
+            flag = true;
             if ( curpos > 0 ) {
                 curpos--;
             }
@@ -718,7 +718,7 @@ PRIVATE void SWD_FieldInput(
             if ( KBD_Key( SC_Y ) && KBD_Key( SC_CTRL ) ) {
                 curpos = 0;
                 wrkbuf[curpos] = 0;
-                flag = TRUE;
+                flag = true;
                 break;
             }
 
@@ -757,7 +757,7 @@ PRIVATE void SWD_FieldInput(
 
                 wrkbuf[curpos + 1] = 0;
 
-                flag = TRUE;
+                flag = true;
             }
             break;
     }
@@ -1123,14 +1123,14 @@ PRIVATE void SWD_PutWin(
     int lx = cwin->lx;
     int ly = 8;
     BYTE* pic;
-    BOOL draw_style = FALSE;
+    bool draw_style = false;
 
-    if ( cwin->display == FALSE ) {
+    if ( !cwin->display ) {
         return;
     }
 
     if ( cwin->color == 0 ) {
-        draw_style = TRUE;
+        draw_style = true;
     }
 
     if ( cwin->shadow ) {
@@ -1155,14 +1155,14 @@ PRIVATE void SWD_PutWin(
         case PICTURE:
             if ( cwin->item != EMPTY ) {
                 pic = GLB_GetItem( cwin->item );
-                GFX_PutImage( pic, cwin->x, cwin->y, FALSE );
+                GFX_PutImage( pic, cwin->x, cwin->y, false );
             }
             break;
 
         case SEE_THRU:
             if ( cwin->item != EMPTY ) {
                 pic = GLB_GetItem( cwin->item );
-                GFX_PutImage( pic, cwin->x, cwin->y, TRUE );
+                GFX_PutImage( pic, cwin->x, cwin->y, true );
             }
             break;
 
@@ -1202,25 +1202,17 @@ PRIVATE void SWD_PutWin(
 }
 
 /*------------------------------------------------------------------------
-   SWD_IsButtonDown () - returns TRUE if any SWD Butons are down
+   SWD_IsButtonDown () - returns true if any SWD Butons are down
   ------------------------------------------------------------------------*/
-PRIVATE BOOL SWD_IsButtonDown( void ) {
-    if ( KBD_Key( SC_ENTER ) ) {
-        return TRUE;
-    }
-
-    if ( mouseb1 ) {
-        return TRUE;
-    }
-
-    return FALSE;
+PRIVATE bool SWD_IsButtonDown( void ) {
+    return KBD_Key( SC_ENTER ) || mouseb1;
 }
 
 /***************************************************************************
  SWD_Install() - Initializes Window system
  ***************************************************************************/
 void SWD_Install(
-    BOOL moveflag // INPUT : Use Move Window feature ( 64k )
+    bool moveflag // INPUT : Use Move Window feature ( 64k )
 ) {
     char* err = "SWD_Init() - DosMemAlloc";
     DWORD segment;
@@ -1294,8 +1286,8 @@ SWD_InitWindow(
 
     old_win = EMPTY;
     old_field = EMPTY;
-    kbactive = FALSE;
-    highlight_flag = FALSE;
+    kbactive = false;
+    highlight_flag = false;
 
     if ( lastfld ) {
         lastfld->bstatus = NORMAL;
@@ -1307,14 +1299,14 @@ SWD_InitWindow(
     curfld = (SFIELD*) ( (BYTE*) header + header->fldofs );
 
     for ( rec_num = 0; rec_num < MAX_WINDOWS; rec_num++ ) {
-        if ( g_wins[rec_num].flag == FALSE ) {
+        if ( !g_wins[rec_num].flag ) {
             prev_window = active_window;
             active_window = rec_num;
             g_wins[rec_num].win = header;
-            g_wins[rec_num].flag = TRUE;
+            g_wins[rec_num].flag = true;
             g_wins[rec_num].gitem = handle;
 
-            header->display = TRUE;
+            header->display = true;
 
             active_field = g_wins[rec_num].win->firstfld;
 
@@ -1330,16 +1322,16 @@ SWD_InitWindow(
             for ( i = 0; i < header->numflds; i++, curfld++ ) {
                 if ( curfld->opt != FLD_OFF ) {
                     if ( curfld->opt == FLD_VIEWAREA ) {
-                        g_wins[active_window].viewflag = TRUE;
+                        g_wins[active_window].viewflag = true;
                     }
 
                     switch ( curfld->opt ) {
                         default:
-                            curfld->kbflag = FALSE;
+                            curfld->kbflag = false;
                             break;
 
                         case FLD_INPUT:
-                            curfld->kbflag = TRUE;
+                            curfld->kbflag = true;
                             break;
 
                         case FLD_BUTTON:
@@ -1347,9 +1339,9 @@ SWD_InitWindow(
                         case FLD_CLOSE:
                         case FLD_DRAGBAR:
                             if ( usekb_flag && curfld->selectable ) {
-                                curfld->kbflag = TRUE;
+                                curfld->kbflag = true;
                             } else {
-                                curfld->kbflag = FALSE;
+                                curfld->kbflag = false;
                             }
                             break;
                     }
@@ -1432,19 +1424,19 @@ void SWD_SetWinDrawFunc(
 /***************************************************************************
 SWD_SetClearFlag() - Turns ON/OFF memsetting of display buffer in showallwins
  ***************************************************************************/
-void SWD_SetClearFlag( BOOL inflag ) {
+void SWD_SetClearFlag( bool inflag ) {
     clearscreenflag = inflag;
 }
 
 /***************************************************************************
  SWD_ShowAllWindows()- Diplays all windows.. puts active window on top
  ***************************************************************************/
-BOOL // RETURN : TRUE = OK, FALSE = Error
+bool // RETURN : true = OK, false = Error
 SWD_ShowAllWindows( void ) {
     int i;
 
     if ( active_window < 0 ) {
-        return FALSE;
+        return false;
     }
 
     if ( clearscreenflag ) {
@@ -1475,7 +1467,7 @@ SWD_ShowAllWindows( void ) {
         SWD_PutWin( active_window );
     }
 
-    return TRUE;
+    return true;
 }
 
 /***************************************************************************
@@ -1543,7 +1535,7 @@ void SWD_SetFieldPtr(
 void SWD_SetActiveWindow(
     int handle // INPUT : number/handle of window
 ) {
-    if ( g_wins[handle].flag == FALSE ) {
+    if ( !g_wins[handle].flag ) {
         EXIT_Error( "SWD: SetActiveWindow #%u", handle );
     }
 
@@ -1569,14 +1561,10 @@ void SWD_SetActiveField(
     curfld = (SFIELD*) ( (BYTE*) curwin + curwin->fldofs );
     curfld += field_id;
 
-    if ( curfld->kbflag ) {
-        kbactive = TRUE;
-    } else {
-        kbactive = FALSE;
-    }
+    kbactive = curfld->kbflag;
 
     if ( kbactive ) {
-        highlight_flag = TRUE;
+        highlight_flag = true;
     }
 
     active_field = field_id;
@@ -1596,7 +1584,7 @@ void SWD_DestroyWindow(
 
     PTR_JoyReset();
 
-    if ( g_wins[handle].flag == FALSE ) {
+    if ( !g_wins[handle].flag ) {
         EXIT_Error( "SWD: DestroyWindow %d", handle );
     }
 
@@ -1622,15 +1610,15 @@ void SWD_DestroyWindow(
 
     GLB_FreeItem( g_wins[handle].gitem );
 
-    g_wins[handle].flag = FALSE;
+    g_wins[handle].flag = false;
     winfuncs[handle] = NULL;
 
     if ( handle == master_window ) {
         master_window = EMPTY;
     }
 
-    kbactive = FALSE;
-    highlight_flag = FALSE;
+    kbactive = false;
+    highlight_flag = false;
     lastfld = NULL;
 
     SWD_GetNextWindow();
@@ -1646,7 +1634,7 @@ void SWD_DestroyWindow(
             curfld += active_field;
 
             if ( curfld->kbflag ) {
-                kbactive = TRUE;
+                kbactive = true;
             }
         }
     }
@@ -1666,20 +1654,20 @@ void SWD_DestroyWindow(
 /*------------------------------------------------------------------------
    SWD_CheckMouse () does mouse stuff and returns SWD_XXX code
   ------------------------------------------------------------------------*/
-PRIVATE BOOL SWD_CheckMouse(
+PRIVATE bool SWD_CheckMouse(
     SWIN* curwin, // INPUT : pointer to current window
     SFIELD* firstfld // INPUT : pointer to current field
 ) {
     int i;
     SFIELD* curfld = firstfld;
-    BOOL flag = TRUE;
+    bool flag = true;
     int px = cur_mx;
     int py = cur_my;
     int x1;
     int y1;
     int x2;
     int y2;
-    BOOL mflag = FALSE;
+    bool mflag = false;
 
     for ( i = 0; i < curwin->numflds; i++, curfld++ ) {
         x1 = curfld->x + curwin->x;
@@ -1688,23 +1676,23 @@ PRIVATE BOOL SWD_CheckMouse(
         y2 = y1 + curfld->ly + 1;
 
         if ( px >= x1 && px <= x2 && py >= y1 && py <= y2 ) {
-            flag = TRUE;
+            flag = true;
             switch ( curfld->opt ) {
                 default:
                 case FLD_OFF:
                 case FLD_TEXT:
                 case FLD_ICON:
-                    flag = FALSE;
+                    flag = false;
                     break;
 
                 case FLD_DRAGBAR:
                     if ( curfld->selectable ) {
-                        mflag = FALSE;
+                        mflag = false;
                         cur_act = S_WIN_COMMAND;
                         cur_cmd = W_MOVE;
                         active_field = i;
                     } else {
-                        flag = FALSE;
+                        flag = false;
                     }
                     break;
 
@@ -1712,20 +1700,20 @@ PRIVATE BOOL SWD_CheckMouse(
                 case FLD_INPUT:
                 case FLD_BUTTON:
                 case FLD_MARK:
-                    mflag = FALSE;
+                    mflag = false;
                     cur_act = S_FLD_COMMAND;
                     cur_cmd = F_SELECT;
                     active_field = i;
                     break;
 
                 case FLD_OBJAREA:
-                    mflag = FALSE;
+                    mflag = false;
                     cur_act = S_FLD_COMMAND;
                     cur_cmd = F_OBJ_AREA;
                     break;
 
                 case FLD_VIEWAREA:
-                    mflag = FALSE;
+                    mflag = false;
                     cur_act = S_FLD_COMMAND;
                     cur_cmd = F_VIEW_AREA;
                     break;
@@ -1747,13 +1735,13 @@ PRIVATE BOOL SWD_CheckMouse(
 /*------------------------------------------------------------------------
    SWD_CheckViewArea ()
   ------------------------------------------------------------------------*/
-PRIVATE BOOL SWD_CheckViewArea(
+PRIVATE bool SWD_CheckViewArea(
     SWD_DLG* dlg, // INPUT : pointer to DLG window messages
     SWIN* curwin, // INPUT : pointer to current window
     SFIELD* curfld // INPUT : pointer to current field
 ) {
     int i;
-    BOOL flag = FALSE;
+    bool flag = false;
     int px = cur_mx;
     int py = cur_my;
     int x1;
@@ -1773,8 +1761,8 @@ PRIVATE BOOL SWD_CheckViewArea(
                     break;
 
                 case FLD_VIEWAREA:
-                    flag = TRUE;
-                    dlg->viewactive = TRUE;
+                    flag = true;
+                    dlg->viewactive = true;
                     dlg->sx = curfld->x;
                     dlg->sy = curfld->y;
                     dlg->height = curfld->lx;
@@ -1827,10 +1815,10 @@ void SWD_Dialog(
     int sx;
     int sy;
     int i;
-    BOOL update;
+    bool update;
 
     _disable();
-    update = FALSE;
+    update = false;
     g_key = KBD_LASTSCAN;
     g_ascii = KBD_LASTASCII;
     KBD_LASTSCAN = SC_NONE;
@@ -1849,38 +1837,34 @@ void SWD_Dialog(
     cur_cmd = C_IDLE;
 
     if ( highlight_flag ) {
-        highlight_flag = FALSE;
+        highlight_flag = false;
         if ( lastfld ) {
             lastfld->bstatus = NORMAL;
             SWD_PutField( curwin, lastfld );
             lastfld = NULL;
-            update = TRUE;
+            update = true;
         }
 
         if ( kbactive ) {
             curfld->bstatus = UP;
             SWD_PutField( curwin, curfld );
             lastfld = curfld;
-            update = TRUE;
+            update = true;
         }
     }
 
     if ( old_win != active_window ) {
         SWD_ClearAllButtons();
         lastfld = NULL;
-        highlight_flag = TRUE;
+        highlight_flag = true;
         cur_act = S_WIN_COMMAND;
         cur_cmd = C_IDLE;
-        if ( curfld->kbflag ) {
-            kbactive = TRUE;
-        } else {
-            kbactive = FALSE;
-        }
+        kbactive = curfld->kbflag;
     }
 
     old_win = active_window;
 
-    swd_dlg->viewactive = FALSE;
+    swd_dlg->viewactive = false;
     if ( g_wins[active_window].viewflag ) {
         SWD_CheckViewArea( swd_dlg, curwin, firstfld );
     }
@@ -1902,17 +1886,11 @@ void SWD_Dialog(
                 SWD_ShowAllWindows();
                 GFX_DisplayUpdate();
             } else if ( old_field != active_field ) {
-                highlight_flag = TRUE;
                 curfld = firstfld + active_field;
             }
 
-            if ( curfld->kbflag ) {
-                highlight_flag = TRUE;
-                kbactive = TRUE;
-            } else {
-                highlight_flag = TRUE;
-                kbactive = FALSE;
-            }
+            highlight_flag = true;
+            kbactive = curfld->kbflag;
         }
     } else {
         if ( fldfuncs[curfld->opt] && cur_act == S_IDLE ) {
@@ -1923,7 +1901,7 @@ void SWD_Dialog(
                 if ( testfld->hotkey != SC_NONE ) {
                     if ( testfld->hotkey == (unsigned int) g_key ) {
                         if ( !usekb_flag ) {
-                            kbactive = FALSE;
+                            kbactive = false;
                         }
                         active_field = i;
                         curfld = firstfld + active_field;
@@ -1931,9 +1909,9 @@ void SWD_Dialog(
                             lastfld->bstatus = NORMAL;
                             SWD_PutField( curwin, lastfld );
                             lastfld = NULL;
-                            update = TRUE;
+                            update = true;
                         }
-                        highlight_flag = TRUE;
+                        highlight_flag = true;
                         lastfld = curfld;
                         cur_act = S_FLD_COMMAND;
                         cur_cmd = F_SELECT;
@@ -1943,11 +1921,11 @@ void SWD_Dialog(
             }
 
             if ( cur_act != S_IDLE && cur_cmd != F_SELECT ) {
-                if ( kbactive == FALSE ) {
-                    highlight_flag = TRUE;
+                if ( !kbactive ) {
+                    highlight_flag = true;
                     cur_act = S_FLD_COMMAND;
                     cur_cmd = F_FIRST;
-                    kbactive = TRUE;
+                    kbactive = true;
                 }
             }
         }
@@ -2010,7 +1988,7 @@ void SWD_Dialog(
                 case F_SELECT:
                     curfld->bstatus = DOWN;
                     SWD_PutField( curwin, curfld );
-                    curfld->mark ^= TRUE;
+                    curfld->mark ^= true;
                     if ( lastfld && lastfld != curfld ) {
                         lastfld->bstatus = NORMAL;
                         SWD_PutField( curwin, lastfld );
@@ -2026,7 +2004,7 @@ void SWD_Dialog(
                     }
 
                     SWD_PutField( curwin, curfld );
-                    update = TRUE;
+                    update = true;
                     break;
             }
             break;
@@ -2041,7 +2019,7 @@ void SWD_Dialog(
                     break;
 
                 case W_NEW:
-                    update = TRUE;
+                    update = true;
                     break;
 
                 case W_NEXT:
@@ -2057,7 +2035,7 @@ void SWD_Dialog(
                             lastfld->bstatus = NORMAL;
                         }
                         SWD_ShowAllWindows();
-                        update = TRUE;
+                        update = true;
                     }
                     break;
 
@@ -2076,7 +2054,7 @@ void SWD_Dialog(
                     sx = cur_mx - curwin->x;
                     sy = cur_my - curwin->y;
 
-                    KBD_Key( SC_ENTER ) = FALSE;
+                    KBD_Key( SC_ENTER ) = false;
                     KBD_LASTSCAN = SC_NONE;
                     SWD_ShowAllWindows();
                     while ( mouseb1 ) {
@@ -2091,19 +2069,19 @@ void SWD_Dialog(
                     }
                     curfld->bstatus = NORMAL;
                     SWD_PutField( curwin, curfld );
-                    update = TRUE;
+                    update = true;
                     break;
 
                 case W_CLOSE:
                     SWD_ClearAllButtons();
                     lastfld = 0;
-                    kbactive = FALSE;
+                    kbactive = false;
                     break;
 
                 case W_CLOSE_ALL:
                     SWD_ClearAllButtons();
                     lastfld = 0;
-                    kbactive = FALSE;
+                    kbactive = false;
                     break;
             }
             break;
@@ -2112,17 +2090,17 @@ void SWD_Dialog(
             break;
 
         case S_UPDATE:
-            update = TRUE;
+            update = true;
             break;
 
         case S_REDRAW:
             SWD_ShowAllWindows();
-            update = TRUE;
+            update = true;
             break;
     }
 
     if ( old_field != active_field && active_field >= 0 && kbactive ) {
-        highlight_flag = TRUE;
+        highlight_flag = true;
     }
 
     if ( update ) {
@@ -2135,9 +2113,9 @@ void SWD_Dialog(
  ***************************************************************************/
 void SWD_SetWindowLock(
     int handle, // INPUT : handle to window
-    BOOL lock // INPUT : TRUE/FALSE
+    bool lock
 ) {
-    if ( g_wins[handle].flag == TRUE ) {
+    if ( g_wins[handle].flag ) {
         g_wins[handle].win->lock = lock;
     }
 }
@@ -2286,7 +2264,7 @@ SWD_SetFieldSelect() - Sets Field Selectable status
 void SWD_SetFieldSelect(
     int handle, // INPUT : window handle
     int field_id, // INPUT : field handle
-    BOOL opt // INPUT : TRUE, FALSE
+    bool opt
 ) {
     SWIN* curwin = g_wins[handle].win;
     SFIELD* curfld;
@@ -2298,9 +2276,9 @@ void SWD_SetFieldSelect(
 }
 
 /***************************************************************************
- SWD_GetFieldMark() - Gets the field mark status ( TRUE or FALSE )
+ SWD_GetFieldMark() - Gets the field mark status (bool)
  ***************************************************************************/
-BOOL // RETURN: mark status ( TRUE, FALSE )
+bool // RETURN: mark status
 SWD_GetFieldMark(
     int handle, // INPUT : window handle
     int field_id // INPUT : field handle
@@ -2320,7 +2298,7 @@ SWD_GetFieldMark(
 void SWD_SetFieldMark(
     int handle, // INPUT : window handle
     int field_id, // INPUT : field handle
-    BOOL opt // INPUT : TRUE, FALSE
+    bool opt
 ) {
     SWIN* curwin = g_wins[handle].win;
     SFIELD* curfld;
@@ -2491,7 +2469,7 @@ SWD_SetWindowFlag () - Sets A window to be turned on/off
  ***************************************************************************/
 int SWD_SetWindowFlag(
     int handle, // INPUT : window handle
-    BOOL flag // INPUT : TRUE/FALSE
+    bool flag
 ) {
     SWIN* curwin = g_wins[handle].win;
 

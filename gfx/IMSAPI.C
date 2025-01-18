@@ -27,43 +27,29 @@ IMS_StartAck () - Starts up checking for a happening
 void IMS_StartAck( void ) {
     KBD_Clear();
 
-    mouse_b1_ack = FALSE;
-    mouse_b2_ack = FALSE;
-    mouse_b3_ack = FALSE;
-    kbd_ack = FALSE;
+    mouse_b1_ack = false;
+    mouse_b2_ack = false;
+    mouse_b3_ack = false;
+    kbd_ack = false;
 }
 
 /***************************************************************************
 IMS_CheckAck () - Tells if somthing has happend since last IMS_StartAck
  ***************************************************************************/
-BOOL IMS_CheckAck( void ) {
-    int rval = FALSE;
-
-    if ( mouse_b1_ack ) {
-        rval = TRUE;
-    }
-
-    if ( mouse_b2_ack ) {
-        rval = TRUE;
-    }
-
-    if ( kbd_ack ) {
-        rval = TRUE;
-    }
-
-    return rval;
+bool IMS_CheckAck( void ) {
+    return mouse_b1_ack|| mouse_b2_ack || kbd_ack;
 }
 
 /***************************************************************************
-IMS_IsAck() - Returns TRUE if ptr button or key pressed
+IMS_IsAck() - Returns true if ptr button or key pressed
  ***************************************************************************/
-BOOL IMS_IsAck( void ) {
+bool IMS_IsAck( void ) {
     if ( KBD_LASTSCAN ) {
-        KBD_LASTSCAN = FALSE;
-        return TRUE;
+        KBD_LASTSCAN = false;
+        return true;
     }
 
-    return ( mouseb1 || mouseb2 || mouseb3 ) ? TRUE : FALSE;
+    return mouseb1 || mouseb2 || mouseb3;
 }
 
 /***************************************************************************
