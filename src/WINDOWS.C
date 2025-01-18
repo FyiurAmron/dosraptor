@@ -561,7 +561,7 @@ void SND_PlayPatchAndWait( DEFX type ) {
 WIN_AskExit () - Opens Windows and Askes if USer wants 2 quit
  ***************************************************************************/
 void WIN_AskExit( void ) {
-    extern int quick_mode;
+    extern bool quick_mode;
 
     if ( quick_mode ) {
     } else if ( WIN_AskBool( "EXIT TO DOS" ) ) {
@@ -1822,7 +1822,7 @@ WIN_MainMenu () - Main Menu
  ***************************************************************************/
 void WIN_MainMenu( void ) {
     extern int demo_flag;
-    extern int tai_flag;
+    extern bool tai_flag;
     SWD_DLG dlg;
     int window;
     BYTE cz1 = ltable[0];

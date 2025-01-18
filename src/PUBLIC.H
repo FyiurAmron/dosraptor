@@ -2,8 +2,10 @@
 #define PUBLIC_H
 
 // commonly used includes
-#include <stdio.h>
+#include <stdbool.h>
+#include <stdint.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 
 #include "../gfx/common.h"
