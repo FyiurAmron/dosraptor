@@ -58,8 +58,8 @@ typedef struct {
 } FILEDESC;
 
 typedef struct {
-    WORD itemnum;
-    WORD filenum;
+    uint16_t itemnum;
+    uint16_t filenum;
 } ITEM_ID;
 
 typedef union {
@@ -562,13 +562,13 @@ void GLB_FreeItem(
 
     itm.handle = handle;
 
-    ASSERT( itm.id.filenum < (WORD) num_glbs );
-    if ( itm.id.itemnum >= (WORD) filedesc[itm.id.filenum].items ) {
+    ASSERT( itm.id.filenum < (uint16_t) num_glbs );
+    if ( itm.id.itemnum >= (uint16_t) filedesc[itm.id.filenum].items ) {
         EXIT_Error(
             "GLB_FreeItem - item out of range: %d > %d file %d.\n", itm.id.itemnum, filedesc[itm.id.filenum].items,
             itm.id.filenum );
     }
-    //   ASSERT( itm.id.itemnum < ( WORD ) filedesc[ itm.id.filenum ].items );
+    //   ASSERT( itm.id.itemnum < ( uint16_t ) filedesc[ itm.id.filenum ].items );
 
     ii = filedesc[itm.id.filenum].item;
     ii += itm.id.itemnum;

@@ -39,10 +39,10 @@ typedef struct {
 } GFX_SPRITE;
 
 typedef struct {
-    WORD opt;
-    WORD fill;
-    WORD offset;
-    WORD length;
+    uint16_t opt;
+    uint16_t fill;
+    uint16_t offset;
+    uint16_t length;
 } ANIMLINE;
 
 typedef struct {

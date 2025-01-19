@@ -17,8 +17,8 @@ typedef struct {
 } KEYFILE;
 
 typedef struct {
-    WORD itemnum;
-    WORD filenum;
+    uint16_t itemnum;
+    uint16_t filenum;
 } ITEMS;
 
 #define MAX_GLB_FILES 0x000F
