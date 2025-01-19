@@ -4,8 +4,6 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-typedef enum { FALSE, TRUE } BOOL; // TODO remove this after src migration is complete
-
 #define PRIVATE static
 #define PUBLIC
 
