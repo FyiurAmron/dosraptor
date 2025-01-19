@@ -200,6 +200,8 @@ PRIVATE void Harrold(
 STORE_Enter () - Lets User go in store and buy and sell things
  ***************************************************************************/
 void STORE_Enter( void ) {
+    extern bool quick_mode;
+
     char youhave[52];
     char coststr[52];
     bool update = false;
@@ -236,7 +238,9 @@ void STORE_Enter( void ) {
 
     obj_cnt = OBJS_GetNum();
 
-    Harrold( HAR1_TXT );
+    if ( !quick_mode ) {
+        Harrold( HAR1_TXT );
+    }
 
     cur_item = 0;
     mode = BUY_MODE;
