@@ -13,11 +13,11 @@
 
 #define MAX_SFXS ( ( END_SFX - START_SFX - 1 ) / 5 )
 
-PUBLIC int music_volume;
-PUBLIC int fx_volume;
-PUBLIC bool fx_flag = false;
-PUBLIC bool dig_flag = false;
-PUBLIC bool gus_flag = false;
+int music_volume;
+int fx_volume;
+bool fx_flag = false;
+bool dig_flag = false;
+bool gus_flag = false;
 
 PRIVATE int num_dig = 0;
 PRIVATE DWORD cur_song_item = EMPTY;

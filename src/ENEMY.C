@@ -25,9 +25,9 @@ ESHOT_TYPE ashot[2] = { ES_ANGLELEFT, ES_ANGLERIGHT };
 
 int tiley = 0;
 
-PUBLIC int numships;
-PUBLIC int numboss;
-PUBLIC CSPRITE* csprite;
+int numships;
+int numboss;
+CSPRITE* csprite;
 PRIVATE int numslib[4];
 PRIVATE SPRITE* slib[4];
 PRIVATE bool spriteflag[4];
@@ -36,15 +36,15 @@ PRIVATE SPRITE_SHIP* rscreen[MAX_ONSCREEN];
 PRIVATE int cur_visable;
 PRIVATE bool boss_sound;
 
-PUBLIC DWORD cur_diff = EB_EASY_LEVEL;
-PUBLIC SPRITE_SHIP first_enemy;
-PUBLIC SPRITE_SHIP last_enemy;
+DWORD cur_diff = EB_EASY_LEVEL;
+SPRITE_SHIP first_enemy;
+SPRITE_SHIP last_enemy;
 PRIVATE SPRITE_SHIP* free_enemy;
 PRIVATE CSPRITE* end_enemy = NULL;
 PRIVATE CSPRITE* cur_enemy = NULL;
-PUBLIC bool end_waveflag = false;
+bool end_waveflag = false;
 PRIVATE DWORD spriteitm[4] = { SPRITE1_ITM, SPRITE2_ITM, SPRITE3_ITM, SPRITE4_ITM };
-PUBLIC int g_numslibs;
+int g_numslibs;
 
 /***************************************************************************
    MoveEobj() - gets next postion for an Object at speed

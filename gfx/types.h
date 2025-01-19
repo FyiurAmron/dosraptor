@@ -5,7 +5,6 @@
 #include <stdbool.h>
 
 #define PRIVATE static
-#define PUBLIC
 
 typedef uint8_t  BYTE;
 typedef uint16_t WORD;

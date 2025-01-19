@@ -47,46 +47,46 @@ BYTE* palette;
 BYTE* cursor_pic;
 BYTE gpal[768];
 
-PUBLIC int g_flash;
-PUBLIC DWORD curship[16];
-PUBLIC DWORD lship[8];
-PUBLIC DWORD dship[8];
-PUBLIC DWORD fship[8];
-PUBLIC int o_engine[8] = { 0, 1, 2, 3, 2, 1, 0 };
-PUBLIC int o_gun1[8] = { 1, 3, 5, 6, 5, 3, 1 };
-PUBLIC int o_gun2[8] = { 1, 3, 6, 9, 6, 3, 2 };
-PUBLIC int o_gun3[8] = { 2, 6, 8, 11, 8, 6, 2 };
+int g_flash;
+DWORD curship[16];
+DWORD lship[8];
+DWORD dship[8];
+DWORD fship[8];
+int o_engine[8] = { 0, 1, 2, 3, 2, 1, 0 };
+int o_gun1[8] = { 1, 3, 5, 6, 5, 3, 1 };
+int o_gun2[8] = { 1, 3, 6, 9, 6, 3, 2 };
+int o_gun3[8] = { 2, 6, 8, 11, 8, 6, 2 };
 
-PUBLIC int gl_cnt = 0;
-PUBLIC bool end_wave = false;
-PUBLIC PLAYEROBJ plr;
-PUBLIC int player_cx = PLAYERINITX;
-PUBLIC int player_cy = PLAYERINITY;
-PUBLIC int playerx = PLAYERINITX;
-PUBLIC int playery = PLAYERINITY;
-PUBLIC int playerbasepic = 3;
-PUBLIC int playerpic = 4;
-PUBLIC int cur_game = 0;
-PUBLIC int game_wave[4] = { 0, 0, 0, 0 };
-PUBLIC MAZELEVEL* ml;
-PUBLIC int fadecnt = 0;
-PUBLIC bool startfadeflag = false;
-PUBLIC bool fadeflag = false;
-PUBLIC bool start_end_fade = false;
-PUBLIC bool end_fadeflag = false;
-PUBLIC FLATS* flatlib[4] = { NULL, NULL, NULL, NULL };
-PUBLIC bool debugflag = false;
-PUBLIC bool testflag = false;
-PUBLIC int g_oldshield = EMPTY;
-PUBLIC int g_oldsuper = EMPTY;
-PUBLIC BYTE* numbers[11];
-PUBLIC int curplr_diff = DIFF_2;
+int gl_cnt = 0;
+bool end_wave = false;
+PLAYEROBJ plr;
+int player_cx = PLAYERINITX;
+int player_cy = PLAYERINITY;
+int playerx = PLAYERINITX;
+int playery = PLAYERINITY;
+int playerbasepic = 3;
+int playerpic = 4;
+int cur_game = 0;
+int game_wave[4] = { 0, 0, 0, 0 };
+MAZELEVEL* ml;
+int fadecnt = 0;
+bool startfadeflag = false;
+bool fadeflag = false;
+bool start_end_fade = false;
+bool end_fadeflag = false;
+FLATS* flatlib[4] = { NULL, NULL, NULL, NULL };
+bool debugflag = false;
+bool testflag = false;
+int g_oldshield = EMPTY;
+int g_oldsuper = EMPTY;
+BYTE* numbers[11];
+int curplr_diff = DIFF_2;
 
-PUBLIC int startendwave = EMPTY;
-PUBLIC bool draw_player;
+int startendwave = EMPTY;
+bool draw_player;
 
-PUBLIC bool lowmem_flag = false;
-PUBLIC bool reg_flag = false;
+bool lowmem_flag = false;
+bool reg_flag = false;
 
 bool tai_flag = false;
 bool quick_mode = false;
@@ -104,7 +104,7 @@ char flatnames[4][14] = { "FLATSG1_ITM", "FLATSG2_ITM", "FLATSG3_ITM", "FLATSG4_
 
 PRIVATE BYTE* g_lowmem;
 PRIVATE BYTE* g_highmem;
-PUBLIC int demo_flag = DEMO_OFF;
+int demo_flag = DEMO_OFF;
 
 void RAP_PrintVmem( char* desc ) {
     DWORD largest;

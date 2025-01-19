@@ -40,9 +40,9 @@ typedef struct ANIMS_S {
 ANIMLIB animlib[MAX_ANIMLIB];
 ANIMS anims[MAX_ANIMS];
 
-PUBLIC ANIMS first_anims;
-PUBLIC ANIMS last_anims;
-PUBLIC ANIMS* free_anims;
+ANIMS first_anims;
+ANIMS last_anims;
+ANIMS* free_anims;
 
 PRIVATE int curlib = 0;
 PRIVATE int adir[3] = { 0, -1, 1 };

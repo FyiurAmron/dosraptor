@@ -148,6 +148,6 @@ void GLB_SaveFile(
 /*************************************************************************
    GLB_UseVM - Use virtual memory functions for heap managment.
  *************************************************************************/
-PUBLIC void GLB_UseVM( void );
+void GLB_UseVM( void );
 
 #endif

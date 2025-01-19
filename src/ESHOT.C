@@ -55,8 +55,8 @@ PRIVATE BYTE* elaspow[4];
 
 extern BYTE* lashit[];
 
-PUBLIC int eshotnum = 0;
-PUBLIC int eshothigh = 0;
+int eshotnum = 0;
+int eshothigh = 0;
 
 PRIVATE DEFX monkeys[6] = { FX_MON1, FX_MON2, FX_MON3, FX_MON4, FX_MON5, FX_MON6 };
 

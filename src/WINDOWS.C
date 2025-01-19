@@ -45,16 +45,16 @@ extern bool godmode;
 
 PRIVATE int opt_window;
 PRIVATE int opt_vol[2] = { 127, 127 };
-PUBLIC int opt_detail = 1;
+int opt_detail = 1;
 
 PRIVATE char hangtext[4][18] = { "FLY MISSION", "SUPPLY ROOM", "EXIT HANGAR", "SAVE PILOT" };
 
 PRIVATE char regtext[3][30] = { "ENTER NAME AND CALLSIGN", "   CHANGE ID PICTURE", "        EXIT" };
 
 PRIVATE bool ingameflag = false;
-PUBLIC DWORD sid_pics[4] = { WMALEID_PIC, BMALEID_PIC, WFMALEID_PIC, BFMALEID_PIC };
+DWORD sid_pics[4] = { WMALEID_PIC, BMALEID_PIC, WFMALEID_PIC, BFMALEID_PIC };
 
-PUBLIC DWORD id_pics[4] = { WMALE_PIC, BMALE_PIC, WFEMALE_PIC, BFEMALE_PIC };
+DWORD id_pics[4] = { WMALE_PIC, BMALE_PIC, WFEMALE_PIC, BFEMALE_PIC };
 
 DWORD songsg1[9] = {
     RAP8_MUS, // WAVE 1

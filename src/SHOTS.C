@@ -20,10 +20,10 @@ PRIVATE SHOTS* free_shots;
 PRIVATE BYTE* laspow[4];
 PRIVATE BYTE* detpow[4];
 
-PUBLIC BYTE* lashit[4];
+BYTE* lashit[4];
 
-PUBLIC int shotnum = 0;
-PUBLIC int shothigh = 0;
+int shotnum = 0;
+int shothigh = 0;
 
 /***************************************************************************
 SHOTS_Clear () * Clears out SHOTS Linklist

@@ -23,7 +23,7 @@
 
 #define KEYBOARDINT 0x9
 
-PUBLIC bool kbd_ack = false;
+bool kbd_ack = false;
 
 bool keyboard[256];
 bool paused, capslock;
@@ -33,7 +33,7 @@ int lastascii;
 PRIVATE void( _interrupt _far* oldkeyboardisr )() = 0L;
 PRIVATE void ( *keyboardhook )( void ) = (void( * )) 0;
 
-PUBLIC int ASCIINames[] = // Unshifted ASCII for scan codes
+int ASCIINames[] = // Unshifted ASCII for scan codes
     {
         //       0   1   2   3   4   5   6   7   8   9   A   B   C   D   E   F
         0,   27,  '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 8,   9, // 0

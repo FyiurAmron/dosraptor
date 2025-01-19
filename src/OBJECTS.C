@@ -14,8 +14,8 @@ OBJ first_objs;
 OBJ last_objs;
 OBJ* free_objs;
 PRIVATE int obj_cnt;
-PUBLIC OBJ_LIB obj_lib[S_LAST_OBJECT];
-PUBLIC OBJ* p_objs[S_LAST_OBJECT];
+OBJ_LIB obj_lib[S_LAST_OBJECT];
+OBJ* p_objs[S_LAST_OBJECT];
 
 PRIVATE bool objuse_flag;
 PRIVATE int think_cnt;

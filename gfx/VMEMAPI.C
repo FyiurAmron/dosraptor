@@ -35,7 +35,7 @@ PRIVATE POOL pool;
  VM_InitMemory - Assign memory block to be used as virtual memory.
                - Can be called multiple times to add additional memory.
  *************************************************************************/
-PUBLIC void VM_InitMemory(
+void VM_InitMemory(
     BYTE* memory, // INPUT : Memory to be added to the pool
     DWORD size // INPUT : Size of memory
 ) {
@@ -78,7 +78,7 @@ PUBLIC void VM_InitMemory(
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
  vm_ColaceMem - Colace small fragments of memory into larger blocks.
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-PUBLIC DWORD vm_ColaceMem( MCB* mcb ) {
+DWORD vm_ColaceMem( MCB* mcb ) {
     MCB* next_mcb;
     DWORD mcb_size;
 
@@ -98,7 +98,7 @@ PUBLIC DWORD vm_ColaceMem( MCB* mcb ) {
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
  vm_DiscardMem - Disacard infrequently used memory
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-PUBLIC MCB* vm_DiscardMem( DWORD size ) {
+MCB* vm_DiscardMem( DWORD size ) {
     MCB* mcb;
     MCB* free_mcb;
     VM_OWNER* owner;
@@ -213,7 +213,7 @@ PUBLIC MCB* vm_DiscardMem( DWORD size ) {
  VM_Malloc - Allocates a block of memory - swapping out other blocks if
              needed.
  *************************************************************************/
-PUBLIC void* VM_Malloc(
+void* VM_Malloc(
     DWORD size, // INPUT : Size of object
     VM_OWNER* owner, // INPUT : Owner Structure, NULL=Locked
     bool discard // INPUT : Discard memory to satisfy request.
@@ -303,7 +303,7 @@ FOUND_MCB:
 /*************************************************************************
  * VM_Touch - touch a peice of memory to keep track of most recently used.
  *************************************************************************/
-PUBLIC void VM_Touch(
+void VM_Touch(
     VM_OWNER* owner // INPUT : Owner of memory to touch.
 ) {
     if ( owner ) {
@@ -314,7 +314,7 @@ PUBLIC void VM_Touch(
 /*************************************************************************
  VM_Free - frees a block of memory allocated by VM_Malloc
  *************************************************************************/
-PUBLIC void VM_Free(
+void VM_Free(
     void* mem // INPUT : Memory Object to Free
 ) {
     MCB* mcb;
@@ -335,7 +335,7 @@ PUBLIC void VM_Free(
 /*************************************************************************
  VM_Lock - Locks a block of memory from being swapped out.
  *************************************************************************/
-PUBLIC void VM_Lock(
+void VM_Lock(
     void* mem // INPUT : Memory Object to Free
 ) {
     MCB* mcb;
@@ -351,7 +351,7 @@ PUBLIC void VM_Lock(
 /*************************************************************************
  VM_Unlock - Unlocks a block of memory allowing it to be swapped out.
  *************************************************************************/
-PUBLIC void VM_Unlock(
+void VM_Unlock(
     void* mem, // INPUT : Memory Object to Free
     VM_OWNER* owner // INPUT : Owner Structure, NULL=Locked
 ) {
@@ -372,7 +372,7 @@ PUBLIC void VM_Unlock(
 /*************************************************************************
  VM_GetCoreInfo - Get information on core resource
  *************************************************************************/
-PUBLIC void VM_GetCoreInfo(
+void VM_GetCoreInfo(
     DWORD* largest, // OUTPUT: Largest block free
     DWORD* totalfree, // OUTPUT: Total amount free
     DWORD* totallocked, // OUTPUT: Total amount locked
@@ -444,7 +444,7 @@ PUBLIC void VM_GetCoreInfo(
 VM_OWNER	obj_owner[ MAX_OBJECTS ];
 BYTE	cmp_buf[ 32768 ];
 
-PUBLIC void
+void
 WalkHeap(
 	void
 	)

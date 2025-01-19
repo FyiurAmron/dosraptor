@@ -11,31 +11,31 @@
 
 #define MAX_STILES ( MAP_ONSCREEN * MAP_COLS )
 
-PUBLIC DWORD titems[MAP_SIZE];
-PUBLIC DWORD eitems[MAP_SIZE];
-PUBLIC short hits[MAP_SIZE];
-PUBLIC short money[MAP_SIZE];
-PUBLIC short tdead[MAP_SIZE];
-PUBLIC DWORD startflat[4];
-PUBLIC int tilepos;
-PUBLIC int tileyoff;
+DWORD titems[MAP_SIZE];
+DWORD eitems[MAP_SIZE];
+short hits[MAP_SIZE];
+short money[MAP_SIZE];
+short tdead[MAP_SIZE];
+DWORD startflat[4];
+int tilepos;
+int tileyoff;
 
-PUBLIC int g_mapleft;
-PUBLIC BYTE* tilepic;
-PUBLIC BYTE* tilestart;
-PUBLIC int tileloopy;
+int g_mapleft;
+BYTE* tilepic;
+BYTE* tilestart;
+int tileloopy;
 
 PRIVATE char game_start[4][17] = { "STARTG1TILES", "STARTG2TILES", "STARTG3TILES", "STARTG4TILES" };
 
-PUBLIC bool scroll_flag;
-PUBLIC bool last_tile;
+bool scroll_flag;
+bool last_tile;
 
 PRIVATE TILESPOT tspots[MAX_STILES];
 PRIVATE TILESPOT* lastspot;
 
-PUBLIC TILEDELAY first_delay;
-PUBLIC TILEDELAY last_delay;
-PUBLIC TILEDELAY* free_delay;
+TILEDELAY first_delay;
+TILEDELAY last_delay;
+TILEDELAY* free_delay;
 
 #define MAX_TILEDELAY ( ( MAP_ONSCREEN + 1 ) * MAP_COLS )
 PRIVATE TILEDELAY tdel[MAX_TILEDELAY];

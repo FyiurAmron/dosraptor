@@ -13,7 +13,7 @@
 #include "ptrapi.h"
 #include "swdapi.h"
 
-PUBLIC bool usekb_flag = false;
+bool usekb_flag = false;
 
 PRIVATE bool kbactive = false;
 PRIVATE int prev_window = EMPTY;
@@ -34,7 +34,7 @@ PRIVATE int obj_y;
 PRIVATE int obj_width;
 PRIVATE int obj_height;
 PRIVATE bool clearscreenflag = true;
-PUBLIC bool g_button_flag = true;
+bool g_button_flag = true;
 PRIVATE int old_field = -99;
 PRIVATE int old_win = -99;
 PRIVATE int g_key;

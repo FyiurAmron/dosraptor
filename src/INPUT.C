@@ -17,9 +17,9 @@
 #include "loadsave.h"
 #include "windows.h"
 
-PUBLIC bool buttons[4] = { false, false, false, false };
+bool buttons[4] = { false, false, false, false };
 
-PUBLIC ITYPE control = I_MOUSE;
+ITYPE control = I_MOUSE;
 
 #define MAX_ADDX 10
 #define MAX_ADDY 8
@@ -37,8 +37,8 @@ PRIVATE int k_Mega;
 PRIVATE int m_lookup[3] = { 0, 1, 2 };
 PRIVATE int j_lookup[4] = { 0, 1, 2, 3 };
 
-PUBLIC int f_addx = 0;
-PUBLIC int f_addy = 0;
+int f_addx = 0;
+int f_addy = 0;
 
 PRIVATE int g_addx = 0;
 PRIVATE int g_addy = 0;
@@ -49,7 +49,7 @@ PRIVATE int tsm_id;
 extern int joy_x;
 extern int joy_y;
 
-PUBLIC int demo_mode = DEMO_OFF;
+int demo_mode = DEMO_OFF;
 PRIVATE RECORD playback[MAX_DEMO + 1];
 PRIVATE int cur_play = 0;
 PRIVATE char demo_name[32];

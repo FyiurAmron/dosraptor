@@ -35,37 +35,37 @@
 #define SCREENWIDTH  320
 #define SCREENHEIGHT 200 // unused here
 
-PUBLIC volatile int framecount = 0;
-PUBLIC int g_rseed = 1;
-PUBLIC DWORD ylookup[SCREENHEIGHT];
-PUBLIC BYTE* displaybuffer = (BYTE*) 0x0000;
-PUBLIC BYTE* displayscreen = (BYTE*) 0xa0000;
-PUBLIC bool update_start = false;
-PUBLIC int ud_x = 0;
-PUBLIC int ud_y = 0;
-PUBLIC int ud_lx = 0;
-PUBLIC int ud_ly = 0;
-PUBLIC int o_ud_x = 0;
-PUBLIC int o_ud_y = 0;
-PUBLIC int o_ud_lx = 0;
-PUBLIC int o_ud_ly = 0;
-PUBLIC int stable[324];
-PUBLIC int tablelen;
-PUBLIC int fontspacing = 1;
-PUBLIC BYTE* ltable;
-PUBLIC BYTE* dtable;
-PUBLIC BYTE* gtable;
-PUBLIC void ( *framehook )( void ( * )( void ) ) = (void( * )) 0;
-PUBLIC bool retraceflag = true;
+volatile int framecount = 0;
+int g_rseed = 1;
+DWORD ylookup[SCREENHEIGHT];
+BYTE* displaybuffer = (BYTE*) 0x0000;
+BYTE* displayscreen = (BYTE*) 0xa0000;
+bool update_start = false;
+int ud_x = 0;
+int ud_y = 0;
+int ud_lx = 0;
+int ud_ly = 0;
+int o_ud_x = 0;
+int o_ud_y = 0;
+int o_ud_lx = 0;
+int o_ud_ly = 0;
+int stable[324];
+int tablelen;
+int fontspacing = 1;
+BYTE* ltable;
+BYTE* dtable;
+BYTE* gtable;
+void ( *framehook )( void ( * )( void ) ) = (void( * )) 0;
+bool retraceflag = true;
 
-PUBLIC int G3D_x = 0; // input: x position
-PUBLIC int G3D_y = 0; // input: y position
-PUBLIC int G3D_z = 0; // input: z position
-PUBLIC int G3D_screenx = 0; // output: screen x pos
-PUBLIC int G3D_screeny = 0; // output: screen y pos
-PUBLIC int G3D_viewx = 159; // user view x pos
-PUBLIC int G3D_viewy = 99; // user view y pos
-PUBLIC int G3D_viewz = G3D_DIST; // user view z pos
+int G3D_x = 0; // input: x position
+int G3D_y = 0; // input: y position
+int G3D_z = 0; // input: z position
+int G3D_screenx = 0; // output: screen x pos
+int G3D_screeny = 0; // output: screen y pos
+int G3D_viewx = 159; // user view x pos
+int G3D_viewy = 99; // user view y pos
+int G3D_viewz = G3D_DIST; // user view z pos
 
 PRIVATE bool gfxdebug = false;
 PRIVATE BYTE tpal1[768];
@@ -76,12 +76,12 @@ PRIVATE int start_lookup = 0;
 PRIVATE int end_lookup = 255;
 
 // USED TO PASS STUFF TO GFXAPI_A
-PUBLIC BYTE* gfx_inmem = NULL;
-PUBLIC int gfx_xp = 0; // x pos
-PUBLIC int gfx_yp = 0; // y pos
-PUBLIC int gfx_lx = 0; // len x
-PUBLIC int gfx_ly = 0; // len y
-PUBLIC int gfx_imga = 0;
+BYTE* gfx_inmem = NULL;
+int gfx_xp = 0; // x pos
+int gfx_yp = 0; // y pos
+int gfx_lx = 0; // len x
+int gfx_ly = 0; // len y
+int gfx_imga = 0;
 
 /*==========================================================================
    GFX_TimeFrameRate () - Should be interrupt called at 70 fps
