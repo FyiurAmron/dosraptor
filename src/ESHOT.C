@@ -15,7 +15,7 @@ typedef struct {
     DWORD item; // BASE ITEM NUMBER
     BYTE* pic[10]; // POINTER TO PICS
     int num_frames; // NUMBER OF FRAMES
-    BOOL smokeflag; // TRUE = SMOKETRAIL
+    bool smokeflag; // true = SMOKETRAIL
     int speed; // SPEED OF SHOT
     int xoff; // X CENTER OFFSET
     int yoff; // Y CENTER OFFSET
@@ -30,7 +30,7 @@ typedef struct ESHOT_S {
     int x; // CUR SHOT CENTER X
     int y; // CUR SHOT CENTER Y
     MOVEOBJ move; // MOVE STUFF
-    BOOL doneflag; // SHOT DONE = TRUE
+    bool doneflag; // SHOT DONE = true
     ESHOT_LIB* lib; // POINTER TO LIB
     int cnt;
     int speed;
@@ -155,7 +155,7 @@ void ESHOT_Init( void ) {
     cur->hits = 2;
     cur->item = ESHOT_BLK;
     cur->num_frames = 2;
-    cur->smokeflag = FALSE;
+    cur->smokeflag = false;
     cur->speed = 6;
     for ( i = 0; i < cur->num_frames; i++ ) {
         item = cur->item + (DWORD) i;
@@ -169,7 +169,7 @@ void ESHOT_Init( void ) {
     cur->hits = 1;
     cur->item = ESHOT_BLK;
     cur->num_frames = 2;
-    cur->smokeflag = FALSE;
+    cur->smokeflag = false;
     cur->speed = 6;
     for ( i = 0; i < cur->num_frames; i++ ) {
         item = cur->item + (DWORD) i;
@@ -183,7 +183,7 @@ void ESHOT_Init( void ) {
     cur->hits = 4;
     cur->item = EMISLE_BLK;
     cur->num_frames = 2;
-    cur->smokeflag = TRUE;
+    cur->smokeflag = true;
     cur->speed = 10;
     for ( i = 0; i < cur->num_frames; i++ ) {
         item = cur->item + (DWORD) i;
@@ -197,7 +197,7 @@ void ESHOT_Init( void ) {
     cur->hits = 16;
     cur->item = MINE_BLK;
     cur->num_frames = 2;
-    cur->smokeflag = FALSE;
+    cur->smokeflag = false;
     cur->speed = 0;
     for ( i = 0; i < cur->num_frames; i++ ) {
         item = cur->item + (DWORD) i;
@@ -211,7 +211,7 @@ void ESHOT_Init( void ) {
     cur->hits = 12;
     cur->item = ELASER_BLK;
     cur->num_frames = 4;
-    cur->smokeflag = FALSE;
+    cur->smokeflag = false;
     cur->speed = 6;
     for ( i = 0; i < cur->num_frames; i++ ) {
         item = cur->item + (DWORD) i;
@@ -225,7 +225,7 @@ void ESHOT_Init( void ) {
     cur->hits = 15;
     cur->item = EPLASMA_PIC;
     cur->num_frames = 1;
-    cur->smokeflag = FALSE;
+    cur->smokeflag = false;
     cur->speed = 10;
     for ( i = 0; i < cur->num_frames; i++ ) {
         item = cur->item + (DWORD) i;
@@ -239,7 +239,7 @@ void ESHOT_Init( void ) {
     cur->hits = 1;
     cur->item = COCONUT_PIC;
     cur->num_frames = 4;
-    cur->smokeflag = FALSE;
+    cur->smokeflag = false;
     cur->speed = 6;
     for ( i = 0; i < cur->num_frames; i++ ) {
         item = cur->item + (DWORD) i;
@@ -389,11 +389,11 @@ void ESHOT_Shoot(
     MoveSobj( &cur->move, 1 );
 
     if ( cur->move.x < 0 || cur->move.x >= 320 ) {
-        cur->move.done = TRUE;
+        cur->move.done = true;
     }
 
     if ( cur->move.y < 0 || cur->move.y >= 200 ) {
-        cur->move.done = TRUE;
+        cur->move.done = true;
     }
 
     if ( cur->move.done ) {
@@ -431,7 +431,7 @@ void ESHOT_Think( void ) {
                         OBJS_SubEnergy( lib->hits );
                     }
                 } else {
-                    shot->doneflag = TRUE;
+                    shot->doneflag = true;
                 }
                 break;
 
@@ -465,17 +465,17 @@ void ESHOT_Think( void ) {
                             shot->pos = 0;
                         }
                     } else {
-                        shot->doneflag = TRUE;
+                        shot->doneflag = true;
                         ANIMS_StartAnim( A_SMALL_AIR_EXPLO, shot->x + 4, shot->y + 4 );
                     }
                 }
 
                 if ( shot->y >= 200 || shot->y < 0 ) {
-                    shot->doneflag = TRUE;
+                    shot->doneflag = true;
                 }
 
                 if ( shot->x >= 320 || shot->x < 0 ) {
-                    shot->doneflag = TRUE;
+                    shot->doneflag = true;
                 }
 
                 dx = abs( shot->x - player_cx );
@@ -483,7 +483,7 @@ void ESHOT_Think( void ) {
 
                 if ( dx < PLAYERWIDTH / 2 && dy < PLAYERHEIGHT / 2 ) {
                     ANIMS_StartAnim( A_SMALL_AIR_EXPLO, shot->x, shot->y );
-                    shot->doneflag = TRUE;
+                    shot->doneflag = true;
                     OBJS_SubEnergy( lib->hits );
                 }
                 break;

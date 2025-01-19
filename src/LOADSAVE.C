@@ -25,7 +25,7 @@ PRIVATE char* pogpath = "APOGEECD";
 PRIVATE int filepos = EMPTY;
 PRIVATE DWORD map_item = EMPTY;
 PRIVATE BYTE* mapmem;
-PRIVATE BYTE cdflag = FALSE;
+PRIVATE BYTE cdflag = false;
 PRIVATE char cdpath[33];
 PRIVATE char g_setup_ini[66];
 
@@ -69,22 +69,22 @@ void RAP_ClearPlayer( void ) {
     plr.diff[1] = DIFF_2;
     plr.diff[2] = DIFF_2;
     plr.diff[3] = DIFF_2;
-    plr.fintrain = FALSE;
+    plr.fintrain = false;
     cur_game = 0;
     memset( game_wave, 0, sizeof( game_wave ) );
 }
 
 /***************************************************************************
-RAP_IsPlayer () - Returns TRUE if a player is defined
+RAP_IsPlayer () - Returns true if a player is defined
  ***************************************************************************/
-BOOL RAP_IsPlayer( void ) {
-    return filepos != EMPTY ? TRUE : FALSE;
+bool RAP_IsPlayer( void ) {
+    return filepos != EMPTY;
 }
 
 /***************************************************************************
-RAP_AreSavedFiles() - Returns TRUE if thier are previously saved game files
+RAP_AreSavedFiles() - Returns true if thier are previously saved game files
  ***************************************************************************/
-BOOL RAP_AreSavedFiles( void ) {
+bool RAP_AreSavedFiles( void ) {
     char temp[41];
     int i;
 
@@ -96,11 +96,11 @@ BOOL RAP_AreSavedFiles( void ) {
         }
 
         if ( access( temp, 0 ) == 0 ) {
-            return TRUE;
+            return true;
         }
     }
 
-    return FALSE;
+    return false;
 }
 
 /***************************************************************************
@@ -129,10 +129,10 @@ RAP_ReadFile(
 /***************************************************************************
 RAP_FFSaveFile() - Finds a filename to use
  ***************************************************************************/
-BOOL RAP_FFSaveFile( void ) {
+bool RAP_FFSaveFile( void ) {
     char temp[41];
     int i;
-    BOOL rval = FALSE;
+    bool rval = false;
 
     filepos = EMPTY;
 
@@ -146,7 +146,7 @@ BOOL RAP_FFSaveFile( void ) {
         if ( access( temp, 0 ) != 0 ) {
             RAP_ClearPlayer();
             filepos = i;
-            rval = TRUE;
+            rval = true;
             break;
         }
     }
@@ -157,11 +157,11 @@ BOOL RAP_FFSaveFile( void ) {
 /***************************************************************************
 RAP_IsSaveFile() - Returns True if thier is a sopt to save a character
  ***************************************************************************/
-BOOL RAP_IsSaveFile( PLAYEROBJ* in_plr ) {
+bool RAP_IsSaveFile( PLAYEROBJ* in_plr ) {
     PLAYEROBJ tp;
     char temp[41];
     int i;
-    BOOL rval = FALSE;
+    bool rval = false;
     int handle;
 
     for ( i = 0; i < MAX_SAVE; i++ ) {
@@ -174,7 +174,7 @@ BOOL RAP_IsSaveFile( PLAYEROBJ* in_plr ) {
         if ( ( handle = open( temp, O_RDONLY | O_BINARY ) ) != -1 ) {
             read( handle, &tp, sizeof( PLAYEROBJ ) );
             if ( strcmpi( tp.name, in_plr->name ) == 0 && strcmpi( tp.callsign, in_plr->callsign ) == 0 ) {
-                rval = TRUE;
+                rval = true;
                 break;
             }
         }
@@ -188,15 +188,15 @@ BOOL RAP_IsSaveFile( PLAYEROBJ* in_plr ) {
 /***************************************************************************
 RAP_LoadPlayer () - Loads player from disk
  ***************************************************************************/
-BOOL RAP_LoadPlayer( void ) {
+bool RAP_LoadPlayer( void ) {
     char filename[41];
     int handle;
     int i;
-    int rval = FALSE;
+    int rval = false;
     OBJ inobj;
 
     if ( filepos == EMPTY ) {
-        return FALSE;
+        return false;
     }
 
     // == Clear Player =======================
@@ -211,7 +211,7 @@ BOOL RAP_LoadPlayer( void ) {
 
     if ( ( handle = open( filename, O_RDONLY | O_BINARY ) ) == -1 ) {
         WIN_Msg( "Load Player Error" );
-        return FALSE;
+        return false;
     }
 
     read( handle, &plr, sizeof( PLAYEROBJ ) );
@@ -239,7 +239,7 @@ BOOL RAP_LoadPlayer( void ) {
         EXIT_Error( "RAP_LoadPLayer() - Loaded DEAD player" );
     }
 
-    rval = TRUE;
+    rval = true;
     RAP_SetPlayerDiff();
 
     return rval;
@@ -248,12 +248,12 @@ BOOL RAP_LoadPlayer( void ) {
 /***************************************************************************
 RAP_SavePlayer() - Saves player data to filename
  ***************************************************************************/
-BOOL RAP_SavePlayer( void ) {
+bool RAP_SavePlayer( void ) {
     extern OBJ first_objs;
     extern OBJ last_objs;
     char filename[41];
     int handle;
-    int rval = FALSE;
+    int rval = false;
     OBJ* cur;
 
     if ( filepos == EMPTY ) {
@@ -272,7 +272,7 @@ BOOL RAP_SavePlayer( void ) {
 
     if ( ( handle = open( filename, O_BINARY | O_WRONLY | O_CREAT | O_TRUNC, S_IREAD | S_IWRITE ) ) == -1 ) {
         WIN_Msg( "Save Player Error !!!" );
-        return FALSE;
+        return false;
     }
 
     plr.cur_game = cur_game;
@@ -291,7 +291,7 @@ BOOL RAP_SavePlayer( void ) {
         write( handle, cur, sizeof( OBJ ) );
     }
 
-    rval = TRUE;
+    rval = true;
 
     close( handle );
 
@@ -362,20 +362,20 @@ void RAP_FreeMap( void ) {
 /***************************************************************************
 RAP_LoadWin() -
  ***************************************************************************/
-int // RETURN : -1 = no FIles, 0=cancel, 1=loaded
+int // -1 = no files, 0 = cancel, 1 = loaded
 RAP_LoadWin( void ) {
     char temp[41];
     char filenames[MAX_SAVE][33];
     PLAYEROBJ tplr;
     SWD_DLG dlg;
     int window;
-    BOOL update = TRUE;
+    bool update = true;
     int i;
     int pos = EMPTY;
     int oldpos = -2;
     int addnum;
-    BOOL fndflag = FALSE;
-    BOOL rval = 0;
+    bool fndflag = false;
+    int rval = 0;
 
     memset( filenames, 0, sizeof( filenames ) );
     for ( i = 0; i < MAX_SAVE; i++ ) {
@@ -417,7 +417,7 @@ mainloop:
     }
 
     if ( update ) {
-        update = FALSE;
+        update = false;
         if ( pos != oldpos ) {
             if ( pos < oldpos ) {
                 addnum = -1;
@@ -435,7 +435,7 @@ mainloop:
                 EXIT_Error( "Help" );
             }
 
-            fndflag = FALSE;
+            fndflag = false;
             for ( i = 0; i < MAX_SAVE; i++ ) {
                 if ( filenames[pos][0] == NULL ) {
                     pos += addnum;
@@ -446,12 +446,12 @@ mainloop:
                         pos = MAX_SAVE + pos;
                     }
                 } else {
-                    fndflag = TRUE;
+                    fndflag = true;
                     break;
                 }
             }
 
-            if ( fndflag == FALSE ) {
+            if ( !fndflag ) {
                 rval = -1;
                 goto load_exit;
             }
@@ -507,16 +507,16 @@ mainloop:
                     switch ( dlg.field ) {
                         case LOAD_NEXT:
                             pos++;
-                            update = TRUE;
+                            update = true;
                             break;
 
                         case LOAD_PREV:
                             pos--;
-                            update = TRUE;
+                            update = true;
                             break;
 
                         case LOAD_DEL:
-                            update = TRUE;
+                            update = true;
                             sprintf( temp, "Delete Pilot %s ?", tplr.callsign );
                             if ( WIN_AskBool( temp ) ) {
                                 remove( filenames[pos] );
@@ -560,11 +560,7 @@ char* RAP_InitLoadSave( void ) {
 
     strncpy( cdpath, var1, 32 );
 
-    if ( access( cdpath, F_OK ) == 0 ) {
-        cdflag = TRUE;
-    } else {
-        cdflag = FALSE;
-    }
+    cdflag = access( cdpath, F_OK ) == 0;
 
     if ( cdflag ) {
         printf( "Data Path = %s\n", cdpath );

@@ -33,6 +33,7 @@ typedef struct {
     short fil;
 } RECORD;
 
+// note: this is read from save files; sizeof(PLAYEROBJ) = 17 * 4 = 68
 typedef struct {
     char name[20];
     char callsign[12];
@@ -43,8 +44,8 @@ typedef struct {
     int game_wave[3]; // CURRENT WAVE
     int numobjs; // NUMBER OF OBJECTS TO FOLLOW
     int diff[4]; // DIFFICULTY LEVEL
-    BOOL trainflag;
-    BOOL fintrain;
+    uint32_t trainflag; // bool
+    uint32_t fintrain; // bool
 } PLAYEROBJ;
 
 #define END_DURATION     ( 20 * 3 )
@@ -111,7 +112,7 @@ void AskExit( void );
 /***************************************************************************
 Do_Game () - The main game thing this is it dude
  ***************************************************************************/
-BOOL // TRUE=Aborted, FALSE = timeout
+bool // true=Aborted, false = timeout
     Do_Game( void );
 
 inline int random( int max_excl ) {
@@ -138,15 +139,15 @@ extern int o_gun1[];
 extern int o_gun2[];
 extern int o_gun3[];
 extern FLATS* flatlib[];
-extern BOOL startfadeflag;
+extern bool startfadeflag;
 extern BYTE* patch1;
 extern BYTE* patch2;
-extern BOOL end_wave;
+extern bool end_wave;
 extern int gl_cnt;
-extern BOOL testflag;
+extern bool testflag;
 extern int startendwave;
-extern BOOL reg_flag;
-extern BOOL lowmem_flag;
+extern bool reg_flag;
+extern bool lowmem_flag;
 extern int curplr_diff;
 extern int bday_num;
 extern int demo_flag;

@@ -45,24 +45,25 @@ typedef struct {
     int cost; // COST OF OBJECT
     int start_cnt; // START AMOUNT OF ITEMS
     int max_cnt; // MAX COUNT OF UNITS/ITEMS
-    BOOL ( *actf )( OBJ_TYPE ); // FUNCTION PTR FOR ACTION
+    bool ( *actf )( OBJ_TYPE ); // FUNCTION PTR FOR ACTION
     DEFX fxtype; // SOUND FX TYPE
-    BOOL forever; // LAST FOREVER
-    BOOL onlyflag; // UNIQUE FLAG ( ENERGY )
-    BOOL loseit; //
-    BOOL specialw; // SPECIAL WEAPON
-    BOOL moneyflag; // ADDS MONEY TO PLAYER WHEN PICKED UP
-    BOOL game1flag; // TRUE=AVALABLE IN ALL GAMES
-    BOOL shieldflag; // SHOW SHIELD WHEN BONUS
+    bool forever; // LAST FOREVER
+    bool onlyflag; // UNIQUE FLAG ( ENERGY )
+    bool loseit; //
+    bool specialw; // SPECIAL WEAPON
+    bool moneyflag; // ADDS MONEY TO PLAYER WHEN PICKED UP
+    bool game1flag; // true=AVALABLE IN ALL GAMES
+    bool shieldflag; // SHOW SHIELD WHEN BONUS
 } OBJ_LIB;
 
+// note: this is read from save files; sizeof() = 6 * 4 = 24
 typedef struct OBJ_S {
     struct OBJ_S* prev; // LINK LIST PREV
     struct OBJ_S* next; // LINK LIST NEXT
     int num; // NUMBER OF ITEM(S)
     int type; // OBJECT TYPE
     OBJ_LIB* lib; // POINTER TO LIB
-    BOOL inuse; // CURRENTLY EQUIPED
+    uint32_t inuse; // is currently equipped? (bool)
 } OBJ;
 
 /***************************************************************************
@@ -100,14 +101,14 @@ void OBJS_Del(
 /***************************************************************************
 OBJS_Load () - Adds new OBJ from OBJ
  ***************************************************************************/
-BOOL OBJS_Load(
+bool OBJS_Load(
     OBJ* inobj // INPUT : OBJ type
 );
 
 /***************************************************************************
 OBJS_Add () - Adds OBJ ( type ) to players possesions
  ***************************************************************************/
-BOOL OBJS_Add(
+BUYSTUFF OBJS_Add(
     OBJ_TYPE type // INPUT : OBJ type
 );
 
@@ -134,8 +135,7 @@ OBJS_Sell(
 /***************************************************************************
 OBJS_Buy () - Add Amount from TYPE that is equiped ( BUY )
  ***************************************************************************/
-BOOL // RETURN: TRUE = worked, FALSE = didnot
-OBJS_Buy(
+BUYSTUFF OBJS_Buy(
     OBJ_TYPE type // INPUT : OBJ type
 );
 
@@ -167,8 +167,7 @@ OBJS_GetTotal(
 /***************************************************************************
 OBJS_IsOnly () - Is Onlyflag set
  ***************************************************************************/
-BOOL // RETURN: TRUE/FALSE
-OBJS_IsOnly(
+bool OBJS_IsOnly(
     OBJ_TYPE type // INPUT : OBJ type
 );
 
@@ -189,16 +188,16 @@ OBJS_GetResale(
 );
 
 /***************************************************************************
-OBJS_CanBuy() - Returns TRUE if player can buy object
+OBJS_CanBuy() - Returns true if player can buy object
  ***************************************************************************/
-BOOL OBJS_CanBuy(
+bool OBJS_CanBuy(
     OBJ_TYPE type // INPUT : OBJ type
 );
 
 /***************************************************************************
-OBJS_CanSell() - Returns TRUE if player can Sell object
+OBJS_CanSell() - Returns true if player can Sell object
  ***************************************************************************/
-BOOL OBJS_CanSell(
+bool OBJS_CanSell(
     OBJ_TYPE type // INPUT : OBJ type
 );
 
@@ -216,9 +215,9 @@ OBJ_LIB* OBJS_GetLib(
 );
 
 /***************************************************************************
-OBJS_IsEquip() - Returns TRUE if item is Equiped
+OBJS_IsEquip() - Returns true if item is Equiped
  ***************************************************************************/
-BOOL // RETURN: return nums in OBJ
+bool // RETURN: return nums in OBJ
 OBJS_IsEquip(
     OBJ_TYPE type // INPUT : OBJ type
 );
@@ -242,7 +241,7 @@ OBJS_SubEnergy(
 /***************************************************************************
 OBJS_LoseObj() - Lose random object
  ***************************************************************************/
-BOOL OBJS_LoseObj( void );
+bool OBJS_LoseObj( void );
 
 /***************************************************************************
 OBJS_Think () - Does all in game thinking ( recharing )
@@ -252,7 +251,7 @@ void OBJS_Think( void );
 /***************************************************************************
 OBJS_MakeSpecial() - Makes the selected weapon the current special
  ***************************************************************************/
-BOOL OBJS_MakeSpecial(
+bool OBJS_MakeSpecial(
     OBJ_TYPE type // INPUT : OBJ type
 );
 

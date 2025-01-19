@@ -15,26 +15,26 @@
 
 PUBLIC int music_volume;
 PUBLIC int fx_volume;
-PUBLIC BOOL fx_flag = FALSE;
-PUBLIC BOOL dig_flag = FALSE;
-PUBLIC BOOL gus_flag = FALSE;
+PUBLIC bool fx_flag = false;
+PUBLIC bool dig_flag = false;
+PUBLIC bool gus_flag = false;
 
 PRIVATE int num_dig = 0;
 PRIVATE DWORD cur_song_item = EMPTY;
 PRIVATE int cur_song_id = EMPTY;
 PRIVATE SND_TYPE snd_type = SND_NONE;
 
-PRIVATE BOOL init_flag = FALSE;
+PRIVATE bool init_flag = false;
 
 typedef struct {
     DWORD item; // GLB ITEM
     int pri; // PRIORITY 0 = LOW
     int pitch; // PITCH TO PLAY PATCH
-    BOOL rpflag; // TRUE = RANDOM PITCHES
+    bool rpflag; // true = RANDOM PITCHES
     SFX_HANDLE sid; // DMX EFFECT ID
     int vol; // VOLUME
-    BOOL gcache; // CACHE FOR IN-GAME USE?
-    BOOL odig; // TRUE = ONLY PLAY DIGITAL
+    bool gcache; // CACHE FOR IN-GAME USE?
+    bool odig; // true = ONLY PLAY DIGITAL
 } DFX;
 
 typedef enum {
@@ -67,407 +67,407 @@ void SND_Setup( void ) {
     memset( fxitems, 0, sizeof( fxitems ) );
 
     if ( snd_type == SND_NONE ) {
-        init_flag = FALSE;
+        init_flag = false;
         return;
     }
 
-    init_flag = TRUE;
+    init_flag = true;
 
     // MONKEY 1 EFFECT ======================
     lib = &fxitems[FX_MON1];
     lib->item = GLB_GetItemID( "MON1_FX" );
     lib->pri = 1;
     lib->pitch = 128;
-    lib->rpflag = TRUE;
+    lib->rpflag = true;
     lib->sid = EMPTY;
     lib->vol = 127;
-    lib->gcache = FALSE;
-    lib->odig = TRUE;
+    lib->gcache = false;
+    lib->odig = true;
 
     // MONKEY 2 EFFECT ======================
     lib = &fxitems[FX_MON2];
     lib->item = GLB_GetItemID( "MON2_FX" );
     lib->pri = 1;
     lib->pitch = 128;
-    lib->rpflag = TRUE;
+    lib->rpflag = true;
     lib->sid = EMPTY;
     lib->vol = 127;
-    lib->gcache = FALSE;
-    lib->odig = TRUE;
+    lib->gcache = false;
+    lib->odig = true;
 
     // MONKEY 3 EFFECT ======================
     lib = &fxitems[FX_MON3];
     lib->item = GLB_GetItemID( "MON3_FX" );
     lib->pri = 1;
     lib->pitch = 128;
-    lib->rpflag = TRUE;
+    lib->rpflag = true;
     lib->sid = EMPTY;
     lib->vol = 127;
-    lib->gcache = FALSE;
-    lib->odig = TRUE;
+    lib->gcache = false;
+    lib->odig = true;
 
     // MONKEY 4 EFFECT ======================
     lib = &fxitems[FX_MON4];
     lib->item = GLB_GetItemID( "MON4_FX" );
     lib->pri = 1;
     lib->pitch = 128;
-    lib->rpflag = TRUE;
+    lib->rpflag = true;
     lib->sid = EMPTY;
     lib->vol = 127;
-    lib->gcache = FALSE;
-    lib->odig = TRUE;
+    lib->gcache = false;
+    lib->odig = true;
 
     // MONKEY 5 EFFECT ======================
     lib = &fxitems[FX_MON5];
     lib->item = GLB_GetItemID( "MON5_FX" );
     lib->pri = 1;
     lib->pitch = 128;
-    lib->rpflag = TRUE;
+    lib->rpflag = true;
     lib->sid = EMPTY;
     lib->vol = 127;
-    lib->gcache = FALSE;
-    lib->odig = TRUE;
+    lib->gcache = false;
+    lib->odig = true;
 
     // MONKEY 6 EFFECT ======================
     lib = &fxitems[FX_MON6];
     lib->item = GLB_GetItemID( "MON6_FX" );
     lib->pri = 1;
     lib->pitch = 128;
-    lib->rpflag = TRUE;
+    lib->rpflag = true;
     lib->sid = EMPTY;
     lib->vol = 127;
-    lib->gcache = FALSE;
-    lib->odig = TRUE;
+    lib->gcache = false;
+    lib->odig = true;
 
     // DAVE =================================
     lib = &fxitems[FX_DAVE];
     lib->item = GLB_GetItemID( "DAVE_FX" );
     lib->pri = 1;
     lib->pitch = 128;
-    lib->rpflag = FALSE;
+    lib->rpflag = false;
     lib->sid = EMPTY;
     lib->vol = 127;
-    lib->gcache = FALSE;
-    lib->odig = TRUE;
+    lib->gcache = false;
+    lib->odig = true;
 
     // THEME SONG ======================
     lib = &fxitems[FX_THEME];
     lib->item = GLB_GetItemID( "THEME_FX" );
     lib->pri = 0;
     lib->pitch = 128;
-    lib->rpflag = FALSE;
+    lib->rpflag = false;
     lib->sid = EMPTY;
     lib->vol = 127;
-    lib->gcache = FALSE;
-    lib->odig = TRUE;
+    lib->gcache = false;
+    lib->odig = true;
 
     // AIR EXPLOSION ======================
     lib = &fxitems[FX_AIREXPLO];
     lib->item = GLB_GetItemID( "EXPLO_FX" );
     lib->pri = 1;
     lib->pitch = 128;
-    lib->rpflag = TRUE;
+    lib->rpflag = true;
     lib->sid = EMPTY;
     lib->vol = 127;
-    lib->gcache = TRUE;
-    lib->odig = FALSE;
+    lib->gcache = true;
+    lib->odig = false;
 
     // AIR EXPLOSION 2 ( BOSS ) ============
     lib = &fxitems[FX_AIREXPLO2];
     lib->item = GLB_GetItemID( "EXPLO2_FX" );
     lib->pri = 1;
     lib->pitch = 128;
-    lib->rpflag = TRUE;
+    lib->rpflag = true;
     lib->sid = EMPTY;
     lib->vol = 127;
-    lib->gcache = TRUE;
-    lib->odig = FALSE;
+    lib->gcache = true;
+    lib->odig = false;
 
     // PICK UP BONUS ======================
     lib = &fxitems[FX_BONUS];
     lib->item = GLB_GetItemID( "BONUS_FX" );
     lib->pri = 0;
     lib->pitch = 128;
-    lib->rpflag = FALSE;
+    lib->rpflag = false;
     lib->sid = EMPTY;
     lib->vol = 127;
-    lib->gcache = TRUE;
-    lib->odig = FALSE;
+    lib->gcache = true;
+    lib->odig = false;
 
     // SHIP LOSES SOMTHING CRASH ==========
     lib = &fxitems[FX_CRASH];
     lib->item = GLB_GetItemID( "CRASH_FX" );
     lib->pri = 0;
     lib->pitch = 128;
-    lib->rpflag = FALSE;
+    lib->rpflag = false;
     lib->sid = EMPTY;
     lib->vol = 127;
-    lib->gcache = TRUE;
-    lib->odig = FALSE;
+    lib->gcache = true;
+    lib->odig = false;
 
     // DOOR OPENING =======================
     lib = &fxitems[FX_DOOR];
     lib->item = GLB_GetItemID( "DOOR_FX" );
     lib->pri = 0;
     lib->pitch = 120;
-    lib->rpflag = FALSE;
+    lib->rpflag = false;
     lib->sid = EMPTY;
     lib->vol = 127;
-    lib->gcache = FALSE;
-    lib->odig = FALSE;
+    lib->gcache = false;
+    lib->odig = false;
 
     // FLY BY SOUND =======================
     lib = &fxitems[FX_FLYBY];
     lib->item = GLB_GetItemID( "FLYBY_FX" );
     lib->pri = 0;
     lib->pitch = 120;
-    lib->rpflag = FALSE;
+    lib->rpflag = false;
     lib->sid = EMPTY;
     lib->vol = 127;
-    lib->gcache = TRUE;
-    lib->odig = FALSE;
+    lib->gcache = true;
+    lib->odig = false;
 
     // ENERGY GRAB ========================
     lib = &fxitems[FX_EGRAB];
     lib->item = GLB_GetItemID( "EGRAB_FX" );
     lib->pri = 2;
     lib->pitch = 128;
-    lib->rpflag = FALSE;
+    lib->rpflag = false;
     lib->sid = EMPTY;
     lib->vol = 40;
-    lib->gcache = TRUE;
-    lib->odig = FALSE;
+    lib->gcache = true;
+    lib->odig = false;
 
     // GROUND EXPLOSION ===================
     lib = &fxitems[FX_GEXPLO];
     lib->item = GLB_GetItemID( "GEXPLO_FX" );
     lib->pri = 2;
     lib->pitch = 128;
-    lib->rpflag = TRUE;
+    lib->rpflag = true;
     lib->sid = EMPTY;
     lib->vol = 127;
-    lib->gcache = TRUE;
-    lib->odig = FALSE;
+    lib->gcache = true;
+    lib->odig = false;
 
     // NORM GUN ===========================
     lib = &fxitems[FX_GUN];
     lib->item = GLB_GetItemID( "GUN_FX" );
     lib->pri = 10;
     lib->pitch = 125;
-    lib->rpflag = TRUE;
+    lib->rpflag = true;
     lib->sid = EMPTY;
     lib->vol = 30;
-    lib->gcache = TRUE;
-    lib->odig = FALSE;
+    lib->gcache = true;
+    lib->odig = false;
 
     // JET SOUND ==========================
     lib = &fxitems[FX_JETSND];
     lib->item = GLB_GetItemID( "JETSND_FX" );
     lib->pri = 4;
     lib->pitch = 120;
-    lib->rpflag = FALSE;
+    lib->rpflag = false;
     lib->sid = EMPTY;
     lib->vol = 120;
-    lib->gcache = FALSE;
-    lib->odig = FALSE;
+    lib->gcache = false;
+    lib->odig = false;
 
     // ====================================
     lib = &fxitems[FX_LASER];
     lib->item = GLB_GetItemID( "LASER_FX" );
     lib->pri = 2;
     lib->pitch = 120;
-    lib->rpflag = FALSE;
+    lib->rpflag = false;
     lib->sid = EMPTY;
     lib->vol = 50;
-    lib->gcache = TRUE;
-    lib->odig = FALSE;
+    lib->gcache = true;
+    lib->odig = false;
 
     // ====================================
     lib = &fxitems[FX_MISSLE];
     lib->item = GLB_GetItemID( "MISSLE_FX" );
     lib->pri = 3;
     lib->pitch = 120;
-    lib->rpflag = TRUE;
+    lib->rpflag = true;
     lib->sid = EMPTY;
     lib->vol = 50;
-    lib->gcache = TRUE;
-    lib->odig = FALSE;
+    lib->gcache = true;
+    lib->odig = false;
 
     // ====================================
     lib = &fxitems[FX_SWEP];
     lib->item = GLB_GetItemID( "SWEP_FX" );
     lib->pri = 1;
     lib->pitch = 128;
-    lib->rpflag = FALSE;
+    lib->rpflag = false;
     lib->sid = EMPTY;
     lib->vol = 127;
-    lib->gcache = TRUE;
-    lib->odig = FALSE;
+    lib->gcache = true;
+    lib->odig = false;
 
     // ====================================
     lib = &fxitems[FX_TURRET];
     lib->item = GLB_GetItemID( "TURRET_FX" );
     lib->pri = 1;
     lib->pitch = 128;
-    lib->rpflag = TRUE;
+    lib->rpflag = true;
     lib->sid = EMPTY;
     lib->vol = 60;
-    lib->gcache = TRUE;
-    lib->odig = FALSE;
+    lib->gcache = true;
+    lib->odig = false;
 
     // ====================================
     lib = &fxitems[FX_WARNING];
     lib->item = GLB_GetItemID( "WARN_FX" );
     lib->pri = 2;
     lib->pitch = 128;
-    lib->rpflag = FALSE;
+    lib->rpflag = false;
     lib->sid = EMPTY;
     lib->vol = 100;
-    lib->gcache = TRUE;
-    lib->odig = FALSE;
+    lib->gcache = true;
+    lib->odig = false;
 
     // ====================================
     lib = &fxitems[FX_BOSS1];
     lib->item = GLB_GetItemID( "BOSS_FX" );
     lib->pri = 1;
     lib->pitch = 127;
-    lib->rpflag = FALSE;
+    lib->rpflag = false;
     lib->sid = EMPTY;
     lib->vol = 127;
-    lib->gcache = TRUE;
-    lib->odig = TRUE;
+    lib->gcache = true;
+    lib->odig = true;
 
     // INSIDE JET SOUND ==========================
     lib = &fxitems[FX_IJETSND];
     lib->item = GLB_GetItemID( "JETSND_FX" );
     lib->pri = 1;
     lib->pitch = 235;
-    lib->rpflag = FALSE;
+    lib->rpflag = false;
     lib->sid = EMPTY;
     lib->vol = 45;
-    lib->gcache = FALSE;
-    lib->odig = FALSE;
+    lib->gcache = false;
+    lib->odig = false;
 
     // ENEMY JET SOUND ==========================
     lib = &fxitems[FX_EJETSND];
     lib->item = GLB_GetItemID( "JETSND_FX" );
     lib->pri = 1;
     lib->pitch = 65;
-    lib->rpflag = FALSE;
+    lib->rpflag = false;
     lib->sid = EMPTY;
     lib->vol = 120;
-    lib->gcache = FALSE;
-    lib->odig = FALSE;
+    lib->gcache = false;
+    lib->odig = false;
 
     // INTRO E HIT ===========================
     lib = &fxitems[FX_INTROHIT];
     lib->item = GLB_GetItemID( "GUN_FX" );
     lib->pri = 1;
     lib->pitch = 215;
-    lib->rpflag = TRUE;
+    lib->rpflag = true;
     lib->sid = EMPTY;
     lib->vol = 127;
-    lib->gcache = FALSE;
-    lib->odig = FALSE;
+    lib->gcache = false;
+    lib->odig = false;
 
     // INTRO GUN ===========================
     lib = &fxitems[FX_INTROGUN];
     lib->item = GLB_GetItemID( "GUN_FX" );
     lib->pri = 1;
     lib->pitch = 110;
-    lib->rpflag = TRUE;
+    lib->rpflag = true;
     lib->sid = EMPTY;
     lib->vol = 127;
-    lib->gcache = FALSE;
-    lib->odig = FALSE;
+    lib->gcache = false;
+    lib->odig = false;
 
     // ENEMY SHOT ==========================
     lib = &fxitems[FX_ENEMYSHOT];
     lib->item = GLB_GetItemID( "ESHOT_FX" );
     lib->pri = 1;
     lib->pitch = 100;
-    lib->rpflag = TRUE;
+    lib->rpflag = true;
     lib->sid = EMPTY;
     lib->vol = 50;
-    lib->gcache = TRUE;
-    lib->odig = FALSE;
+    lib->gcache = true;
+    lib->odig = false;
 
     // ENEMY LASER ==========================
     lib = &fxitems[FX_ENEMYLASER];
     lib->item = GLB_GetItemID( "LASER_FX" );
     lib->pri = 1;
     lib->pitch = 70;
-    lib->rpflag = TRUE;
+    lib->rpflag = true;
     lib->sid = EMPTY;
     lib->vol = 120;
-    lib->gcache = TRUE;
-    lib->odig = FALSE;
+    lib->gcache = true;
+    lib->odig = false;
 
     // ENEMY MISSLE =========================
     lib = &fxitems[FX_ENEMYMISSLE];
     lib->item = GLB_GetItemID( "MISSLE_FX" );
     lib->pri = 2;
     lib->pitch = 140;
-    lib->rpflag = TRUE;
+    lib->rpflag = true;
     lib->sid = EMPTY;
     lib->vol = 55;
-    lib->gcache = TRUE;
-    lib->odig = FALSE;
+    lib->gcache = true;
+    lib->odig = false;
 
     // ENEMY SHOT ==========================
     lib = &fxitems[FX_ENEMYPLASMA];
     lib->item = GLB_GetItemID( "ESHOT_FX" );
     lib->pri = 2;
     lib->pitch = 127;
-    lib->rpflag = TRUE;
+    lib->rpflag = true;
     lib->sid = EMPTY;
     lib->vol = 127;
-    lib->gcache = TRUE;
-    lib->odig = FALSE;
+    lib->gcache = true;
+    lib->odig = false;
 
     // SHIELD HIT =========================
     lib = &fxitems[FX_SHIT];
     lib->item = GLB_GetItemID( "HIT_FX" );
     lib->pri = 1;
     lib->pitch = 132;
-    lib->rpflag = TRUE;
+    lib->rpflag = true;
     lib->sid = EMPTY;
     lib->vol = 127;
-    lib->gcache = TRUE;
-    lib->odig = FALSE;
+    lib->gcache = true;
+    lib->odig = false;
 
     // SHIP HIT =========================
     lib = &fxitems[FX_HIT];
     lib->item = GLB_GetItemID( "GUN_FX" );
     lib->pri = 1;
     lib->pitch = 214;
-    lib->rpflag = TRUE;
+    lib->rpflag = true;
     lib->sid = EMPTY;
     lib->vol = 100;
-    lib->gcache = TRUE;
-    lib->odig = FALSE;
+    lib->gcache = true;
+    lib->odig = false;
 
     // NO_SHOOT ==========================
     lib = &fxitems[FX_NOSHOOT];
     lib->item = GLB_GetItemID( "ESHOT_FX" );
     lib->pri = 2;
     lib->pitch = 254;
-    lib->rpflag = FALSE;
+    lib->rpflag = false;
     lib->sid = EMPTY;
     lib->vol = 40;
-    lib->gcache = TRUE;
-    lib->odig = FALSE;
+    lib->gcache = true;
+    lib->odig = false;
 
     // PULSE CANNON ======================
     lib = &fxitems[FX_PULSE];
     lib->item = GLB_GetItemID( "ESHOT_FX" );
     lib->pri = 2;
     lib->pitch = 100;
-    lib->rpflag = TRUE;
+    lib->rpflag = true;
     lib->sid = EMPTY;
     lib->vol = 50;
-    lib->gcache = TRUE;
-    lib->odig = TRUE;
+    lib->gcache = true;
+    lib->odig = true;
 
     for ( i = 0; i < FX_LAST_SND; i++ ) {
         lib = &fxitems[i];
@@ -533,14 +533,14 @@ void SND_CacheIFX( void ) {
 }
 
 /***************************************************************************
-SND_IsPatchPlaying() - Returns TRUE if patch is playing
+SND_IsPatchPlaying() - Returns true if patch is playing
  ***************************************************************************/
-BOOL SND_IsPatchPlaying(
+bool SND_IsPatchPlaying(
     DEFX type // INPUT : position in fxitems
 ) {
     DFX* curfld = &fxitems[type];
 
-    return curfld->sid != EMPTY && SFX_Playing( curfld->sid ) ? TRUE : FALSE;
+    return curfld->sid != EMPTY && SFX_Playing( curfld->sid );
 }
 
 /***************************************************************************
@@ -743,8 +743,8 @@ SND_PlaySong() - Plays song associated with song id
  ***************************************************************************/
 void SND_PlaySong(
     DWORD item, // INPUT : Song GLB item
-    BOOL chainflag, // INPUT : Chain Song to ItSelf
-    BOOL fadeflag // INPUT : Fade Song Out
+    bool chainflag, // INPUT : Chain Song to ItSelf
+    bool fadeflag // INPUT : Fade Song Out
 ) {
     BYTE* song;
 
@@ -798,9 +798,9 @@ void SND_PlaySong(
 /***************************************************************************
 SND_IsSongPlaying () - Is current song playing?
  ***************************************************************************/
-BOOL SND_IsSongPlaying( void ) {
+bool SND_IsSongPlaying( void ) {
 
-    return cur_song_id != EMPTY && MUS_QrySongPlaying( cur_song_id ) ? TRUE : FALSE;
+    return cur_song_id != EMPTY && MUS_QrySongPlaying( cur_song_id );
 }
 
 /***************************************************************************
@@ -838,7 +838,7 @@ void SND_InitSound( void ) {
     BYTE* gmem;
     int rval;
 
-    dig_flag = FALSE;
+    dig_flag = false;
     amem = NULL;
     gmem = NULL;
     snd_type = SND_NONE;
@@ -942,7 +942,7 @@ void SND_InitSound( void ) {
 
         case M_GUS:
             if ( !GF1_Detect() ) {
-                dig_flag = TRUE;
+                dig_flag = true;
                 initdcard = AHW_ULTRA_SOUND;
                 snd_type = SND_DIGITAL;
 
@@ -959,7 +959,7 @@ void SND_InitSound( void ) {
         case M_PAS:
             if ( !MV_Detect() ) {
                 snd_type = SND_DIGITAL;
-                dig_flag = TRUE;
+                dig_flag = true;
                 initdcard = AHW_MEDIA_VISION;
             } else {
                 initdcard = -1;
@@ -968,7 +968,7 @@ void SND_InitSound( void ) {
 
         case M_SB:
             if ( !SB_Detect( &port, &irq, &dma, NULL ) ) {
-                dig_flag = TRUE;
+                dig_flag = true;
                 initdcard = AHW_SOUND_BLASTER;
                 SB_SetCard( port, irq, dma );
                 snd_type = SND_DIGITAL;
@@ -994,7 +994,7 @@ void SND_InitSound( void ) {
         initdcard = 0;
         printf( "%s Not Found (Sound FX Disabled)\n", cards[cardtype] );
     } else {
-        fx_flag = TRUE;
+        fx_flag = true;
         printf( "SoundFx Enabled (%s)\n", cards[cardtype] );
     }
 
@@ -1003,13 +1003,13 @@ void SND_InitSound( void ) {
     printf( "DMX_Init() = %d\n", rval );
 
     if ( rval == 0 ) {
-        dig_flag = FALSE;
-        fx_flag = FALSE;
+        dig_flag = false;
+        fx_flag = false;
         cardtype = M_NONE;
     }
 
     num_dig = 0;
-    gus_flag = FALSE;
+    gus_flag = false;
 
     if ( channels < 1 || channels > 8 ) {
         channels = 2;
@@ -1019,7 +1019,7 @@ void SND_InitSound( void ) {
         num_dig = channels;
 
         if ( cardtype == M_GUS && num_dig < 2 ) {
-            gus_flag = TRUE;
+            gus_flag = true;
         }
 
         WAV_PlayMode( channels, 11025 );

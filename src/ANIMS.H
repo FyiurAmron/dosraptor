@@ -4,7 +4,17 @@
 #include "../gfx/types.h"
 #include "enemy.h"
 
-typedef enum { A_NORM, A_MOVEUP, A_MOVEDOWN } ANIM_DIR;
+typedef enum {
+    A_NORM, // 0
+    A_MOVEUP, // 1
+    A_MOVEDOWN, // 2
+} ANIM_DIR;
+
+typedef enum {
+    GROUND, // 0
+    MID_AIR, // 1
+    HIGH_AIR, // 2
+} GFLAG;
 
 #define A_LARGE_GROUND_EXPLO1 0
 #define A_SMALL_GROUND_EXPLO  1
@@ -46,9 +56,9 @@ ANIMS_Register () - Register a ANIM for USE with this stuff
 int ANIMS_Register(
     DWORD item, // INPUT : lumpnum of first frame
     int numframes, // INPUT : number of frames
-    BOOL groundflag, // INPUT : on the ground = TRUE
-    BOOL playerflag, // INPUT : follow player movements
-    BOOL transparent, // INPUT : Transparent ( LIGHT )
+    GFLAG groundflag,
+    bool playerflag, // INPUT : follow player movements
+    bool transparent, // INPUT : Transparent ( LIGHT )
     ANIM_DIR adir // INPUT : Anim Direction
 );
 
@@ -72,7 +82,7 @@ void ANIMS_StartAnim(
 );
 
 /***************************************************************************
-ANIMS_StartGAnim () - Start An ANIM Playing with groundflag == TRUE
+ANIMS_StartGAnim () - Start An ANIM Playing with groundflag == true
  ***************************************************************************/
 void ANIMS_StartGAnim(
     int handle, // INPUT : ANIM handle

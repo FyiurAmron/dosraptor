@@ -62,7 +62,7 @@ MakeBuyItems () - Makes items you can Buy
 PRIVATE int MakeBuyItems( void ) {
     int i;
     int num;
-    BOOL flag;
+    bool flag;
     int cost1;
     int cost2;
 
@@ -80,13 +80,13 @@ PRIVATE int MakeBuyItems( void ) {
 
     if ( buy_count > 1 ) {
         for ( ;; ) {
-            flag = FALSE;
+            flag = false;
             for ( i = 0; i < buy_count - 1; i++ ) {
                 cost1 = OBJS_GetCost( b_items[i] );
                 cost2 = OBJS_GetCost( b_items[i + 1] );
 
                 if ( cost1 > cost2 ) {
-                    flag = TRUE;
+                    flag = true;
                     num = b_items[i];
                     b_items[i] = b_items[i + 1];
                     b_items[i + 1] = num;
@@ -108,7 +108,7 @@ MakeSellItems() - Makes the items that you can sell
 PRIVATE int MakeSellItems( void ) {
     int i;
     int num;
-    BOOL flag;
+    bool flag;
     int cost1;
     int cost2;
 
@@ -126,13 +126,13 @@ PRIVATE int MakeSellItems( void ) {
 
     if ( sell_count > 1 ) {
         for ( ;; ) {
-            flag = FALSE;
+            flag = false;
             for ( i = 0; i < sell_count - 1; i++ ) {
                 cost1 = OBJS_GetCost( s_items[i] );
                 cost2 = OBJS_GetCost( s_items[i + 1] );
 
                 if ( cost1 > cost2 ) {
-                    flag = TRUE;
+                    flag = true;
                     num = s_items[i];
                     s_items[i] = s_items[i + 1];
                     s_items[i + 1] = num;
@@ -202,7 +202,7 @@ STORE_Enter () - Lets User go in store and buy and sell things
 void STORE_Enter( void ) {
     char youhave[52];
     char coststr[52];
-    BOOL update = FALSE;
+    bool update = false;
     int opt = -1;
     int oldopt = -1;
     int max_items = 0;
@@ -213,11 +213,11 @@ void STORE_Enter( void ) {
     int cost;
     int i;
 
-    PTR_DrawCursor( FALSE );
+    PTR_DrawCursor( false );
     KBD_Clear();
     GFX_FadeOut( 0, 0, 0, 5 );
 
-    SWD_SetButtonFlag( FALSE );
+    SWD_SetButtonFlag( false );
     window = SWD_InitMasterWindow( STORE_SWD );
     SWD_SetFieldItem( window, STOR_ID, id_pics[plr.id_pic] );
     SWD_SetFieldItem( window, STOR_BUYIT, mainbut[mode] );
@@ -232,7 +232,7 @@ void STORE_Enter( void ) {
     GFX_FadeIn( palette, 16 );
 
     SWD_SetFieldPtr( window, STOR_VEXIT );
-    PTR_DrawCursor( TRUE );
+    PTR_DrawCursor( true );
 
     obj_cnt = OBJS_GetNum();
 
@@ -251,7 +251,7 @@ void STORE_Enter( void ) {
 
     SWD_ShowAllWindows();
     GFX_DisplayUpdate();
-    update = TRUE;
+    update = true;
 
 mainloop:
 
@@ -265,7 +265,7 @@ mainloop:
     }
 
     if ( max_items < 1 ) {
-        update = TRUE;
+        update = true;
 
         if ( mode == BUY_MODE ) {
             EXIT_Error( "STORE Error ( BUY_MODE )" );
@@ -280,7 +280,7 @@ mainloop:
     }
 
     if ( update ) {
-        update = FALSE;
+        update = false;
 
         if ( cur_item < 0 ) {
             cur_item = max_items - 1;
@@ -490,7 +490,7 @@ mainloop:
         case S_FLD_COMMAND:
             switch ( dlg.cur_cmd ) {
                 case F_SELECT:
-                    update = TRUE;
+                    update = true;
                     switch ( dlg.field ) {
                         case STOR_NEXT:
                             SND_Patch( FX_SWEP, 127 );
@@ -572,11 +572,11 @@ store_exit:
     SND_Patch( FX_DOOR, 127 );
     while ( IMS_IsAck() )
         ;
-    SWD_SetButtonFlag( TRUE );
+    SWD_SetButtonFlag( true );
 
     GFX_FadeOut( 0, 0, 0, 16 );
 
-    PTR_DrawCursor( FALSE );
+    PTR_DrawCursor( false );
     SWD_DestroyWindow( window );
     memset( displaybuffer, 0, 64000 );
 

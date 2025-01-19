@@ -8,14 +8,12 @@
 
 #include "anims.h"
 
-typedef enum { GROUND, MID_AIR, HIGH_AIR } GFLAG;
-
 typedef struct ANIMLIB_S {
     DWORD item;
     int numframes;
-    BOOL groundflag;
-    BOOL playerflag;
-    BOOL transparent;
+    GFLAG groundflag;
+    bool playerflag;
+    bool transparent;
     ANIM_DIR adir;
     int xoff;
     int yoff;
@@ -33,7 +31,7 @@ typedef struct ANIMS_S {
     ANIMLIB* lib;
     GFLAG groundflag;
     SPRITE_SHIP* en;
-    BOOL edone;
+    bool edone;
 } ANIMS;
 
 #define MAX_ANIMLIB 25
@@ -119,9 +117,9 @@ ANIMS_Register () - Register a ANIM for USE with this stuff
 int ANIMS_Register(
     DWORD item, // INPUT : lumpnum of first frame
     int numframes, // INPUT : number of frames
-    GFLAG groundflag, // INPUT : on the ground = TRUE
-    BOOL playerflag, // INPUT : follow player movements
-    BOOL transparent, // INPUT : Transparent ( LIGHT )
+    GFLAG groundflag,
+    bool playerflag, // INPUT : follow player movements
+    bool transparent, // INPUT : Transparent ( LIGHT )
     ANIM_DIR adir // INPUT : Anim Direction
 ) {
     int handle = curlib;
@@ -161,38 +159,38 @@ void ANIMS_Init( void ) {
     curlib = 0;
 
     // GROUND EXPLOSIONS
-    ANIMS_Register( GEXPLO_BLK, 42, GROUND, FALSE, FALSE, A_NORM ); // 0
-    ANIMS_Register( BOOM_PIC, 35, GROUND, FALSE, FALSE, A_NORM ); // 1
-    ANIMS_Register( SPLAT_BLK, 7, GROUND, FALSE, FALSE, A_NORM ); // 3
-    ANIMS_Register( BIGSPLAT_BLK, 10, GROUND, FALSE, FALSE, A_NORM ); // 4
+    ANIMS_Register( GEXPLO_BLK, 42, GROUND, false, false, A_NORM ); // 0
+    ANIMS_Register( BOOM_PIC, 35, GROUND, false, false, A_NORM ); // 1
+    ANIMS_Register( SPLAT_BLK, 7, GROUND, false, false, A_NORM ); // 3
+    ANIMS_Register( BIGSPLAT_BLK, 10, GROUND, false, false, A_NORM ); // 4
 
     // AIR EXPLOSIONS
-    ANIMS_Register( LGFLAK_BLK, 12, HIGH_AIR, FALSE, FALSE, A_NORM ); // 5
-    ANIMS_Register( EXPLO2_BLK, 13, GROUND, FALSE, FALSE, A_NORM ); // 2
-    ANIMS_Register( SMFLAK_BLK, 14, HIGH_AIR, FALSE, FALSE, A_NORM ); // 6
-    ANIMS_Register( AIRBOOM_PIC, 16, HIGH_AIR, FALSE, FALSE, A_NORM ); // 7
-    ANIMS_Register( NRGBANG_BLK, 12, HIGH_AIR, FALSE, FALSE, A_NORM ); // 8
-    ANIMS_Register( LRBLST_BLK, 4, HIGH_AIR, FALSE, FALSE, A_NORM ); // 9
+    ANIMS_Register( LGFLAK_BLK, 12, HIGH_AIR, false, false, A_NORM ); // 5
+    ANIMS_Register( EXPLO2_BLK, 13, GROUND, false, false, A_NORM ); // 2
+    ANIMS_Register( SMFLAK_BLK, 14, HIGH_AIR, false, false, A_NORM ); // 6
+    ANIMS_Register( AIRBOOM_PIC, 16, HIGH_AIR, false, false, A_NORM ); // 7
+    ANIMS_Register( NRGBANG_BLK, 12, HIGH_AIR, false, false, A_NORM ); // 8
+    ANIMS_Register( LRBLST_BLK, 4, HIGH_AIR, false, false, A_NORM ); // 9
 
     // MISC ANIMS
-    ANIMS_Register( SSMOKE_BLK, 9, MID_AIR, FALSE, FALSE, A_NORM ); // 10
-    ANIMS_Register( SSMOKE_BLK + 4, 5, MID_AIR, FALSE, TRUE, A_MOVEDOWN ); // 11
-    ANIMS_Register( SMOKTRAL_BLK, 4, MID_AIR, FALSE, TRUE, A_MOVEUP ); // 12
+    ANIMS_Register( SSMOKE_BLK, 9, MID_AIR, false, false, A_NORM ); // 10
+    ANIMS_Register( SSMOKE_BLK + 4, 5, MID_AIR, false, true, A_MOVEDOWN ); // 11
+    ANIMS_Register( SMOKTRAL_BLK, 4, MID_AIR, false, true, A_MOVEUP ); // 12
 
-    ANIMS_Register( LGHTIN_BLK, 14, MID_AIR, FALSE, FALSE, A_NORM ); // 13
-    ANIMS_Register( BSPARK_BLK, 9, MID_AIR, FALSE, FALSE, A_NORM ); // 14
-    ANIMS_Register( OSPARK_BLK, 9, MID_AIR, FALSE, FALSE, A_NORM ); // 15
-    ANIMS_Register( GUNSTR_BLK, 4, MID_AIR, TRUE, FALSE, A_NORM ); // 16
+    ANIMS_Register( LGHTIN_BLK, 14, MID_AIR, false, false, A_NORM ); // 13
+    ANIMS_Register( BSPARK_BLK, 9, MID_AIR, false, false, A_NORM ); // 14
+    ANIMS_Register( OSPARK_BLK, 9, MID_AIR, false, false, A_NORM ); // 15
+    ANIMS_Register( GUNSTR_BLK, 4, MID_AIR, true, false, A_NORM ); // 16
 
     // GROUND EXPLOSION OVERLAYS
-    ANIMS_Register( FLARE_PIC, 26, GROUND, FALSE, FALSE, A_NORM ); // 17
-    ANIMS_Register( SPARKLE_PIC, 17, GROUND, FALSE, FALSE, A_NORM ); // 18
+    ANIMS_Register( FLARE_PIC, 26, GROUND, false, false, A_NORM ); // 17
+    ANIMS_Register( SPARKLE_PIC, 17, GROUND, false, false, A_NORM ); // 18
 
     // ENERGY GRAB
-    ANIMS_Register( LGHTIN_BLK, 14, HIGH_AIR, FALSE, FALSE, A_NORM ); // 19
+    ANIMS_Register( LGHTIN_BLK, 14, HIGH_AIR, false, false, A_NORM ); // 19
 
     // SUPER SHIELD
-    ANIMS_Register( SHIPGLOW_BLK, 4, HIGH_AIR, TRUE, TRUE, A_NORM ); // 20
+    ANIMS_Register( SHIPGLOW_BLK, 4, HIGH_AIR, true, true, A_NORM ); // 20
 }
 
 /***************************************************************************
@@ -340,7 +338,7 @@ void ANIMS_Think( void ) {
             cur->dy = player_cy + cur->y;
         } else if ( cur->en ) {
             if ( cur->en->item == ~0 ) {
-                cur->edone = TRUE;
+                cur->edone = true;
             }
 
             if ( !cur->edone ) {

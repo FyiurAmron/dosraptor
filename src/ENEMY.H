@@ -35,19 +35,19 @@ typedef struct SPRITE_SHIP_S {
     int angleflag;
     int dirflag; // * FLIGHT DIRECTION FLAG
     int hits; // *
-    BOOL groundflag; // *
-    BOOL doneflag;
+    bool groundflag; // *
+    bool doneflag;
     MOVEOBJ move;
     int countdown;
     DWORD curframe;
     int eframe;
     int num_frames;
-    BOOL anim_on;
+    bool anim_on;
     EDIR edir;
     int kami;
     int frame_rate;
-    BOOL shoot_on;
-    BOOL shoot_disable;
+    bool shoot_on;
+    bool shoot_disable;
     MULTI multi;
     int speed;
     int suckagain;
@@ -109,7 +109,7 @@ SPRITE_SHIP* ENEMY_GetRandomAir( void );
 /***************************************************************************
 ENEMY_DamageAll () - Tests to see if hit occured at x/y and applys damage
  ***************************************************************************/
-BOOL ENEMY_DamageAll(
+bool ENEMY_DamageAll(
     int x, // INPUT : x position
     int y, // INPUT : y position
     int damage // INPUT : damage
@@ -118,7 +118,7 @@ BOOL ENEMY_DamageAll(
 /***************************************************************************
 ENEMY_DamageGround () - Tests to see if hit occured at x/y and applys damage
  ***************************************************************************/
-BOOL ENEMY_DamageGround(
+bool ENEMY_DamageGround(
     int x, // INPUT : x position
     int y, // INPUT : y position
     int damage // INPUT : damage
@@ -127,7 +127,7 @@ BOOL ENEMY_DamageGround(
 /***************************************************************************
 ENEMY_DamageAir () - Tests to see if hit occured at x/y and applys damage
  ***************************************************************************/
-BOOL ENEMY_DamageAir(
+bool ENEMY_DamageAir(
     int x, // INPUT : x position
     int y, // INPUT : y position
     int damage // INPUT : damage

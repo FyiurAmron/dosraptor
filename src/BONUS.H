@@ -23,7 +23,7 @@ typedef struct BONUS_S {
     int gx; // GLOW X POSITION
     int gy; // GLOW Y POSITION
     int pos; // POS IN CIRCLE
-    BOOL dflag; // DONEFLAG
+    bool dflag; // DONEFLAG
     int countdown; // COUNTDOWN TO REMOVE
     OBJ_TYPE type; // OBJECT TYPE
     OBJ_LIB* lib; // POINTER TO OBJECT LIBRARY

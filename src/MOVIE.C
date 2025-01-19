@@ -57,7 +57,7 @@ int MOVIE_Play(
     int numplay, // INPUT : number of times to play
     BYTE* palette // INPUT : pointer to palette
 ) {
-    BOOL flag = TRUE;
+    bool flag = true;
     FRAME* curfld;
     BYTE* pic;
     int opt = K_OK;
@@ -98,7 +98,7 @@ int MOVIE_Play(
             case M_FADEIN:
                 if ( flag ) {
                     GFX_FadeOut( 0, 0, 0, 2 );
-                    flag = FALSE;
+                    flag = false;
                 }
                 MOVIE_ShowFrame( pic );
                 GFX_WaitUpdate( curfld->framerate );
@@ -161,7 +161,7 @@ int MOVIE_Play(
             }
             memset( displaybuffer, 0, 64000 );
             curfld = frame;
-            flag = TRUE;
+            flag = true;
             continue;
         }
 
@@ -171,7 +171,7 @@ int MOVIE_Play(
             break;
         }
 
-        flag = FALSE;
+        flag = false;
 
         curfld++;
     }

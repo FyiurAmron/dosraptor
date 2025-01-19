@@ -15,7 +15,7 @@ typedef enum { I_KEYBOARD, I_MOUSE, I_JOYSTICK, I_FORCE } ITYPE;
 #define BUT_3 ( buttons[2] )
 #define BUT_4 ( buttons[3] )
 
-extern BOOL buttons[4];
+extern bool buttons[4];
 extern ITYPE control;
 extern int demo_mode;
 extern int f_addx;
@@ -64,12 +64,12 @@ void DEMO_SaveFile( void );
 /***************************************************************************
 DEMO_Think(
  ***************************************************************************/
-BOOL DEMO_Think( void );
+bool DEMO_Think( void );
 
 /***************************************************************************
 DEMO_Play() - Demo playback routine
  ***************************************************************************/
-BOOL // TRUE=Aborted, FALSE = timeout
+bool // true=Aborted, false = timeout
     DEMO_Play( void );
 
 /***************************************************************************
@@ -85,7 +85,7 @@ void IPT_MovePlayer( void );
 /***************************************************************************
 IPT_PauseControl() - Lets routines run without letting user control anyting
  ***************************************************************************/
-void IPT_PauseControl( BOOL flag );
+void IPT_PauseControl( bool flag );
 
 /***************************************************************************
 IPT_FMovePlayer() - Forces player to move addx/addy

@@ -30,8 +30,7 @@ void WIN_Order( void );
 /***************************************************************************
    WIN_AskBool () - Askes USER a YES/NO Question????
  ***************************************************************************/
-BOOL // RETURN: TRUE/FALSE
-WIN_AskBool(
+bool WIN_AskBool(
     char* question // INPUT : pointer to message to ask
 );
 
@@ -48,7 +47,7 @@ void WIN_MainMenu( void );
 /***************************************************************************
 WIN_Register () - Register Window
  ***************************************************************************/
-BOOL RAP_Register( void );
+bool RAP_Register( void );
 
 /***************************************************************************
 WIN_Locker () - Locker Room Window
@@ -63,7 +62,7 @@ int WIN_Hangar( void );
 /***************************************************************************
 WIN_ShipComp () - Does Game Selection 1, 2 or 3
  ***************************************************************************/
-BOOL WIN_ShipComp( void );
+bool WIN_ShipComp( void );
 
 /***************************************************************************
 WIN_LoadComp() - Shows computer loading screen

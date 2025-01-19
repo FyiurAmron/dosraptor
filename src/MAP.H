@@ -32,7 +32,7 @@ typedef struct {
     int addy;
     int maxloop;
     int err;
-    BOOL done;
+    bool done;
 } MOVEOBJ;
 
 // ENEMY SHIPS
@@ -86,20 +86,21 @@ typedef enum {
     EXP_AIRSMALL2 // 10
 } EXP_TYPE;
 
+// note: this is read from GLB files
 typedef struct {
     char iname[16]; // ITEM NAME
     DWORD item; // * GLB ITEM #
     int bonus; // BONUS # ( -1 == NONE )
     EXP_TYPE exptype; // EXPLOSION TYPE
     int shotspace; // SLOWDOWN SPEED
-    BOOL ground; // IS ON GROUND
-    BOOL suck; // CAN SUCK WEAPON AFFECT
+    uint32_t ground; // IS ON GROUND (bool)
+    uint32_t suck; // CAN SUCK WEAPON AFFECT (bool)
     int frame_rate; // FRAME RATE
     int num_frames; // NUM FRAMES
     int countdown; // COUNT DOWN TO START ANIM
     int rewind; // FRAMES TO REWIND
     ANIMTYPE animtype; // FREE SPACE FOR LATER USE
-    BOOL shadow; // USE SHADOW ( TRUE/FALSE )
+    uint32_t shadow; // USE SHADOW (bool)
     int bossflag; // SHOULD THIS BE CONSIDERED A BOSS
     int hits; // HIT POINTS
     int money; // $$ AMOUNT WHEN KILLED

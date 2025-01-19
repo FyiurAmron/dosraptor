@@ -17,7 +17,7 @@
 #include "loadsave.h"
 #include "windows.h"
 
-PUBLIC int buttons[4] = { FALSE, FALSE, FALSE, FALSE };
+PUBLIC bool buttons[4] = { false, false, false, false };
 
 PUBLIC ITYPE control = I_MOUSE;
 
@@ -56,7 +56,7 @@ PRIVATE char demo_name[32];
 PRIVATE int demo_wave;
 PRIVATE int demo_game;
 PRIVATE int max_play;
-PRIVATE BOOL control_pause = FALSE;
+PRIVATE bool control_pause = false;
 
 /***************************************************************************
 DEMO_MakePlayer() -
@@ -215,12 +215,12 @@ void DEMO_SaveFile( void ) {
 /***************************************************************************
 DEMO_Play() - Demo playback routine
  ***************************************************************************/
-BOOL // TRUE=Aborted, FALSE = timeout
+bool // true=Aborted, false = timeout
 DEMO_Play( void ) {
     extern DWORD songsg1[];
     extern DWORD songsg2[];
     extern DWORD songsg3[];
-    BOOL rval = FALSE;
+    bool rval = false;
 
     DEMO_StartPlayback();
 
@@ -232,27 +232,27 @@ DEMO_Play( void ) {
     switch ( cur_game ) {
         default:
         case 0:
-            SND_PlaySong( songsg1[demo_wave], TRUE, TRUE );
+            SND_PlaySong( songsg1[demo_wave], true, true );
             break;
         case 1:
-            SND_PlaySong( songsg2[demo_wave], TRUE, TRUE );
+            SND_PlaySong( songsg2[demo_wave], true, true );
             break;
         case 2:
-            SND_PlaySong( songsg3[demo_wave], TRUE, TRUE );
+            SND_PlaySong( songsg3[demo_wave], true, true );
             break;
     }
 
     WIN_LoadComp();
     RAP_LoadMap();
-    GFX_SetRetraceFlag( FALSE );
+    GFX_SetRetraceFlag( false );
 
     rval = Do_Game();
 
-    GFX_SetRetraceFlag( TRUE );
+    GFX_SetRetraceFlag( true );
 
     if ( !rval ) {
         if ( OBJS_GetAmt( S_ENERGY ) <= 0 ) {
-            SND_PlaySong( RAP5_MUS, TRUE, TRUE );
+            SND_PlaySong( RAP5_MUS, true, true );
             INTRO_Death();
         } else {
             INTRO_Landing();
@@ -269,12 +269,12 @@ DEMO_Play( void ) {
 /***************************************************************************
 DEMO_Think (
  ***************************************************************************/
-BOOL DEMO_Think( void ) {
-    BOOL rval = FALSE;
+bool DEMO_Think( void ) {
+    bool rval = false;
 
     switch ( demo_mode ) {
         default:
-            rval = FALSE;
+            rval = false;
             break;
 
         case DEMO_PLAYBACK:
@@ -290,7 +290,7 @@ BOOL DEMO_Think( void ) {
             cur_play++;
             if ( cur_play > max_play ) {
                 demo_mode = DEMO_OFF;
-                rval = TRUE;
+                rval = true;
             }
             break;
 
@@ -306,7 +306,7 @@ BOOL DEMO_Think( void ) {
             if ( cur_play == MAX_DEMO ) {
                 SND_Patch( FX_BONUS, 127 );
                 demo_mode = DEMO_OFF;
-                rval = TRUE;
+                rval = true;
             }
             break;
     }
@@ -326,33 +326,33 @@ void IPT_GetButtons( void ) {
         num = num >> 4;
 
         if ( !( num & 1 ) ) {
-            buttons[j_lookup[0]] = TRUE;
+            buttons[j_lookup[0]] = true;
         }
         if ( !( num & 2 ) ) {
-            buttons[j_lookup[1]] = TRUE;
+            buttons[j_lookup[1]] = true;
         }
         if ( !( num & 4 ) ) {
-            buttons[j_lookup[2]] = TRUE;
+            buttons[j_lookup[2]] = true;
         }
         if ( !( num & 8 ) ) {
-            buttons[j_lookup[3]] = TRUE;
+            buttons[j_lookup[3]] = true;
         }
     }
 
     if ( KBD_Key( k_Fire ) ) {
-        buttons[0] = TRUE;
+        buttons[0] = true;
     }
 
     if ( KBD_Key( k_FireSp ) ) {
-        buttons[1] = TRUE;
+        buttons[1] = true;
     }
 
     if ( KBD_Key( k_ChangeSp ) ) {
-        buttons[2] = TRUE;
+        buttons[2] = true;
     }
 
     if ( KBD_Key( k_Mega ) ) {
-        buttons[3] = TRUE;
+        buttons[3] = true;
     }
 }
 
@@ -521,15 +521,15 @@ PRIVATE void IPT_GetMouse( void ) {
     g_addy = ym;
 
     if ( mouseb1 ) {
-        buttons[m_lookup[0]] = TRUE;
+        buttons[m_lookup[0]] = true;
     }
 
     if ( mouseb2 ) {
-        buttons[m_lookup[1]] = TRUE;
+        buttons[m_lookup[1]] = true;
     }
 
     if ( mouseb3 ) {
-        buttons[m_lookup[2]] = TRUE;
+        buttons[m_lookup[2]] = true;
     }
 }
 
@@ -571,7 +571,7 @@ PRIVATE void WaitJoyButton( void ) {
 IPT_CalJoy() - Calibrates Joystick ( joystick must be centered )
  ***************************************************************************/
 void IPT_CalJoy( void ) {
-    extern BOOL godmode;
+    extern bool godmode;
     extern int joy_sx, joy_sy;
     extern int joy_limit_xh, joy_limit_xl;
     extern int joy_limit_yh, joy_limit_yl;
@@ -657,8 +657,8 @@ void IPT_DeInit( void ) {
 IPT_Start() - Tranfers control from PTRAPI stuff to IPT stuff
  ***************************************************************************/
 void IPT_Start( void ) {
-    PTR_DrawCursor( FALSE );
-    PTR_Pause( TRUE );
+    PTR_DrawCursor( false );
+    PTR_Pause( true );
     TSM_ResumeService( tsm_id );
 }
 
@@ -667,8 +667,8 @@ IPT_End() - Tranfers control from IPT stuff to PTR stuff
  ***************************************************************************/
 void IPT_End( void ) {
     TSM_PauseService( tsm_id );
-    PTR_Pause( FALSE );
-    PTR_DrawCursor( FALSE );
+    PTR_Pause( false );
+    PTR_DrawCursor( false );
 }
 
 /***************************************************************************
@@ -752,7 +752,7 @@ void IPT_MovePlayer( void ) {
 /***************************************************************************
 IPT_PauseControl() - Lets routines run without letting user control anyting
  ***************************************************************************/
-void IPT_PauseControl( BOOL flag ) {
+void IPT_PauseControl( bool flag ) {
     control_pause = flag;
 }
 
