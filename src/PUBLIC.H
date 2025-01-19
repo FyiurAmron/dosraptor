@@ -60,6 +60,8 @@ typedef struct {
 #define SHIELD_COLOR_RUN 9
 #define SHIELD_LOW       10
 
+#define MAX_SHIELD 100
+
 #define PLAYERWIDTH      32
 #define PLAYERHEIGHT     32
 #define PLAYERMINX       5
@@ -70,17 +72,7 @@ typedef struct {
 #define MINPLAYERY       0
 #define MAXPLAYERY       160
 
-#define GREEN            100
-#define RED              34
-#define YELLOW           50
-
-#define MAP_ABORT        -1
-#define MAP_NEXT         -2
-
-// #define MAX_BADGUYS  300
 #define MAX_ONSCREEN     30
-
-#define MAX_SHIELD 100
 
 /***************************************************************************
    InitMobj() - Inits an object to be moved
