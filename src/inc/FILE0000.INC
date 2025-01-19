@@ -76,12 +76,12 @@
 #define ITEM15_TXT   0x00000049 // ITEM:073
 #define ITEM16_TXT   0x0000004a // ITEM:074
 #define ITEM17_TXT   0x0000004b // ITEM:075
-#define HAR1_TXT     0x0000004c // ITEM:076
-#define HAR2_TXT     0x0000004d // ITEM:077
-#define HAR3_TXT     0x0000004e // ITEM:078
-#define HAR4_TXT     0x0000004f // ITEM:079
-#define HAR5_TXT     0x00000050 // ITEM:080
-#define HAR7_TXT     0x00000051 // ITEM:081
+#define HAR1_TXT     0x0000004c // ITEM:076 - welcome
+#define HAR2_TXT     0x0000004d // ITEM:077 - "buy mode activated" (unused)
+#define HAR3_TXT     0x0000004e // ITEM:078 - "sell mode activated" (unused)
+#define HAR4_TXT     0x0000004f // ITEM:079 - no money left
+#define HAR5_TXT     0x00000050 // ITEM:080 - nothing left to sell
+#define HAR7_TXT     0x00000051 // ITEM:081 - no space left on ship
 #define BOSS1_MUS    0x00000052 // ITEM:082
 #define BOSS2_MUS    0x00000053 // ITEM:083
 #define BOSS3_MUS    0x00000054 // ITEM:084
