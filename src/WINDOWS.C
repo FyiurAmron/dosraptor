@@ -92,13 +92,9 @@ DWORD songsg3[9] = {
     RAP6_MUS // WAVE 9
 };
 
-#define HANGTOSTORE   0
-#define HANGTOMISSION 1
-
 #define DEMO_DELAY    ( 800 * 5 )
 PRIVATE int diff_wrap[E_NUM_DIFF] = { 4, 9, 9, 9 };
 PRIVATE int d_count = 0;
-PRIVATE int hangto = HANGTOSTORE;
 
 /***************************************************************************
 WIN_WinGame () - Window text for winners of a game
@@ -194,7 +190,6 @@ void WIN_Opts( void ) {
 
     opt_window = SWD_InitWindow( OPTS_SWD );
 
-    SWD_SetWindowPtr( opt_window );
     SWD_SetFieldText( opt_window, OPTS_DETAIL, detail[curd] );
     SWD_SetWinDrawFunc( opt_window, WIN_OptDraw );
 
@@ -517,7 +512,6 @@ bool WIN_AskBool(
     PTR_DrawCursor( true );
 
     SWD_GetFieldXYL( ask_window, ASK_YES, &px, &py, &lx, &ly );
-    PTR_SetPos( px + ( lx >> 1 ), py + ( ly >> 1 ) );
 
     SWD_SetActiveField( ask_window, ASK_YES );
 
@@ -628,7 +622,6 @@ WIN_AskDiff( void ) {
     GFX_DisplayUpdate();
 
     SWD_GetFieldXYL( ask_window, OKREG_MED, &px, &py, &lx, &ly );
-    PTR_SetPos( px + ( lx >> 1 ), py + ( ly >> 1 ) );
 
 mainloop:
 
@@ -716,7 +709,6 @@ bool WIN_Register( void ) {
 
     GFX_FadeIn( palette, 16 );
 
-    SWD_SetFieldPtr( window, REG_VIEWID );
     PTR_DrawCursor( true );
 
 mainloop:
@@ -929,8 +921,6 @@ reg_exit:
     GFX_DisplayUpdate();
     GFX_SetPalette( palette, 0 );
 
-    hangto = HANGTOSTORE;
-
     if ( rval ) {
         ingameflag = false;
     }
@@ -985,22 +975,6 @@ int WIN_Hangar( void ) {
         kflag = true;
     }
 
-    switch ( hangto ) {
-        case HANGTOMISSION:
-            pos = 0;
-            SWD_SetActiveField( window, poslookup[pos] );
-            break;
-
-        default:
-        case HANGTOSTORE:
-            pos = 1;
-            SWD_SetActiveField( window, poslookup[pos] );
-            break;
-    }
-
-    hangto = HANGTOMISSION;
-
-    SWD_SetWindowPtr( window );
     PTR_DrawCursor( true );
 
 mainloop:
@@ -1091,7 +1065,6 @@ mainloop:
                 }
                 oldopt = opt;
                 SWD_GetFieldXYL( window, opt, &x, &y, &lx, &ly );
-                PTR_SetPos( x + ( lx >> 1 ), y + ( ly >> 1 ) );
                 oldopt = EMPTY;
                 dlg.sfield = opt;
                 dlg.viewactive = true;
@@ -1292,7 +1265,6 @@ bool WIN_ShipComp( void ) {
     GLB_LockItem( LIGHTOFF_PIC );
 
     SWD_GetFieldXYL( window, COMP_AUTO, &px, &py, &lx, &ly );
-    PTR_SetPos( px + ( lx >> 1 ), py + ( ly >> 1 ) );
     SWD_SetActiveField( window, COMP_AUTO );
 
     SWD_SetFieldItem( window, COMP_LITE1, LIGHTOFF_PIC );
@@ -1315,7 +1287,6 @@ bool WIN_ShipComp( void ) {
 
     GFX_FadeIn( palette, 16 );
 
-    SWD_SetWindowPtr( window );
     PTR_DrawCursor( true );
 
 mainloop:
@@ -1535,8 +1506,6 @@ abort_shipcomp:
         SND_Patch( FX_EGRAB, 127 );
     }
 
-    hangto = HANGTOMISSION;
-
     GLB_FreeItem( LIGHTON_PIC );
     GLB_FreeItem( LIGHTOFF_PIC );
 
@@ -1598,7 +1567,6 @@ void WIN_MainLoop( void ) {
 
                 case HANG_SUPPLIES:
                     STORE_Enter();
-                    hangto = HANGTOMISSION;
                     rval = EMPTY;
                     continue;
             }
@@ -1630,8 +1598,6 @@ void WIN_MainLoop( void ) {
         GFX_SetRetraceFlag( false );
 
         abort_flag = Do_Game();
-
-        hangto = HANGTOSTORE;
 
         GFX_SetRetraceFlag( true );
 
@@ -1866,7 +1832,6 @@ void WIN_MainMenu( void ) {
 
     SND_CacheIFX();
 
-    SWD_SetWindowPtr( window );
     PTR_DrawCursor( true );
     ltable[0] = 0;
 
@@ -1998,6 +1963,4 @@ menu_exit:
     GFX_SetPalette( palette, 0 );
 
     ltable[0] = cz1;
-
-    hangto = HANGTOSTORE;
 }

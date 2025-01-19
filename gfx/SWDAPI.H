@@ -227,20 +227,23 @@ void SWD_SetViewDrawHook(
     void ( *func )( void ) // INPUT : pointer to function
 );
 
-/***************************************************************************
-SWD_SetWindowPtr() - Sets pointer to center of active field
- ***************************************************************************/
-void SWD_SetWindowPtr(
+// currently unused
+#if 0
+/**
+ * SWD_SetWindowPtr() - Sets pointer to center of active field
+ **/
+PRIVATE void SWD_SetWindowPtr(
     int handle // INPUT : number/handle of window
 );
 
-/***************************************************************************
-SWD_SetFieldPtr () - Sets pointer on a field
- ***************************************************************************/
-void SWD_SetFieldPtr(
+/**
+ * SWD_SetFieldPtr () - Sets pointer on a field
+ **/
+PRIVATE void SWD_SetFieldPtr(
     int handle, // INPUT : number/handle of window
     int field // INPUT : field
 );
+#endif // currently unused
 
 /***************************************************************************
  SWD_SetActiveWindow() - Sets the current working window

@@ -1470,10 +1470,12 @@ SWD_ShowAllWindows( void ) {
     return true;
 }
 
-/***************************************************************************
+// currently unused
+#if 0
+/**
 SWD_SetWindowPtr() - Sets Pointer to center of active field
- ***************************************************************************/
-void SWD_SetWindowPtr(
+ */
+PRIVATE void SWD_SetWindowPtr(
     int handle // INPUT : number/handle of window
 ) {
     SWIN* curwin = g_wins[handle].win;
@@ -1499,10 +1501,10 @@ void SWD_SetWindowPtr(
     PTR_SetPos( curfld->x + ( curfld->lx >> 1 ), curfld->y + ( curfld->ly >> 1 ) );
 }
 
-/***************************************************************************
-SWD_SetFieldPtr () - Sets Pointer on a field
- ***************************************************************************/
-void SWD_SetFieldPtr(
+/**
+ * SWD_SetFieldPtr () - Sets Pointer on a field
+ **/
+PRIVATE void SWD_SetFieldPtr(
     int handle, // INPUT : number/handle of window
     int field // INPUT : field
 ) {
@@ -1528,6 +1530,7 @@ void SWD_SetFieldPtr(
 
     PTR_SetPos( curfld->x + ( curfld->lx >> 1 ), curfld->y + ( curfld->ly >> 1 ) );
 }
+#endif // currently unused
 
 /***************************************************************************
  SWD_SetActiveWindow() - Sets the current working window
